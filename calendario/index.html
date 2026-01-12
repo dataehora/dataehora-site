@@ -4,11 +4,19 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calendário — dataehora.com.br</title>
-  <meta name="description" content="Calendários do Brasil: anos, meses, semanas ISO e feriados." />
+  <meta name="description" content="Calendário do Brasil com semanas ISO (segunda a domingo)." />
+  <style>
+    table { border-collapse: collapse; width: 100%; max-width: 560px; }
+    th, td { border: 1px solid #ddd; padding: 8px; text-align: center; }
+    th { background: #f3f3f3; }
+    .wrap { display: grid; gap: 12px; }
+    .controls { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+    .week { width: 56px; font-weight: 600; background: #fafafa; }
+    .muted { color: #666; font-size: 0.95rem; }
+  </style>
 </head>
 <body>
   <header>
-    <h1>Calendário</h1>
     <nav>
       <a href="/">Home</a> |
       <a href="/calendario/">Calendário</a> |
@@ -21,11 +29,117 @@
     <hr />
   </header>
 
-  <main>
-    <p>Aqui você vai encontrar calendários por ano e por mês, com semanas ISO e feriados do Brasil.</p>
-    <ul>
-      <li><a href="/calendario/2026/">Calendário 2026</a> (vamos criar em seguida)</li>
-    </ul>
+  <main class="wrap">
+    <h1>Calendário</h1>
+    <p class="muted">Selecione o mês e o ano. Padrão ISO: semanas começam na segunda-feira.</p>
+
+    <div class="controls">
+      <label>
+        Ano:
+        <select id="year"></select>
+      </label>
+
+      <label>
+        Mês:
+        <select id="month"></select>
+      </label>
+    </div>
+
+    <h2 id="title"></h2>
+    <div id="calendar"></div>
   </main>
-</body>
-</html>
+
+  <script>
+    const monthNames = [
+      "Janeiro","Fevereiro","Março","Abril","Maio","Junho",
+      "Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"
+    ];
+
+    function isoWeekNumber(date) {
+      // ISO week: week starts Monday, week 1 contains Jan 4th
+      const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+      const day = d.getUTCDay() || 7; // Mon=1..Sun=7
+      d.setUTCDate(d.getUTCDate() + 4 - day);
+      const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+      const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+      return weekNo;
+    }
+
+    function buildCalendar(year, monthIndex) {
+      // monthIndex: 0..11
+      const first = new Date(year, monthIndex, 1);
+      const last = new Date(year, monthIndex + 1, 0);
+      // Convert JS Sunday(0) to ISO Monday(1)
+      const firstDow = (first.getDay() + 6) % 7; // Mon=0..Sun=6
+      const daysInMonth = last.getDate();
+
+      // Build grid of weeks: each row = 7 days
+      const weeks = [];
+      let dayCounter = 1 - firstDow;
+      while (dayCounter <= daysInMonth) {
+        const row = [];
+        for (let i = 0; i < 7; i++, dayCounter++) {
+          row.push(dayCounter >= 1 && dayCounter <= daysInMonth ? dayCounter : "");
+        }
+        weeks.push(row);
+      }
+
+      // Render
+      const container = document.createElement("div");
+      const table = document.createElement("table");
+      const thead = document.createElement("thead");
+      const trh = document.createElement("tr");
+
+      const thW = document.createElement("th");
+      thW.textContent = "Sem.";
+      trh.appendChild(thW);
+
+      ["Seg","Ter","Qua","Qui","Sex","Sáb","Dom"].forEach(d => {
+        const th = document.createElement("th");
+        th.textContent = d;
+        trh.appendChild(th);
+      });
+      thead.appendChild(trh);
+      table.appendChild(thead);
+
+      const tbody = document.createElement("tbody");
+      weeks.forEach((weekRow, rowIdx) => {
+        const tr = document.createElement("tr");
+
+        // ISO week number based on Monday of this row
+        // Find the date represented by Monday cell (may be outside month)
+        const mondayDay = weekRow[0] === "" ? 1 : weekRow[0];
+        const mondayDate = new Date(year, monthIndex, mondayDay);
+        // If monday cell is blank, mondayDate is first of month, week number still OK for display
+        const wk = isoWeekNumber(mondayDate);
+
+        const tdW = document.createElement("td");
+        tdW.className = "week";
+        tdW.textContent = wk;
+        tr.appendChild(tdW);
+
+        weekRow.forEach(val => {
+          const td = document.createElement("td");
+          td.textContent = val;
+          tr.appendChild(td);
+        });
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+
+      container.appendChild(table);
+      return container;
+    }
+
+    function setFromQueryOrToday() {
+      const params = new URLSearchParams(location.search);
+      const now = new Date();
+      const y = parseInt(params.get("ano") || now.getFullYear(), 10);
+      const m = parseInt(params.get("mes") || (now.getMonth()+1), 10); // 1..12
+      return { y, m };
+    }
+
+    const yearSelect = document.getElementById("year");
+    const monthSelect = document.getElementById("month");
+    const titleEl = document.getElementById("title");
+    const calEl = document.getElementByI
