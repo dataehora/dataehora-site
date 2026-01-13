@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato | Data e Hora</title>
+    <style>
+        :root { 
+            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
+            --accent: #38bdf8; --secondary: #94a3b8; 
+        }
+        [data-theme="light"] {
+            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
+            --accent: #0284c7; --secondary: #64748b; 
+        }
+
+        body { 
+            background: var(--bg); color: var(--text); 
+            font-family: system-ui, -apple-system, sans-serif; 
+            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
+            transition: background 0.5s ease; min-height: 100vh;
+        }
+
+        .btn-home {
+            margin-top: 20px; margin-bottom: 50px; padding: 10px 25px; border-radius: 50px;
+            background: rgba(148, 163, 184, 0.1); color: var(--text);
+            text-decoration: none; font-weight: 600; font-size: 0.9rem;
+            border: 1px solid rgba(148, 163, 184, 0.2); transition: 0.2s;
+        }
+        .btn-home:hover { background: var(--accent); color: var(--bg); border-color: var(--accent); }
+
+        .container {
+            text-align: center; background: var(--card); padding: 50px 30px; border-radius: 30px;
+            width: 100%; max-width: 450px; border: 1px solid rgba(148, 163, 184, 0.1);
+            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.2);
+        }
+
+        .icon-circle {
+            width: 80px; height: 80px; background: rgba(56, 189, 248, 0.1);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 25px; font-size: 2.5rem; color: var(--accent);
+        }
+
+        h1 { margin: 0 0 15px 0; font-size: 2.2rem; }
+        p { color: var(--secondary); margin-bottom: 35px; line-height: 1.6; font-size: 1.1rem; }
+
+        .email-link {
+            display: inline-block; padding: 18px 30px; background: var(--accent);
+            color: var(--bg); text-decoration: none; border-radius: 15px;
+            font-weight: 800; font-size: 1.1rem; transition: transform 0.2s;
+            word-break: break-all;
+        }
+        .email-link:hover { transform: scale(1.05); }
+        
+        .hint { margin-top: 20px; font-size: 0.8rem; color: var(--secondary); opacity: 0.7; }
+    </style>
+</head>
+<body data-theme="dark">
+
+    <a href="/" class="btn-home">🏠 Voltar ao Início</a>
+
+    <div class="container">
+        <div class="icon-circle">✉️</div>
+        <h1>Contato</h1>
+        <p>Para sugestões, parcerias ou relatar erros, envie um e-mail para:</p>
+        
+        <a href="mailto:contato@dataehora.com.br" class="email-link">
+            contato@dataehora.com.br
+        </a>
+
+        <div class="hint">Respondemos em até 24 horas úteis.</div>
+    </div>
+
+    <script>
+        // Sincronização de tema baseada na preferência da Home
+        const savedTheme = localStorage.getItem('theme-pref') || 'auto';
+        if (savedTheme === 'auto') {
+            const hora = new Date().getHours();
+            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
+        } else {
+            document.body.setAttribute('data-theme', savedTheme);
+        }
+    </script>
+</body>
+</html>
