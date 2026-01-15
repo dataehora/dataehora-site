@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações e Contato | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
+            --text-muted: #64748b; --accent: #2563eb; --switch-bg: #e2e8f0;
+            --slider: #ffffff; --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --border: rgba(148, 163, 184, 0.1);
+        }
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #60a5fa; --switch-bg: #1e293b;
+            --slider: #334155; --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            --border: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            margin: 0; padding: 40px 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh;
+        }
+
+        .container { width: 100%; max-width: 600px; }
+        
+        .header { margin-bottom: 40px; }
+        .btn-voltar { text-decoration: none; color: var(--accent); font-weight: 600; font-size: 0.9rem; margin-bottom: 10px; display: block; }
+        h1 { font-size: 2rem; margin: 0; letter-spacing: -1px; }
+
+        /* --- SEÇÕES --- */
+        section {
+            background: var(--bg-card); padding: 30px; border-radius: 28px;
+            box-shadow: var(--shadow); border: 1px solid var(--border); margin-bottom: 30px;
+        }
+        h2 { font-size: 1.2rem; margin-bottom: 25px; display: flex; align-items: center; gap: 10px; }
+
+        /* --- SELETOR DE 4 ESTADOS (QUAD-STATE) --- */
+        .setting-item { display: flex; flex-direction: column; gap: 15px; }
+        .setting-label { font-weight: 600; font-size: 0.95rem; color: var(--text-muted); }
+
+        .quad-switch {
+            position: relative; display: flex; background: var(--switch-bg);
+            border-radius: 14px; padding: 4px; height: 44px; user-select: none;
+        }
+        .quad-switch input { display: none; }
+        .quad-switch label {
+            flex: 1; z-index: 2; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+            transition: color 0.3s;
+        }
+        .quad-switch input:checked + label { color: var(--text-main); }
+
+        .slider {
+            position: absolute; top: 4px; left: 4px; width: calc(25% - 6px); height: calc(100% - 8px);
+            background: var(--slider); border-radius: 11px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            transition: transform 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28); z-index: 1;
+        }
+
+        /* Movimentação do Slider para 4 posições */
+        #default:checked ~ .slider { transform: translateX(0); }
+        #auto:checked ~ .slider { transform: translateX(100%); }
+        #light:checked ~ .slider { transform: translateX(200%); }
+        #dark:checked ~ .slider { transform: translateX(300%); }
+
+        /* --- CONTATO --- */
+        .contact-text { line-height: 1.6; color: var(--text-muted); font-size: 1rem; }
+        .email-link { 
+            display: inline-block; margin-top: 15px; color: var(--accent); 
+            text-decoration: none; font-weight: 700; font-size: 1.1rem;
+            padding: 10px 20px; background: var(--bg-body); border-radius: 12px;
+        }
+
+        @media (max-width: 600px) {
+            .quad-switch label span { display: none; } /* Esconde texto e deixa ícones no mobile */
+            .quad-switch label::after { content: attr(data-icon); font-size: 1.2rem; }
+            section { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header class="header">
+            <a href="/" class="btn-voltar">← Voltar</a>
+            <h1>Preferências</h1>
+        </header>
+
+        <section>
+            <h2>⚙️ Geral</h2>
+            <div class="setting-item">
+                <span class="setting-label">Aparência da Interface</span>
+                <div class="quad-switch">
+                    <input type="radio" name="theme" id="default" value="default">
+                    <label for="default" data-icon="💻"><span>Sistema</span></label>
+                    
+                    <input type="radio" name="theme" id="auto" value="auto">
+                    <label for="auto" data-icon="☀️"><span>Solar</span></label>
+                    
+                    <input type="radio" name="theme" id="light" value="light">
+                    <label for="light" data-icon="⚪"><span>Claro</span></label>
+                    
+                    <input type="radio" name="theme" id="dark" value="dark">
+                    <label for="dark" data-icon="⚫"><span>Escuro</span></label>
+                    
+                    <div class="slider"></div>
+                </div>
+            </div>
+        </section>
+
+        <section>
+            <h2>✉️ Contato & Parcerias</h2>
+            <div class="contact-text">
+                Tem alguma dúvida, sugestão de nova ferramenta ou interesse em parcerias? 
+                Nossa equipe está pronta para ouvir você e melhorar o <b>dataehora.com.br</b>.
+                <br><br>
+                Sinta-se à vontade para nos enviar uma mensagem:
+            </div>
+            <a href="mailto:contato@dataehora.com.br" class="email-link">contato@dataehora.com.br</a>
+        </section>
+
+        <footer style="text-align: center; color: var(--text-muted); font-size: 0.8rem;">
+            v1.0 • dataehora.com.br
+        </footer>
+    </div>
+
+    <script>
+        const inputs = document.querySelectorAll('input[name="theme"]');
+
+        function applyTheme(theme) {
+            const html = document.documentElement;
+            let isDark = false;
+
+            if (theme === 'default') {
+                isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            } else if (theme === 'auto') {
+                const h = new Date().getHours();
+                isDark = (h < 6 || h >= 18);
+            } else {
+                isDark = (theme === 'dark');
+            }
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        }
+
+        inputs.forEach(input => {
+            input.addEventListener('change', (e) => {
+                localStorage.setItem('theme-pref', e.target.value);
+                applyTheme(e.target.value);
+            });
+        });
+
+        // Iniciar com o valor correto
+        const saved = localStorage.getItem('theme-pref') || 'default';
+        const activeInput = document.getElementById(saved);
+        if (activeInput) activeInput.checked = true;
+        applyTheme(saved);
+    </script>
+</body>
+</html>
