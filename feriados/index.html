@@ -3,85 +3,213 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feriados 2026 | Calendário Nacional</title>
+    <title>Feriadões e Emendas | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
     <style>
-        :root { 
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
-            --accent: #38bdf8; --secondary: #94a3b8; 
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
+            --text-muted: #64748b; --accent: #2563eb; --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --border: rgba(148, 163, 184, 0.15);
+            --color-prolongado: #10b981; --color-emenda: #f59e0b;
         }
-        [data-theme="light"] {
-            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
-            --accent: #0284c7; --secondary: #64748b; 
-        }
-
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            transition: background 0.5s ease; min-height: 100vh;
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #60a5fa; --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            --border: rgba(255, 255, 255, 0.05);
         }
 
-        .btn-home {
-            margin-top: 20px; margin-bottom: 40px; padding: 10px 25px; border-radius: 50px;
-            background: rgba(148, 163, 184, 0.1); color: var(--text);
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            border: 1px solid rgba(148, 163, 184, 0.2); transition: 0.2s;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
         }
-        .btn-home:hover { background: var(--accent); color: var(--bg); }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .label { text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
-        h1 { font-size: 2.5rem; margin: 0; }
+        .container { width: 100%; max-width: 750px; }
+        
+        .header { margin: 30px 0 50px; }
+        .btn-voltar { text-decoration: none; color: var(--accent); font-weight: 700; font-size: 0.95rem; margin-bottom: 12px; display: block; }
+        h1 { font-size: 2.2rem; margin: 0; letter-spacing: -1.5px; font-weight: 800; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; }
 
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px; width: 100%; max-width: 700px;
+        .year-title { 
+            font-size: 2rem; font-weight: 900; margin: 60px 0 20px; 
+            color: var(--text-main); text-align: left; opacity: 0.3;
         }
-        .menu-item {
-            background: var(--card); border: 1px solid rgba(148, 163, 184, 0.1);
-            padding: 40px 20px; border-radius: 24px; text-decoration: none; color: var(--text);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; align-items: center; gap: 15px;
-            text-align: center;
-        }
-        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); }
-        .menu-item i { font-size: 2.5rem; }
-        .menu-item span { font-weight: 800; font-size: 1.2rem; }
-        .menu-item small { color: var(--secondary); font-size: 0.9rem; }
 
-        @media (max-width: 500px) { .menu-grid { grid-template-columns: 1fr; } }
+        .month-group { margin-bottom: 30px; }
+        .month-label { 
+            font-size: 0.8rem; font-weight: 800; text-transform: uppercase; 
+            letter-spacing: 2px; color: var(--text-muted); margin-bottom: 15px;
+            display: flex; align-items: center; gap: 10px;
+        }
+        .month-label::after { content: ''; flex-grow: 1; height: 1px; background: var(--border); }
+
+        /* --- CARDS EQUALIZADOS --- */
+        .trip-card {
+            background: var(--bg-card); border: 1px solid var(--border);
+            border-radius: 20px; padding: 22px 28px; margin-bottom: 12px;
+            display: grid; grid-template-columns: 1fr auto; align-items: center;
+            box-shadow: var(--shadow); transition: 0.2s ease;
+        }
+        .trip-card:hover { border-color: var(--accent); transform: translateX(4px); }
+        .trip-card.past { opacity: 0.3; filter: grayscale(1); }
+
+        .trip-content { display: flex; flex-direction: column; gap: 12px; }
+
+        /* Estilo Equalizado: Data, Dia da Semana e Nome com a mesma importância */
+        .info-main { 
+            display: flex; flex-wrap: wrap; align-items: center; 
+            gap: 12px; font-size: 1.3rem; font-weight: 800; line-height: 1.2;
+        }
+        .info-date { color: var(--accent); white-space: nowrap; }
+        .info-week { color: var(--text-muted); font-weight: 700; }
+        .info-name { color: var(--text-main); }
+
+        .badge-area { display: flex; align-items: center; gap: 10px; }
+        .badge { 
+            padding: 6px 12px; border-radius: 8px; font-size: 0.7rem; 
+            font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .prolongado { background: #10b98115; color: var(--color-prolongado); }
+        .emenda { background: #f59e0b15; color: var(--color-emenda); }
+        .desc-folga { font-size: 0.85rem; font-weight: 600; color: var(--text-muted); }
+
+        /* Contador Lateral */
+        .trip-counter { 
+            text-align: center; padding-left: 25px; border-left: 2px solid var(--border);
+            min-width: 80px;
+        }
+        .days-val { font-size: 2.4rem; font-weight: 900; line-height: 1; display: block; }
+        .days-lbl { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
+
+        footer { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 0.9rem; }
+
+        @media (max-width: 650px) {
+            .info-main { font-size: 1.1rem; gap: 8px; }
+            .trip-card { padding: 20px; grid-template-columns: 1fr; }
+            .trip-counter { 
+                border-left: none; border-top: 1px solid var(--border); 
+                padding: 15px 0 0 0; margin-top: 15px; display: flex; align-items: center; gap: 10px;
+            }
+            .days-val { font-size: 1.8rem; }
+        }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <a href="/" class="btn-home">🏠 Início</a>
+    <div class="container">
+        <header class="header">
+            <a href="/" class="btn-voltar">← Início</a>
+            <h1>Feriadões & Emendas</h1>
+            <p class="subtitle">Planejamento de descansos prolongados.</p>
+        </header>
 
-    <section class="hero">
-        <div class="label">Planejamento 2026</div>
-        <h1>Feriados</h1>
-    </section>
+        <div id="planner-list"></div>
 
-    <nav class="menu-grid">
-        <a href="do-ano/" class="menu-item">
-            <i>📅</i>
-            <span>Feriados do Ano</span>
-            <small>Lista completa de feriados nacionais e pontos facultativos.</small>
-        </a>
-        <a href="feriadoes/" class="menu-item">
-            <i>🌴</i>
-            <span>Feriadões 2026</span>
-            <small>Datas que permitem emendar com o final de semana.</small>
-        </a>
-    </nav>
+        <footer>dataehora.com.br</footer>
+    </div>
 
     <script>
-        // Sincronização de tema idêntica à página de contato
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const hora = new Date().getHours();
-            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
-        } else {
-            document.body.setAttribute('data-theme', savedTheme);
+        const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
+
+        function getFeriadoes(ano) {
+            const h = [
+                { d: 1, m: 0, n: "Ano Novo" }, { d: 21, m: 3, n: "Tiradentes" },
+                { d: 1, m: 4, n: "Dia do Trabalho" }, { d: 7, m: 8, n: "Independência" },
+                { d: 12, m: 9, n: "Nossa Sra. Aparecida" }, { d: 2, m: 10, n: "Finados" },
+                { d: 15, m: 10, n: "Proclamação da República" }, { d: 20, m: 10, n: "Consciência Negra" },
+                { d: 25, m: 11, n: "Natal" }
+            ];
+
+            // Cálculo da Páscoa
+            const a = ano % 19, b = Math.floor(ano / 100), c = ano % 100,
+                  d = Math.floor(b / 4), e = b % 4, g = Math.floor((8 * b + 13) / 25),
+                  hv = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
+                  l = (32 + 2 * e + 2 * i - hv - k) % 7, m = Math.floor((a + 11 * hv + 19 * l) / 433);
+            const mp = Math.floor((hv + l - 7 * m + 90) / 25) - 1;
+            const dp = (hv + l - 7 * m + 33 * (mp + 1) + 19) % 32;
+            const pascoa = new Date(ano, mp, dp);
+
+            const addM = (off, name) => {
+                const dt = new Date(pascoa); dt.setDate(pascoa.getDate() + off);
+                h.push({ d: dt.getDate(), m: dt.getMonth(), n: name });
+            };
+            addM(-47, "Carnaval"); addM(-2, "Sexta-feira Santa"); addM(60, "Corpus Christi");
+
+            return h.map(x => {
+                const dt = new Date(ano, x.m, x.d);
+                const ds = dt.getDay(); 
+                let tipo = "", dias = 0, resumo = "", sem = dt.toLocaleDateString('pt-BR', {weekday: 'long'});
+
+                if (ds === 1 || ds === 5) { tipo = "prolongado"; dias = 3; resumo = ds === 1 ? "Sábado a Segunda" : "Sexta a Domingo"; }
+                else if (ds === 2 || ds === 4) { tipo = "emenda"; dias = 4; resumo = ds === 2 ? "Sábado a Terça" : "Quinta a Domingo"; }
+                
+                return { ...x, dt, tipo, dias, resumo, sem: sem.split('-')[0] };
+            }).filter(f => f.dias > 0).sort((a, b) => a.dt - b.dt);
         }
+
+        function render() {
+            const now = new Date();
+            const list = document.getElementById('planner-list');
+
+            for (let y = now.getFullYear(); y <= now.getFullYear() + 2; y++) {
+                const yearH = document.createElement('div');
+                yearH.className = 'year-title';
+                yearH.textContent = y;
+                list.appendChild(yearH);
+
+                const data = getFeriadoes(y);
+                let currentM = -1;
+                let mGroup;
+
+                data.forEach(f => {
+                    if (f.m !== currentM) {
+                        currentM = f.m;
+                        mGroup = document.createElement('div');
+                        mGroup.className = 'month-group';
+                        mGroup.innerHTML = `<div class="month-label">${mesesNomes[currentM]}</div>`;
+                        list.appendChild(mGroup);
+                    }
+
+                    const isPast = f.dt < new Date().setHours(0,0,0,0);
+                    const card = document.createElement('div');
+                    card.className = `trip-card ${isPast ? 'past' : ''}`;
+                    
+                    const color = f.tipo === 'prolongado' ? 'var(--color-prolongado)' : 'var(--color-emenda)';
+
+                    card.innerHTML = `
+                        <div class="trip-content">
+                            <div class="info-main">
+                                <span class="info-date">${f.d} ${mesesNomes[f.m].substring(0,3)}</span>
+                                <span class="info-week">${f.sem}</span>
+                                <span class="info-name">${f.n}</span>
+                            </div>
+                            <div class="badge-area">
+                                <span class="badge ${f.tipo}">${f.tipo === 'emenda' ? '⚡ Emenda' : '✅ Prolongado'}</span>
+                                <span class="desc-folga">${f.resumo}</span>
+                            </div>
+                        </div>
+                        <div class="trip-counter" style="color: ${color}">
+                            <span class="days-val">${f.dias}</span>
+                            <span class="days-lbl">Dias de Folga</span>
+                        </div>
+                    `;
+                    mGroup.appendChild(card);
+                });
+            }
+        }
+        render();
     </script>
 </body>
 </html>
