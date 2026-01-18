@@ -3,9 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calendário Anual 2026 | dataehora.com.br</title>
+    <title>Calendário Anual Inteligente | dataehora.com.br</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
     <style>
-        /* Reutilizando as variáveis de cor do seu site para manter a consistência */
         :root {
             --bg-body: #f1f5f9;
             --bg-card: #ffffff;
@@ -13,178 +15,334 @@
             --text-muted: #64748b;
             --accent: #2563eb;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.15);
             --weekend-bg: rgba(37, 99, 235, 0.05);
             --holiday-color: #ef4444;
+            --moon-color: #334155;
+            --font-scale: 1; 
         }
 
-        [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #60a5fa;
-            --weekend-bg: rgba(96, 165, 250, 0.1);
-        }
-
+        * { box-sizing: border-box; }
         body {
-            font-family: -apple-system, system-ui, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0; padding: 20px;
-            display: flex; flex-direction: column; align-items: center;
         }
 
-        .calendar-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 20px;
+        .container-central { display: flex; flex-direction: column; align-items: center; width: 100%; }
+
+        /* --- BREADCRUMB --- */
+        .breadcrumb {
             width: 100%;
             max-width: 1200px;
+            margin-bottom: 15px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+        .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .breadcrumb span { margin: 0 8px; opacity: 0.5; }
+
+        /* --- CONTROLES --- */
+        .controls-panel {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 1200px;
+            justify-content: center;
+            align-items: flex-end;
+            border: 1px solid rgba(148, 163, 184, 0.1);
+        }
+
+        .control-group { display: flex; flex-direction: column; gap: 6px; }
+        .control-group label { font-size: 0.65rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); letter-spacing: 0.5px; }
+        
+        select {
+            padding: 8px 12px; border-radius: 10px; border: 1px solid var(--hr-color);
+            background: var(--bg-body); color: var(--text-main); font-weight: 600; cursor: pointer;
+        }
+
+        .btn-pdf {
+            background: var(--accent); color: white; border: none; padding: 10px 20px;
+            border-radius: 10px; font-weight: 700; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px;
+        }
+        .btn-pdf:hover { filter: brightness(1.1); transform: translateY(-1px); }
+
+        /* --- ÁREA DE EXPORTAÇÃO --- */
+        #export-area { 
+            background-color: white; 
+            padding: 30px; 
+            width: 100%; 
+            max-width: 1300px; 
+            border-radius: 15px; 
+        }
+        
+        .logo-text { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.2rem; display: block; margin-bottom: 5px; }
+        .dynamic-title { text-align: center; margin: 10px 0 30px 0; font-size: 2.2rem; font-weight: 800; }
+
+        /* --- CALENDÁRIO --- */
+        .calendar-container {
+            display: grid;
+            gap: 20px;
+            width: 100%;
         }
 
         .month-card {
-            background: var(--bg-card);
-            border-radius: 20px;
-            padding: 15px;
-            box-shadow: var(--shadow);
+            background: var(--bg-card); border-radius: 15px; padding: 15px;
+            box-shadow: var(--shadow); border: 1px solid rgba(148, 163, 184, 0.1);
+            display: flex; flex-direction: column; break-inside: avoid;
         }
 
-        .month-name {
-            text-align: center;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--accent);
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+        .month-name { text-align: center; font-weight: 800; color: var(--accent); margin-bottom: 12px; font-size: calc(1rem * var(--font-scale)); text-transform: uppercase; }
+        
+        .calendar-grid { 
+            display: grid; 
+            grid-template-columns: repeat(7, 1fr); 
+            text-align: center; 
+            font-size: calc(0.8rem * var(--font-scale)); 
         }
+        .calendar-grid.with-weeks { grid-template-columns: 28px repeat(7, 1fr); }
+        
+        .grid-bordered .day, .grid-bordered .day-name, .grid-bordered .week-num { border: 0.5px solid var(--hr-color); }
 
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            font-size: 0.85rem;
-        }
-
-        .day-name {
-            font-weight: 700;
-            color: var(--text-muted);
-            padding-bottom: 5px;
-        }
-
-        .day {
-            padding: 8px 0;
-            border-radius: 8px;
-        }
-
-        /* Diferenciação de finais de semana */
+        .day-name { font-weight: 700; color: var(--text-muted); padding: 5px 0; font-size: calc(0.65rem * var(--font-scale)); }
+        .week-num { font-size: calc(0.6rem * var(--font-scale)); color: var(--text-muted); display: flex; align-items: center; justify-content: center; background: #f8fafc; font-style: italic; }
+        
+        .day { padding: 8px 0; min-height: 35px; }
         .weekend { background-color: var(--weekend-bg); color: var(--accent); font-weight: 600; }
+        .holiday { color: var(--holiday-color) !important; font-weight: 800; }
 
-        /* Marcação de Feriados */
-        .holiday { color: var(--holiday-color) !important; font-weight: 800; position: relative; }
-        .holiday::after { content: ''; position: absolute; bottom: 4px; left: 50%; transform: translateX(-50%); width: 4px; height: 4px; background: var(--holiday-color); border-radius: 50%; }
-
-        .month-info {
-            margin-top: 15px;
-            padding-top: 10px;
-            border-top: 1px solid rgba(148, 163, 184, 0.1);
-            font-size: 0.8rem;
+        .month-footer { 
+            margin-top: auto; padding-top: 10px; border-top: 1px solid var(--hr-color); 
+            display: flex; gap: 10px; min-height: 80px;
         }
+        .footer-section { flex: 1; font-size: calc(0.65rem * var(--font-scale)); line-height: 1.3; }
+        .footer-right { text-align: right; border-left: 1px solid var(--hr-color); padding-left: 8px; }
+        .footer-full { flex: 0 0 100%; border-left: none; padding-left: 0; }
+        
+        .info-title { font-weight: 700; font-size: calc(0.55rem * var(--font-scale)); text-transform: uppercase; color: var(--text-muted); margin-bottom: 3px; display: block; }
+        .moon-item { color: var(--moon-color); font-weight: 500; display: block; }
+        .holiday-item { color: var(--holiday-color); display: block; font-weight: 600; }
 
-        .month-holidays { color: var(--holiday-color); font-weight: 600; margin-bottom: 5px; list-style: none; padding: 0; }
-        .work-days { color: var(--text-muted); font-style: italic; }
-
-        .header-nav { width: 100%; max-width: 1200px; margin-bottom: 30px; display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-weight: 800; color: var(--accent); text-decoration: none; font-size: 1.2rem; }
+        @media print {
+            .controls-panel, .breadcrumb { display: none !important; }
+            body { background: white; padding: 0; }
+            #export-area { padding: 0; border-radius: 0; max-width: 100%; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="header-nav">
-        <a href="/" class="logo">dataehora.com.br</a>
-        <h1 style="font-size: 1.2rem;">Calendário 2026</h1>
+<div class="container-central">
+    <nav class="breadcrumb">
+        <a href="/">Home</a> <span>/</span> 
+        <a href="/calendarios">Calendários</a> <span>/</span> 
+        Calendário Anual Inteligente
+    </nav>
+
+    <div class="controls-panel">
+        <div class="control-group">
+            <label>Ano</label>
+            <select id="year-select" onchange="renderCalendar()">
+                <option value="2025">2025</option><option value="2026" selected>2026</option>
+                <option value="2027">2027</option><option value="2028">2028</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Grid</label>
+            <select id="grid-select" onchange="renderCalendar()">
+                <option value="3x4">3 x 4</option><option value="4x3">4 x 3</option>
+                <option value="2x6">2 x 6</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Fonte</label>
+            <select id="font-select" onchange="updateFontSize()">
+                <option value="0.8">Pequena</option>
+                <option value="1" selected>Normal</option>
+                <option value="1.2">Grande</option>
+                <option value="1.4">Extra G.</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Bordas Internas</label>
+            <select id="border-select" onchange="renderCalendar()">
+                <option value="no">Não</option><option value="yes">Sim</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Nº da Semana</label>
+            <select id="week-toggle" onchange="renderCalendar()">
+                <option value="no">Ocultar</option><option value="yes">Exibir</option>
+            </select>
+        </div>
+        <div class="control-group">
+            <label>Luas</label>
+            <select id="moon-toggle" onchange="renderCalendar()">
+                <option value="yes">Exibir</option><option value="no">Ocultar</option>
+            </select>
+        </div>
+        <button class="btn-pdf" onclick="exportToPDF()">📥 Baixar PDF (Ajustado A3)</button>
     </div>
 
-    <div class="calendar-container" id="calendar"></div>
+    <div id="export-area">
+        <div class="logo-text">dataehora.com.br</div>
+        <h1 class="dynamic-title" id="dynamic-year-title">Calendário 2026</h1>
+        <div class="calendar-container" id="calendar-wrapper"></div>
+    </div>
+</div>
 
-    <script>
-        const feriados2026 = {
-            "0-1": "Ano Novo",
-            "1-17": "Carnaval",
-            "3-3": "Sexta-feira Santa",
-            "3-21": "Tiradentes",
-            "4-1": "Dia do Trabalho",
-            "5-4": "Corpus Christi",
-            "8-7": "Independência",
-            "9-12": "Nsa. Sra. Aparecida",
-            "10-2": "Finados",
-            "10-15": "Proclamação da República",
-            "10-20": "Consciência Negra",
-            "11-25": "Natal"
-        };
+<script>
+    const feriadosFixos = { "0-1":"Ano Novo","3-21":"Tiradentes","4-1":"Trabalho","8-7":"Independência","9-12":"Aparecida","10-2":"Finados","10-15":"Proclamação","10-20":"Consciência Negra","11-25":"Natal" };
+    
+    function getFeriadosMoveis(ano) {
+        if(ano === 2026) return {"1-17":"Carnaval","3-3":"Sexta Santa","5-4":"Corpus Christi"};
+        return {"1-9":"Carnaval","2-26":"Sexta Santa","4-27":"Corpus Christi"};
+    }
 
-        const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
-        const diasSemana = ["D", "S", "T", "Q", "Q", "S", "S"];
+    function getMoonData(y, m, d) {
+        const lp = 2551442.8; 
+        const now = new Date(y, m, d, 12, 0, 0);                        
+        const ref = new Date(1970, 0, 7, 20, 35, 0);
+        const phase = ((now.getTime() - ref.getTime()) / 1000) % lp;
+        const days = phase / (24 * 3600);
+        if (days < 1) return { n: "Nova", i: "○" };
+        if (days > 7.1 && days < 8.1) return { n: "Crescente", i: "◒" };
+        if (days > 14.5 && days < 15.5) return { n: "Cheia", i: "●" };
+        if (days > 21.8 && days < 22.8) return { n: "Minguante", i: "◓" };
+        return null;
+    }
 
-        function gerarCalendario() {
-            const container = document.getElementById('calendar');
-            const ano = 2026;
+    function getWeekNumber(d) {
+        d = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+        d.setUTCDate(d.getUTCDate() + 4 - (d.getUTCDay()||7));
+        return Math.ceil((((d - new Date(Date.UTC(d.getUTCFullYear(),0,1)))/86400000)+1)/7);
+    }
 
-            for (let m = 0; m < 12; m++) {
-                let html = `<div class="month-card">
-                    <div class="month-name">${mesesNomes[m]}</div>
-                    <div class="calendar-grid">`;
-                
-                // Cabeçalho dias da semana
-                diasSemana.forEach(d => html += `<div class="day-name">${d}</div>`);
+    function updateFontSize() {
+        const scale = document.getElementById('font-select').value;
+        document.documentElement.style.setProperty('--font-scale', scale);
+    }
 
-                const primeiroDiaMes = new Date(ano, m, 1).getDay();
-                const diasNoMes = new Date(ano, m + 1, 0).getDate();
+    function renderCalendar() {
+        const ano = parseInt(document.getElementById('year-select').value);
+        const grid = document.getElementById('grid-select').value;
+        const bordered = document.getElementById('border-select').value === 'yes';
+        const showWeeks = document.getElementById('week-toggle').value === 'yes';
+        const showMoons = document.getElementById('moon-toggle').value === 'yes';
+        
+        document.getElementById('dynamic-year-title').innerText = `Calendário Anual ${ano}`;
+        const wrapper = document.getElementById('calendar-wrapper');
+        wrapper.style.gridTemplateColumns = `repeat(${grid.split('x')[0]}, 1fr)`;
+        wrapper.innerHTML = '';
 
-                // Espaços vazios antes do dia 1
-                for (let i = 0; i < primeiroDiaMes; i++) html += `<div></div>`;
+        const fMoveis = getFeriadosMoveis(ano);
+        const meses = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
 
-                let diasUteis = 0;
-                let feriadosDoMes = [];
+        for (let m = 0; m < 12; m++) {
+            let u = 0, fList = [], mList = [];
+            const card = document.createElement('div');
+            card.className = 'month-card';
+            
+            let gClass = `calendar-grid ${showWeeks ? 'with-weeks' : ''} ${bordered ? 'grid-bordered' : ''}`;
+            let html = `<div class="month-name">${meses[m]}</div><div class="${gClass}">`;
+            
+            if(showWeeks) html += `<div class="day-name">#</div>`;
+            ["S","T","Q","Q","S","S","D"].forEach(d => html += `<div class="day-name">${d}</div>`);
 
-                for (let d = 1; d <= diasNoMes; d++) {
-                    const dataAtual = new Date(ano, m, d);
-                    const diaSemana = dataAtual.getDay();
-                    const chaveFeriado = `${m}-${d}`;
-                    
-                    let classe = "day";
-                    const isWeekend = (diaSemana === 0 || diaSemana === 6);
-                    const isHoliday = feriados2026[chaveFeriado];
+            const prim = new Date(ano, m, 1);
+            let skip = prim.getDay() === 0 ? 6 : prim.getDay() - 1;
+            const ult = new Date(ano, m + 1, 0).getDate();
 
-                    if (isWeekend) classe += " weekend";
-                    if (isHoliday) {
-                        classe += " holiday";
-                        feriadosDoMes.push(`${d}: ${isHoliday}`);
-                    }
+            if(showWeeks) html += `<div class="week-num">${getWeekNumber(prim)}</div>`;
+            for (let i = 0; i < skip; i++) html += `<div class="day"></div>`;
 
-                    // Cálculo de dias úteis (Seg-Sex e não feriado)
-                    if (!isWeekend && !isHoliday) diasUteis++;
+            for (let d = 1; d <= ult; d++) {
+                const data = new Date(ano, m, d);
+                const ds = data.getDay();
+                const f = feriadosFixos[`${m}-${d}`] || fMoveis[`${m}-${d}`];
+                const moon = getMoonData(ano, m, d);
 
-                    html += `<div class="${classe}">${d}</div>`;
+                let cl = "day";
+                if (ds === 0 || ds === 6) cl += " weekend";
+                if (f) { cl += " holiday"; fList.push(`<span class="holiday-item">${d}: ${f}</span>`); }
+                if (showMoons && moon) mList.push(`<span class="moon-item">${moon.i} ${d}: ${moon.n}</span>`);
+                if (ds !== 0 && ds !== 6 && !f) u++;
+
+                html += `<div class="${cl}">${d}</div>`;
+                if(showWeeks && (skip + d) % 7 === 0 && d < ult) {
+                    html += `<div class="week-num">${getWeekNumber(new Date(ano, m, d + 1))}</div>`;
                 }
-
-                html += `</div>
-                    <div class="month-info">
-                        <ul class="month-holidays">${feriadosDoMes.map(f => `<li>• ${f}</li>`).join('')}</ul>
-                        <div class="work-days">Total: <strong>${diasUteis} dias úteis</strong></div>
-                    </div>
-                </div>`;
-                
-                container.innerHTML += html;
             }
+
+            html += `</div><div class="month-footer">
+                <div class="footer-section ${!showMoons ? 'footer-full' : ''}">
+                    <span class="info-title">Feriados / Úteis</span>
+                    ${fList.join('') || '--'}<br><strong>${u} dias úteis</strong>
+                </div>
+                ${showMoons ? `<div class="footer-section footer-right"><span class="info-title">Luas</span>${mList.join('') || '--'}</div>` : ''}
+            </div>`;
+            
+            card.innerHTML = html;
+            wrapper.appendChild(card);
+        }
+    }
+
+    async function exportToPDF() {
+        const { jsPDF } = window.jspdf;
+        const element = document.getElementById('export-area');
+        const ano = document.getElementById('year-select').value;
+        
+        // Criar o canvas com alta qualidade
+        const canvas = await html2canvas(element, { 
+            scale: 2, 
+            useCORS: true,
+            backgroundColor: '#ffffff'
+        });
+
+        const imgData = canvas.toDataURL('image/png');
+
+        // Configurações do PDF (A3 Retrato)
+        const pdf = new jsPDF('p', 'mm', 'a3');
+        const pdfWidth = pdf.internal.pageSize.getWidth();
+        const pdfHeight = pdf.internal.pageSize.getHeight();
+        
+        // Definir margem (em mm)
+        const margin = 10;
+        const maxWidth = pdfWidth - (margin * 2);
+        const maxHeight = pdfHeight - (margin * 2);
+
+        // Calcular proporções para o ZOOM / REDIMENSIONAMENTO
+        const imgWidth = canvas.width;
+        const imgHeight = canvas.height;
+        const ratio = imgWidth / imgHeight;
+
+        let finalWidth = maxWidth;
+        let finalHeight = finalWidth / ratio;
+
+        // Se a altura calculada for maior que a página, reduzimos pela altura
+        if (finalHeight > maxHeight) {
+            finalHeight = maxHeight;
+            finalWidth = finalHeight * ratio;
         }
 
-        // Aplicar tema dark se necessário
-        if (localStorage.getItem('theme-pref') === 'dark' || 
-           (localStorage.getItem('theme-pref') === 'default' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        }
+        // Centralizar o conteúdo na página
+        const xOffset = (pdfWidth - finalWidth) / 2;
+        const yOffset = margin;
 
-        gerarCalendario();
-    </script>
+        pdf.addImage(imgData, 'PNG', xOffset, yOffset, finalWidth, finalHeight);
+        pdf.save(`Calendario-Anual-${ano}-A3-Ajustado.pdf`);
+    }
+
+    renderCalendar();
+    updateFontSize();
+</script>
 </body>
 </html>
