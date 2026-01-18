@@ -55,23 +55,22 @@
             background-color: var(--bg-body);
             color: var(--text-main);
             margin: 0;
-            padding: 20px;
+            padding: 0 20px 40px 20px; /* Ajustado padding para não colar no topo */
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
         }
 
+        /* --- CORREÇÃO DO CABEÇALHO --- */
         .top-nav {
-            position: absolute;
-            top: 20px;
             width: 100%;
             max-width: 900px;
             display: flex;
-            justify-content: space-between;
+            justify-content: flex-start; /* Alinhado à esquerda para manter a direita limpa */
             align-items: center;
-            padding: 0 20px;
+            padding: 20px 0; /* Espaço interno */
+            margin-bottom: 20px; /* Empurra o relógio para baixo */
         }
 
         .logo-text {
@@ -91,12 +90,13 @@
         }
 
         #clock { 
-            font-size: clamp(4rem, 18vw, 12rem);
+            font-size: clamp(3.5rem, 18vw, 12rem); /* Reduzido levemente o mínimo para telas pequenas */
             font-weight: 800; color: var(--text-main); letter-spacing: -5px; line-height: 0.9;
             font-variant-numeric: tabular-nums;
+            word-wrap: break-word;
         }
         #date { 
-            font-size: clamp(1.1rem, 4.4vw, 2.2rem); 
+            font-size: clamp(1rem, 4.4vw, 2.2rem); 
             margin-top: 20px; 
             color: var(--text-muted); 
             font-weight: 700; 
@@ -116,7 +116,7 @@
             text-align: center;
             padding: 0 20px;
             color: var(--text-main);
-            font-size: clamp(1rem, 3vw, 1.25rem);
+            font-size: clamp(0.95rem, 3vw, 1.25rem);
             line-height: 1.6;
         }
         .holiday-section strong { color: var(--accent); font-weight: 700; }
@@ -147,8 +147,9 @@
 
         @media (max-width: 600px) { 
             .menu-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            #clock { font-size: 4.8rem; letter-spacing: -2px; }
-            .top-nav { justify-content: center; }
+            #clock { font-size: 4.2rem; letter-spacing: -2px; }
+            .top-nav { justify-content: center; text-align: center; }
+            body { padding-top: 10px; }
         }
     </style>
 </head>
@@ -234,18 +235,15 @@
             const proximo = feriados.find(f => f.d > agora);
             if (!proximo) return;
 
-            // Cálculos de tempo
             const diff = proximo.d - agora;
             const dias = Math.ceil(diff / (1000 * 60 * 60 * 24));
             
-            // Dados da data
             const diaMes = proximo.d.getDate();
             const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
             const nomeMes = meses[proximo.d.getMonth()];
             const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
             const nomeDiaSemana = diasSemana[proximo.d.getDay()];
             
-            // Lógica do artigo (num/numa ou no/na)
             const artigo = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
 
             display.innerHTML = `O próximo feriado será ${artigo} <strong>${nomeDiaSemana}</strong> de <strong>${proximo.n}</strong>, dia <strong>${diaMes} de ${nomeMes}</strong>. Faltam <strong>${dias} dias</strong>.`;
