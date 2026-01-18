@@ -3,93 +3,285 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contagem Regressiva | Eventos e Datas 2026 | Data e Hora</title>
+    <title>Contagem Regressiva Inteligente | dataehora.com.br</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
-        :root { 
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
-            --accent: #fb7185; /* Rosa/Carmim para Contagem */
-            --secondary: #94a3b8; --border: rgba(148, 163, 184, 0.1);
-        }
-        [data-theme="light"] {
-            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
-            --accent: #e11d48; --secondary: #64748b; --border: rgba(0, 0, 0, 0.05);
-        }
-
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            transition: background 0.5s ease; min-height: 100vh;
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.15);
+            --whatsapp: #25d366;
         }
 
-        .btn-home {
-            margin-top: 20px; margin-bottom: 40px; padding: 10px 25px; border-radius: 50px;
-            background: rgba(148, 163, 184, 0.1); color: var(--text);
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            border: 1px solid var(--border); transition: 0.2s;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        .btn-home:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .label { text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
-        h1 { font-size: 2.5rem; margin: 0; }
+        .container { width: 100%; max-width: 900px; }
 
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; width: 100%; max-width: 850px;
+        .breadcrumb {
+            width: 100%;
+            margin-bottom: 20px;
+            font-size: 0.85rem;
+            color: var(--text-muted);
         }
-        .menu-item {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 40px 20px; border-radius: 24px; text-decoration: none; color: var(--text);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
+        .breadcrumb a { color: var(--accent); text-decoration: none; }
+        .breadcrumb span { margin: 0 8px; opacity: 0.5; }
+
+        .countdown-card {
+            background: var(--bg-card);
+            padding: 40px;
+            border-radius: 24px;
+            box-shadow: var(--shadow);
             text-align: center;
+            border: 1px solid rgba(255,255,255,0.8);
+            margin-bottom: 30px;
         }
-        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .menu-item i { font-size: 2.8rem; font-style: normal; }
-        .menu-item span { font-weight: 800; font-size: 1.3rem; }
-        .menu-item small { color: var(--secondary); font-size: 0.95rem; line-height: 1.4; }
 
-        @media (max-width: 600px) { h1 { font-size: 2rem; } }
+        .event-name { font-size: 2.5rem; font-weight: 800; color: var(--accent); margin-bottom: 5px; }
+        .event-date-display { font-size: 1.1rem; color: var(--text-muted); margin-bottom: 30px; }
+
+        .timer-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .timer-box {
+            background: var(--bg-body);
+            padding: 20px 10px;
+            border-radius: 16px;
+        }
+
+        .timer-val { font-size: 3rem; font-weight: 800; display: block; }
+        .timer-unit { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
+
+        .share-actions {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 15px;
+            padding-top: 20px;
+            border-top: 1px solid var(--hr-color);
+        }
+
+        .btn-share {
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+            transition: 0.2s;
+        }
+        .btn-wa { background-color: var(--whatsapp); }
+        .btn-mail { background-color: var(--text-muted); }
+
+        .selection-panel {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .form-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
+        .input-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 150px; }
+        .input-group label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); }
+
+        select, input {
+            padding: 12px; border-radius: 10px; border: 1px solid var(--hr-color);
+            background: #f8fafc; font-size: 0.95rem; font-weight: 600; outline: none;
+        }
+
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .timer-val { font-size: 1.8rem; }
+            .timer-grid { gap: 8px; }
+            .share-actions { flex-direction: column; }
+        }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <a href="/" class="btn-home">🏠 Voltar ao Início</a>
-
-    <section class="hero">
-        <div class="label">Tempo Restante</div>
-        <h1>Contagens Regressivas</h1>
-    </section>
-
-    <nav class="menu-grid">
-        <a href="ano-novo/" class="menu-item">
-            <i>🥂</i>
-            <span>Ano Novo 2027</span>
-            <small>Quanto tempo falta para o próximo ano.</small>
-        </a>
-
-        <a href="proximo-feriado/" class="menu-item">
-            <i>🎉</i>
-            <span>Próximo Feriado</span>
-            <small>Contagem automática para a folga mais próxima.</small>
-        </a>
-
-        <a href="personalizada/" class="menu-item">
-            <i>⏱️</i>
-            <span>Criar Contagem</span>
-            <small>Defina uma data e partilhe um link exclusivo.</small>
-        </a>
+<div class="container">
+    <nav class="breadcrumb">
+        <a href="/">Home</a> <span>/</span> Contagem Regressiva
     </nav>
 
-    <script>
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const hora = new Date().getHours();
-            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
+    <div class="countdown-card">
+        <div class="event-label" id="label-txt">Contagem Regressiva para</div>
+        <div class="event-name" id="display-name">...</div>
+        <div class="event-date-display" id="display-full-date">...</div>
+
+        <div class="timer-grid">
+            <div class="timer-box"><span class="timer-val" id="days">00</span><span class="timer-unit">Dias</span></div>
+            <div class="timer-box"><span class="timer-val" id="hours">00</span><span class="timer-unit">Horas</span></div>
+            <div class="timer-box"><span class="timer-val" id="minutes">00</span><span class="timer-unit">Minutos</span></div>
+            <div class="timer-box"><span class="timer-val" id="seconds">00</span><span class="timer-unit">Segundos</span></div>
+        </div>
+
+        <div class="share-actions">
+            <a href="#" id="share-wa" class="btn-share btn-wa" target="_blank">WhatsApp</a>
+            <a href="#" id="share-mail" class="btn-share btn-mail">E-mail</a>
+        </div>
+    </div>
+
+    <div class="selection-panel">
+        <div class="form-row">
+            <div class="input-group">
+                <label>Escolha um Evento</label>
+                <select id="event-selector" onchange="toggleCustomFields()">
+                    <option value="next" selected>Próximo Feriado (Auto)</option>
+                    <optgroup label="Feriados Nacionais" id="holiday-list">
+                        </optgroup>
+                    <option value="custom">✨ Data Personalizada...</option>
+                </select>
+            </div>
+
+            <div id="custom-fields" class="hidden" style="display: contents;">
+                <div class="input-group">
+                    <label>Título</label>
+                    <input type="text" id="custom-name" placeholder="Ex: Férias" oninput="updateTarget()">
+                </div>
+                <div class="input-group">
+                    <label>Data e Hora</label>
+                    <input type="datetime-local" id="custom-date" onchange="updateTarget()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let targetDate = null;
+    let targetName = "";
+    let timerInterval = null;
+    let isLive = false; 
+
+    // API Lógica Interna: Cálculo de Feriados Nacionais e Móveis
+    function getHolidays(year) {
+        const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+        const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const mes = Math.floor((h + l - 7 * m + 114) / 31);
+        const dia = ((h + l - 7 * m + 114) % 31) + 1;
+        
+        const pascoa = new Date(year, mes - 1, dia);
+        const moveis = (dias) => {
+            const data = new Date(pascoa);
+            data.setDate(pascoa.getDate() + dias);
+            return data.toISOString().split('T')[0] + "T00:00:00";
+        };
+
+        return [
+            { d: `${year}-01-01T00:00:00`, n: "Ano Novo" },
+            { d: moveis(-47), n: "Carnaval" },
+            { d: moveis(-2), n: "Sexta-feira Santa" },
+            { d: `${year}-04-21T00:00:00`, n: "Tiradentes" },
+            { d: `${year}-05-01T00:00:00`, n: "Dia do Trabalho" },
+            { d: moveis(60), n: "Corpus Christi" },
+            { d: `${year}-09-07T00:00:00`, n: "Independência do Brasil" },
+            { d: `${year}-10-12T00:00:00`, n: "Nossa Sra. Aparecida" },
+            { d: `${year}-11-02T00:00:00`, n: "Finados" },
+            { d: `${year}-11-15T00:00:00`, n: "Proclamação da República" },
+            { d: `${year}-11-20T00:00:00`, n: "Consciência Negra" },
+            { d: `${year}-12-25T00:00:00`, n: "Natal" }
+        ];
+    }
+
+    function populateHolidays() {
+        const list = document.getElementById('holiday-list');
+        const now = new Date();
+        // Carrega feriados do ano atual para o seletor
+        getHolidays(now.getFullYear()).forEach(h => {
+            const opt = document.createElement('option');
+            opt.value = `${h.d}|${h.n}`;
+            opt.innerText = h.n;
+            list.appendChild(opt);
+        });
+    }
+
+    function toggleCustomFields() {
+        const val = document.getElementById('event-selector').value;
+        document.getElementById('custom-fields').classList.toggle('hidden', val !== 'custom');
+        updateTarget();
+    }
+
+    function updateTarget() {
+        const val = document.getElementById('event-selector').value;
+        const now = new Date();
+        isLive = false;
+
+        if (val === 'next' || val.includes('|')) {
+            let list = getHolidays(now.getFullYear());
+            let found;
+
+            if (val === 'next') {
+                found = list.find(h => new Date(h.d) > now) || getHolidays(now.getFullYear() + 1)[0];
+            } else {
+                const [dateStr, name] = val.split('|');
+                let target = new Date(dateStr);
+                // Se o feriado selecionado já passou, pula para o próximo ano
+                if (target < now) target = new Date(new Date(dateStr).setFullYear(now.getFullYear() + 1));
+                found = { d: target, n: name };
+            }
+            targetDate = new Date(found.d);
+            targetName = found.n;
         } else {
-            document.body.setAttribute('data-theme', savedTheme);
+            targetName = document.getElementById('custom-name').value || "Data Especial";
+            const dateVal = document.getElementById('custom-date').value;
+            targetDate = dateVal ? new Date(dateVal) : now;
         }
-    </script>
+
+        document.getElementById('display-name').innerText = targetName;
+        document.getElementById('display-full-date').innerText = targetDate.toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' });
+        
+        if (targetDate > now) isLive = true;
+        updateShareLinks();
+        startTimer();
+    }
+
+    function updateShareLinks() {
+        const text = encodeURIComponent(`Contagem regressiva para ${targetName} em: `);
+        const url = encodeURIComponent(window.location.href);
+        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${text}${url}`;
+        document.getElementById('share-mail').href = `mailto:?subject=${targetName}&body=${text}${url}`;
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        const update = () => {
+            const diff = targetDate.getTime() - new Date().getTime();
+            if (diff <= 0) {
+                ["days","hours","minutes","seconds"].forEach(id => document.getElementById(id).innerText = "00");
+                if(isLive) { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); isLive = false; }
+                return;
+            }
+            document.getElementById('days').innerText = Math.floor(diff / 864e5).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % 864e5) / 36e5).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((diff % 36e5) / 6e4).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((diff % 6e4) / 1000).toString().padStart(2, '0');
+        };
+        update();
+        timerInterval = setInterval(update, 1000);
+    }
+
+    window.onload = () => { populateHolidays(); updateTarget(); };
+</script>
 </body>
 </html>
