@@ -1,20 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contagem Regressiva Inteligente | dataehora.com.br</title>
+    <title>Contagem Regressiva | dataehora.com.br</title>
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
@@ -40,13 +37,7 @@
         }
 
         .container { width: 100%; max-width: 900px; }
-
-        .breadcrumb {
-            width: 100%;
-            margin-bottom: 20px;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
+        .breadcrumb { width: 100%; margin-bottom: 20px; font-size: 0.85rem; color: var(--text-muted); }
         .breadcrumb a { color: var(--accent); text-decoration: none; }
         .breadcrumb span { margin: 0 8px; opacity: 0.5; }
 
@@ -70,12 +61,7 @@
             margin-bottom: 25px;
         }
 
-        .timer-box {
-            background: var(--bg-body);
-            padding: 20px 10px;
-            border-radius: 16px;
-        }
-
+        .timer-box { background: var(--bg-body); padding: 20px 10px; border-radius: 16px; }
         .timer-val { font-size: 3rem; font-weight: 800; display: block; }
         .timer-unit { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
 
@@ -156,8 +142,7 @@
                 <label>Escolha um Evento</label>
                 <select id="event-selector" onchange="toggleCustomFields()">
                     <option value="next" selected>Próximo Feriado (Auto)</option>
-                    <optgroup label="Feriados Nacionais" id="holiday-list">
-                        </optgroup>
+                    <optgroup label="Feriados Nacionais" id="holiday-list"></optgroup>
                     <option value="custom">✨ Data Personalizada...</option>
                 </select>
             </div>
@@ -182,7 +167,6 @@
     let timerInterval = null;
     let isLive = false; 
 
-    // API Lógica Interna: Cálculo de Feriados Nacionais e Móveis
     function getHolidays(year) {
         const a = year % 19, b = Math.floor(year / 100), c = year % 100;
         const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
@@ -191,7 +175,6 @@
         const m = Math.floor((a + 11 * h + 22 * l) / 451);
         const mes = Math.floor((h + l - 7 * m + 114) / 31);
         const dia = ((h + l - 7 * m + 114) % 31) + 1;
-        
         const pascoa = new Date(year, mes - 1, dia);
         const moveis = (dias) => {
             const data = new Date(pascoa);
@@ -218,7 +201,6 @@
     function populateHolidays() {
         const list = document.getElementById('holiday-list');
         const now = new Date();
-        // Carrega feriados do ano atual para o seletor
         getHolidays(now.getFullYear()).forEach(h => {
             const opt = document.createElement('option');
             opt.value = `${h.d}|${h.n}`;
@@ -234,20 +216,19 @@
     }
 
     function updateTarget() {
-        const val = document.getElementById('event-selector').value;
+        const selector = document.getElementById('event-selector');
+        const val = selector.value;
         const now = new Date();
         isLive = false;
 
         if (val === 'next' || val.includes('|')) {
             let list = getHolidays(now.getFullYear());
             let found;
-
             if (val === 'next') {
                 found = list.find(h => new Date(h.d) > now) || getHolidays(now.getFullYear() + 1)[0];
             } else {
                 const [dateStr, name] = val.split('|');
                 let target = new Date(dateStr);
-                // Se o feriado selecionado já passou, pula para o próximo ano
                 if (target < now) target = new Date(new Date(dateStr).setFullYear(now.getFullYear() + 1));
                 found = { d: target, n: name };
             }
@@ -268,10 +249,35 @@
     }
 
     function updateShareLinks() {
-        const text = encodeURIComponent(`Contagem regressiva para ${targetName} em: `);
-        const url = encodeURIComponent(window.location.href);
-        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${text}${url}`;
-        document.getElementById('share-mail').href = `mailto:?subject=${targetName}&body=${text}${url}`;
+        const selector = document.getElementById('event-selector').value;
+        const baseUrl = window.location.origin + window.location.pathname;
+        let shareUrl = baseUrl;
+
+        if (selector === 'custom') {
+            const cName = document.getElementById('custom-name').value;
+            const cDate = document.getElementById('custom-date').value;
+            shareUrl += `?type=custom&name=${encodeURIComponent(cName)}&date=${encodeURIComponent(cDate)}`;
+        } else {
+            shareUrl += `?type=event&val=${encodeURIComponent(selector)}`;
+        }
+
+        const text = encodeURIComponent(`Veja a contagem regressiva para ${targetName}: `);
+        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${text}${encodeURIComponent(shareUrl)}`;
+        document.getElementById('share-mail').href = `mailto:?subject=${targetName}&body=${text}${encodeURIComponent(shareUrl)}`;
+    }
+
+    function loadFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        if (!params.has('type')) return;
+
+        if (params.get('type') === 'custom') {
+            document.getElementById('event-selector').value = 'custom';
+            document.getElementById('custom-fields').classList.remove('hidden');
+            document.getElementById('custom-name').value = params.get('name');
+            document.getElementById('custom-date').value = params.get('date');
+        } else if (params.get('type') === 'event') {
+            document.getElementById('event-selector').value = params.get('val');
+        }
     }
 
     function startTimer() {
@@ -292,7 +298,11 @@
         timerInterval = setInterval(update, 1000);
     }
 
-    window.onload = () => { populateHolidays(); updateTarget(); };
+    window.onload = () => { 
+        populateHolidays(); 
+        loadFromUrl(); // Primeiro tenta carregar da URL
+        updateTarget(); 
+    };
 </script>
 </body>
 </html>
