@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script>
+        (function() {
+            const savedTheme = localStorage.getItem('theme') || 'light';
+            if (savedTheme === 'dark') {
+                document.documentElement.classList.add('dark-mode');
+            }
+        })();
+    </script>
+
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -25,7 +34,17 @@
             --whatsapp: #25d366;
         }
 
-        * { box-sizing: border-box; margin: 0; padding: 0; }
+        /* 2. LÓGICA DE TEMA (Configurações) */
+        .dark-mode {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #3b82f6;
+            --hr-color: rgba(255, 255, 255, 0.1);
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; transition: background-color 0.3s ease; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background-color: var(--bg-body);
@@ -38,6 +57,7 @@
 
         .container { width: 100%; max-width: 900px; }
 
+        /* 4. BREADCRUMB PADRÃO AZUL */
         .breadcrumb {
             width: 100%;
             margin-bottom: 25px;
@@ -48,7 +68,7 @@
             border-radius: 12px;
             box-shadow: 0 2px 5px rgba(0,0,0,0.02);
         }
-        .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 500; }
+        .breadcrumb a { color: var(--accent); text-decoration: none; font-weight: 600; }
         .breadcrumb span { margin: 0 8px; color: #cbd5e1; }
 
         .countdown-card {
@@ -57,7 +77,7 @@
             border-radius: 24px;
             box-shadow: var(--shadow);
             text-align: center;
-            border: 1px solid rgba(255,255,255,0.8);
+            border: 1px solid var(--hr-color);
             margin-bottom: 30px;
         }
 
@@ -76,51 +96,21 @@
         .timer-val { font-size: 3rem; font-weight: 800; display: block; }
         .timer-unit { font-size: 0.75rem; text-transform: uppercase; font-weight: 700; color: var(--text-muted); }
 
-        /* SEÇÃO COMPARTILHAR */
-        .share-section {
-            margin-top: 25px;
-            padding-top: 20px;
-            border-top: 1px solid var(--hr-color);
-            text-align: center;
-        }
-        .share-label {
-            display: block;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            color: var(--text-muted);
-            margin-bottom: 15px;
-            letter-spacing: 0.5px;
-        }
+        .share-section { margin-top: 25px; padding-top: 20px; border-top: 1px solid var(--hr-color); text-align: center; }
+        .share-label { display: block; font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; }
         .share-actions { display: flex; justify-content: center; gap: 10px; }
-        .btn-share {
-            text-decoration: none;
-            padding: 12px 20px;
-            border-radius: 10px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            color: white;
-            transition: 0.2s;
-            display: inline-flex;
-            align-items: center;
-        }
+        .btn-share { text-decoration: none; padding: 12px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 700; color: white; display: inline-flex; align-items: center; }
         .btn-wa { background-color: var(--whatsapp); }
         .btn-mail { background-color: var(--text-muted); }
 
-        .selection-panel {
-            background: var(--bg-card);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
+        .selection-panel { background: var(--bg-card); padding: 25px; border-radius: 20px; box-shadow: var(--shadow); }
         .form-row { display: flex; flex-wrap: wrap; gap: 15px; align-items: flex-end; }
         .input-group { display: flex; flex-direction: column; gap: 6px; flex: 1; min-width: 150px; }
         .input-group label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; color: var(--text-muted); }
 
         select, input {
             padding: 12px; border-radius: 10px; border: 1px solid var(--hr-color);
-            background: #f8fafc; font-size: 0.95rem; font-weight: 600; outline: none;
+            background: var(--bg-body); color: var(--text-main); font-size: 0.95rem; font-weight: 600; outline: none;
         }
 
         .hidden { display: none !important; }
@@ -129,7 +119,6 @@
             .timer-val { font-size: 1.8rem; }
             .timer-grid { gap: 8px; }
             .share-actions { flex-direction: column; }
-            .btn-share { justify-content: center; }
         }
     </style>
 </head>
@@ -137,7 +126,7 @@
 
 <div class="container">
     <nav class="breadcrumb">
-        <a href="/">Home</a> <span>/</span> Ferramentas <span>/</span> Contagem Regressiva
+        <a href="/">Home</a> <span>/</span> <a href="/ferramentas">Ferramentas</a> <span>/</span> Contagem Regressiva
     </nav>
 
     <div class="countdown-card">
@@ -171,7 +160,6 @@
                     <option value="custom">✨ Data Personalizada...</option>
                 </select>
             </div>
-
             <div id="custom-fields" class="hidden" style="display: contents;">
                 <div class="input-group">
                     <label>Título</label>
@@ -187,11 +175,7 @@
 </div>
 
 <script>
-    let targetDate = null;
-    let targetName = "";
-    let timerInterval = null;
-    let isLive = false; 
-
+    /* 1. MANUTENÇÃO ZERO: Algoritmo de Feriados Cíclicos */
     function getHolidays(year) {
         const a = year % 19, b = Math.floor(year / 100), c = year % 100;
         const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
@@ -222,10 +206,11 @@
         ];
     }
 
+    let targetDate, targetName, timerInterval, isLive = false;
+
     function populateHolidays() {
         const list = document.getElementById('holiday-list');
-        const now = new Date();
-        getHolidays(now.getFullYear()).forEach(h => {
+        getHolidays(new Date().getFullYear()).forEach(h => {
             const opt = document.createElement('option');
             opt.value = `${h.d}|${h.n}`;
             opt.innerText = h.n;
@@ -233,115 +218,97 @@
         });
     }
 
-    function toggleCustomFields() {
-        const val = document.getElementById('event-selector').value;
-        document.getElementById('custom-fields').classList.toggle('hidden', val !== 'custom');
-        updateTarget();
-    }
-
     function updateTarget() {
         const selector = document.getElementById('event-selector');
-        const val = selector.value;
         const now = new Date();
-        isLive = false;
-
-        if (val === 'next' || val.includes('|')) {
-            let list = getHolidays(now.getFullYear());
+        if (selector.value === 'next' || selector.value.includes('|')) {
             let found;
-            if (val === 'next') {
-                found = list.find(h => new Date(h.d) > now) || getHolidays(now.getFullYear() + 1)[0];
+            if (selector.value === 'next') {
+                found = getHolidays(now.getFullYear()).find(h => new Date(h.d) > now) || getHolidays(now.getFullYear() + 1)[0];
             } else {
-                const [dateStr, name] = val.split('|');
-                let target = new Date(dateStr);
-                if (target < now) target = new Date(new Date(dateStr).setFullYear(now.getFullYear() + 1));
-                found = { d: target, n: name };
+                const [d, n] = selector.value.split('|');
+                let t = new Date(d);
+                if (t < now) t.setFullYear(now.getFullYear() + 1);
+                found = { d: t, n: n };
             }
             targetDate = new Date(found.d);
             targetName = found.n;
         } else {
             targetName = document.getElementById('custom-name').value || "Data Especial";
-            const dateVal = document.getElementById('custom-date').value;
-            targetDate = dateVal ? new Date(dateVal) : now;
+            const dv = document.getElementById('custom-date').value;
+            targetDate = dv ? new Date(dv) : now;
         }
-
         document.getElementById('display-name').innerText = targetName;
         document.getElementById('display-full-date').innerText = targetDate.toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' });
-        
         if (targetDate > now) isLive = true;
-        updateURLAndLinks(); // Atualiza a URL na barra e os botões
+        syncURL();
         startTimer();
     }
 
-    function updateURLAndLinks() {
-        const selector = document.getElementById('event-selector').value;
-        const baseUrl = window.location.origin + window.location.pathname;
-        let queryParams = "";
+function syncURL() {
+    const selector = document.getElementById('event-selector').value;
+    const baseUrl = window.location.origin + window.location.pathname;
+    let queryParams = "";
 
-        if (selector === 'custom') {
-            const cName = document.getElementById('custom-name').value;
-            const cDate = document.getElementById('custom-date').value;
-            if (cName || cDate) {
-                queryParams = `?type=custom&name=${encodeURIComponent(cName)}&date=${encodeURIComponent(cDate)}`;
-            }
-        } else if (selector !== 'next') {
-            queryParams = `?type=event&val=${encodeURIComponent(selector)}`;
+    if (selector === 'custom') {
+        const cName = document.getElementById('custom-name').value;
+        const cDate = document.getElementById('custom-date').value;
+        if (cName || cDate) {
+            queryParams = `?type=custom&name=${encodeURIComponent(cName)}&date=${encodeURIComponent(cDate)}`;
         }
-
-        const finalUrl = baseUrl + queryParams;
-
-        // ATUALIZA A BARRA DE ENDEREÇO SEM RECARREGAR (Para Favoritos)
-        if (window.history.replaceState) {
-            window.history.replaceState({path: finalUrl}, '', finalUrl);
-        }
-
-        // ATUALIZA BOTÕES DE COMPARTILHAMENTO
-        const text = encodeURIComponent(`Veja a contagem regressiva para ${targetName}: `);
-        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${text}${encodeURIComponent(finalUrl)}`;
-        document.getElementById('share-mail').href = `mailto:?subject=${encodeURIComponent(targetName)}&body=${text}${encodeURIComponent(finalUrl)}`;
+    } else if (selector !== 'next') {
+        queryParams = `?type=event&val=${encodeURIComponent(selector)}`;
     }
 
-    function loadFromUrl() {
-        const params = new URLSearchParams(window.location.search);
-        if (!params.has('type')) return;
+    const finalUrl = baseUrl + queryParams;
 
-        if (params.get('type') === 'custom') {
-            document.getElementById('event-selector').value = 'custom';
-            document.getElementById('custom-fields').classList.remove('hidden');
-            document.getElementById('custom-name').value = params.get('name') || "";
-            document.getElementById('custom-date').value = params.get('date') || "";
-        } else if (params.get('type') === 'event') {
-            const val = params.get('val');
-            document.getElementById('event-selector').value = val;
-        }
+    // Atualiza a barra de endereço para Favoritos
+    if (window.history.replaceState) {
+        window.history.replaceState(null, '', finalUrl);
     }
+
+    // --- CORREÇÃO DO E-MAIL E WHATSAPP ---
+    const shareText = `Confira a contagem regressiva para ${targetName}: ${finalUrl}`;
+    const mailSubject = encodeURIComponent(`Contagem Regressiva: ${targetName}`);
+    const mailBody = encodeURIComponent(shareText);
+
+    // Link WhatsApp
+    document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareText)}`;
+    
+    // Link E-mail (Corrigido)
+    document.getElementById('share-mail').href = `mailto:?subject=${mailSubject}&body=${mailBody}`;
+}
 
     function startTimer() {
         if (timerInterval) clearInterval(timerInterval);
-        const update = () => {
-            const diff = targetDate.getTime() - new Date().getTime();
+        timerInterval = setInterval(() => {
+            const diff = targetDate - new Date();
             if (diff <= 0) {
                 ["days","hours","minutes","seconds"].forEach(id => document.getElementById(id).innerText = "00");
-                if(isLive) { 
-                    confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); 
-                    isLive = false; 
-                }
-                document.getElementById('label-txt').innerText = "Chegou o momento de:";
+                if(isLive) { confetti(); isLive = false; }
                 return;
             }
-            document.getElementById('label-txt').innerText = "Contagem Regressiva para";
             document.getElementById('days').innerText = Math.floor(diff / 864e5).toString().padStart(2, '0');
             document.getElementById('hours').innerText = Math.floor((diff % 864e5) / 36e5).toString().padStart(2, '0');
             document.getElementById('minutes').innerText = Math.floor((diff % 36e5) / 6e4).toString().padStart(2, '0');
             document.getElementById('seconds').innerText = Math.floor((diff % 6e4) / 1000).toString().padStart(2, '0');
-        };
-        update();
-        timerInterval = setInterval(update, 1000);
+        }, 1000);
     }
 
-    window.onload = () => { 
-        populateHolidays(); 
-        loadFromUrl(); 
-        updateTarget(); 
+    window.onload = () => {
+        populateHolidays();
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('type')) {
+            if (p.get('type') === 'custom') {
+                document.getElementById('event-selector').value = 'custom';
+                document.getElementById('custom-fields').classList.remove('hidden');
+                document.getElementById('custom-name').value = p.get('name');
+                document.getElementById('custom-date').value = p.get('date');
+            } else {
+                document.getElementById('event-selector').value = p.get('val');
+            }
+        }
+        updateTarget();
     };
 </script>
 </body>
