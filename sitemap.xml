@@ -51,6 +51,11 @@
     <priority>0.7</priority>
   </url>
 
+    <url>
+    <loc>https://dataehora.com.br/calculadora/adicionar-tempo/</loc>
+    <priority>0.7</priority>
+  </url>
+
   <url>
     <loc>https://dataehora.com.br/configuracoes/</loc>
     <priority>0.6</priority>
