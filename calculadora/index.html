@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,119 +16,164 @@
     <script>
         (function() {
             const saved = localStorage.getItem('theme-pref') || 'default';
+            const html = document.documentElement;
             let isDark = false;
-            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
-            else isDark = (saved === 'dark');
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            if (saved === 'default') {
+                isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            } else if (saved === 'auto') {
+                const hora = new Date().getHours();
+                isDark = (hora < 6 || hora >= 18);
+            } else {
+                isDark = (saved === 'dark');
+            }
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
         })();
     </script>
 
     <style>
+        /* 5. PADRONIZAÇÃO DE CORES (Conforme Página Inicial) */
         :root {
-            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
-            --text-muted: #64748b; --accent: #059669; /* Verde para Calculadoras */
-            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
-            --border: rgba(148, 163, 184, 0.2);
-            --color-uteis: #059669; --color-dif: #2563eb; --color-soma: #d97706;
-        }
-        [data-theme="dark"] {
-            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
-            --text-muted: #94a3b8; --accent: #10b981; --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
-            --border: rgba(255, 255, 255, 0.05);
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb; /* Azul Padrão dataehora */
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.2);
+            /* 6. CORES FORMAIS PARA DIFERENCIAÇÃO */
+            --color-uteis: #1e40af; /* Índigo Formal */
+            --color-dif: #334155;   /* Slate Profissional */
+            --color-soma: #0369a1;  /* Azul Oceano */
         }
 
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            --hr-color: rgba(248, 250, 252, 0.2);
+        }
+
+        * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-body); color: var(--text-main);
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 700px; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .container { width: 100%; max-width: 900px; }
 
-        /* Navegação Nível 2 */
-        .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
-        .nav-link { text-decoration: none; font-weight: 700; font-size: 0.85rem; color: var(--accent); }
-        .nav-sep { color: var(--text-muted); font-size: 0.8rem; }
+        /* 4. BREADCRUMB PADRONIZADO */
+        .top-nav {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+        .top-nav a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .top-nav span { color: var(--text-muted); font-weight: 800; }
 
-        .header { margin-bottom: 50px; text-align: left; }
-        h1 { font-size: 2.8rem; margin: 0; letter-spacing: -2px; font-weight: 900; line-height: 1; }
-        .subtitle { color: var(--text-muted); font-size: 1.2rem; margin-top: 10px; font-weight: 500; }
+        .header { margin: 20px 0 50px 0; text-align: left; }
+        h1 { font-size: clamp(2rem, 8vw, 3rem); margin: 0; letter-spacing: -2px; font-weight: 900; line-height: 1; color: var(--text-main); }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; font-weight: 500; }
 
         /* Grid de Calculadoras */
-        .hub-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+        .hub-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; width: 100%; }
 
         .hub-card {
-            background: var(--bg-card); border: 2px solid var(--border);
-            border-radius: 28px; padding: 35px; text-decoration: none;
-            display: flex; flex-direction: column; gap: 12px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background: var(--bg-card);
+            border: 1px solid var(--hr-color);
+            border-radius: 28px;
+            padding: 35px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            box-shadow: var(--shadow);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
         }
 
-        .hub-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--card-color); }
+        .hub-card:hover { transform: translateY(-8px); border-color: var(--card-color); }
         
-        .card-icon { font-size: 2.2rem; margin-bottom: 5px; }
-        .card-title { font-size: 1.7rem; font-weight: 900; color: var(--text-main); letter-spacing: -1px; }
-        .card-desc { font-size: 1rem; color: var(--text-muted); font-weight: 500; line-height: 1.5; }
+        .card-icon { font-size: 2rem; margin-bottom: 5px; }
+        .card-title { font-size: 1.5rem; font-weight: 900; color: var(--text-main); letter-spacing: -1px; }
+        .card-desc { font-size: 0.95rem; color: var(--text-muted); font-weight: 500; line-height: 1.5; }
 
-        /* Cores Temáticas */
+        /* 6. ATRIBUIÇÃO DE CORES FORMAIS */
         .card-uteis { --card-color: var(--color-uteis); }
         .card-dif { --card-color: var(--color-dif); }
         .card-soma { --card-color: var(--color-soma); }
         
-        .hub-card:hover .card-title { color: var(--card-color); }
+        .hub-card:hover .card-title { color: var(--accent); }
 
         .btn-action {
-            margin-top: 8px; display: inline-flex; align-items: center; gap: 8px;
-            font-weight: 800; color: var(--card-color); text-transform: uppercase;
-            font-size: 0.8rem; letter-spacing: 1px;
+            margin-top: 10px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            font-size: 0.75rem;
+            letter-spacing: 0.5px;
         }
 
-        footer { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
+        footer { margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; opacity: 0.8; }
 
         @media (max-width: 600px) {
-            h1 { font-size: 2.2rem; }
-            .hub-card { padding: 25px; }
-            .card-title { font-size: 1.4rem; }
+            .header { text-align: center; }
+            .top-nav { justify-content: center; }
+            .hub-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <nav class="nav-header">
-            <a href="/" class="nav-link">Início</a>
-            <span class="nav-sep">/</span>
-            <span style="color: var(--text-muted); font-weight: 800; font-size: 0.85rem;">Calculadoras</span>
+        <nav class="top-nav">
+            <a href="/">dataehora.com.br</a>
+            <span>/</span>
+            <span>Calculadoras</span>
         </nav>
 
         <header class="header">
             <h1>Calculadoras</h1>
-            <p class="subtitle">Ferramentas precisas para prazos e datas.</p>
+            <p class="subtitle">Ferramentas de tempo precisas e profissionais.</p>
         </header>
 
         <main class="hub-grid">
-            <a href="/calculadora/dias-uteis" class="hub-card card-uteis">
+            <a href="/calculadora/dias-uteis/" class="hub-card card-uteis">
                 <span class="card-icon">💼</span>
                 <span class="card-title">Dias Úteis</span>
                 <span class="card-desc">Calcule prazos profissionais descontando finais de semana e feriados nacionais.</span>
-                <span class="btn-action">Acessar Calculadora de Dias Úteis →</span>
+                <span class="btn-action">Calcular Dias Úteis →</span>
             </a>
 
-            <a href="/calculadora/diferenca-datas" class="hub-card card-dif">
+            <a href="/calculadora/diferenca-datas/" class="hub-card card-dif">
                 <span class="card-icon">📅</span>
-                <span class="card-title">Diferença entre Datas</span>
-                <span class="card-desc">Saiba o total de dias, meses e anos entre duas datas (dias corridos).</span>
-                <span class="btn-action">Acessar Calculadora de Dias Corridos→</span>
+                <span class="card-title">Diferença de Datas</span>
+                <span class="card-desc">Saiba o total exato de dias, meses e anos entre duas datas específicas.</span>
+                <span class="btn-action">Calcular Diferença →</span>
             </a>
 
-            <a href="/calculadora/adicionar-tempo" class="hub-card card-soma">
+            <a href="/calculadora/adicionar-tempo/" class="hub-card card-soma">
                 <span class="card-icon">🧮</span>
-                <span class="card-title">Somar ou Subtrair Dias</span>
-                <span class="card-desc">Descubra qual será a data final ao adicionar ou remover um período de tempo.</span>
-                <span class="btn-action">Acessar Calculadora de Datas→</span>
+                <span class="card-title">Somar ou Subtrair</span>
+                <span class="card-desc">Descubra uma data futura ou passada adicionando dias, meses ou anos.</span>
+                <span class="btn-action">Somar Tempo →</span>
             </a>
         </main>
 

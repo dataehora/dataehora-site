@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,104 +16,135 @@
     <script>
         (function() {
             const saved = localStorage.getItem('theme-pref') || 'default';
+            const html = document.documentElement;
             let isDark = false;
             if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
             else isDark = (saved === 'dark');
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
         })();
     </script>
 
     <style>
+        /* 5 e 6. PADRONIZAÇÃO DE CORES FORMAIS */
         :root {
-            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
-            --text-muted: #64748b; 
-            --accent-blue: #2563eb; 
-            --accent-orange: #d97706; /* Cor desta calculadora */
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;       /* Azul Royal (Home) */
+            --accent-formal: #0369a1; /* Azul Oceano (Substituindo o Laranja) */
             --border: rgba(148, 163, 184, 0.2);
-            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             --input-bg: #f8fafc;
         }
+
         [data-theme="dark"] {
-            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
-            --text-muted: #94a3b8; --accent-blue: #60a5fa; --accent-orange: #fbbf24;
-            --border: rgba(255, 255, 255, 0.05); --input-bg: #1e293b;
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-formal: #38bdf8;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
         }
 
+        * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-body); color: var(--text-main);
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 600px; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .container { width: 100%; max-width: 650px; }
 
-        /* Navegação Nível 3 */
-        .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
-        .nav-link { text-decoration: none; font-weight: 700; font-size: 0.85rem; color: var(--accent-blue); }
-        .nav-sep { color: var(--text-muted); font-size: 0.8rem; }
+        /* 4. BREADCRUMB PADRONIZADO */
+        .top-nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+        .top-nav a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .top-nav span { color: var(--text-muted); font-weight: 800; }
 
-        .header { margin-bottom: 40px; }
-        h1 { font-size: 2.2rem; margin: 0; letter-spacing: -1.5px; font-weight: 900; }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; }
+        .header { margin-bottom: 35px; text-align: left; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); margin: 0; letter-spacing: -1.5px; font-weight: 900; color: var(--text-main); }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
 
         .calc-card {
-            background: var(--bg-card); border-radius: 28px; padding: 40px;
-            box-shadow: var(--shadow); border: 1px solid var(--border);
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
         }
 
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
         .form-group { margin-bottom: 25px; }
-        label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        
+        label { display: block; font-weight: 700; font-size: 0.75rem; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         
         input, select {
             width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border);
             background: var(--input-bg); color: var(--text-main); font-size: 1.1rem;
-            font-family: inherit; box-sizing: border-box; outline: none;
+            font-family: inherit; outline: none; transition: border-color 0.2s;
         }
-        input:focus, select:focus { border-color: var(--accent-orange); }
+        input:focus, select:focus { border-color: var(--accent-formal); }
 
         button {
-            width: 100%; padding: 18px; border-radius: 15px; border: none;
-            background: var(--accent-orange); color: #fff; font-size: 1.1rem; font-weight: 800;
-            cursor: pointer; transition: 0.2s;
+            width: 100%; padding: 18px; border-radius: 16px; border: none;
+            background: var(--accent-formal); color: #fff; font-size: 1.1rem; font-weight: 800;
+            cursor: pointer; transition: transform 0.2s, filter 0.2s;
         }
         button:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* Resultado */
         #result-area { margin-top: 40px; display: none; text-align: center; }
-        .res-divider { border-top: 2px dashed var(--border); padding-top: 30px; margin-bottom: 25px; }
+        .res-divider { border-top: 1px solid var(--border); margin-bottom: 30px; }
         
         .res-box { 
-            background: var(--input-bg); padding: 30px; border-radius: 24px;
-            border: 2px solid var(--accent-orange);
+            background: var(--input-bg); padding: 35px; border-radius: 24px;
+            border: 2px solid var(--accent-formal);
         }
-        .res-date { font-size: 3rem; font-weight: 900; color: var(--accent-orange); line-height: 1; display: block; }
-        .res-weekday { font-size: 1.2rem; font-weight: 700; color: var(--text-muted); margin-top: 10px; display: block; text-transform: capitalize; }
+        .res-date { font-size: clamp(2rem, 8vw, 3rem); font-weight: 900; color: var(--accent-formal); line-height: 1; display: block; }
+        .res-weekday { font-size: 1.2rem; font-weight: 700; color: var(--text-muted); margin-top: 12px; display: block; text-transform: capitalize; }
 
-        footer { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
+        footer { margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; }
 
         @media (max-width: 500px) {
             .form-row { grid-template-columns: 1fr; }
-            .res-date { font-size: 2.2rem; }
+            .header { text-align: center; }
+            .top-nav { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <nav class="nav-header">
-            <a href="/" class="nav-link">Início</a>
-            <span class="nav-sep">/</span>
-            <a href="/calculadora" class="nav-link">Calculadoras</a>
-            <span class="nav-sep">/</span>
-            <span style="color: var(--text-muted); font-weight: 800; font-size: 0.85rem;">Adicionar ou Subtrair</span>
+        <nav class="top-nav">
+            <a href="/">dataehora.com.br</a>
+            <span>/</span>
+            <a href="/calculadora/">Calculadoras</a>
+            <span>/</span>
+            <span>Somar ou Subtrair</span>
         </nav>
 
         <header class="header">
             <h1>Somar ou Subtrair Dias</h1>
-            <p class="subtitle">Adicione ou remova períodos de tempo a uma data específica.</p>
+            <p class="subtitle">Adicione ou remova tempo de uma data específica.</p>
         </header>
 
         <div class="calc-card">
@@ -161,7 +189,9 @@
 
             if (!baseDateStr || isNaN(amount)) return;
 
-            let date = new Date(baseDateStr + 'T00:00:00');
+            // Criar data garantindo que não haja problemas de fuso horário local
+            const [y, m, d] = baseDateStr.split('-');
+            let date = new Date(y, m - 1, d);
             
             if (op === 'add') {
                 date.setDate(date.getDate() + amount);
@@ -180,9 +210,15 @@
             document.getElementById('result-area').style.display = 'block';
             document.getElementById('res-date-final').textContent = formattedDate;
             document.getElementById('res-day-name').textContent = weekday;
+            
+            // Scroll suave para o resultado em dispositivos móveis
+            if(window.innerWidth < 600) {
+                document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
+            }
         }
 
         window.onload = () => {
+            // Inicializa com a data de hoje
             document.getElementById('base-date').value = new Date().toISOString().split('T')[0];
         };
     </script>

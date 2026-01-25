@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,111 +16,142 @@
     <script>
         (function() {
             const saved = localStorage.getItem('theme-pref') || 'default';
+            const html = document.documentElement;
             let isDark = false;
             if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
             else isDark = (saved === 'dark');
-            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
         })();
     </script>
 
     <style>
+        /* 5 e 6. PADRONIZAÇÃO DE CORES (Protocolo v2) */
         :root {
-            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
-            --text-muted: #64748b; 
-            --accent-blue: #2563eb; /* Azul padrão do Breadcrumb */
-            --accent-green: #059669; /* Verde da Calculadora */
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;       /* Azul Padrão (Home/Breadcrumb) */
+            --accent-formal: #065f46; /* Verde Petróleo Profissional */
             --border: rgba(148, 163, 184, 0.2);
-            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             --input-bg: #f8fafc;
         }
+
         [data-theme="dark"] {
-            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
-            --text-muted: #94a3b8; --accent-blue: #60a5fa; --accent-green: #10b981;
-            --border: rgba(255, 255, 255, 0.05); --input-bg: #1e293b;
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-formal: #10b981;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
         }
 
+        * { box-sizing: border-box; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-body); color: var(--text-main);
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 650px; animation: fadeIn 0.4s ease-out; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .container { width: 100%; max-width: 650px; }
 
-        /* Navegação Nível 3 - Azul Padronizado */
-        .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
-        .nav-link { text-decoration: none; font-weight: 700; font-size: 0.85rem; color: var(--accent-blue); }
-        .nav-sep { color: var(--text-muted); font-size: 0.8rem; }
+        /* 4. BREADCRUMB PADRONIZADO */
+        .top-nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+        .top-nav a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .top-nav span { color: var(--text-muted); font-weight: 800; }
 
-        .header { margin-bottom: 40px; }
-        h1 { font-size: 2.2rem; margin: 0; letter-spacing: -1.5px; font-weight: 900; }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; }
+        .header { margin-bottom: 35px; text-align: left; }
+        h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); margin: 0; letter-spacing: -1.5px; font-weight: 900; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
 
         .calc-card {
-            background: var(--bg-card); border-radius: 28px; padding: 40px;
-            box-shadow: var(--shadow); border: 1px solid var(--border);
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
         }
 
         .form-group { margin-bottom: 25px; }
-        label { display: block; font-weight: 700; font-size: 0.85rem; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; }
+        label { display: block; font-weight: 700; font-size: 0.75rem; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         
         input[type="date"] {
             width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border);
             background: var(--input-bg); color: var(--text-main); font-size: 1.1rem;
-            font-family: inherit; box-sizing: border-box; outline: none;
+            font-family: inherit; outline: none; transition: border-color 0.2s;
         }
+        input[type="date"]:focus { border-color: var(--accent-formal); }
 
         button {
-            width: 100%; padding: 18px; border-radius: 15px; border: none;
-            background: var(--accent-green); color: #fff; font-size: 1.1rem; font-weight: 800;
-            cursor: pointer; transition: 0.2s;
+            width: 100%; padding: 18px; border-radius: 16px; border: none;
+            background: var(--accent-formal); color: #fff; font-size: 1.1rem; font-weight: 800;
+            cursor: pointer; transition: transform 0.2s, filter 0.2s;
         }
         button:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* Resultado */
         #result-area { margin-top: 40px; display: none; text-align: center; }
-        .res-divider { border-top: 2px dashed var(--border); padding-top: 30px; margin-bottom: 20px; }
-        .res-value { font-size: 4rem; font-weight: 900; color: var(--accent-green); line-height: 1; display: block; }
-        .res-label { font-size: 1.1rem; font-weight: 700; color: var(--text-muted); margin-top: 5px; display: block; }
+        .res-divider { border-top: 1px solid var(--border); margin-bottom: 30px; }
+        .res-value { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 900; color: var(--accent-formal); line-height: 1; display: block; }
+        .res-label { font-size: 1.1rem; font-weight: 700; color: var(--text-muted); margin-top: 8px; display: block; }
         
-        .breakdown { margin: 25px 0; display: flex; justify-content: center; gap: 15px; font-size: 0.9rem; font-weight: 700; }
-        .break-item { color: var(--text-muted); background: var(--input-bg); padding: 10px 18px; border-radius: 12px; border: 1px solid var(--border); }
-
-        /* Lista de Feriados Encontrados */
-        #holiday-list-container { text-align: left; margin-top: 25px; display: none; }
-        .holiday-list-title { font-size: 0.8rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 12px; letter-spacing: 1px; display: block; }
-        .holiday-tag { 
-            display: flex; justify-content: space-between; background: var(--input-bg); 
-            padding: 12px 18px; border-radius: 10px; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;
-            border-left: 4px solid var(--accent-green);
+        .breakdown { margin: 30px 0; display: flex; justify-content: center; gap: 12px; }
+        .break-item { 
+            color: var(--text-muted); background: var(--input-bg); padding: 12px 20px; 
+            border-radius: 14px; border: 1px solid var(--border); font-size: 0.9rem; font-weight: 700;
         }
-        .holiday-tag .h-date { color: var(--accent-green); font-weight: 800; }
 
-        footer { text-align: center; padding: 80px 0; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
+        #holiday-list-container { text-align: left; margin-top: 30px; }
+        .holiday-list-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; letter-spacing: 1px; display: block; }
+        .holiday-tag { 
+            display: flex; justify-content: space-between; background: var(--bg-body); 
+            padding: 14px 20px; border-radius: 12px; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;
+            border-left: 4px solid var(--accent-formal);
+        }
+        .holiday-tag .h-date { color: var(--accent-formal); font-weight: 800; }
+
+        footer { margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; }
 
         @media (max-width: 500px) {
-            .calc-card { padding: 25px; }
-            .res-value { font-size: 3rem; }
             .breakdown { flex-direction: column; }
+            .header { text-align: center; }
+            .top-nav { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <nav class="nav-header">
-            <a href="/" class="nav-link">Início</a>
-            <span class="nav-sep">/</span>
-            <a href="/calculadora" class="nav-link">Calculadoras</a>
-            <span class="nav-sep">/</span>
-            <span style="color: var(--text-muted); font-weight: 800; font-size: 0.85rem;">Dias Úteis</span>
+        <nav class="top-nav">
+            <a href="/">dataehora.com.br</a>
+            <span>/</span>
+            <a href="/calculadora/">Calculadoras</a>
+            <span>/</span>
+            <span>Dias Úteis</span>
         </nav>
 
         <header class="header">
             <h1>Dias Úteis</h1>
-            <p class="subtitle">Calcule o intervalo excluindo fins de semana e feriados nacionais.</p>
+            <p class="subtitle">Intervalo profissional excluindo fins de semana e feriados.</p>
         </header>
 
         <div class="calc-card">
@@ -135,7 +163,7 @@
                 <label>Data Final</label>
                 <input type="date" id="date-end">
             </div>
-            <button onclick="calculate()">Calcular Intervalo</button>
+            <button onclick="calculate()">Calcular Intervalo Útil</button>
 
             <div id="result-area">
                 <div class="res-divider"></div>
@@ -143,12 +171,12 @@
                 <span class="res-label">Dias Úteis</span>
                 
                 <div class="breakdown">
-                    <div class="break-item">Corridos: <span id="res-corridos">0</span></div>
-                    <div class="break-item">Feriados: <span id="res-feriados">0</span></div>
+                    <div class="break-item">Corridos: <span id="res-corridos" style="color: var(--text-main)">0</span></div>
+                    <div class="break-item">Feriados: <span id="res-feriados" style="color: var(--accent-formal)">0</span></div>
                 </div>
 
-                <div id="holiday-list-container">
-                    <span class="holiday-list-title">Feriados no período:</span>
+                <div id="holiday-list-container" style="display: none;">
+                    <span class="holiday-list-title">Feriados bancários no período:</span>
                     <div id="holiday-list"></div>
                 </div>
             </div>
@@ -158,6 +186,7 @@
     </div>
 
     <script>
+        // 1. MANUTENÇÃO ZERO: Algoritmo de feriados brasileiros (Fixos e Móveis)
         function getHolidayName(date) {
             const y = date.getFullYear();
             const m = date.getMonth();
@@ -173,6 +202,7 @@
             const foundFixo = fixos.find(f => f.d === d && f.m === m);
             if (foundFixo) return foundFixo.n;
 
+            // Algoritmo Gauss para Páscoa
             const a = y % 19, b = Math.floor(y / 100), c = y % 100,
                   dv = Math.floor(b / 4), ev = b % 4, gv = Math.floor((8 * b + 13) / 25),
                   hv = (19 * a + b - dv - gv + 15) % 30, i = Math.floor(c / 4), kv = c % 4,
@@ -201,12 +231,14 @@
             let uteis = 0, corridos = 0, holidaysFound = [];
             let current = new Date(d1);
 
+            // Regra: O dia inicial não conta no intervalo de dias úteis padrão (D+1)
             while (current < d2) {
                 current.setDate(current.getDate() + 1);
                 corridos++;
                 const ds = current.getDay();
                 const hName = getHolidayName(current);
 
+                // Sábado (6) e Domingo (0) ou Feriado
                 if (ds === 0 || ds === 6 || hName) {
                     if (hName && ds !== 0 && ds !== 6) {
                         holidaysFound.push({ name: hName, date: current.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'}) });
@@ -233,6 +265,8 @@
             } else {
                 listCont.style.display = 'none';
             }
+
+            if(window.innerWidth < 600) document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
         }
 
         window.onload = () => {
