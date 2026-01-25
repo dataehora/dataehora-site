@@ -1,16 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -33,15 +30,13 @@
             --text-muted: #64748b; --accent: #2563eb; --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
             --border: rgba(148, 163, 184, 0.15);
             --color-prolongado: #10b981; --color-emenda: #f59e0b;
-            
-            /* Cores de Identidade por Ano */
-            --y2026: #2563eb; --y2027: #7c3aed; --y2028: #0891b2;
+            --y2026: #2563eb; --y2027: #4338ca; --y2028: #0891b2;
         }
         [data-theme="dark"] {
             --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
             --text-muted: #94a3b8; --accent: #60a5fa; --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
             --border: rgba(255, 255, 255, 0.05);
-            --y2026: #60a5fa; --y2027: #a78bfa; --y2028: #22d3ee;
+            --y2026: #60a5fa; --y2027: #818cf8; --y2028: #22d3ee;
         }
 
         body {
@@ -50,83 +45,71 @@
             margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
         }
 
-        .container { width: 100%; max-width: 750px; }
+        .container { width: 100%; max-width: 750px; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         
-        /* Navegação Nível 3 */
         .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
-        .nav-link { text-decoration: none; font-weight: 700; font-size: 0.85rem; color: var(--accent); }
-        .nav-sep { color: var(--text-muted); font-size: 0.8rem; }
+        .nav-link { text-decoration: none; font-weight: 800; font-size: 0.85rem; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
+        .nav-current { color: var(--text-muted); font-weight: 800; font-size: 0.85rem; }
 
         .header { margin-bottom: 40px; }
-        h1 { font-size: 2.5rem; margin: 0; letter-spacing: -2px; font-weight: 900; }
+        h1 { font-size: 2.8rem; margin: 0; letter-spacing: -1.8px; font-weight: 900; line-height: 1.1; }
         .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
 
-        /* Blocos de Ano */
-        .year-group { margin-top: 80px; }
+        .year-group { margin-top: 60px; }
         .year-title { 
-            font-size: 4rem; font-weight: 900; margin-bottom: 25px; 
-            letter-spacing: -4px; display: flex; align-items: center; gap: 20px;
+            font-size: 3.5rem; font-weight: 900; margin-bottom: 30px; 
+            letter-spacing: -3px; display: flex; align-items: center; gap: 20px;
         }
-        .year-title::after { content: ''; flex-grow: 1; height: 6px; border-radius: 3px; opacity: 0.15; }
+        .year-title::after { content: ''; flex-grow: 1; height: 4px; border-radius: 4px; opacity: 0.15; }
 
-        /* Herança de Cor Dinâmica */
-        .y-2026 .year-title, .y-2026 .month-label, .y-2026 .info-date { color: var(--y2026); }
-        .y-2026 .year-title::after { background: var(--y2026); }
+        .y-2026 .year-title { color: var(--y2026); } .y-2026 .year-title::after { background: var(--y2026); }
+        .y-2027 .year-title { color: var(--y2027); } .y-2027 .year-title::after { background: var(--y2027); }
+        .y-2028 .year-title { color: var(--y2028); } .y-2028 .year-title::after { background: var(--y2028); }
 
-        .y-2027 .year-title, .y-2027 .month-label, .y-2027 .info-date { color: var(--y2027); }
-        .y-2027 .year-title::after { background: var(--y2027); }
-
-        .y-2028 .year-title, .y-2028 .month-label, .y-2028 .info-date { color: var(--y2028); }
-        .y-2028 .year-title::after { background: var(--y2028); }
-
-        /* Meses */
-        .month-group { margin-bottom: 40px; }
+        .month-group { margin-bottom: 30px; }
         .month-label { 
-            font-size: 0.9rem; font-weight: 900; text-transform: uppercase; 
-            letter-spacing: 3px; margin-bottom: 20px; display: flex; align-items: center; gap: 15px;
+            font-size: 0.85rem; font-weight: 900; text-transform: uppercase; 
+            letter-spacing: 2px; margin-bottom: 15px; color: var(--text-muted);
         }
-        .month-label::after { content: ''; flex-grow: 1; height: 1px; background: currentColor; opacity: 0.2; }
 
-        /* Cards */
         .trip-card {
             background: var(--bg-card); border: 1px solid var(--border);
             border-radius: 24px; padding: 25px 30px; margin-bottom: 15px;
             display: grid; grid-template-columns: 1fr auto; align-items: center;
-            box-shadow: var(--shadow); transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: var(--shadow); transition: 0.2s ease;
         }
-        .trip-card:hover { transform: scale(1.02); border-color: currentColor; }
-        .trip-card.past { opacity: 0.35; filter: grayscale(1); transform: none !important; }
+        .trip-card:hover:not(.past) { transform: translateY(-3px); border-color: var(--accent); }
+        .trip-card.past { opacity: 0.35; filter: grayscale(1); }
 
         .info-main { 
             display: flex; flex-wrap: wrap; align-items: center; 
-            gap: 12px; font-size: 1.4rem; font-weight: 900; line-height: 1.1; margin-bottom: 12px;
+            gap: 10px; font-size: 1.3rem; font-weight: 900; margin-bottom: 10px;
         }
-        .info-week { color: var(--text-muted); opacity: 0.8; }
-
-        .badge-area { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .info-week { color: var(--text-muted); font-size: 1rem; font-weight: 600; }
+        .badge-area { display: flex; align-items: center; gap: 10px; }
         .badge { 
-            padding: 6px 14px; border-radius: 10px; font-size: 0.75rem; 
-            font-weight: 900; text-transform: uppercase; letter-spacing: 0.5px;
+            padding: 5px 12px; border-radius: 8px; font-size: 0.7rem; 
+            font-weight: 900; text-transform: uppercase;
         }
-        .prolongado { background: #10b98115; color: var(--color-prolongado); }
-        .emenda { background: #f59e0b15; color: var(--color-emenda); }
-        .desc-folga { font-size: 0.9rem; font-weight: 700; color: var(--text-muted); }
+        .prolongado { background: #10b98120; color: var(--color-prolongado); }
+        .emenda { background: #f59e0b20; color: var(--color-emenda); }
+        .desc-folga { font-size: 0.85rem; font-weight: 700; color: var(--text-muted); }
 
-        /* Contador Lateral */
         .trip-counter { 
-            text-align: center; padding-left: 30px; border-left: 2px solid var(--border);
-            min-width: 90px;
+            text-align: center; padding-left: 25px; border-left: 2px solid var(--border);
+            min-width: 80px;
         }
-        .days-val { font-size: 2.8rem; font-weight: 900; line-height: 1; display: block; }
-        .days-lbl { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-top: 4px; display: block; }
+        .days-val { font-size: 2.5rem; font-weight: 900; line-height: 1; display: block; }
+        .days-lbl { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
 
         footer { text-align: center; padding: 100px 0; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
 
-        @media (max-width: 650px) {
-            .info-main { font-size: 1.2rem; }
-            .trip-card { padding: 22px; grid-template-columns: 1fr; }
-            .trip-counter { border-left: none; border-top: 2px solid var(--border); padding: 20px 0 0 0; margin-top: 20px; display: flex; align-items: baseline; gap: 10px; justify-content: center; }
-            .year-title { font-size: 3rem; }
+        @media (max-width: 600px) {
+            .trip-card { grid-template-columns: 1fr; gap: 20px; }
+            .trip-counter { border-left: none; border-top: 1px solid var(--border); padding: 15px 0 0 0; display: flex; align-items: baseline; justify-content: center; gap: 8px; }
+            h1 { font-size: 2.2rem; }
         }
     </style>
 </head>
@@ -138,12 +121,12 @@
             <span class="nav-sep">/</span>
             <a href="/feriados" class="nav-link">Feriados</a>
             <span class="nav-sep">/</span>
-            <span style="color: var(--text-muted); font-weight: 800; font-size: 0.85rem;">Planejador</span>
+            <span class="nav-current">Feriadões</span>
         </nav>
 
         <header class="header">
             <h1>Feriadões & Emendas</h1>
-            <p class="subtitle">Seu guia estratégico para os próximos 3 anos.</p>
+            <p class="subtitle">Planeje suas viagens e descansos prolongados.</p>
         </header>
 
         <div id="planner-list"></div>
@@ -156,20 +139,22 @@
 
         function getFeriadoes(ano) {
             const h = [
-                { d: 1, m: 0, n: "Ano Novo" }, { d: 21, m: 3, n: "Tiradentes" },
-                { d: 1, m: 4, n: "Dia do Trabalho" }, { d: 7, m: 8, n: "Independência" },
+                { d: 1, m: 0, n: "Confraternização Universal" }, { d: 21, m: 3, n: "Tiradentes" },
+                { d: 1, m: 4, n: "Dia do Trabalhador" }, { d: 7, m: 8, n: "Independência" },
                 { d: 12, m: 9, n: "Nossa Sra. Aparecida" }, { d: 2, m: 10, n: "Finados" },
                 { d: 15, m: 10, n: "Proclamação da República" }, { d: 20, m: 10, n: "Consciência Negra" },
                 { d: 25, m: 11, n: "Natal" }
             ];
 
+            // Algoritmo de Páscoa v2.0
             const a = ano % 19, b = Math.floor(ano / 100), c = ano % 100,
-                  d = Math.floor(b / 4), e = b % 4, g = Math.floor((8 * b + 13) / 25),
-                  hv = (19 * a + b - d - g + 15) % 30, i = Math.floor(c / 4), k = c % 4,
-                  l = (32 + 2 * e + 2 * i - hv - k) % 7, m = Math.floor((a + 11 * hv + 19 * l) / 433);
-            const mp = Math.floor((hv + l - 7 * m + 90) / 25) - 1;
-            const dp = (hv + l - 7 * m + 33 * (mp + 1) + 19) % 32;
-            const pascoa = new Date(ano, mp, dp);
+                  d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+                  g = Math.floor((b - f + 1) / 3), h_val = (19 * a + b - d - g + 15) % 30,
+                  i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h_val - k) % 7,
+                  m = Math.floor((a + 11 * h_val + 22 * l) / 451);
+            const month = Math.floor((h_val + l - 7 * m + 114) / 31) - 1;
+            const day = ((h_val + l - 7 * m + 114) % 31) + 1;
+            const pascoa = new Date(ano, month, day);
 
             const addM = (off, name) => {
                 const dt = new Date(pascoa); dt.setDate(pascoa.getDate() + off);
@@ -179,17 +164,25 @@
 
             return h.map(x => {
                 const dt = new Date(ano, x.m, x.d);
+                dt.setHours(0,0,0,0);
                 const ds = dt.getDay(); 
                 let tipo = "", dias = 0, resumo = "", sem = dt.toLocaleDateString('pt-BR', {weekday: 'long'});
-                if (ds === 1 || ds === 5) { tipo = "prolongado"; dias = 3; resumo = ds === 1 ? "Sáb a Seg" : "Sex a Dom"; }
-                else if (ds === 2 || ds === 4) { tipo = "emenda"; dias = 4; resumo = ds === 2 ? "Sáb a Ter" : "Qui a Dom"; }
+                
+                // Lógica de Folga: 1=Seg, 2=Ter, 4=Qui, 5=Sex
+                if (ds === 1) { tipo = "prolongado"; dias = 3; resumo = "Sábado a Segunda"; }
+                else if (ds === 5) { tipo = "prolongado"; dias = 3; resumo = "Sexta a Domingo"; }
+                else if (ds === 2) { tipo = "emenda"; dias = 4; resumo = "Sábado a Terça"; }
+                else if (ds === 4) { tipo = "emenda"; dias = 4; resumo = "Quinta a Domingo"; }
+
                 return { ...x, dt, tipo, dias, resumo, sem: sem.split('-')[0] };
             }).filter(f => f.dias > 0).sort((a, b) => a.dt - b.dt);
         }
 
         function render() {
             const now = new Date();
+            now.setHours(0,0,0,0);
             const list = document.getElementById('planner-list');
+            if(!list) return;
 
             for (let y = now.getFullYear(); y <= now.getFullYear() + 2; y++) {
                 const yearSection = document.createElement('div');
@@ -209,14 +202,14 @@
                         yearSection.appendChild(mGroup);
                     }
 
-                    const isPast = f.dt < new Date().setHours(0,0,0,0);
+                    const isPast = f.dt < now;
                     const colorDestaque = f.tipo === 'prolongado' ? 'var(--color-prolongado)' : 'var(--color-emenda)';
 
                     mGroup.innerHTML += `
                         <div class="trip-card ${isPast ? 'past' : ''}">
                             <div class="trip-content">
                                 <div class="info-main">
-                                    <span class="info-date">${f.d} ${mesesNomes[f.m].substring(0,3)}</span>
+                                    <span style="color: var(--y${y})">${f.d} ${mesesNomes[f.m].substring(0,3)}</span>
                                     <span class="info-week">${f.sem}</span>
                                     <span class="info-name">${f.n}</span>
                                 </div>
@@ -234,7 +227,12 @@
                 list.appendChild(yearSection);
             }
         }
-        render();
+
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', render);
+        } else {
+            render();
+        }
     </script>
 </body>
 </html>
