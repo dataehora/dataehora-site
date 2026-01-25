@@ -1,16 +1,13 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-
-<!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-4Y5H59FEQE');
-</script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -19,266 +16,191 @@
     <script>
         (function() {
             const saved = localStorage.getItem('theme-pref') || 'default';
-            const html = document.documentElement;
             let isDark = false;
-
-            if (saved === 'default') {
-                isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-            } else if (saved === 'auto') {
-                const hora = new Date().getHours();
-                isDark = (hora < 6 || hora >= 18);
-            } else {
-                isDark = (saved === 'dark');
-            }
-            
-            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
-            const bgColor = isDark ? '#020617' : '#f1f5f9';
-            html.style.backgroundColor = bgColor;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            document.documentElement.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
         })();
     </script>
 
     <style>
         :root {
-            --bg-body: #f1f5f9;
-            --bg-card: #ffffff;
-            --text-main: #0f172a;
-            --text-muted: #64748b;
-            --accent: #2563eb;
-            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
-            --hr-color: rgba(100, 116, 139, 0.2);
+            --bg-body: #f1f5f9; --bg-card: #ffffff;
+            --text-main: #0f172a; --text-muted: #64748b;
+            --accent: #2563eb; --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.15);
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
-            --text-main: #f8fafc;
-            --text-muted: #94a3b8;
-            --accent: #60a5fa;
-            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
-            --hr-color: rgba(248, 250, 252, 0.2);
+            --bg-body: #020617; --bg-card: #0f172a;
+            --text-main: #f8fafc; --text-muted: #94a3b8;
+            --accent: #60a5fa; --hr-color: rgba(248, 250, 252, 0.1);
         }
 
-        * { box-sizing: border-box; }
-        body.loaded * { transition: background-color 0.3s ease, color 0.3s ease; }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background-color: var(--bg-body);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0 20px 40px 20px; /* Ajustado padding para não colar no topo */
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
+            background-color: var(--bg-body); color: var(--text-main);
+            padding: 0 20px 60px 20px; display: flex; flex-direction: column; align-items: center;
+            transition: background-color 0.3s ease;
         }
 
-        /* --- CORREÇÃO DO CABEÇALHO --- */
         .top-nav {
-            width: 100%;
-            max-width: 900px;
-            display: flex;
-            justify-content: flex-start; /* Alinhado à esquerda para manter a direita limpa */
-            align-items: center;
-            padding: 20px 0; /* Espaço interno */
-            margin-bottom: 20px; /* Empurra o relógio para baixo */
+            width: 100%; max-width: 900px; padding: 30px 0;
+            display: flex; justify-content: flex-start;
         }
 
         .logo-text {
-            font-weight: 800;
-            letter-spacing: -1px;
-            font-size: 1.2rem;
-            color: var(--accent);
-            text-decoration: none;
+            font-weight: 900; letter-spacing: -1.5px; font-size: 1.4rem;
+            color: var(--accent); text-decoration: none;
         }
 
-        .hero { text-align: center; margin-bottom: 20px; width: 100%; }
-        
+        .hero { text-align: center; margin-bottom: 30px; width: 100%; animation: fadeIn 0.6s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
         .label-topo { 
-            text-transform: uppercase; font-size: 0.85rem;
-            letter-spacing: 5px; color: var(--accent); margin-bottom: 20px; font-weight: 700;
-            display: block;
+            text-transform: uppercase; font-size: 0.75rem; letter-spacing: 4px; 
+            color: var(--accent); margin-bottom: 15px; font-weight: 800; display: block;
         }
 
         #clock { 
-            font-size: clamp(3.5rem, 18vw, 12rem); /* Reduzido levemente o mínimo para telas pequenas */
-            font-weight: 800; color: var(--text-main); letter-spacing: -5px; line-height: 0.9;
-            font-variant-numeric: tabular-nums;
-            word-wrap: break-word;
+            font-size: clamp(3.8rem, 20vw, 13rem); font-weight: 900; 
+            letter-spacing: -6px; line-height: 0.85; font-variant-numeric: tabular-nums;
         }
         #date { 
-            font-size: clamp(1rem, 4.4vw, 2.2rem); 
-            margin-top: 20px; 
-            color: var(--text-muted); 
-            font-weight: 700; 
-            text-transform: capitalize;
+            font-size: clamp(1rem, 4vw, 2rem); margin-top: 25px; 
+            color: var(--text-muted); font-weight: 700; text-transform: capitalize;
         }
 
-        hr.discreet {
-            border: 0;
-            height: 1px;
-            background: var(--hr-color);
-            width: 100%;
-            max-width: 600px;
-            margin: 35px 0;
-        }
+        hr.discreet { border: 0; height: 1px; background: var(--hr-color); width: 100%; max-width: 600px; margin: 45px 0; }
 
         .holiday-section {
-            text-align: center;
-            padding: 0 20px;
-            color: var(--text-main);
-            font-size: clamp(0.95rem, 3vw, 1.25rem);
-            line-height: 1.6;
+            text-align: center; max-width: 700px; color: var(--text-main);
+            font-size: clamp(1rem, 3.5vw, 1.35rem); line-height: 1.5; font-weight: 500;
         }
-        .holiday-section strong { color: var(--accent); font-weight: 700; }
+        .holiday-section strong { color: var(--accent); font-weight: 800; }
 
         .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
             gap: 20px; width: 100%; max-width: 900px;
         }
         .menu-item {
-            background: var(--bg-card); border: 1px solid rgba(148, 163, 184, 0.1);
-            padding: 30px; border-radius: 28px; text-decoration: none; color: var(--text-main);
-            display: flex; flex-direction: column; align-items: center; gap: 10px;
-            box-shadow: var(--shadow);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.3s ease;
+            background: var(--bg-card); border: 1px solid var(--hr-color);
+            padding: 35px 25px; border-radius: 32px; text-decoration: none; color: var(--text-main);
+            display: flex; flex-direction: column; align-items: center; gap: 12px;
+            box-shadow: var(--shadow); transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); }
-        .menu-item span { font-weight: 700; font-size: 1.1rem; }
-        .menu-item small { color: var(--text-muted); font-size: 0.8rem; }
+        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 30px -10px rgba(0,0,0,0.1); }
+        .menu-item span { font-weight: 800; font-size: 1.2rem; }
+        .menu-item small { color: var(--text-muted); font-size: 0.85rem; text-align: center; line-height: 1.4; }
         
-        .footer-section { width: 100%; display: flex; justify-content: center; padding: 20px 0; }
         .btn-settings {
-            padding: 12px 25px; border-radius: 50px;
-            color: var(--text-muted); text-decoration: none; border: 1px solid var(--text-muted); 
-            font-size: 0.85rem; font-weight: 600; transition: 0.3s;
-            display: flex; align-items: center; gap: 8px;
+            padding: 14px 30px; border-radius: 50px; color: var(--text-muted);
+            text-decoration: none; border: 1.5px solid var(--hr-color); 
+            font-size: 0.9rem; font-weight: 700; transition: 0.3s;
+            display: flex; align-items: center; gap: 10px;
         }
         .btn-settings:hover { color: var(--accent); border-color: var(--accent); background: var(--bg-card); }
 
         @media (max-width: 600px) { 
-            .menu-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-            #clock { font-size: 4.2rem; letter-spacing: -2px; }
-            .top-nav { justify-content: center; text-align: center; }
-            body { padding-top: 10px; }
+            .menu-grid { grid-template-columns: 1fr; }
+            #clock { font-size: 4.5rem; letter-spacing: -3px; }
+            .top-nav { justify-content: center; }
         }
     </style>
 </head>
 <body>
 
-    <div class="top-nav">
+    <header class="top-nav">
         <a href="/" class="logo-text">dataehora.com.br</a>
-    </div>
+    </header>
 
-    <section class="hero">
+    <main class="hero">
         <span class="label-topo">Horário Oficial de Brasília</span>
         <div id="clock">--:--:--</div>
         <div id="date">Carregando...</div>
-    </section>
+    </main>
 
     <hr class="discreet">
 
     <span class="label-topo">Próximo Feriado</span>
     <section class="holiday-section" id="holiday-display">
-        Carregando informações do próximo feriado...
+        Calculando próximo feriado...
     </section>
 
     <hr class="discreet">
 
     <span class="label-topo">Ferramentas</span>
     <nav class="menu-grid">
-        <a href="/feriados/" class="menu-item"><span>📅 Feriados</span><small>Lista de feriados e feriadões</small></a>
-        <a href="/contagem/" class="menu-item"><span>⏳ Contagem Regressiva</span><small>Monitore quanto falta para uma data</small></a>
-        <a href="/calculadora/" class="menu-item"><span>🧮 Calculadoras</span><small>Dias Úteis e Corridos</small></a>
-        <a href="/calendario/" class="menu-item"><span>🗓️ Calendários</span><small>Calendário Anual</small></a>
+        <a href="/feriados/" class="menu-item"><span>📅 Feriados</span><small>Lista completa de 2026 e feriadões</small></a>
+        <a href="/contagem/" class="menu-item"><span>⏳ Contagem Regressiva</span><small>Quanto tempo falta para seu evento</small></a>
+        <a href="/calculadora/" class="menu-item"><span>🧮 Calculadoras</span><small>Dias úteis, corridos e prazos</small></a>
+        <a href="/calendario/" class="menu-item"><span>🗓️ Calendários</span><small>Visualização anual e mensal</small></a>
     </nav>
 
     <hr class="discreet">
 
-    <section class="footer-section">
-        <a href="/configuracoes/" class="btn-settings">
-            ⚙️ Configurações & Contato
-        </a>
-    </section>
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações & Temas</a>
+    </footer>
 
     <script>
         function updateClock() {
-            const clockEl = document.getElementById('clock');
-            const dateEl = document.getElementById('date');
-            if(!clockEl || !dateEl) return;
-
-            const agora = new Date();
-            const optH = { timeZone: 'America/Sao_Paulo', hour: '2-digit', minute: '2-digit', second: '2-digit' };
-            const optD = { timeZone: 'America/Sao_Paulo', weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+            const dateStr = now.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' });
             
-            clockEl.textContent = agora.toLocaleTimeString('pt-BR', optH);
-            dateEl.textContent = agora.toLocaleDateString('pt-BR', optD);
+            document.getElementById('clock').textContent = timeStr;
+            document.getElementById('date').textContent = dateStr;
 
-            const saved = localStorage.getItem('theme-pref') || 'default';
-            if (saved === 'auto' && agora.getSeconds() === 0) {
-                const hora = agora.getHours();
-                const isDark = (hora < 6 || hora >= 18);
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            // Auto-tema a cada minuto se estiver em modo auto
+            if (now.getSeconds() === 0) {
+                const saved = localStorage.getItem('theme-pref') || 'default';
+                if (saved === 'auto') {
+                    const isDark = (now.getHours() < 6 || now.getHours() >= 18);
+                    document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+                }
             }
         }
 
-        function updateHolidayCountdown() {
-            const display = document.getElementById('holiday-display');
-            if(!display) return;
-
-            const agora = new Date();
+        function updateHoliday() {
+            const now = new Date();
+            const year = now.getFullYear();
+            
+            // Lógica simplificada para a Home (Pode ser expandida com a função de Páscoa se necessário)
             const feriados = [
-                {n: "Ano Novo", d: new Date(2026, 0, 1)},
-                {n: "Carnaval", d: new Date(2026, 1, 17)},
-                {n: "Sexta-feira Santa", d: new Date(2026, 3, 3)},
-                {n: "Tiradentes", d: new Date(2026, 3, 21)},
-                {n: "Dia do Trabalho", d: new Date(2026, 4, 1)},
-                {n: "Corpus Christi", d: new Date(2026, 5, 4)},
-                {n: "Independência do Brasil", d: new Date(2026, 8, 7)},
-                {n: "Nossa Sra. Aparecida", d: new Date(2026, 9, 12)},
-                {n: "Finados", d: new Date(2026, 10, 2)},
-                {n: "Proclamação da República", d: new Date(2026, 10, 15)},
-                {n: "Consciência Negra", d: new Date(2026, 10, 20)},
-                {n: "Natal", d: new Date(2026, 11, 25)},
-                {n: "Ano Novo", d: new Date(2027, 0, 1)}
+                {n: "Ano Novo", d: new Date(year, 0, 1)},
+                {n: "Carnaval", d: new Date(year, 1, 17)},
+                {n: "Sexta-feira Santa", d: new Date(year, 3, 3)},
+                {n: "Tiradentes", d: new Date(year, 3, 21)},
+                {n: "Dia do Trabalho", d: new Date(year, 4, 1)},
+                {n: "Corpus Christi", d: new Date(year, 5, 4)},
+                {n: "Independência", d: new Date(year, 8, 7)},
+                {n: "Nossa Sra. Aparecida", d: new Date(year, 9, 12)},
+                {n: "Finados", d: new Date(year, 10, 2)},
+                {n: "Proclamação da República", d: new Date(year, 10, 15)},
+                {n: "Consciência Negra", d: new Date(year, 10, 20)},
+                {n: "Natal", d: new Date(year, 11, 25)},
+                {n: "Ano Novo", d: new Date(year + 1, 0, 1)}
             ];
 
-            const proximo = feriados.find(f => f.d > agora);
-            if (!proximo) return;
-
-            const diff = proximo.d - agora;
-            const dias = Math.ceil(diff / (1000 * 60 * 60 * 24));
+            const proximo = feriados.find(f => f.d > now);
+            const diff = Math.ceil((proximo.d - now) / 864e5);
             
-            const diaMes = proximo.d.getDate();
-            const meses = ["janeiro", "fevereiro", "março", "abril", "maio", "junho", "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"];
-            const nomeMes = meses[proximo.d.getMonth()];
-            const diasSemana = ["domingo", "segunda-feira", "terça-feira", "quarta-feira", "quinta-feira", "sexta-feira", "sábado"];
-            const nomeDiaSemana = diasSemana[proximo.d.getDay()];
-            
-            const artigo = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
+            const fmtDia = new Intl.DateTimeFormat('pt-BR', { weekday: 'long' }).format(proximo.d);
+            const fmtData = new Intl.DateTimeFormat('pt-BR', { day: 'numeric', month: 'long' }).format(proximo.d);
+            const prep = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
 
-            display.innerHTML = `O próximo feriado será ${artigo} <strong>${nomeDiaSemana}</strong> de <strong>${proximo.n}</strong>, dia <strong>${diaMes} de ${nomeMes}</strong>. Faltam <strong>${dias} dias</strong>.`;
+            document.getElementById('holiday-display').innerHTML = 
+                `O próximo feriado é <strong>${proximo.n}</strong>, que cai ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>. Faltam <strong>${diff} dias</strong>.`;
         }
 
-        function init() {
-            document.body.classList.add('loaded');
+        document.addEventListener('DOMContentLoaded', () => {
             updateClock();
-            updateHolidayCountdown();
+            updateHoliday();
             setInterval(updateClock, 1000);
-            setInterval(updateHolidayCountdown, 60000);
-        }
-
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', init);
-        } else {
-            init();
-        }
-
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', e => {
-            const saved = localStorage.getItem('theme-pref') || 'default';
-            if (saved === 'default') {
-                document.documentElement.setAttribute('data-theme', e.matches ? 'dark' : 'light');
-            }
         });
     </script>
 </body>
