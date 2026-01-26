@@ -1,143 +1,280 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Calculadora de Dias Úteis 2026 | Data e Hora</title>
+    <title>Calculadora de Dias Úteis | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            const html = document.documentElement;
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            html.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            html.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
+        })();
+    </script>
+
     <style>
-        :root { 
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
-            --accent: #f59e0b; --secondary: #94a3b8; --border: rgba(148, 163, 184, 0.1);
-        }
-        [data-theme="light"] {
-            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
-            --accent: #d97706; --secondary: #64748b; --border: rgba(0, 0, 0, 0.05);
-        }
-
-        body { 
-            background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; 
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            transition: background 0.5s ease; min-height: 100vh;
+        /* 5 e 6. PADRONIZAÇÃO DE CORES (Protocolo v2) */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;       /* Azul Padrão (Home/Breadcrumb) */
+            --accent-formal: #065f46; /* Verde Petróleo Profissional */
+            --border: rgba(148, 163, 184, 0.2);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --input-bg: #f8fafc;
         }
 
-        .nav-links { display: flex; gap: 10px; margin-bottom: 30px; }
-        .btn-nav {
-            padding: 8px 18px; border-radius: 50px; background: var(--card);
-            color: var(--text); text-decoration: none; font-size: 0.85rem;
-            border: 1px solid var(--border); transition: 0.2s;
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-formal: #10b981;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
         }
-        .btn-nav:hover { border-color: var(--accent); color: var(--accent); }
 
-        .container { width: 100%; max-width: 500px; background: var(--card); padding: 30px; border-radius: 24px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); border: 1px solid var(--border); }
-        h1 { font-size: 1.8rem; text-align: center; margin-bottom: 25px; color: var(--accent); }
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
 
-        .form-group { margin-bottom: 20px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        .container { width: 100%; max-width: 650px; }
+
+        /* 4. BREADCRUMB PADRONIZADO */
+        .top-nav {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+        .top-nav a { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .top-nav span { color: var(--text-muted); font-weight: 800; }
+
+        .header { margin-bottom: 35px; text-align: left; }
+        h1 { font-size: clamp(1.8rem, 6vw, 2.5rem); margin: 0; letter-spacing: -1.5px; font-weight: 900; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
+
+        .calc-card {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: clamp(20px, 5vw, 40px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-group { margin-bottom: 25px; }
+        label { display: block; font-weight: 700; font-size: 0.75rem; margin-bottom: 10px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
+        
         input[type="date"] {
-            width: 100%; padding: 12px; border-radius: 12px; border: 1px solid var(--border);
-            background: var(--bg); color: var(--text); font-family: inherit; font-size: 1rem;
+            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid var(--border);
+            background: var(--input-bg); color: var(--text-main); font-size: 1.1rem;
+            font-family: inherit; outline: none; transition: border-color 0.2s;
         }
-
-        .result-box {
-            margin-top: 30px; padding: 20px; background: rgba(245, 158, 11, 0.1);
-            border-radius: 15px; text-align: center; display: none;
-        }
-        .result-value { font-size: 2.5rem; font-weight: 800; color: var(--accent); display: block; }
-        .result-label { font-size: 0.9rem; color: var(--secondary); }
+        input[type="date"]:focus { border-color: var(--accent-formal); }
 
         button {
-            width: 100%; padding: 15px; border-radius: 12px; border: none;
-            background: var(--accent); color: white; font-weight: 700; font-size: 1rem;
-            cursor: pointer; transition: 0.2s; margin-top: 10px;
+            width: 100%; padding: 18px; border-radius: 16px; border: none;
+            background: var(--accent-formal); color: #fff; font-size: 1.1rem; font-weight: 800;
+            cursor: pointer; transition: transform 0.2s, filter 0.2s;
         }
-        button:hover { opacity: 0.9; transform: translateY(-2px); }
+        button:hover { transform: translateY(-2px); filter: brightness(1.1); }
+
+        /* Resultado */
+        #result-area { margin-top: 40px; display: none; text-align: center; }
+        .res-divider { border-top: 1px solid var(--border); margin-bottom: 30px; }
+        .res-value { font-size: clamp(3rem, 10vw, 4.5rem); font-weight: 900; color: var(--accent-formal); line-height: 1; display: block; }
+        .res-label { font-size: 1.1rem; font-weight: 700; color: var(--text-muted); margin-top: 8px; display: block; }
+        
+        .breakdown { margin: 30px 0; display: flex; justify-content: center; gap: 12px; }
+        .break-item { 
+            color: var(--text-muted); background: var(--input-bg); padding: 12px 20px; 
+            border-radius: 14px; border: 1px solid var(--border); font-size: 0.9rem; font-weight: 700;
+        }
+
+        #holiday-list-container { text-align: left; margin-top: 30px; }
+        .holiday-list-title { font-size: 0.75rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 15px; letter-spacing: 1px; display: block; }
+        .holiday-tag { 
+            display: flex; justify-content: space-between; background: var(--bg-body); 
+            padding: 14px 20px; border-radius: 12px; margin-bottom: 8px; font-size: 0.9rem; font-weight: 600;
+            border-left: 4px solid var(--accent-formal);
+        }
+        .holiday-tag .h-date { color: var(--accent-formal); font-weight: 800; }
+
+        footer { margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; }
+
+        @media (max-width: 500px) {
+            .breakdown { flex-direction: column; }
+            .header { text-align: center; }
+            .top-nav { justify-content: center; }
+        }
     </style>
 </head>
-<body data-theme="dark">
-
-    <div class="nav-links">
-        <a href="/" class="btn-nav">🏠 Início</a>
-        <a href="../" class="btn-nav">🧮 Voltar</a>
-    </div>
+<body>
 
     <div class="container">
-        <h1>Dias Úteis</h1>
-        
-        <div class="form-group">
-            <label>Data Inicial</label>
-            <input type="date" id="data-inicio">
+        <nav class="top-nav">
+            <a href="/">dataehora.com.br</a>
+            <span>/</span>
+            <a href="/calculadora/">Calculadoras</a>
+            <span>/</span>
+            <span>Dias Úteis</span>
+        </nav>
+
+        <header class="header">
+            <h1>Dias Úteis</h1>
+            <p class="subtitle">Intervalo profissional excluindo fins de semana e feriados.</p>
+        </header>
+
+        <div class="calc-card">
+            <div class="form-group">
+                <label>Data Inicial</label>
+                <input type="date" id="date-start">
+            </div>
+            <div class="form-group">
+                <label>Data Final</label>
+                <input type="date" id="date-end">
+            </div>
+            <button onclick="calculate()">Calcular Intervalo Útil</button>
+
+            <div id="result-area">
+                <div class="res-divider"></div>
+                <span class="res-value" id="res-uteis">0</span>
+                <span class="res-label">Dias Úteis</span>
+                
+                <div class="breakdown">
+                    <div class="break-item">Corridos: <span id="res-corridos" style="color: var(--text-main)">0</span></div>
+                    <div class="break-item">Feriados: <span id="res-feriados" style="color: var(--accent-formal)">0</span></div>
+                </div>
+
+                <div id="holiday-list-container" style="display: none;">
+                    <span class="holiday-list-title">Feriados bancários no período:</span>
+                    <div id="holiday-list"></div>
+                </div>
+            </div>
         </div>
 
-        <div class="form-group">
-            <label>Data Final</label>
-            <input type="date" id="data-fim">
-        </div>
-
-        <button onclick="calcularDiasUteis()">Calcular Intervalo</button>
-
-        <div id="resultado" class="result-box">
-            <span id="valor-dias" class="result-value">0</span>
-            <span class="result-label">Dias úteis encontrados</span>
-            <p id="info-extra" style="font-size: 0.75rem; margin-top: 10px; opacity: 0.7;"></p>
-        </div>
+        <footer>dataehora.com.br</footer>
     </div>
 
     <script>
-        // Feriados Nacionais 2026 (Baseados na BrasilAPI)
-        const feriados2026 = [
-            "2026-01-01", "2026-02-16", "2026-02-17", "2026-04-03", "2026-04-21", 
-            "2026-05-01", "2026-06-04", "2026-09-07", "2026-10-12", "2026-11-02", 
-            "2026-11-15", "2026-11-20", "2026-12-25"
-        ];
+        // 1. MANUTENÇÃO ZERO: Algoritmo de feriados brasileiros (Fixos e Móveis)
+        function getHolidayName(date) {
+            const y = date.getFullYear();
+            const m = date.getMonth();
+            const d = date.getDate();
 
-        function calcularDiasUteis() {
-            const inicio = new Date(document.getElementById('data-inicio').value + "T00:00:00");
-            const fim = new Date(document.getElementById('data-fim').value + "T00:00:00");
-            
-            if (isNaN(inicio) || isNaN(fim)) {
-                alert("Por favor, selecione as duas datas.");
-                return;
-            }
+            const fixos = [
+                {d: 1, m: 0, n: "Ano Novo"}, {d: 21, m: 3, n: "Tiradentes"}, {d: 1, m: 4, n: "Dia do Trabalho"},
+                {d: 7, m: 8, n: "Independência"}, {d: 12, m: 9, n: "Nossa Sra. Aparecida"},
+                {d: 2, m: 10, n: "Finados"}, {d: 15, m: 10, n: "Proclamação da República"},
+                {d: 20, m: 10, n: "Consciência Negra"}, {d: 25, m: 11, n: "Natal"}
+            ];
 
-            if (inicio > fim) {
-                alert("A data inicial não pode ser maior que a data final.");
-                return;
-            }
+            const foundFixo = fixos.find(f => f.d === d && f.m === m);
+            if (foundFixo) return foundFixo.n;
 
-            let diasUteis = 0;
-            let dataAtual = new Date(inicio);
+            // Algoritmo Gauss para Páscoa
+            const a = y % 19, b = Math.floor(y / 100), c = y % 100,
+                  dv = Math.floor(b / 4), ev = b % 4, gv = Math.floor((8 * b + 13) / 25),
+                  hv = (19 * a + b - dv - gv + 15) % 30, i = Math.floor(c / 4), kv = c % 4,
+                  lv = (32 + 2 * ev + 2 * i - hv - kv) % 7, mv = Math.floor((a + 11 * hv + 19 * lv) / 433);
+            const mp = Math.floor((hv + lv - 7 * mv + 90) / 25) - 1;
+            const dp = (hv + lv - 7 * mv + 33 * (mp + 1) + 19) % 32;
+            const pascoa = new Date(y, mp, dp);
 
-            while (dataAtual <= fim) {
-                const diaSemana = dataAtual.getDay();
-                const dataString = dataAtual.toISOString().split('T')[0];
-                
-                // 0 = Domingo, 6 = Sábado
-                const fimDeSemana = (diaSemana === 0 || diaSemana === 6);
-                const eFeriado = feriados2026.includes(dataString);
+            const check = (offset, name) => {
+                const dt = new Date(pascoa); dt.setDate(pascoa.getDate() + offset);
+                return (dt.getDate() === d && dt.getMonth() === m) ? name : null;
+            };
 
-                if (!fimDeSemana && !eFeriado) {
-                    diasUteis++;
+            return check(-47, "Carnaval") || check(-2, "Sexta-feira Santa") || check(60, "Corpus Christi");
+        }
+
+        function calculate() {
+            const startStr = document.getElementById('date-start').value;
+            const endStr = document.getElementById('date-end').value;
+            if (!startStr || !endStr) return;
+
+            let d1 = new Date(startStr + 'T00:00:00');
+            let d2 = new Date(endStr + 'T00:00:00');
+            if (d1 > d2) [d1, d2] = [d2, d1];
+
+            let uteis = 0, corridos = 0, holidaysFound = [];
+            let current = new Date(d1);
+
+            // Regra: O dia inicial não conta no intervalo de dias úteis padrão (D+1)
+            while (current < d2) {
+                current.setDate(current.getDate() + 1);
+                corridos++;
+                const ds = current.getDay();
+                const hName = getHolidayName(current);
+
+                // Sábado (6) e Domingo (0) ou Feriado
+                if (ds === 0 || ds === 6 || hName) {
+                    if (hName && ds !== 0 && ds !== 6) {
+                        holidaysFound.push({ name: hName, date: current.toLocaleDateString('pt-BR', {day: '2-digit', month: '2-digit'}) });
+                    }
+                } else {
+                    uteis++;
                 }
-                dataAtual.setDate(dataAtual.getDate() + 1);
             }
 
-            document.getElementById('resultado').style.display = 'block';
-            document.getElementById('valor-dias').textContent = diasUteis;
-            document.getElementById('info-extra').textContent = "*Considerando fins de semana e feriados nacionais de 2026.";
+            document.getElementById('result-area').style.display = 'block';
+            document.getElementById('res-uteis').textContent = uteis;
+            document.getElementById('res-corridos').textContent = corridos;
+            document.getElementById('res-feriados').textContent = holidaysFound.length;
+
+            const listCont = document.getElementById('holiday-list-container');
+            const listDiv = document.getElementById('holiday-list');
+            listDiv.innerHTML = '';
+            
+            if (holidaysFound.length > 0) {
+                listCont.style.display = 'block';
+                holidaysFound.forEach(h => {
+                    listDiv.innerHTML += `<div class="holiday-tag"><span>${h.name}</span> <span class="h-date">${h.date}</span></div>`;
+                });
+            } else {
+                listCont.style.display = 'none';
+            }
+
+            if(window.innerWidth < 600) document.getElementById('result-area').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // Sincronização de tema
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const hora = new Date().getHours();
-            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
-        } else {
-            document.body.setAttribute('data-theme', savedTheme);
-        }
-
-        // Definir datas padrão (Hoje e +30 dias)
-        const hoje = new Date().toISOString().split('T')[0];
-        document.getElementById('data-inicio').value = hoje;
+        window.onload = () => {
+            const d = new Date();
+            document.getElementById('date-start').value = d.toISOString().split('T')[0];
+            const d2 = new Date(); d2.setMonth(d.getMonth() + 1);
+            document.getElementById('date-end').value = d2.toISOString().split('T')[0];
+        };
     </script>
 </body>
 </html>

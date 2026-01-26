@@ -1,76 +1,214 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title id="page-title">Feriados | Data e Hora</title>
+    <title>Calendário de Feriados | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
     <style>
-        :root { --bg: #0f172a; --card: #1e293b; --text: #f8fafc; --accent: #38bdf8; --border: rgba(148, 163, 184, 0.1); }
-        [data-theme="light"] { --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; --accent: #0284c7; --border: rgba(0, 0, 0, 0.05); }
-        body { background: var(--bg); color: var(--text); font-family: system-ui, sans-serif; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .nav-links { display: flex; gap: 10px; margin-bottom: 30px; }
-        .btn-nav { padding: 8px 18px; border-radius: 50px; background: var(--card); color: var(--text); text-decoration: none; font-size: 0.85rem; border: 1px solid var(--border); transition: 0.2s; }
-        .container { width: 100%; max-width: 800px; }
-        h1 { font-size: 2rem; text-align: center; margin-bottom: 5px; }
-        .sub-h1 { text-align: center; color: #94a3b8; margin-bottom: 40px; font-size: 1rem; }
-        .holiday-table { width: 100%; border-collapse: collapse; background: var(--card); border-radius: 16px; overflow: hidden; }
-        .holiday-table th, .holiday-table td { padding: 15px; text-align: left; border-bottom: 1px solid var(--border); }
-        .holiday-table th { background: rgba(56, 189, 248, 0.1); color: var(--accent); font-size: 0.8rem; text-transform: uppercase; }
-        .holiday-date { font-weight: 600; color: var(--accent); }
-        .loader { border: 3px solid rgba(56, 189, 248, 0.2); border-left-color: var(--accent); border-radius: 50%; width: 30px; height: 30px; animation: spin 1s linear infinite; margin: 50px auto; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --text-main: #0f172a;
+            --text-muted: #64748b; --accent: #2563eb; --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --border: rgba(148, 163, 184, 0.15); --next-bg: #2563eb;
+            /* Safra Cromática v2.0 */
+            --y2026: #2563eb; --y2027: #4338ca; --y2028: #0891b2;
+        }
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --text-main: #f8fafc;
+            --text-muted: #94a3b8; --accent: #60a5fa; --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            --border: rgba(255, 255, 255, 0.05); --next-bg: #1d4ed8;
+            --y2026: #60a5fa; --y2027: #818cf8; --y2028: #22d3ee;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container { width: 100%; max-width: 750px; animation: fadeIn 0.5s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        
+        .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
+        .nav-link { text-decoration: none; font-weight: 800; font-size: 0.85rem; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
+        .nav-current { color: var(--text-muted); font-weight: 800; font-size: 0.85rem; }
+
+        .header { margin-bottom: 40px; }
+        h1 { font-size: 2.8rem; margin: 0; letter-spacing: -1.8px; font-weight: 900; line-height: 1.1; }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
+
+        .next-banner {
+            background: var(--next-bg); color: #ffffff;
+            padding: 45px 30px; border-radius: 32px; text-align: center;
+            box-shadow: 0 20px 30px -10px rgba(37, 99, 235, 0.3);
+            margin-bottom: 60px;
+        }
+        .next-banner .label { text-transform: uppercase; font-size: 0.8rem; font-weight: 800; opacity: 0.8; letter-spacing: 2px; display: block; margin-bottom: 15px; }
+        .next-banner .date { font-size: 3.2rem; font-weight: 900; margin: 0; display: block; letter-spacing: -2px; line-height: 1; }
+        .next-banner .name { font-size: 1.6rem; font-weight: 700; margin-top: 15px; display: block; }
+
+        .year-section { margin-top: 60px; }
+        .year-divider { 
+            font-size: 3.5rem; font-weight: 900; margin-bottom: 30px; 
+            letter-spacing: -3px; display: flex; align-items: center; gap: 20px;
+        }
+        .year-divider::after { content: ''; flex-grow: 1; height: 4px; border-radius: 4px; opacity: 0.15; }
+
+        .y-2026 .year-divider { color: var(--y2026); } .y-2026 .year-divider::after { background: var(--y2026); }
+        .y-2027 .year-divider { color: var(--y2027); } .y-2027 .year-divider::after { background: var(--y2027); }
+        .y-2028 .year-divider { color: var(--y2028); } .y-2028 .year-divider::after { background: var(--y2028); }
+
+        .holiday-row {
+            display: grid; grid-template-columns: 130px 160px 1fr; align-items: center;
+            padding: 20px 15px; border-bottom: 1px solid var(--border);
+            transition: all 0.2s ease;
+        }
+        .holiday-row:hover:not(.past) { background: var(--bg-card); border-radius: 16px; transform: translateX(8px); box-shadow: var(--shadow); }
+        .holiday-row.past { opacity: 0.35; filter: grayscale(1); }
+
+        .col-date { font-weight: 900; font-size: 1.25rem; }
+        .col-weekday { font-size: 0.95rem; font-weight: 600; color: var(--text-muted); text-transform: capitalize; }
+        .col-name { font-weight: 800; text-align: right; font-size: 1.1rem; }
+
+        footer { text-align: center; padding: 100px 0; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
+
+        @media (max-width: 650px) {
+            .holiday-row { grid-template-columns: 110px 1fr; }
+            .col-weekday { display: none; }
+            h1 { font-size: 2.2rem; }
+        }
     </style>
 </head>
-<body data-theme="dark">
-    <div class="nav-links">
-        <a href="/" class="btn-nav">🏠 Início</a>
-        <a href="../" class="btn-nav">📅 Voltar</a>
-    </div>
+<body>
 
     <div class="container">
-        <h1 id="main-h1">Feriados Nacionais</h1>
-        <p class="sub-h1" id="sub-year">Carregando calendário oficial...</p>
-        
-        <div id="loader" class="loader"></div>
-        <table class="holiday-table" id="table" style="display: none;">
-            <thead><tr><th>Data</th><th>Nome do Feriado</th><th>Dia da Semana</th></tr></thead>
-            <tbody id="list"></tbody>
-        </table>
+        <nav class="nav-header">
+            <a href="/" class="nav-link">Início</a>
+            <span class="nav-sep">/</span>
+            <a href="/feriados" class="nav-link">Feriados</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Calendário</span>
+        </nav>
+
+        <header class="header">
+            <h1>Calendário de Feriados</h1>
+            <p class="subtitle">Lista oficial de feriados nacionais e pontos facultativos.</p>
+        </header>
+
+        <div id="next-container"></div>
+        <div id="calendar-content"></div>
+
+        <footer>dataehora.com.br</footer>
     </div>
 
     <script>
-        async function loadHolidays() {
-            const year = new Date().getFullYear();
-            document.getElementById('page-title').textContent = `Feriados Nacionais ${year} | Data e Hora`;
-            document.getElementById('main-h1').textContent = `Feriados Nacionais ${year}`;
-            
-            try {
-                const res = await fetch(`https://brasilapi.com.br/api/feriados/v1/${year}`);
-                const data = await res.json();
-                const list = document.getElementById('list');
-                
-                data.forEach(h => {
-                    const d = new Date(h.date + "T00:00:00");
-                    const row = `<tr>
-                        <td class="holiday-date">${d.toLocaleDateString('pt-BR', {day:'2-digit', month:'2-digit'})}</td>
-                        <td>${h.name}</td>
-                        <td style="text-transform: capitalize; color: #94a3b8">${d.toLocaleDateString('pt-BR', {weekday:'long'})}</td>
-                    </tr>`;
-                    list.innerHTML += row;
-                });
-                
-                document.getElementById('loader').style.display = 'none';
-                document.getElementById('table').style.display = 'table';
-                document.getElementById('sub-year').textContent = `Lista oficial de feriados e pontos facultativos em ${year}`;
-            } catch (e) { document.getElementById('sub-year').textContent = "Erro ao carregar dados."; }
+        function getHolidays(year) {
+            const h = [
+                { d: 1, m: 0, n: "Confraternização Universal" },
+                { d: 21, m: 3, n: "Tiradentes" },
+                { d: 1, m: 4, n: "Dia do Trabalhador" },
+                { d: 7, m: 8, n: "Independência do Brasil" },
+                { d: 12, m: 9, n: "Nossa Sra. Aparecida" },
+                { d: 2, m: 10, n: "Finados" },
+                { d: 15, m: 10, n: "Proclamação da República" },
+                { d: 20, m: 10, n: "Consciência Negra" },
+                { d: 25, m: 11, n: "Natal" }
+            ];
+
+            const a = year % 19, b = Math.floor(year / 100), c = year % 100,
+                  d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25),
+                  g = Math.floor((b - f + 1) / 3), h_val = (19 * a + b - d - g + 15) % 30,
+                  i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h_val - k) % 7,
+                  m = Math.floor((a + 11 * h_val + 22 * l) / 451);
+            const month = Math.floor((h_val + l - 7 * m + 114) / 31) - 1;
+            const day = ((h_val + l - 7 * m + 114) % 31) + 1;
+            const easter = new Date(year, month, day);
+
+            const addM = (offset, name) => {
+                const date = new Date(easter);
+                date.setDate(easter.getDate() + offset);
+                h.push({ d: date.getDate(), m: date.getMonth(), n: name });
+            };
+
+            addM(-47, "Carnaval");
+            addM(-2, "Sexta-feira Santa");
+            addM(60, "Corpus Christi");
+
+            return h.map(x => {
+                const dt = new Date(year, x.m, x.d);
+                dt.setHours(0,0,0,0);
+                return { ...x, dt, week: dt.toLocaleDateString('pt-BR', { weekday: 'long' }) };
+            }).sort((a, b) => a.dt - b.dt);
         }
 
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const h = new Date().getHours();
-            document.body.setAttribute('data-theme', (h >= 6 && h < 18) ? 'light' : 'dark');
-        } else { document.body.setAttribute('data-theme', savedTheme); }
-        loadHolidays();
+        function render() {
+            const now = new Date();
+            now.setHours(0,0,0,0);
+            const currentYear = now.getFullYear();
+            const container = document.getElementById('calendar-content');
+            const nextCont = document.getElementById('next-container');
+            if(!container) return;
+
+            let nextFound = false;
+
+            for (let y = currentYear; y <= currentYear + 2; y++) {
+                const section = document.createElement('div');
+                section.className = `year-section y-${y}`;
+                section.innerHTML = `<div class="year-divider">${y}</div>`;
+
+                getHolidays(y).forEach(f => {
+                    const isPast = f.dt < now;
+                    
+                    if (!nextFound && !isPast) {
+                        nextFound = true;
+                        nextCont.innerHTML = `
+                            <div class="next-banner">
+                                <span class="label">Próximo Feriado</span>
+                                <span class="date">${f.d} de ${f.dt.toLocaleDateString('pt-BR', {month: 'long'})}</span>
+                                <span class="name">${f.n}</span>
+                            </div>`;
+                    }
+
+                    const row = document.createElement('div');
+                    row.className = `holiday-row ${isPast ? 'past' : ''}`;
+                    const mes = f.dt.toLocaleDateString('pt-BR', {month: 'short'}).replace('.','');
+                    row.innerHTML = `
+                        <div class="col-date" style="color: var(--y${y})">${f.d} ${mes}</div>
+                        <div class="col-weekday">${f.week.split('-')[0]}</div>
+                        <div class="col-name">${f.n}</div>`;
+                    section.appendChild(row);
+                });
+                container.appendChild(section);
+            }
+        }
+        
+        // CORREÇÃO PROTOCOLO: Só executa após o DOM estar pronto
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', render);
+        } else {
+            render();
+        }
     </script>
 </body>
 </html>

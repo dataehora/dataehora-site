@@ -1,95 +1,313 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contagem Regressiva | Eventos e Datas 2026 | Data e Hora</title>
+    <title>Contagem Regressiva | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
     <style>
-        :root { 
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
-            --accent: #fb7185; /* Rosa/Carmim para Contagem */
-            --secondary: #94a3b8; --border: rgba(148, 163, 184, 0.1);
-        }
-        [data-theme="light"] {
-            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
-            --accent: #e11d48; --secondary: #64748b; --border: rgba(0, 0, 0, 0.05);
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --bg-timer: #f8fafc;
+            --text-main: #0f172a; --text-muted: #64748b; --accent: #4f46e5;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(148, 163, 184, 0.15); --whatsapp: #22c55e;
+            --copy-btn: #6366f1;
         }
 
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            transition: background 0.5s ease; min-height: 100vh;
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --bg-timer: #1e293b;
+            --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #818cf8;
+            --hr-color: rgba(255, 255, 255, 0.08);
         }
 
-        .btn-home {
-            margin-top: 20px; margin-bottom: 40px; padding: 10px 25px; border-radius: 50px;
-            background: rgba(148, 163, 184, 0.1); color: var(--text);
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            border: 1px solid var(--border); transition: 0.2s;
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            padding: 20px; display: flex; flex-direction: column; align-items: center;
         }
-        .btn-home:hover { background: var(--accent); color: white; border-color: var(--accent); }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .label { text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
-        h1 { font-size: 2.5rem; margin: 0; }
+        .container { width: 100%; max-width: 800px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px; width: 100%; max-width: 850px;
+        .nav-header { width: 100%; display: flex; gap: 8px; margin: 10px 0 25px 0; font-size: 0.85rem; align-items: center; }
+        .nav-link { text-decoration: none; font-weight: 800; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 800; }
+
+        .countdown-card {
+            background: var(--bg-card); padding: clamp(25px, 5vw, 60px);
+            border-radius: 32px; box-shadow: var(--shadow); text-align: center;
+            border: 1px solid var(--hr-color); margin-bottom: 30px;
         }
-        .menu-item {
-            background: var(--card); border: 1px solid var(--border);
-            padding: 40px 20px; border-radius: 24px; text-decoration: none; color: var(--text);
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
-            display: flex; flex-direction: column; align-items: center; gap: 15px;
-            text-align: center;
-        }
-        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1); }
-        .menu-item i { font-size: 2.8rem; font-style: normal; }
-        .menu-item span { font-weight: 800; font-size: 1.3rem; }
-        .menu-item small { color: var(--secondary); font-size: 0.95rem; line-height: 1.4; }
 
-        @media (max-width: 600px) { h1 { font-size: 2rem; } }
+        .event-label { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: var(--text-muted); margin-bottom: 12px; font-weight: 800; }
+        .event-name { font-size: clamp(2rem, 6vw, 3.2rem); font-weight: 900; color: var(--text-main); margin-bottom: 8px; letter-spacing: -1.5px; line-height: 1; }
+        .event-date-display { font-size: 1rem; color: var(--text-muted); margin-bottom: 45px; font-weight: 600; }
+
+        .timer-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 40px; }
+        .timer-box { 
+            background: var(--bg-timer); padding: 25px 5px; border-radius: 20px; 
+            border: 1px solid var(--hr-color); min-width: 0;
+        }
+        .timer-val { 
+            font-size: clamp(1.8rem, 5vw, 3.5rem); font-weight: 950; 
+            color: var(--accent); font-variant-numeric: tabular-nums; line-height: 1;
+        }
+        .timer-unit { font-size: 0.65rem; text-transform: uppercase; font-weight: 800; color: var(--text-muted); display: block; margin-top: 5px; }
+
+        .share-section { padding-top: 30px; border-top: 2px dashed var(--hr-color); }
+        .share-label { display: block; font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); margin-bottom: 20px; }
+        .share-actions { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+        
+        .btn-share { 
+            text-decoration: none; padding: 14px 24px; border-radius: 16px; 
+            font-size: 0.85rem; font-weight: 800; color: white; 
+            display: inline-flex; align-items: center; gap: 8px; cursor: pointer; border: none; transition: 0.2s;
+        }
+        .btn-share:hover { transform: translateY(-2px); filter: brightness(1.1); }
+        .btn-wa { background: var(--whatsapp); }
+        .btn-copy { background: var(--copy-btn); }
+
+        .selection-panel { 
+            background: var(--bg-card); padding: 30px; border-radius: 24px; 
+            box-shadow: var(--shadow); border: 1px solid var(--hr-color); width: 100%;
+        }
+        .form-row { display: flex; flex-wrap: wrap; gap: 20px; }
+        .input-group { display: flex; flex-direction: column; gap: 8px; flex: 1; min-width: 200px; }
+        .input-group label { font-size: 0.7rem; font-weight: 800; text-transform: uppercase; color: var(--text-muted); }
+
+        select, input {
+            padding: 15px; border-radius: 14px; border: 2px solid var(--hr-color);
+            background: var(--bg-timer); color: var(--text-main); font-size: 1rem; font-weight: 700; outline: none;
+        }
+        select:focus, input:focus { border-color: var(--accent); }
+        .hidden { display: none !important; }
+
+        @media (max-width: 600px) {
+            .timer-grid { gap: 8px; }
+            .timer-box { padding: 15px 2px; }
+            .share-actions { flex-direction: column; }
+            .btn-share { width: 100%; justify-content: center; }
+        }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <a href="/" class="btn-home">🏠 Voltar ao Início</a>
-
-    <section class="hero">
-        <div class="label">Tempo Restante</div>
-        <h1>Contagens Regressivas</h1>
-    </section>
-
-    <nav class="menu-grid">
-        <a href="ano-novo/" class="menu-item">
-            <i>🥂</i>
-            <span>Ano Novo 2027</span>
-            <small>Quanto tempo falta para o próximo ano.</small>
-        </a>
-
-        <a href="proximo-feriado/" class="menu-item">
-            <i>🎉</i>
-            <span>Próximo Feriado</span>
-            <small>Contagem automática para a folga mais próxima.</small>
-        </a>
-
-        <a href="personalizada/" class="menu-item">
-            <i>⏱️</i>
-            <span>Criar Contagem</span>
-            <small>Defina uma data e partilhe um link exclusivo.</small>
-        </a>
+<div class="container">
+    <nav class="nav-header">
+        <a href="/" class="nav-link">Início</a>
+        <span class="nav-sep">/</span>
+        <span style="color: var(--text-muted); font-weight: 800;">Contagem Regressiva</span>
     </nav>
 
-    <script>
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const hora = new Date().getHours();
-            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
+    <div class="countdown-card">
+        <div class="event-label" id="label-txt">Faltam exatamente</div>
+        <div class="event-name" id="display-name">Carregando...</div>
+        <div class="event-date-display" id="display-full-date">...</div>
+
+        <div class="timer-grid">
+            <div class="timer-box"><span class="timer-val" id="days">00</span><span class="timer-unit">Dias</span></div>
+            <div class="timer-box"><span class="timer-val" id="hours">00</span><span class="timer-unit">Horas</span></div>
+            <div class="timer-box"><span class="timer-val" id="minutes">00</span><span class="timer-unit">Minutos</span></div>
+            <div class="timer-box"><span class="timer-val" id="seconds">00</span><span class="timer-unit">Segundos</span></div>
+        </div>
+
+        <div class="share-section">
+            <span class="share-label">Compartilhar Contagem</span>
+            <div class="share-actions">
+                <a href="#" id="share-wa" class="btn-share btn-wa" target="_blank">WhatsApp</a>
+                <button onclick="copyToClipboard()" id="btn-copy" class="btn-share btn-copy">Copiar Link</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="selection-panel">
+        <div class="form-row">
+            <div class="input-group">
+                <label>Selecione um Evento</label>
+                <select id="event-selector" onchange="toggleCustomFields()">
+                    <option value="next" selected>Próximo Feriado Nacional</option>
+                    <optgroup label="Feriados Nacionais" id="holiday-list"></optgroup>
+                    <option value="custom">✨ Data Personalizada...</option>
+                </select>
+            </div>
+            <div id="custom-fields" class="hidden" style="display: contents;">
+                <div class="input-group">
+                    <label>Nome</label>
+                    <input type="text" id="custom-name" placeholder="Ex: Minhas Férias" oninput="updateTarget()">
+                </div>
+                <div class="input-group">
+                    <label>Data/Hora</label>
+                    <input type="datetime-local" id="custom-date" onchange="updateTarget()">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    let targetDate, targetName, timerInterval, isLive = false;
+
+    function getHolidays(year) {
+        const a = year % 19, b = Math.floor(year / 100), c = year % 100;
+        const d = Math.floor(b / 4), e = b % 4, f = Math.floor((b + 8) / 25);
+        const g = Math.floor((b - f + 1) / 3), h = (19 * a + b - d - g + 15) % 30;
+        const i = Math.floor(c / 4), k = c % 4, l = (32 + 2 * e + 2 * i - h - k) % 7;
+        const m = Math.floor((a + 11 * h + 22 * l) / 451);
+        const mes = Math.floor((h + l - 7 * m + 114) / 31);
+        const dia = ((h + l - 7 * m + 114) % 31) + 1;
+        const pascoa = new Date(year, mes - 1, dia);
+
+        const moveis = (dias) => {
+            const dt = new Date(pascoa); dt.setDate(pascoa.getDate() + dias);
+            return dt.toISOString().split('T')[0] + "T00:00:00";
+        };
+
+        return [
+            { d: `${year}-01-01T00:00:00`, n: "Ano Novo" },
+            { d: moveis(-47), n: "Carnaval" },
+            { d: moveis(-2), n: "Sexta-feira Santa" },
+            { d: `${year}-04-21T00:00:00`, n: "Tiradentes" },
+            { d: `${year}-05-01T00:00:00`, n: "Dia do Trabalho" },
+            { d: moveis(60), n: "Corpus Christi" },
+            { d: `${year}-09-07T00:00:00`, n: "Independência" },
+            { d: `${year}-10-12T00:00:00`, n: "Nossa Sra. Aparecida" },
+            { d: `${year}-11-02T00:00:00`, n: "Finados" },
+            { d: `${year}-11-15T00:00:00`, n: "Proclamação da República" },
+            { d: `${year}-11-20T00:00:00`, n: "Consciência Negra" },
+            { d: `${year}-12-25T00:00:00`, n: "Natal" }
+        ];
+    }
+
+    function populateHolidays() {
+        const list = document.getElementById('holiday-list');
+        const year = new Date().getFullYear();
+        getHolidays(year).forEach(h => {
+            const opt = document.createElement('option');
+            opt.value = `${h.d}|${h.n}`;
+            opt.innerText = h.n;
+            list.appendChild(opt);
+        });
+    }
+
+    function toggleCustomFields() {
+        const val = document.getElementById('event-selector').value;
+        document.getElementById('custom-fields').classList.toggle('hidden', val !== 'custom');
+        updateTarget();
+    }
+
+    function updateTarget() {
+        const selector = document.getElementById('event-selector');
+        const now = new Date();
+        
+        if (selector.value === 'next' || selector.value.includes('|')) {
+            let found;
+            if (selector.value === 'next') {
+                found = getHolidays(now.getFullYear()).find(h => new Date(h.d) > now) || getHolidays(now.getFullYear() + 1)[0];
+            } else {
+                const [d, n] = selector.value.split('|');
+                let t = new Date(d);
+                if (t < now) t.setFullYear(now.getFullYear() + 1);
+                found = { d: t, n: n };
+            }
+            targetDate = new Date(found.d);
+            targetName = found.n;
         } else {
-            document.body.setAttribute('data-theme', savedTheme);
+            targetName = document.getElementById('custom-name').value || "Data Especial";
+            const dv = document.getElementById('custom-date').value;
+            targetDate = dv ? new Date(dv) : now;
         }
-    </script>
+
+        document.getElementById('display-name').innerText = targetName;
+        document.getElementById('display-full-date').innerText = targetDate.toLocaleString('pt-BR', { dateStyle: 'long', timeStyle: 'short' });
+        isLive = (targetDate > now);
+        syncURL();
+        startTimer();
+    }
+
+    function syncURL() {
+        const selector = document.getElementById('event-selector').value;
+        const p = new URLSearchParams();
+        if (selector === 'custom') {
+            p.set('type', 'custom');
+            p.set('name', document.getElementById('custom-name').value);
+            p.set('date', document.getElementById('custom-date').value);
+        } else if (selector !== 'next') {
+            p.set('type', 'event');
+            p.set('val', selector);
+        }
+        
+        const newUrl = window.location.pathname + (p.toString() ? '?' + p.toString() : '');
+        window.history.replaceState(null, '', newUrl);
+
+        const shareLink = window.location.href;
+        document.getElementById('share-wa').href = `https://api.whatsapp.com/send?text=${encodeURIComponent('Falta quanto tempo para ' + targetName + '? Veja aqui: ' + shareLink)}`;
+    }
+
+    function startTimer() {
+        if (timerInterval) clearInterval(timerInterval);
+        const update = () => {
+            const diff = targetDate - new Date();
+            if (diff <= 0) {
+                ["days","hours","minutes","seconds"].forEach(id => document.getElementById(id).innerText = "00");
+                if(isLive) { confetti({ particleCount: 150, spread: 70, origin: { y: 0.6 } }); isLive = false; }
+                return;
+            }
+            document.getElementById('days').innerText = Math.floor(diff / 864e5).toString().padStart(2, '0');
+            document.getElementById('hours').innerText = Math.floor((diff % 864e5) / 36e5).toString().padStart(2, '0');
+            document.getElementById('minutes').innerText = Math.floor((diff % 36e5) / 6e4).toString().padStart(2, '0');
+            document.getElementById('seconds').innerText = Math.floor((diff % 6e4) / 1000).toString().padStart(2, '0');
+        };
+        update();
+        timerInterval = setInterval(update, 1000);
+    }
+
+    function copyToClipboard() {
+        const btn = document.getElementById('btn-copy');
+        navigator.clipboard.writeText(window.location.href).then(() => {
+            const original = btn.innerText;
+            btn.innerText = "Copiado! ✓";
+            btn.style.background = "#22c55e";
+            setTimeout(() => { btn.innerText = original; btn.style.background = "var(--copy-btn)"; }, 2000);
+        });
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        populateHolidays();
+        const p = new URLSearchParams(window.location.search);
+        if (p.has('type')) {
+            if (p.get('type') === 'custom') {
+                document.getElementById('event-selector').value = 'custom';
+                document.getElementById('custom-fields').classList.remove('hidden');
+                document.getElementById('custom-name').value = p.get('name');
+                document.getElementById('custom-date').value = p.get('date');
+            } else {
+                document.getElementById('event-selector').value = p.get('val');
+            }
+        }
+        updateTarget();
+    });
+</script>
 </body>
 </html>

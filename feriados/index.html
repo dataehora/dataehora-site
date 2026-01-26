@@ -1,87 +1,150 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feriados 2026 | Calendário Nacional</title>
+    <title>Feriados Nacionais | dataehora.com.br</title>
+    
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+        })();
+    </script>
+
     <style>
-        :root { 
-            --bg: #0f172a; --card: #1e293b; --text: #f8fafc; 
-            --accent: #38bdf8; --secondary: #94a3b8; 
-        }
-        [data-theme="light"] {
-            --bg: #f1f5f9; --card: #ffffff; --text: #0f172a; 
-            --accent: #0284c7; --secondary: #64748b; 
-        }
-
-        body { 
-            background: var(--bg); color: var(--text); 
-            font-family: system-ui, -apple-system, sans-serif; 
-            margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; 
-            transition: background 0.5s ease; min-height: 100vh;
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb; 
+            --shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.05);
+            --border: rgba(148, 163, 184, 0.2);
+            --color-feriados: #2563eb; 
+            --color-feriadoes: #4338ca; 
         }
 
-        .btn-home {
-            margin-top: 20px; margin-bottom: 40px; padding: 10px 25px; border-radius: 50px;
-            background: rgba(148, 163, 184, 0.1); color: var(--text);
-            text-decoration: none; font-weight: 600; font-size: 0.85rem;
-            border: 1px solid rgba(148, 163, 184, 0.2); transition: 0.2s;
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa; /* Azul Soft para Dark Mode */
+            --shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.4);
+            --border: rgba(255, 255, 255, 0.05);
         }
-        .btn-home:hover { background: var(--accent); color: var(--bg); }
 
-        .hero { text-align: center; margin-bottom: 50px; }
-        .label { text-transform: uppercase; font-size: 1rem; letter-spacing: 3px; color: var(--accent); font-weight: 700; margin-bottom: 10px; }
-        h1 { font-size: 2.5rem; margin: 0; }
-
-        .menu-grid {
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 20px; width: 100%; max-width: 700px;
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0; padding: 20px;
+            display: flex; flex-direction: column; align-items: center;
+            min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease; /* Blindagem de Transição */
         }
-        .menu-item {
-            background: var(--card); border: 1px solid rgba(148, 163, 184, 0.1);
-            padding: 40px 20px; border-radius: 24px; text-decoration: none; color: var(--text);
-            transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); display: flex; flex-direction: column; align-items: center; gap: 15px;
-            text-align: center;
-        }
-        .menu-item:hover { transform: translateY(-8px); border-color: var(--accent); }
-        .menu-item i { font-size: 2.5rem; }
-        .menu-item span { font-weight: 800; font-size: 1.2rem; }
-        .menu-item small { color: var(--secondary); font-size: 0.9rem; }
 
-        @media (max-width: 500px) { .menu-grid { grid-template-columns: 1fr; } }
+        .container { width: 100%; max-width: 700px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* BREADCRUMB PADRONIZADO (800 weight) */
+        .nav-header { display: flex; gap: 12px; margin: 20px 0 30px 0; align-items: center; }
+        .nav-link { text-decoration: none; font-weight: 800; font-size: 0.85rem; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 800; font-size: 0.8rem; }
+        .nav-current { color: var(--text-muted); font-weight: 800; font-size: 0.85rem; }
+
+        .header { margin-bottom: 50px; text-align: left; }
+        h1 { font-size: 2.8rem; margin: 0; letter-spacing: -1.8px; font-weight: 900; line-height: 1.1; }
+        .subtitle { color: var(--text-muted); font-size: 1.2rem; margin-top: 10px; font-weight: 500; max-width: 500px; }
+
+        .hub-grid { display: grid; grid-template-columns: 1fr; gap: 20px; }
+
+        .hub-card {
+            background: var(--bg-card);
+            border: 2px solid var(--border);
+            border-radius: 28px;
+            padding: 35px;
+            text-decoration: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .hub-card:hover { 
+            transform: translateY(-5px); 
+            box-shadow: var(--shadow); 
+            border-color: var(--card-color); 
+        }
+        
+        .card-icon { font-size: 2.5rem; margin-bottom: 5px; }
+        .card-title { font-size: 1.8rem; font-weight: 900; color: var(--text-main); letter-spacing: -1px; transition: color 0.3s; }
+        .card-desc { font-size: 1.05rem; color: var(--text-muted); font-weight: 500; line-height: 1.5; }
+
+        .card-feriados { --card-color: var(--color-feriados); }
+        .card-feriadoes { --card-color: var(--color-feriadoes); }
+        
+        .hub-card:hover .card-title { color: var(--card-color); }
+
+        .btn-action {
+            margin-top: 10px; display: inline-flex; align-items: center; gap: 8px;
+            font-weight: 800; color: var(--card-color); text-transform: uppercase;
+            font-size: 0.85rem; letter-spacing: 1px;
+        }
+
+        footer { text-align: center; padding: 80px 0 40px; color: var(--text-muted); font-size: 0.9rem; font-weight: 700; }
+
+        @media (max-width: 600px) {
+            h1 { font-size: 2.2rem; }
+            .hub-card { padding: 25px; }
+            .card-title { font-size: 1.5rem; }
+        }
     </style>
 </head>
-<body data-theme="dark">
+<body>
 
-    <a href="/" class="btn-home">🏠 Início</a>
+    <div class="container">
+        <nav class="nav-header">
+            <a href="/" class="nav-link">Início</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Feriados</span>
+        </nav>
 
-    <section class="hero">
-        <div class="label">Planejamento 2026</div>
-        <h1>Feriados</h1>
-    </section>
+        <header class="header">
+            <h1>Feriados</h1>
+            <p class="subtitle">Planeje seu ano com a lista completa de feriados e emendas nacionais.</p>
+        </header>
 
-    <nav class="menu-grid">
-        <a href="do-ano/" class="menu-item">
-            <i>📅</i>
-            <span>Feriados do Ano</span>
-            <small>Lista completa de feriados nacionais e pontos facultativos.</small>
-        </a>
-        <a href="feriadoes/" class="menu-item">
-            <i>🌴</i>
-            <span>Feriadões 2026</span>
-            <small>Datas que permitem emendar com o final de semana.</small>
-        </a>
-    </nav>
+        <main class="hub-grid">
+            <a href="/feriados/do-ano" class="hub-card card-feriados">
+                <span class="card-icon">📅</span>
+                <span class="card-title">Calendário Completo</span>
+                <span class="card-desc">Lista detalhada de todos os feriados nacionais de 2026 a 2028, organizada mês a mês.</span>
+                <span class="btn-action">Ver calendário completo →</span>
+            </a>
 
-    <script>
-        // Sincronização de tema idêntica à página de contato
-        const savedTheme = localStorage.getItem('theme-pref-dataehora') || 'auto';
-        if (savedTheme === 'auto') {
-            const hora = new Date().getHours();
-            document.body.setAttribute('data-theme', (hora >= 6 && hora < 18) ? 'light' : 'dark');
-        } else {
-            document.body.setAttribute('data-theme', savedTheme);
-        }
-    </script>
+            <a href="/feriados/feriadoes" class="hub-card card-feriadoes">
+                <span class="card-icon">✈️</span>
+                <span class="card-title">Feriadões & Emendas</span>
+                <span class="card-desc">Planeje sua viagem: veja os feriados que permitem prolongar o descanso durante a semana.</span>
+                <span class="btn-action">Ver emendas e pontes →</span>
+            </a>
+        </main>
+
+        <footer>dataehora.com.br</footer>
+    </div>
 </body>
 </html>
