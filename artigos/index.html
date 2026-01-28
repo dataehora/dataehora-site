@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
+    <!-- Google AdSense -->
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-XXXXXXXXXXXXXXXX"
+         crossorigin="anonymous"></script>
+    
+    <!-- Essential Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    
+    <!-- SEO Meta Tags -->
+    <title>Guia Completo sobre Gestão de Tempo e Datas | dataehora.com.br</title>
+    <meta name="description" content="Descubra dicas essenciais sobre gestão de tempo, organização de datas, planejamento de feriados e ferramentas para aumentar sua produtividade. Guia completo e atualizado.">
+    <meta name="keywords" content="gestão de tempo, planejamento, datas, feriados, produtividade, calendário, organização pessoal, prazos, dias úteis">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://dataehora.com.br/artigos/">
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="Guia Completo sobre Gestão de Tempo e Datas">
+    <meta property="og:description" content="Descubra dicas essenciais sobre gestão de tempo, organização de datas, planejamento de feriados e ferramentas para aumentar sua produtividade.">
+    <meta property="og:url" content="https://dataehora.com.br/artigos/">
+    <meta property="og:site_name" content="Data e Hora Oficial">
+    <meta property="og:locale" content="pt_BR">
+    <meta property="og:image" content="https://dataehora.com.br/assets/og-image.jpg">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Guia Completo sobre Gestão de Tempo e Datas">
+    <meta name="twitter:description" content="Descubra dicas essenciais sobre gestão de tempo, organização de datas e ferramentas de produtividade.">
+    <meta name="twitter:image" content="https://dataehora.com.br/assets/og-image.jpg">
+    
+    <!-- Structured Data (Schema.org) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Article",
+      "headline": "Guia Completo sobre Gestão de Tempo e Datas",
+      "description": "Descubra dicas essenciais sobre gestão de tempo, organização de datas, planejamento de feriados e ferramentas para aumentar sua produtividade.",
+      "author": {
+        "@type": "Organization",
+        "name": "dataehora.com.br"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "dataehora.com.br",
+        "logo": {
+          "@type": "ImageObject",
+          "url": "https://dataehora.com.br/logo.png"
+        }
+      },
+      "datePublished": "2026-01-28",
+      "dateModified": "2026-01-28",
+      "mainEntityOfPage": {
+        "@type": "WebPage",
+        "@id": "https://dataehora.com.br/artigos/"
+      }
+    }
+    </script>
+    
+    <!-- Theme Detection Script -->
+    <script>
+        (function() {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            let isDark = false;
+            if (saved === 'default') isDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            else if (saved === 'auto') { const h = new Date().getHours(); isDark = (h < 6 || h >= 18); }
+            else isDark = (saved === 'dark');
+            document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
+            document.documentElement.style.backgroundColor = isDark ? '#020617' : '#f1f5f9';
+        })();
+    </script>
+
+    <style>
+        /* CSS Variables for Theme Support */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.15);
+            --ad-bg: #f8fafc;
+            --ad-border: #e2e8f0;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --hr-color: rgba(248, 250, 252, 0.1);
+            --ad-bg: #0f172a;
+            --ad-border: #1e293b;
+        }
+
+        /* Reset and Base Styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            line-height: 1.7;
+            padding: 0 20px 60px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 900px;
+        }
+
+        /* Header and Navigation */
+        header.top-nav {
+            width: 100%;
+            max-width: 900px;
+            display: flex;
+            align-items: center;
+            padding: 30px 0 20px 0;
+            margin-bottom: 10px;
+            font-size: 0.9rem;
+            gap: 8px;
+        }
+
+        header.top-nav a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+            transition: opacity 0.2s ease;
+        }
+
+        header.top-nav a:hover {
+            opacity: 0.7;
+        }
+
+        header.top-nav span {
+            color: var(--text-muted);
+            font-weight: 800;
+        }
+
+        /* Main Article Header */
+        .article-header {
+            margin: 40px 0;
+            text-align: left;
+        }
+
+        h1 {
+            font-size: clamp(2.2rem, 6vw, 3.5rem);
+            font-weight: 900;
+            letter-spacing: -2px;
+            line-height: 1.1;
+            color: var(--text-main);
+            margin-bottom: 20px;
+        }
+
+        .article-meta {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .article-description {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-top: 15px;
+        }
+
+        /* AdSense Container Styles */
+        .ad-container {
+            background: var(--ad-bg);
+            border: 1px solid var(--ad-border);
+            border-radius: 16px;
+            padding: 20px;
+            margin: 40px 0;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .ad-label {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+
+        /* Article Content Styles */
+        article {
+            background: var(--bg-card);
+            border-radius: 24px;
+            padding: 50px 40px;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color);
+        }
+
+        section {
+            margin-bottom: 50px;
+        }
+
+        section:last-child {
+            margin-bottom: 0;
+        }
+
+        h2 {
+            font-size: clamp(1.6rem, 4vw, 2rem);
+            font-weight: 800;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            margin-top: 10px;
+        }
+
+        h3 {
+            font-size: clamp(1.3rem, 3.5vw, 1.6rem);
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-main);
+            margin-bottom: 15px;
+            margin-top: 30px;
+        }
+
+        h4 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 12px;
+            margin-top: 25px;
+        }
+
+        h5 {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 10px;
+            margin-top: 20px;
+        }
+
+        h6 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            margin-top: 15px;
+        }
+
+        p {
+            margin-bottom: 20px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        ul, ol {
+            margin-left: 25px;
+            margin-bottom: 20px;
+        }
+
+        li {
+            margin-bottom: 12px;
+            color: var(--text-main);
+            font-size: 1.05rem;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--accent);
+        }
+
+        em {
+            font-style: italic;
+            color: var(--text-muted);
+        }
+
+        /* Sidebar (Optional for future use) */
+        .sidebar {
+            background: var(--bg-card);
+            border: 1px solid var(--hr-color);
+            border-radius: 20px;
+            padding: 30px;
+            margin: 30px 0;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar h3 {
+            margin-top: 0;
+            font-size: 1.3rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin-left: 0;
+        }
+
+        .sidebar li {
+            padding: 8px 0;
+            border-bottom: 1px solid var(--hr-color);
+        }
+
+        .sidebar li:last-child {
+            border-bottom: none;
+        }
+
+        .sidebar a {
+            color: var(--text-main);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.2s ease;
+        }
+
+        .sidebar a:hover {
+            color: var(--accent);
+        }
+
+        /* Image Styles */
+        img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            margin: 25px 0;
+        }
+
+        /* Call to Action Box */
+        .cta-box {
+            background: linear-gradient(135deg, var(--accent) 0%, #1e40af 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .cta-box h3 {
+            color: white;
+            margin-top: 0;
+        }
+
+        .cta-box p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: white;
+            color: var(--accent);
+            padding: 15px 35px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1rem;
+            margin-top: 20px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 80px;
+            padding: 40px 0;
+            text-align: center;
+            color: var(--text-muted);
+            border-top: 1px solid var(--hr-color);
+        }
+
+        footer p {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+        }
+
+        footer a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 700;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            article {
+                padding: 30px 25px;
+            }
+
+            .ad-container {
+                padding: 15px;
+                margin: 30px 0;
+            }
+
+            header.top-nav {
+                justify-content: center;
+            }
+
+            .article-header {
+                text-align: center;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .sidebar {
+                padding: 20px;
+            }
+
+            .cta-box {
+                padding: 30px 20px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0 15px 40px 15px;
+            }
+
+            article {
+                padding: 25px 20px;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+
+            h3 {
+                font-size: 1.3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Header -->
+    <header class="top-nav">
+        <a href="/">dataehora.com.br</a>
+        <span>/</span>
+        <span>Artigos</span>
+    </header>
+
+    <div class="container">
+        <!-- Article Header -->
+        <header class="article-header">
+            <div class="article-meta">Publicado em 28 de Janeiro de 2026</div>
+            <h1>Guia Completo sobre Gestão de Tempo e Datas</h1>
+            <p class="article-description">Descubra como organizar melhor seu tempo, planejar datas importantes e aproveitar ao máximo as ferramentas disponíveis para aumentar sua produtividade.</p>
+        </header>
+
+        <!-- Top AdSense Ad -->
+        <aside class="ad-container">
+            <div class="ad-label">Publicidade</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+        <!-- Main Article Content -->
+        <article>
+            <section id="introducao">
+                <h2>Por que a Gestão de Tempo é Essencial?</h2>
+                <p>A <strong>gestão de tempo</strong> tornou-se uma das habilidades mais valiosas no mundo moderno. Com a crescente demanda por produtividade e eficiência, saber organizar suas datas, prazos e compromissos pode fazer toda a diferença entre o sucesso e o fracasso em suas atividades pessoais e profissionais.</p>
+                <p>Neste guia completo, você aprenderá técnicas comprovadas para melhorar sua organização temporal, entender a importância dos feriados no planejamento, e conhecer ferramentas úteis que facilitam o cálculo de prazos e datas.</p>
+            </section>
+
+            <section id="beneficios">
+                <h2>Benefícios de uma Boa Gestão de Tempo</h2>
+                <p>Investir tempo no planejamento e organização de suas atividades traz diversos benefícios:</p>
+                <ul>
+                    <li><strong>Aumento da produtividade:</strong> Com uma agenda bem estruturada, você consegue realizar mais tarefas em menos tempo.</li>
+                    <li><strong>Redução do estresse:</strong> Saber exatamente o que precisa ser feito e quando elimina a ansiedade de última hora.</li>
+                    <li><strong>Melhor qualidade de vida:</strong> Equilibrar trabalho e lazer torna-se mais fácil quando você tem controle sobre seu tempo.</li>
+                    <li><strong>Cumprimento de prazos:</strong> Nunca mais perca uma data importante ou entregue trabalhos atrasados.</li>
+                    <li><strong>Decisões mais assertivas:</strong> Com visão clara do seu calendário, você pode planejar melhor suas ações futuras.</li>
+                </ul>
+            </section>
+
+            <section id="ferramentas">
+                <h2>Ferramentas para Organização de Datas</h2>
+                <h3>Calculadoras de Tempo</h3>
+                <p>As <em>calculadoras de tempo</em> são ferramentas indispensáveis para profissionais que precisam calcular prazos com precisão. Elas permitem:</p>
+                <ul>
+                    <li>Calcular <strong>dias úteis</strong> entre duas datas, excluindo finais de semana e feriados</li>
+                    <li>Descobrir a <strong>diferença exata</strong> entre datas em dias, meses e anos</li>
+                    <li>Adicionar ou subtrair períodos de tempo para encontrar datas futuras ou passadas</li>
+                </ul>
+
+                <h3>Calendários com Feriados</h3>
+                <p>Ter acesso a um calendário completo com todos os <strong>feriados nacionais, estaduais e municipais</strong> é fundamental para o planejamento adequado. Isso permite:</p>
+                <ul>
+                    <li>Planejar viagens e eventos com antecedência</li>
+                    <li>Calcular prazos profissionais corretamente</li>
+                    <li>Aproveitar feriadões para descanso ou atividades de lazer</li>
+                </ul>
+
+                <h4>Importância dos Feriados no Planejamento</h4>
+                <p>Os feriados não são apenas dias de descanso - eles impactam diretamente prazos legais, entregas comerciais e planejamento empresarial. Conhecer as datas com antecedência ajuda a evitar surpresas e atrasos.</p>
+            </section>
+
+            <!-- Mid-Article AdSense Ad -->
+            <aside class="ad-container">
+                <div class="ad-label">Publicidade</div>
+                <ins class="adsbygoogle"
+                     style="display:block"
+                     data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                     data-ad-slot="XXXXXXXXXX"
+                     data-ad-format="auto"
+                     data-full-width-responsive="true"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </aside>
+
+            <section id="dicas">
+                <h2>Dicas Práticas para Melhor Gestão de Tempo</h2>
+                
+                <h3>1. Use a Regra dos Dois Minutos</h3>
+                <p>Se uma tarefa leva menos de dois minutos para ser concluída, faça-a imediatamente. Isso evita o acúmulo de pequenas tarefas que podem se tornar avassaladoras.</p>
+
+                <h3>2. Priorize com a Matriz de Eisenhower</h3>
+                <p>Classifique suas tarefas em quatro categorias:</p>
+                <ol>
+                    <li><strong>Urgente e Importante:</strong> Faça imediatamente</li>
+                    <li><strong>Importante, mas não Urgente:</strong> Agende para fazer em breve</li>
+                    <li><strong>Urgente, mas não Importante:</strong> Delegue se possível</li>
+                    <li><strong>Nem Urgente nem Importante:</strong> Elimine da sua lista</li>
+                </ol>
+
+                <h3>3. Bloqueie Tempo para Trabalho Focado</h3>
+                <p>Reserve períodos específicos do dia para trabalho profundo, sem interrupções. Desative notificações e concentre-se completamente em uma única tarefa.</p>
+
+                <h4>Técnica Pomodoro</h4>
+                <p>Trabalhe em blocos de 25 minutos com pausas de 5 minutos entre eles. Após quatro blocos, faça uma pausa mais longa de 15-30 minutos.</p>
+
+                <h5>Benefícios do Pomodoro</h5>
+                <p>Esta técnica ajuda a manter o foco, prevenir o cansaço mental e aumentar a sensação de progresso ao longo do dia.</p>
+
+                <h3>4. Revise seu Calendário Diariamente</h3>
+                <p>Dedique 10 minutos no início ou no final do dia para revisar seus compromissos e ajustar prioridades conforme necessário.</p>
+
+                <h4>Planejamento Semanal</h4>
+                <p>Além da revisão diária, reserve um tempo no início da semana para planejar os próximos sete dias, identificando prazos importantes e distribuindo tarefas de forma equilibrada.</p>
+
+                <h6>Dica Extra</h6>
+                <p>Use cores diferentes para categorizar tipos de tarefas - trabalho, pessoal, saúde, etc. Isso facilita a visualização e o equilíbrio entre diferentes áreas da vida.</p>
+            </section>
+
+            <section id="tecnologia">
+                <h2>Tecnologia a Favor da Organização</h2>
+                <p>A tecnologia moderna oferece diversas soluções para otimizar a gestão de tempo:</p>
+                <ul>
+                    <li><strong>Aplicativos de calendário:</strong> Sincronize seus compromissos em todos os dispositivos</li>
+                    <li><strong>Ferramentas de lembretes:</strong> Nunca esqueça de datas importantes</li>
+                    <li><strong>Calculadoras online:</strong> Calcule prazos e diferenças de datas instantaneamente</li>
+                    <li><strong>Relógios mundiais:</strong> Coordene atividades em diferentes fusos horários</li>
+                </ul>
+            </section>
+        </article>
+
+        <!-- Call to Action -->
+        <div class="cta-box">
+            <h3>Experimente Nossas Ferramentas Gratuitas</h3>
+            <p>Acesse calculadoras de tempo, calendários com feriados e muito mais para otimizar sua gestão de datas.</p>
+            <a href="/" class="cta-button">Explorar Ferramentas</a>
+        </div>
+
+        <!-- Bottom AdSense Ad -->
+        <aside class="ad-container">
+            <div class="ad-label">Publicidade</div>
+            <ins class="adsbygoogle"
+                 style="display:block"
+                 data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+                 data-ad-slot="XXXXXXXXXX"
+                 data-ad-format="auto"
+                 data-full-width-responsive="true"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </aside>
+
+        <!-- Optional Sidebar with Related Links -->
+        <aside class="sidebar">
+            <h3>Ferramentas Relacionadas</h3>
+            <ul>
+                <li><a href="/calculadora/dias-uteis/">Calculadora de Dias Úteis</a></li>
+                <li><a href="/calculadora/diferenca-datas/">Diferença entre Datas</a></li>
+                <li><a href="/feriados/">Calendário de Feriados 2026</a></li>
+                <li><a href="/contagem/">Contagem Regressiva</a></li>
+                <li><a href="/calendario/">Calendário Anual</a></li>
+            </ul>
+        </aside>
+
+        <!-- Footer -->
+        <footer>
+            <p>© 2026 <a href="/">dataehora.com.br</a> - Todos os direitos reservados</p>
+            <p>Horário oficial de Brasília, ferramentas de tempo e calendários</p>
+            <p><a href="/configuracoes/">Configurações</a> | <a href="/">Página Inicial</a></p>
+        </footer>
+    </div>
+
+</body>
+</html>
