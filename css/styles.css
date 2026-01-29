@@ -771,6 +771,58 @@ footer a:hover {
     opacity: 0.15;
 }
 
+/* Filter Section for State/Municipal Holidays */
+.filter-section {
+    background: var(--bg-card);
+    border: 1px solid var(--hr-color);
+    border-radius: 20px;
+    padding: 25px 30px;
+    margin-bottom: 40px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    box-shadow: var(--shadow);
+}
+
+.filter-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    flex: 1;
+    min-width: 200px;
+}
+
+.filter-label {
+    font-size: 0.75rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-muted);
+}
+
+.filter-select {
+    padding: 12px 16px;
+    border-radius: 12px;
+    border: 2px solid var(--hr-color);
+    background: var(--bg-body);
+    color: var(--text-main);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    transition: 0.2s;
+    font-family: inherit;
+}
+
+.filter-select:focus {
+    outline: none;
+    border-color: var(--accent);
+}
+
+.filter-select:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 .y-2026 .year-title {
     color: var(--y2026);
 }
