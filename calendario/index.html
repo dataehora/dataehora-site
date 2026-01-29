@@ -216,24 +216,24 @@
 
     <div class="controls-panel">
         <div class="control-group">
-            <label>Ano</label>
+            <label for="year-select">Ano</label>
             <select id="year-select" onchange="renderCalendar()">
                 </select>
         </div>
         <div class="control-group">
-            <label>Estado</label>
+            <label for="state-select">Estado</label>
             <select id="state-select" onchange="onStateChangeCalendar()">
                 <option value="">Apenas Nacional</option>
             </select>
         </div>
         <div class="control-group">
-            <label>Município</label>
-            <select id="city-select" disabled>
+            <label for="city-select">Município</label>
+            <select id="city-select" onchange="renderCalendar()" disabled>
                 <option value="">Selecione estado</option>
             </select>
         </div>
         <div class="control-group">
-            <label>Visualização</label>
+            <label for="grid-select">Visualização</label>
             <select id="grid-select" onchange="renderCalendar()">
                 <option value="3x4">3 colunas x 4 linhas</option>
                 <option value="4x3">4 colunas x 3 linhas</option>
@@ -241,7 +241,7 @@
             </select>
         </div>
         <div class="control-group">
-            <label>Tamanho Fonte</label>
+            <label for="font-select">Tamanho Fonte</label>
             <select id="font-select" onchange="updateFontSize()">
                 <option value="0.8">Pequena</option>
                 <option value="1" selected>Normal</option>
@@ -249,21 +249,21 @@
             </select>
         </div>
         <div class="control-group">
-            <label>Estilo</label>
+            <label for="border-select">Estilo</label>
             <select id="border-select" onchange="renderCalendar()">
                 <option value="no">Sem Bordas</option>
                 <option value="yes">Com Bordas</option>
             </select>
         </div>
         <div class="control-group">
-            <label>Semana #</label>
+            <label for="week-toggle">Semana #</label>
             <select id="week-toggle" onchange="renderCalendar()">
                 <option value="no">Ocultar</option>
                 <option value="yes">Exibir</option>
             </select>
         </div>
         <div class="control-group">
-            <label>Fases da Lua</label>
+            <label for="moon-toggle">Fases da Lua</label>
             <select id="moon-toggle" onchange="renderCalendar()">
                 <option value="yes">Exibir</option>
                 <option value="no">Ocultar</option>
