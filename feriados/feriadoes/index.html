@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-BR" data-theme="light">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -52,6 +52,9 @@
     
     <!-- Theme Initialization - Must execute before page renders to prevent FOUC -->
     <script src="/js/theme.js"></script>
+
+    <!-- External Stylesheet -->
+    <link rel="stylesheet" href="/css/styles.css">
 
     <style>
         :root {
@@ -159,11 +162,11 @@
         </header>
 
         <div id="planner-list"></div>
-
-        <footer>
-            <a href="/configuracoes/" class="btn-settings">⚙️ Configurações & Temas</a>
-        </footer>
     </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações & Temas</a>
+    </footer>
 
     <script>
         const mesesNomes = ["Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"];
