@@ -420,7 +420,7 @@
         params.set('date', targetEvent.date.toISOString());
         
         const shareUrl = `${window.location.origin}${window.location.pathname}?${params.toString()}`;
-        const shareText = `Faltam exatamente para ${targetEvent.name}! Veja a contagem regressiva: ${shareUrl}`;
+        const shareText = `Faltam exatamente ${daysRemaining} dias para ${targetEvent.name}! Veja a contagem regressiva: ${shareUrl}`;
         
         const waUrl = `https://wa.me/?text=${encodeURIComponent(shareText)}`;
         document.getElementById('share-wa').href = waUrl;
@@ -480,41 +480,54 @@
         const eventDate = urlParams.get('date');
         
         if (eventName && eventDate) {
-            // Load event from URL parameters
-            targetEvent = {
-                name: eventName,
-                date: new Date(eventDate)
-            };
+            // Validate and sanitize inputs
+            const sanitizedName = eventName.substring(0, 100); // Limit length
+            const parsedDate = new Date(eventDate);
             
-            // Update selector to show "custom" since it's from URL
-            const selector = document.getElementById('event-selector');
-            
-            // Check if it matches a holiday in the dropdown
-            const options = selector.querySelectorAll('option');
-            let foundMatch = false;
-            for (let option of options) {
-                if (option.value !== 'next' && option.value !== 'custom') {
-                    try {
-                        const optionData = JSON.parse(option.value);
-                        if (optionData.name === eventName) {
-                            selector.value = option.value;
-                            foundMatch = true;
-                            break;
-                        }
-                    } catch (e) {}
+            // Validate date is valid and not in distant past/future
+            if (!isNaN(parsedDate.getTime()) && 
+                parsedDate.getFullYear() >= 2020 && 
+                parsedDate.getFullYear() <= 2100) {
+                
+                // Load event from URL parameters
+                targetEvent = {
+                    name: sanitizedName,
+                    date: parsedDate
+                };
+                
+                // Update selector to show "custom" since it's from URL
+                const selector = document.getElementById('event-selector');
+                
+                // Check if it matches a holiday in the dropdown
+                const options = selector.querySelectorAll('option');
+                let foundMatch = false;
+                for (let option of options) {
+                    if (option.value !== 'next' && option.value !== 'custom') {
+                        try {
+                            const optionData = JSON.parse(option.value);
+                            if (optionData.name === sanitizedName) {
+                                selector.value = option.value;
+                                foundMatch = true;
+                                break;
+                            }
+                        } catch (e) {}
+                    }
                 }
+                
+                if (!foundMatch) {
+                    // If not a standard holiday, set to custom
+                    selector.value = 'custom';
+                    document.getElementById('custom-fields').classList.remove('hidden');
+                    document.getElementById('custom-name').value = sanitizedName;
+                    document.getElementById('custom-date').value = parsedDate.toISOString().slice(0, 16);
+                }
+                
+                updateDisplay();
+                updateShareLinks();
+            } else {
+                // Invalid date, use default behavior
+                updateTarget();
             }
-            
-            if (!foundMatch) {
-                // If not a standard holiday, set to custom
-                selector.value = 'custom';
-                document.getElementById('custom-fields').classList.remove('hidden');
-                document.getElementById('custom-name').value = eventName;
-                document.getElementById('custom-date').value = new Date(eventDate).toISOString().slice(0, 16);
-            }
-            
-            updateDisplay();
-            updateShareLinks();
         } else {
             // Set initial target to next holiday
             updateTarget();
