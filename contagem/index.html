@@ -233,7 +233,7 @@
                 </div>
                 <div class="input-group">
                     <label>Data/Hora</label>
-                    <input type="datetime-local" id="custom-date" oninput="validateCustomDate();" onchange="updateTarget();" min="1000-01-01T00:00" max="9999-12-31T23:59">
+                    <input type="datetime-local" id="custom-date" onchange="updateTarget();" min="1000-01-01T00:00" max="9999-12-31T23:59">
                 </div>
             </div>
         </div>
@@ -293,23 +293,6 @@
         });
         
         return futureHolidays;
-    }
-
-    // Validate year in custom date input
-    function validateCustomDate() {
-        const customDateInput = document.getElementById('custom-date');
-        const customDate = customDateInput.value;
-        
-        if (customDate) {
-            const date = new Date(customDate);
-            const year = date.getFullYear();
-            
-            // Check if year is outside valid range
-            if (!isValidYear(year)) {
-                customDateInput.value = '';
-                alert(`Por favor, insira um ano válido entre ${MIN_VALID_YEAR} e ${MAX_VALID_YEAR}.`);
-            }
-        }
     }
 
     // Toggle custom date fields visibility
