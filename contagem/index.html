@@ -338,6 +338,7 @@
                 const year = date.getFullYear();
                 
                 // Validate year is within valid range [1000-9999]
+                // Note: HTML5 min/max attributes should prevent this, but this is a safety check
                 if (!isValidYear(year)) {
                     alert(`Por favor, insira um ano válido entre ${MIN_VALID_YEAR} e ${MAX_VALID_YEAR}.`);
                     document.getElementById('custom-date').value = '';
