@@ -337,7 +337,7 @@
                 const date = new Date(customDate);
                 const year = date.getFullYear();
                 
-                // Validate year is within valid range (1000-9999)
+                // Validate year is within valid range [1000-9999]
                 if (!isValidYear(year)) {
                     alert(`Por favor, insira um ano válido entre ${MIN_VALID_YEAR} e ${MAX_VALID_YEAR}.`);
                     document.getElementById('custom-date').value = '';
