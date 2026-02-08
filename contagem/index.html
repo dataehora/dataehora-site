@@ -281,6 +281,8 @@
         const parts = formatter.formatToParts(now);
         const getValue = (type) => parts.find(p => p.type === type).value;
         
+        // Create date from ISO string WITHOUT timezone - interpreted as local time
+        // This gives us a Date where getFullYear(), getMonth(), etc. return São Paulo components
         return new Date(
             `${getValue('year')}-${getValue('month')}-${getValue('day')}T${getValue('hour')}:${getValue('minute')}:${getValue('second')}`
         );
