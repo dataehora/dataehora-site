@@ -156,19 +156,155 @@
                 letter-spacing: -3px;
             }
         }
+
+        /* Controls panel */
+        #fs-controls {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--hr-color);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            min-width: 260px;
+        }
+
+        #fs-controls.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fs-ctrl-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .fs-ctrl-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 70px;
+        }
+
+        .fs-ctrl-btns {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .fs-ctrl-btn {
+            background: var(--bg-body);
+            border: 1px solid var(--hr-color);
+            color: var(--text-main);
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+            flex-shrink: 0;
+        }
+
+        .fs-ctrl-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .fs-ctrl-size {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .fs-ctrl-del {
+            background: transparent;
+            border: 1px solid var(--hr-color);
+            color: #ef4444;
+            border-radius: 8px;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .fs-ctrl-del:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+
+        .fs-ctrl-title {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 2px;
+        }
     </style>
 </head>
 <body>
 
     <a href="/" class="fs-back">← Voltar</a>
 
+    <!-- Font size controls panel -->
+    <div id="fs-controls">
+        <div class="fs-ctrl-title">Tamanho de Fonte</div>
+        <div class="fs-ctrl-row">
+            <span class="fs-ctrl-label">Relógio</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="clock-minus">−</button>
+                <span class="fs-ctrl-size" id="clock-size-label"></span>
+                <button class="fs-ctrl-btn" id="clock-plus">+</button>
+            </div>
+        </div>
+        <div class="fs-ctrl-row" id="date-ctrl-row">
+            <span class="fs-ctrl-label">Data</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="date-minus">−</button>
+                <span class="fs-ctrl-size" id="date-size-label"></span>
+                <button class="fs-ctrl-btn" id="date-plus">+</button>
+                <button class="fs-ctrl-del" id="date-del" style="display:none">Excluir</button>
+            </div>
+        </div>
+        <div class="fs-ctrl-row" id="holiday-ctrl-row">
+            <span class="fs-ctrl-label">Feriado</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="holiday-minus">−</button>
+                <span class="fs-ctrl-size" id="holiday-size-label"></span>
+                <button class="fs-ctrl-btn" id="holiday-plus">+</button>
+                <button class="fs-ctrl-del" id="holiday-del" style="display:none">Excluir</button>
+            </div>
+        </div>
+    </div>
+
     <span class="fs-label">Horário Oficial de Brasília</span>
     <div id="fs-clock">--:--:--</div>
     <div id="fs-date">Carregando...</div>
 
-    <hr class="fs-divider">
+    <hr class="fs-divider" id="fs-divider">
 
-    <span class="fs-label">Próximo Feriado</span>
+    <span class="fs-label" id="fs-holiday-label">Próximo Feriado</span>
     <div id="fs-holiday">Calculando...</div>
 
     <script defer src="/js/holidays.js"></script>
@@ -230,12 +366,133 @@
             `O próximo feriado é <strong>${next.n}</strong> no dia <strong>${fmtData}</strong>, em <strong>${diff} ${diff === 1 ? 'dia' : 'dias'}</strong>.`;
     }
 
+    // ── Font size controls ──────────────────────────────────────────────────
+    const CLOCK_SIZES  = [5, 8, 11, 14, 18, 22, 26, 30, 36]; // vw units
+    const DATE_SIZES   = [0.9, 1.2, 1.6, 2, 2.5, 3, 3.8, 4.5]; // rem units
+    const HOL_SIZES    = [0.75, 0.9, 1.1, 1.4, 1.6, 2, 2.5]; // rem units
+
+    const DEFAULT_CLOCK_IDX  = 5;
+    const DEFAULT_DATE_IDX   = 5;
+    const DEFAULT_HOL_IDX    = 4;
+    const MIN_SIZE_IDX       = 0; // index at which "Excluir" appears for date/holiday
+    const CONTROLS_HIDE_DELAY = 5000; // ms of inactivity before controls fade out
+
+    let clockIdx   = parseInt(localStorage.getItem('fs-clock-size')  ?? DEFAULT_CLOCK_IDX, 10);
+    let dateIdx    = parseInt(localStorage.getItem('fs-date-size')   ?? DEFAULT_DATE_IDX,  10);
+    let holIdx     = parseInt(localStorage.getItem('fs-hol-size')    ?? DEFAULT_HOL_IDX,   10);
+    let dateHidden = localStorage.getItem('fs-date-hidden') === '1';
+    let holHidden  = localStorage.getItem('fs-hol-hidden')  === '1';
+
+    function applyClockSize() {
+        const el = document.getElementById('fs-clock');
+        el.style.fontSize = CLOCK_SIZES[clockIdx] + 'vw';
+        document.getElementById('clock-size-label').textContent = CLOCK_SIZES[clockIdx] + 'vw';
+        localStorage.setItem('fs-clock-size', clockIdx);
+    }
+
+    function applyDateSize() {
+        const el = document.getElementById('fs-date');
+        const row = document.getElementById('date-ctrl-row');
+        const delBtn = document.getElementById('date-del');
+        if (dateHidden) {
+            el.style.display = 'none';
+            row.style.display = 'none';
+            return;
+        }
+        el.style.display = '';
+        row.style.display = '';
+        el.style.fontSize = DATE_SIZES[dateIdx] + 'rem';
+        document.getElementById('date-size-label').textContent = DATE_SIZES[dateIdx] + 'rem';
+        localStorage.setItem('fs-date-size', dateIdx);
+        delBtn.style.display = dateIdx === MIN_SIZE_IDX ? '' : 'none';
+    }
+
+    function applyHolSize() {
+        const el = document.getElementById('fs-holiday');
+        const row = document.getElementById('holiday-ctrl-row');
+        const delBtn = document.getElementById('holiday-del');
+        const holLabel = document.getElementById('fs-holiday-label');
+        const divider = document.getElementById('fs-divider');
+        if (holHidden) {
+            el.style.display = 'none';
+            if (holLabel) holLabel.style.display = 'none';
+            if (divider) divider.style.display = 'none';
+            row.style.display = 'none';
+            return;
+        }
+        el.style.display = '';
+        if (holLabel) holLabel.style.display = '';
+        if (divider) divider.style.display = '';
+        row.style.display = '';
+        el.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+        document.getElementById('holiday-size-label').textContent = HOL_SIZES[holIdx] + 'rem';
+        localStorage.setItem('fs-hol-size', holIdx);
+        delBtn.style.display = holIdx === MIN_SIZE_IDX ? '' : 'none';
+    }
+
+    // Controls auto-hide logic
+    const controls = document.getElementById('fs-controls');
+    let hideTimer = null;
+
+    function showControls() {
+        controls.classList.remove('hidden');
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => controls.classList.add('hidden'), CONTROLS_HIDE_DELAY);
+    }
+
+    document.addEventListener('mousemove', showControls);
+    document.addEventListener('touchstart', showControls);
+    controls.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+    controls.addEventListener('mouseleave', () => {
+        hideTimer = setTimeout(() => controls.classList.add('hidden'), CONTROLS_HIDE_DELAY);
+    });
+
+    // Button wiring
+    document.getElementById('clock-plus').addEventListener('click', () => {
+        if (clockIdx < CLOCK_SIZES.length - 1) { clockIdx++; applyClockSize(); }
+    });
+    document.getElementById('clock-minus').addEventListener('click', () => {
+        if (clockIdx > 0) { clockIdx--; applyClockSize(); }
+    });
+
+    document.getElementById('date-plus').addEventListener('click', () => {
+        if (dateIdx < DATE_SIZES.length - 1) { dateIdx++; applyDateSize(); }
+    });
+    document.getElementById('date-minus').addEventListener('click', () => {
+        if (dateIdx > 0) { dateIdx--; applyDateSize(); }
+    });
+    document.getElementById('date-del').addEventListener('click', () => {
+        dateHidden = true;
+        localStorage.setItem('fs-date-hidden', '1');
+        applyDateSize();
+    });
+
+    document.getElementById('holiday-plus').addEventListener('click', () => {
+        if (holIdx < HOL_SIZES.length - 1) { holIdx++; applyHolSize(); }
+    });
+    document.getElementById('holiday-minus').addEventListener('click', () => {
+        if (holIdx > 0) { holIdx--; applyHolSize(); }
+    });
+    document.getElementById('holiday-del').addEventListener('click', () => {
+        holHidden = true;
+        localStorage.setItem('fs-hol-hidden', '1');
+        applyHolSize();
+    });
+
     document.addEventListener('DOMContentLoaded', async () => {
         await syncTime();
         setInterval(syncTime, 5 * 60 * 1000);
         updateClock();
         updateHoliday();
         setInterval(updateClock, 1000);
+
+        // Apply saved font sizes
+        applyClockSize();
+        applyDateSize();
+        applyHolSize();
+
+        // Show controls on load, then hide after 5s
+        showControls();
     });
     </script>
 </body>
