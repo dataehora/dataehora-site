@@ -1,0 +1,693 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Fusos Horários do Brasil e do Mundo | dataehora.com.br</title>
+    <meta name="description" content="Consulte os fusos horários do Brasil e do mundo. Veja a hora atual em cada fuso, capitais brasileiras e principais cidades do mundo.">
+    <meta name="keywords" content="fusos horários, fuso horário brasil, hora certa, UTC, GMT, horário mundial, brasília, amazônia, fernando de noronha">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Fusos Horários do Brasil e do Mundo | dataehora.com.br">
+    <meta property="og:description" content="Consulte os fusos horários do Brasil e do mundo com horários atualizados em tempo real.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/fusos-horarios/">
+    <meta property="og:site_name" content="Data e Hora">
+    
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fusos Horários do Brasil e do Mundo | dataehora.com.br">
+    <meta name="twitter:description" content="Consulte os fusos horários do Brasil e do mundo com horários atualizados em tempo real.">
+    <meta name="twitter:site" content="@dataehora">
+    <meta name="twitter:creator" content="@dataehora">
+    
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Fusos Horários do Brasil e do Mundo",
+      "url": "https://dataehora.com.br/fusos-horarios/",
+      "description": "Consulte os fusos horários do Brasil e do mundo com horários atualizados em tempo real."
+    }
+    </script>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/fusos-horarios/">
+    
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/x-icon" href="/favicon.ico">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+    
+    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
+    <!-- Original source: /js/theme.js - minified inline for performance -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: rgba(148, 163, 184, 0.2);
+            --hr-color: var(--border);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --input-bg: #f8fafc;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container { width: 100%; max-width: 900px; }
+
+        .nav-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0 30px 0;
+            font-size: 0.875rem;
+            gap: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--hr-color);
+        }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        .header { margin-bottom: 40px; text-align: left; width: 100%; }
+        h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); margin: 0; letter-spacing: -1.5px; font-weight: 900; color: var(--text-main); }
+        h2 { font-size: clamp(1.3rem, 4vw, 1.8rem); margin: 0 0 25px 0; letter-spacing: -1px; font-weight: 900; color: var(--text-main); }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 5px; font-weight: 500; }
+
+        .section-block {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: clamp(25px, 5vw, 40px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+            width: 100%;
+            margin-bottom: 30px;
+        }
+
+        /* Brazil timezone map */
+        .brazil-map-container {
+            width: 100%;
+            overflow-x: auto;
+            position: relative;
+        }
+
+        .brazil-map {
+            width: 100%;
+            max-width: 520px;
+            margin: 0 auto 30px auto;
+            display: block;
+        }
+
+        /* SVG map styles */
+        .tz-state {
+            stroke: var(--bg-card);
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: opacity 0.15s, filter 0.15s;
+        }
+        .tz-state:hover { opacity: 0.8; filter: brightness(1.15); }
+        .tz-utc5  { fill: #7c3aed; }
+        .tz-utc4  { fill: #2563eb; }
+        .tz-utc3  { fill: #0891b2; }
+        .tz-utc2  { fill: #059669; }
+        .tz-label { font-size: 9px; font-weight: 700; fill: white; text-anchor: middle; pointer-events: none; }
+
+        /* Map tooltip */
+        .map-tooltip {
+            position: fixed;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            max-width: 200px;
+            line-height: 1.5;
+        }
+        .map-tooltip.visible { opacity: 1; }
+        .map-tooltip .tt-state { font-weight: 800; font-size: 0.9rem; color: var(--text-main); }
+        .map-tooltip .tt-tz { font-weight: 600; color: var(--text-muted); font-size: 0.78rem; }
+        .map-tooltip .tt-time { font-weight: 900; font-size: 1.05rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+        /* Timezone legend */
+        .tz-legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+
+        .tz-legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 16px;
+            border-radius: 12px;
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+        }
+
+        .tz-dot {
+            width: 14px;
+            height: 14px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .tz-legend-item .name { font-weight: 700; font-size: 0.85rem; }
+        .tz-legend-item .offset { color: var(--text-muted); font-size: 0.8rem; font-weight: 600; }
+        .tz-legend-item .time { font-weight: 900; font-size: 1rem; color: var(--accent); font-variant-numeric: tabular-nums; }
+
+        /* Cities table */
+        .cities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+        }
+
+        .tz-group {
+            border-radius: 16px;
+            border: 2px solid var(--border);
+            overflow: hidden;
+        }
+
+        .tz-group-header {
+            padding: 12px 16px;
+            font-weight: 900;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .tz-group-header .clock {
+            font-size: 1.1rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .tz-group-body { padding: 8px 0; }
+
+        .city-row {
+            padding: 8px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 0.9rem;
+            border-bottom: 1px solid var(--border);
+        }
+        .city-row:last-child { border-bottom: none; }
+        .city-name { font-weight: 600; }
+        .city-state { color: var(--text-muted); font-size: 0.78rem; }
+
+        /* World timezone table */
+        .world-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 14px;
+        }
+
+        .world-tz-card {
+            background: var(--input-bg);
+            border-radius: 16px;
+            padding: 16px 20px;
+            border: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 14px;
+        }
+
+        .world-tz-card .flag { font-size: 1.8rem; line-height: 1; }
+        .world-tz-card .info { flex: 1; }
+        .world-tz-card .city-label { font-weight: 800; font-size: 0.95rem; color: var(--text-main); }
+        .world-tz-card .utc-label { font-size: 0.78rem; color: var(--text-muted); font-weight: 600; }
+        .world-tz-card .live-time { 
+            font-size: 1.3rem; font-weight: 900; 
+            color: var(--accent); 
+            font-variant-numeric: tabular-nums;
+            white-space: nowrap;
+        }
+
+        /* Section divider */
+        .section-divider {
+            height: 1px;
+            background: var(--border);
+            width: 100%;
+            margin: 30px 0;
+        }
+
+        footer { margin-top: 60px; text-align: center; color: var(--text-muted); font-size: 0.85rem; font-weight: 700; }
+        
+        .btn-settings {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+        .btn-settings:hover { transform: translateY(-2px); }
+
+        @media (max-width: 600px) {
+            .header { text-align: center; }
+            .nav-header { justify-content: center; }
+            .cities-grid { grid-template-columns: 1fr; }
+            .world-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Fusos Horários</span>
+        </nav>
+
+        <header class="header">
+            <h1>🌐 Fusos Horários</h1>
+            <p class="subtitle">Horários atualizados em tempo real para o Brasil e o mundo.</p>
+        </header>
+
+        <!-- BRAZIL SECTION -->
+        <section class="section-block">
+            <h2>🇧🇷 Fusos Horários do Brasil</h2>
+
+            <!-- SVG Map of Brazil Timezones -->
+            <!-- Map tooltip -->
+            <div class="map-tooltip" id="map-tooltip">
+                <div class="tt-state" id="tt-state"></div>
+                <div class="tt-tz" id="tt-tz"></div>
+                <div class="tt-time" id="tt-time"></div>
+            </div>
+
+            <div class="brazil-map-container">
+                <svg class="brazil-map" viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa dos fusos horários do Brasil">
+                    <!-- UTC-5: Acre -->
+                    <path class="tz-state tz-utc5" d="M6,156 L78,156 L72,211 L2,211 Z" data-uf="AC" data-nome="Acre" data-tz="UTC−5" data-tzid="America/Rio_Branco"/>
+                    <text class="tz-label" x="42" y="183" pointer-events="none">AC</text>
+
+                    <!-- UTC-4: Amazonas, Roraima, Rondônia, Mato Grosso -->
+                    <path class="tz-state tz-utc4" d="M6,26 L48,26 L84,6 L110,0 L110,32 L110,52 L132,52 L162,49 L184,23 L192,46 L204,124 L168,195 L108,188 L78,156 L6,156 Z" data-uf="AM" data-nome="Amazonas" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="102" y="110" pointer-events="none">AM</text>
+
+                    <path class="tz-state tz-utc4" d="M110,0 L174,0 L184,23 L162,49 L132,52 L110,32 Z" data-uf="RR" data-nome="Roraima" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="150" y="32" pointer-events="none">RR</text>
+
+                    <path class="tz-state tz-utc4" d="M78,156 L108,188 L168,195 L168,240 L96,240 L72,208 Z" data-uf="RO" data-nome="Rondônia" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="126" y="212" pointer-events="none">RO</text>
+
+                    <path class="tz-state tz-utc4" d="M168,195 L204,124 L270,208 L270,234 L264,299 L192,299 L162,266 L132,260 L96,240 L168,240 L168,195 Z" data-uf="MT" data-nome="Mato Grosso" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="216" y="244" pointer-events="none">MT</text>
+
+                    <!-- UTC-3: Remaining states -->
+                    <path class="tz-state tz-utc3" d="M264,13 L286,9 L289,42 L281,69 L266,72 L264,39 Z" data-uf="AP" data-nome="Amapá" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="276" y="46" pointer-events="none">AP</text>
+
+                    <path class="tz-state tz-utc3" d="M192,46 L264,39 L266,72 L281,69 L289,42 L306,84 L354,98 L330,136 L330,182 L312,188 L270,208 L204,124 L192,46 Z" data-uf="PA" data-nome="Pará" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="264" y="130" pointer-events="none">PA</text>
+
+                    <path class="tz-state tz-utc3" d="M270,208 L312,188 L330,182 L330,136 L342,136 L336,104 L318,91 L270,234 Z" data-uf="TO" data-nome="Tocantins" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="309" y="176" pointer-events="none">TO</text>
+
+                    <path class="tz-state tz-utc3" d="M330,91 L330,136 L360,156 L396,110 L390,98 L372,72 L354,78 L354,98 Z" data-uf="MA" data-nome="Maranhão" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="360" y="117" pointer-events="none">MA</text>
+
+                    <path class="tz-state tz-utc3" d="M330,136 L336,195 L378,188 L402,150 L396,110 L360,156 Z" data-uf="PI" data-nome="Piauí" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="369" y="162" pointer-events="none">PI</text>
+
+                    <path class="tz-state tz-utc3" d="M396,110 L402,150 L426,130 L438,124 L444,117 L426,110 L396,110 Z" data-uf="CE" data-nome="Ceará" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="420" y="124" pointer-events="none">CE</text>
+
+                    <path class="tz-state tz-utc3" d="M438,124 L426,130 L438,143 L456,150 L468,136 L466,127 L438,124 Z" data-uf="RN" data-nome="Rio Grande do Norte" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="450" y="139" pointer-events="none">RN</text>
+
+                    <path class="tz-state tz-utc3" d="M438,143 L426,130 L402,150 L426,162 L450,156 L462,150 L456,150 Z" data-uf="PB" data-nome="Paraíba" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="438" y="156" pointer-events="none">PB</text>
+
+                    <path class="tz-state tz-utc3" d="M402,150 L378,188 L396,188 L450,188 L469,162 L462,150 L426,162 Z" data-uf="PE" data-nome="Pernambuco" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="430" y="176" pointer-events="none">PE</text>
+
+                    <path class="tz-state tz-utc3" d="M450,188 L396,188 L438,208 L468,188 Z" data-uf="AL" data-nome="Alagoas" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="450" y="202" pointer-events="none">AL</text>
+
+                    <path class="tz-state tz-utc3" d="M438,208 L396,208 L420,214 L456,214 L468,208 Z" data-uf="SE" data-nome="Sergipe" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="432" y="216" pointer-events="none">SE</text>
+
+                    <path class="tz-state tz-utc3" d="M396,188 L378,188 L336,195 L330,299 L354,254 L420,292 L426,234 L456,214 L420,214 L396,208 L438,208 L396,188 Z" data-uf="BA" data-nome="Bahia" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="384" y="232" pointer-events="none">BA</text>
+
+                    <path class="tz-state tz-utc3" d="M270,234 L264,299 L282,299 L318,299 L330,299 L336,195 L270,234 Z" data-uf="GO" data-nome="Goiás" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="300" y="264" pointer-events="none">GO</text>
+
+                    <path class="tz-state tz-utc3" d="M306,266 L318,266 L318,280 L306,280 Z" data-uf="DF" data-nome="Distrito Federal" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="312" y="275" pointer-events="none">DF</text>
+
+                    <path class="tz-state tz-utc3" d="M354,254 L330,299 L318,299 L282,299 L318,370 L354,364 L372,364 L390,338 L402,344 L420,292 L354,254 Z" data-uf="MG" data-nome="Minas Gerais" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="354" y="312" pointer-events="none">MG</text>
+
+                    <path class="tz-state tz-utc3" d="M402,344 L426,306 L420,344 L390,338 Z" data-uf="ES" data-nome="Espírito Santo" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="414" y="330" pointer-events="none">ES</text>
+
+                    <path class="tz-state tz-utc3" d="M372,364 L390,338 L408,358 L372,370 L354,364 Z" data-uf="RJ" data-nome="Rio de Janeiro" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="384" y="360" pointer-events="none">RJ</text>
+
+                    <path class="tz-state tz-utc3" d="M318,370 L258,377 L252,396 L306,403 L324,377 L354,364 L318,370 Z" data-uf="SP" data-nome="São Paulo" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="300" y="386" pointer-events="none">SP</text>
+
+                    <path class="tz-state tz-utc3" d="M264,299 L192,299 L186,338 L198,377 L234,377 L252,396 L258,377 L282,299 Z" data-uf="MS" data-nome="Mato Grosso do Sul" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="228" y="348" pointer-events="none">MS</text>
+
+                    <path class="tz-state tz-utc3" d="M306,403 L252,396 L234,377 L198,377 L234,410 L240,436 L276,422 L306,403 Z" data-uf="PR" data-nome="Paraná" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="258" y="414" pointer-events="none">PR</text>
+
+                    <path class="tz-state tz-utc3" d="M306,403 L276,422 L240,436 L246,448 L270,436 L306,403 Z" data-uf="SC" data-nome="Santa Catarina" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="270" y="432" pointer-events="none">SC</text>
+
+                    <path class="tz-state tz-utc3" d="M270,436 L246,448 L240,507 L288,507 L306,481 L270,436 Z" data-uf="RS" data-nome="Rio Grande do Sul" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="270" y="474" pointer-events="none">RS</text>
+
+                    <!-- UTC-2: Fernando de Noronha (island, shown off NE coast) -->
+                    <circle class="tz-state tz-utc2" cx="462" cy="96" r="9" data-uf="FN" data-nome="Fernando de Noronha" data-tz="UTC−2" data-tzid="America/Noronha"/>
+                    <text class="tz-label" x="462" y="99" pointer-events="none">FN</text>
+
+                    <text x="6" y="518" font-size="8" fill="var(--text-muted)" font-family="sans-serif">Mapa esquemático dos fusos horários</text>
+                </svg>
+            </div>
+
+            <!-- Legend with live times -->
+            <div class="tz-legend">
+                <div class="tz-legend-item">
+                    <div class="tz-dot" style="background:#7c3aed"></div>
+                    <div>
+                        <div class="name">Acre</div>
+                        <div class="offset">UTC−5</div>
+                    </div>
+                    <div class="time" id="time-utc5">--:--:--</div>
+                </div>
+                <div class="tz-legend-item">
+                    <div class="tz-dot" style="background:#2563eb"></div>
+                    <div>
+                        <div class="name">Amazônia</div>
+                        <div class="offset">UTC−4</div>
+                    </div>
+                    <div class="time" id="time-utc4">--:--:--</div>
+                </div>
+                <div class="tz-legend-item">
+                    <div class="tz-dot" style="background:#0891b2"></div>
+                    <div>
+                        <div class="name">Brasília</div>
+                        <div class="offset">UTC−3</div>
+                    </div>
+                    <div class="time" id="time-utc3">--:--:--</div>
+                </div>
+                <div class="tz-legend-item">
+                    <div class="tz-dot" style="background:#059669"></div>
+                    <div>
+                        <div class="name">Noronha</div>
+                        <div class="offset">UTC−2</div>
+                    </div>
+                    <div class="time" id="time-utc2">--:--:--</div>
+                </div>
+            </div>
+
+            <div class="section-divider"></div>
+
+            <!-- Cities by timezone -->
+            <div class="cities-grid">
+                <div class="tz-group">
+                    <div class="tz-group-header" style="background:#7c3aed">
+                        <span>UTC−5 · Acre</span>
+                        <span class="clock" id="clock-utc5">--:--</span>
+                    </div>
+                    <div class="tz-group-body">
+                        <div class="city-row"><span class="city-name">Rio Branco</span><span class="city-state">AC (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Cruzeiro do Sul</span><span class="city-state">AC</span></div>
+                    </div>
+                </div>
+                <div class="tz-group">
+                    <div class="tz-group-header" style="background:#2563eb">
+                        <span>UTC−4 · Amazônia</span>
+                        <span class="clock" id="clock-utc4">--:--</span>
+                    </div>
+                    <div class="tz-group-body">
+                        <div class="city-row"><span class="city-name">Manaus</span><span class="city-state">AM (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Porto Velho</span><span class="city-state">RO (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Boa Vista</span><span class="city-state">RR (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Cuiabá</span><span class="city-state">MT (capital)</span></div>
+                    </div>
+                </div>
+                <div class="tz-group">
+                    <div class="tz-group-header" style="background:#0891b2">
+                        <span>UTC−3 · Brasília</span>
+                        <span class="clock" id="clock-utc3">--:--</span>
+                    </div>
+                    <div class="tz-group-body">
+                        <div class="city-row"><span class="city-name">Brasília</span><span class="city-state">DF (capital federal)</span></div>
+                        <div class="city-row"><span class="city-name">São Paulo</span><span class="city-state">SP</span></div>
+                        <div class="city-row"><span class="city-name">Rio de Janeiro</span><span class="city-state">RJ</span></div>
+                        <div class="city-row"><span class="city-name">Salvador</span><span class="city-state">BA</span></div>
+                        <div class="city-row"><span class="city-name">Fortaleza</span><span class="city-state">CE</span></div>
+                        <div class="city-row"><span class="city-name">Recife</span><span class="city-state">PE</span></div>
+                        <div class="city-row"><span class="city-name">Belém</span><span class="city-state">PA</span></div>
+                        <div class="city-row"><span class="city-name">Porto Alegre</span><span class="city-state">RS</span></div>
+                        <div class="city-row"><span class="city-name">Campo Grande</span><span class="city-state">MS (capital)</span></div>
+                    </div>
+                </div>
+                <div class="tz-group">
+                    <div class="tz-group-header" style="background:#059669">
+                        <span>UTC−2 · Noronha</span>
+                        <span class="clock" id="clock-utc2">--:--</span>
+                    </div>
+                    <div class="tz-group-body">
+                        <div class="city-row"><span class="city-name">Fernando de Noronha</span><span class="city-state">PE (arquipélago)</span></div>
+                        <div class="city-row"><span class="city-name">Ilha de Trindade</span><span class="city-state">ES (ilha oceânica)</span></div>
+                    </div>
+                </div>
+            </div>
+            <p style="font-size:0.78rem;color:var(--text-muted);margin-top:16px;">* Mato Grosso do Sul adota o horário de Brasília (UTC−3) na prática.</p>
+        </section>
+
+        <!-- WORLD SECTION -->
+        <section class="section-block">
+            <h2>🌍 Fusos Horários do Mundo</h2>
+
+            <div class="world-grid" id="world-clocks">
+                <!-- Populated by JS -->
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script>
+        // World timezone data
+        const worldZones = [
+            { flag: '🇧🇷', city: 'Brasília', country: 'Brasil', tz: 'America/Sao_Paulo', utc: 'UTC−3' },
+            { flag: '🇧🇷', city: 'Manaus', country: 'Brasil (AM)', tz: 'America/Manaus', utc: 'UTC−4' },
+            { flag: '🇺🇸', city: 'Nova York', country: 'EUA (Leste)', tz: 'America/New_York', utc: 'UTC−5/−4' },
+            { flag: '🇺🇸', city: 'Los Angeles', country: 'EUA (Pacífico)', tz: 'America/Los_Angeles', utc: 'UTC−8/−7' },
+            { flag: '🇨🇦', city: 'Toronto', country: 'Canadá', tz: 'America/Toronto', utc: 'UTC−5/−4' },
+            { flag: '🇲🇽', city: 'Cidade do México', country: 'México', tz: 'America/Mexico_City', utc: 'UTC−6/−5' },
+            { flag: '🇦🇷', city: 'Buenos Aires', country: 'Argentina', tz: 'America/Argentina/Buenos_Aires', utc: 'UTC−3' },
+            { flag: '🇨🇱', city: 'Santiago', country: 'Chile', tz: 'America/Santiago', utc: 'UTC−4/−3' },
+            { flag: '🇵🇹', city: 'Lisboa', country: 'Portugal', tz: 'Europe/Lisbon', utc: 'UTC+0/+1' },
+            { flag: '🇬🇧', city: 'Londres', country: 'Reino Unido', tz: 'Europe/London', utc: 'UTC+0/+1' },
+            { flag: '🇫🇷', city: 'Paris', country: 'França', tz: 'Europe/Paris', utc: 'UTC+1/+2' },
+            { flag: '🇩🇪', city: 'Berlim', country: 'Alemanha', tz: 'Europe/Berlin', utc: 'UTC+1/+2' },
+            { flag: '🇮🇹', city: 'Roma', country: 'Itália', tz: 'Europe/Rome', utc: 'UTC+1/+2' },
+            { flag: '🇷🇺', city: 'Moscou', country: 'Rússia', tz: 'Europe/Moscow', utc: 'UTC+3' },
+            { flag: '🇦🇪', city: 'Dubai', country: 'Emirados Árabes', tz: 'Asia/Dubai', utc: 'UTC+4' },
+            { flag: '🇮🇳', city: 'Mumbai', country: 'Índia', tz: 'Asia/Kolkata', utc: 'UTC+5:30' },
+            { flag: '🇨🇳', city: 'Pequim', country: 'China', tz: 'Asia/Shanghai', utc: 'UTC+8' },
+            { flag: '🇯🇵', city: 'Tóquio', country: 'Japão', tz: 'Asia/Tokyo', utc: 'UTC+9' },
+            { flag: '🇰🇷', city: 'Seul', country: 'Coreia do Sul', tz: 'Asia/Seoul', utc: 'UTC+9' },
+            { flag: '🇦🇺', city: 'Sydney', country: 'Austrália', tz: 'Australia/Sydney', utc: 'UTC+10/+11' },
+            { flag: '🇿🇦', city: 'Joanesburgo', country: 'África do Sul', tz: 'Africa/Johannesburg', utc: 'UTC+2' },
+            { flag: '🇳🇬', city: 'Lagos', country: 'Nigéria', tz: 'Africa/Lagos', utc: 'UTC+1' },
+        ];
+
+        // Build world clocks HTML
+        const container = document.getElementById('world-clocks');
+        worldZones.forEach((z, i) => {
+            const card = document.createElement('div');
+            card.className = 'world-tz-card';
+            card.innerHTML = `
+                <span class="flag">${z.flag}</span>
+                <div class="info">
+                    <div class="city-label">${z.city}</div>
+                    <div class="utc-label">${z.country} · ${z.utc}</div>
+                </div>
+                <div class="live-time" id="wtz-${i}">--:--:--</div>
+            `;
+            container.appendChild(card);
+        });
+
+        // Time formatters
+        const timeOpts = { hour: '2-digit', minute: '2-digit', second: '2-digit', hour12: false };
+        const timeOptsShort = { hour: '2-digit', minute: '2-digit', hour12: false };
+
+        function getFormatter(tz) {
+            return new Intl.DateTimeFormat('pt-BR', { ...timeOpts, timeZone: tz });
+        }
+        function getShortFormatter(tz) {
+            return new Intl.DateTimeFormat('pt-BR', { ...timeOptsShort, timeZone: tz });
+        }
+
+        // Brazil timezone formatters
+        const fmtUtc5 = getFormatter('America/Rio_Branco');
+        const fmtUtc4 = getFormatter('America/Manaus');
+        const fmtUtc3 = getFormatter('America/Sao_Paulo');
+        const fmtUtc2 = getFormatter('America/Noronha');
+
+        const fmtUtc5s = getShortFormatter('America/Rio_Branco');
+        const fmtUtc4s = getShortFormatter('America/Manaus');
+        const fmtUtc3s = getShortFormatter('America/Sao_Paulo');
+        const fmtUtc2s = getShortFormatter('America/Noronha');
+
+        // World formatters
+        const worldFormatters = worldZones.map(z => getFormatter(z.tz));
+
+        function updateClocks() {
+            const now = new Date();
+
+            // Brazil legend
+            document.getElementById('time-utc5').textContent = fmtUtc5.format(now);
+            document.getElementById('time-utc4').textContent = fmtUtc4.format(now);
+            document.getElementById('time-utc3').textContent = fmtUtc3.format(now);
+            document.getElementById('time-utc2').textContent = fmtUtc2.format(now);
+
+            // Brazil group headers
+            document.getElementById('clock-utc5').textContent = fmtUtc5s.format(now);
+            document.getElementById('clock-utc4').textContent = fmtUtc4s.format(now);
+            document.getElementById('clock-utc3').textContent = fmtUtc3s.format(now);
+            document.getElementById('clock-utc2').textContent = fmtUtc2s.format(now);
+
+            // World clocks
+            worldFormatters.forEach((fmt, i) => {
+                const el = document.getElementById(`wtz-${i}`);
+                if (el) el.textContent = fmt.format(now);
+            });
+        }
+
+        updateClocks();
+        setInterval(updateClocks, 1000);
+
+        // === MAP TOOLTIP ===
+        const tooltip = document.getElementById('map-tooltip');
+        const ttState = document.getElementById('tt-state');
+        const ttTz = document.getElementById('tt-tz');
+        const ttTime = document.getElementById('tt-time');
+
+        const tzFormatters = {
+            'America/Rio_Branco': getFormatter('America/Rio_Branco'),
+            'America/Manaus': getFormatter('America/Manaus'),
+            'America/Sao_Paulo': getFormatter('America/Sao_Paulo'),
+            'America/Noronha': getFormatter('America/Noronha'),
+        };
+
+        function getStateTime(tzId) {
+            const fmt = tzFormatters[tzId];
+            return fmt ? fmt.format(new Date()) : '--:--:--';
+        }
+
+        document.querySelectorAll('.tz-state').forEach(el => {
+            el.addEventListener('mouseenter', function(e) {
+                const nome = this.dataset.nome;
+                const tz = this.dataset.tz;
+                const tzId = this.dataset.tzid;
+                ttState.textContent = nome;
+                ttTz.textContent = tz;
+                ttTime.textContent = getStateTime(tzId);
+                tooltip.classList.add('visible');
+            });
+            el.addEventListener('mousemove', function(e) {
+                const x = e.clientX + 14;
+                const y = e.clientY - 10;
+                const tw = tooltip.offsetWidth;
+                const th = tooltip.offsetHeight;
+                tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 14 : x) + 'px';
+                tooltip.style.top = (y + th > window.innerHeight ? e.clientY - th - 10 : y) + 'px';
+                // Update time live on hover
+                ttTime.textContent = getStateTime(this.dataset.tzid);
+            });
+            el.addEventListener('mouseleave', function() {
+                tooltip.classList.remove('visible');
+            });
+        });
+    </script>
+</body>
+</html>

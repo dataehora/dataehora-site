@@ -66,7 +66,7 @@
     <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
     <!-- Original source: /js/theme.js - minified inline for performance -->
     <script>
-    (function(){const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}}})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
     
     <!-- Holiday utilities for calculating Brazilian holidays -->
@@ -99,9 +99,10 @@
         .container { width: 100%; max-width: 800px; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        .nav-header { width: 100%; display: flex; gap: 8px; margin: 10px 0 25px 0; font-size: 0.85rem; align-items: center; }
-        .nav-link { text-decoration: none; font-weight: 800; color: var(--accent); }
-        .nav-sep { color: var(--text-muted); font-weight: 800; }
+        .nav-header { width: 100%; display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 20px 0 30px 0; padding: 12px 16px; background: var(--bg-card); border-radius: 12px; border: 1px solid var(--hr-color); font-size: 0.875rem; }
+        .nav-link { text-decoration: none; font-weight: 700; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
 
         .countdown-card {
             background: var(--bg-card); padding: clamp(25px, 5vw, 60px);
@@ -208,7 +209,7 @@
     <nav class="nav-header" aria-label="Navegação estrutural">
         <a href="/" class="nav-link">dataehora.com.br</a>
         <span class="nav-sep">/</span>
-        <span style="color: var(--text-muted); font-weight: 800;">Contagem Regressiva</span>
+        <span class="nav-current">Contagem Regressiva</span>
     </nav>
 
     <div class="header-ad-container">

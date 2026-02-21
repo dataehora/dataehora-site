@@ -67,17 +67,17 @@
   </url>
 
   <url>
+    <loc>https://dataehora.com.br/previsao-do-tempo/</loc>
+    <lastmod>2026-02-10</lastmod>
+    <changefreq>hourly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://dataehora.com.br/configuracoes/</loc>
     <lastmod>2026-01-25</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.5</priority>
-  </url>
-
-  <url>
-    <loc>https://dataehora.com.br/artigos/</loc>
-    <lastmod>2026-01-28</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
   </url>
 
 </urlset>
