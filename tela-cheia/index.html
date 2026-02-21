@@ -67,13 +67,13 @@
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            padding: 20px;
+            padding: 64px 20px 20px;
             gap: 0;
         }
 
         .fs-label {
             text-transform: uppercase;
-            font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+            font-size: clamp(0.75rem, 1.75vw, 1rem);
             letter-spacing: 4px;
             color: var(--accent);
             font-weight: 800;
@@ -125,10 +125,33 @@
             font-weight: 800;
         }
 
-        .fs-back {
+        .fs-header {
             position: fixed;
-            top: 16px;
-            left: 16px;
+            top: 0;
+            left: 0;
+            right: 0;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 20px;
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--hr-color);
+            z-index: 20;
+        }
+
+        .fs-logo {
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -0.5px;
+        }
+
+        .fs-logo:hover {
+            color: var(--accent-hover);
+        }
+
+        .fs-settings {
             display: inline-flex;
             align-items: center;
             gap: 6px;
@@ -137,18 +160,16 @@
             font-size: 0.8rem;
             font-weight: 700;
             color: var(--text-muted);
-            background: var(--bg-card);
-            border: 1px solid var(--hr-color);
+            background: transparent;
+            border: 1.5px solid var(--hr-color);
             text-decoration: none;
             transition: all 0.2s ease;
-            opacity: 0.6;
-            z-index: 10;
         }
 
-        .fs-back:hover {
-            opacity: 1;
+        .fs-settings:hover {
             color: var(--accent);
             border-color: var(--accent);
+            background: var(--bg-card);
         }
 
         @media (max-width: 480px) {
@@ -265,7 +286,10 @@
 </head>
 <body>
 
-    <a href="/" class="fs-back">← Voltar</a>
+    <header class="fs-header">
+        <a href="/" class="fs-logo">dataehora.com.br</a>
+        <a href="/configuracoes/" class="fs-settings">⚙️ Configurações</a>
+    </header>
 
     <!-- Font size controls panel -->
     <div id="fs-controls">

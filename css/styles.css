@@ -191,6 +191,10 @@ p {
     display: block;
 }
 
+.hero .label-topo {
+    font-size: 0.875rem;
+}
+
 #clock {
     font-size: clamp(3.8rem, 20vw, 13rem);
     font-weight: 900;
