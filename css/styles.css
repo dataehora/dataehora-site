@@ -9,7 +9,7 @@
 
 :root {
     /* Color Palette - Light Mode */
-    --bg-body: #f8fafc;
+    --bg-body: #f1f5f9;
     --bg-card: #ffffff;
     --text-main: #0f172a;
     --text-muted: #64748b;
@@ -44,10 +44,15 @@
     --settings-border: rgba(148, 163, 184, 0.2);
 }
 
+/* Prevent transitions during initial page load to avoid flickering */
+.no-transition * {
+    transition: none !important;
+}
+
 /* Dark Theme */
 [data-theme="dark"] {
-    --bg-body: #0f172a;
-    --bg-card: #1e293b;
+    --bg-body: #020617;
+    --bg-card: #0f172a;
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --accent: #60a5fa;
