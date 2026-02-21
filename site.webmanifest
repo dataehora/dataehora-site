@@ -8,7 +8,7 @@
   "theme_color": "#2563eb",
   "icons": [
     {
-      "src": "/assets/br.png",
+      "src": "/assets/512px-Flag_of_Brazil.svg.png",
       "sizes": "512x512",
       "type": "image/png",
       "purpose": "any maskable"
