@@ -127,7 +127,7 @@
         }
 
         .form-group { margin-bottom: 25px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px; }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 25px; }
         
         label { display: block; font-weight: 700; font-size: 0.75rem; margin-bottom: 8px; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; }
         
@@ -208,8 +208,8 @@
         </nav>
 
         <header class="header">
-            <h1>Somar ou Subtrair Dias</h1>
-            <p class="subtitle">Adicione ou remova tempo de uma data específica.</p>
+            <h1>Somar ou Subtrair Tempo</h1>
+            <p class="subtitle">Adicione ou remova dias, meses ou anos de uma data específica.</p>
         </header>
 
         <div class="calc-card">
@@ -222,6 +222,14 @@
                 <div class="form-group">
                     <label>Quantidade</label>
                     <input type="number" id="amount" value="30" min="1">
+                </div>
+                <div class="form-group">
+                    <label>Unidade</label>
+                    <select id="unit">
+                        <option value="days">Dias</option>
+                        <option value="months">Meses</option>
+                        <option value="years">Anos</option>
+                    </select>
                 </div>
                 <div class="form-group">
                     <label>Operação</label>
@@ -258,17 +266,20 @@
             const baseDateStr = document.getElementById('base-date').value;
             const amount = parseInt(document.getElementById('amount').value);
             const op = document.getElementById('operation').value;
+            const unit = document.getElementById('unit').value;
 
             if (!baseDateStr || isNaN(amount)) return;
 
             // Criar data garantindo que não haja problemas de fuso horário local
             const [y, m, d] = baseDateStr.split('-');
-            let date = new Date(y, m - 1, d);
+            let date = new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
             
-            if (op === 'add') {
-                date.setDate(date.getDate() + amount);
-            } else {
-                date.setDate(date.getDate() - amount);
+            if (unit === 'days') {
+                date.setDate(date.getDate() + (op === 'add' ? amount : -amount));
+            } else if (unit === 'months') {
+                date.setMonth(date.getMonth() + (op === 'add' ? amount : -amount));
+            } else if (unit === 'years') {
+                date.setFullYear(date.getFullYear() + (op === 'add' ? amount : -amount));
             }
 
             const formattedDate = date.toLocaleDateString('pt-BR', {
@@ -284,12 +295,13 @@
             document.getElementById('res-day-name').textContent = weekday;
             
             // Add narrative explanation
-            const baseDate = new Date(y, m - 1, d);
+            const baseDate = new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
             const baseDateFormatted = baseDate.toLocaleDateString('pt-BR');
             const operation = op === 'add' ? 'Adicionando' : 'Subtraindo';
-            const dayWord = amount === 1 ? 'dia' : 'dias';
+            const unitLabels = { days: amount === 1 ? 'dia' : 'dias', months: amount === 1 ? 'mês' : 'meses', years: amount === 1 ? 'ano' : 'anos' };
+            const unitWord = unitLabels[unit];
             
-            let narrative = `${operation} <strong>${amount} ${dayWord}</strong> ${op === 'add' ? 'à' : 'da'} data inicial <strong>${baseDateFormatted}</strong>, `;
+            let narrative = `${operation} <strong>${amount} ${unitWord}</strong> ${op === 'add' ? 'à' : 'da'} data inicial <strong>${baseDateFormatted}</strong>, `;
             narrative += `chegamos a <strong>${formattedDate}</strong>, que cai em uma <strong>${weekday}</strong>.`;
             
             document.getElementById('narrative-explanation').innerHTML = narrative;
