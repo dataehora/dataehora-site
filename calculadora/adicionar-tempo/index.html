@@ -57,7 +57,7 @@
     <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
     <!-- Original source: /js/theme.js - minified inline for performance -->
     <script>
-    (function(){const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}}})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
 
     <style>
@@ -220,24 +220,25 @@
 
             <div class="form-row">
                 <div class="form-group">
-                    <label>Quantidade</label>
-                    <input type="number" id="amount" value="30" min="1">
+                    <label>Dias</label>
+                    <input type="number" id="amount-days" value="0" min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label>Unidade</label>
-                    <select id="unit">
-                        <option value="days">Dias</option>
-                        <option value="months">Meses</option>
-                        <option value="years">Anos</option>
-                    </select>
+                    <label>Meses</label>
+                    <input type="number" id="amount-months" value="0" min="0" placeholder="0">
                 </div>
                 <div class="form-group">
-                    <label>Operação</label>
-                    <select id="operation">
-                        <option value="add">Somar (+)</option>
-                        <option value="sub">Subtrair (-)</option>
-                    </select>
+                    <label>Anos</label>
+                    <input type="number" id="amount-years" value="0" min="0" placeholder="0">
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label>Operação</label>
+                <select id="operation">
+                    <option value="add">Somar (+)</option>
+                    <option value="sub">Subtrair (−)</option>
+                </select>
             </div>
 
             <button onclick="calculate()">Calcular Nova Data</button>
@@ -264,23 +265,22 @@
     <script>
         function calculate() {
             const baseDateStr = document.getElementById('base-date').value;
-            const amount = parseInt(document.getElementById('amount').value);
+            const days = parseInt(document.getElementById('amount-days').value) || 0;
+            const months = parseInt(document.getElementById('amount-months').value) || 0;
+            const years = parseInt(document.getElementById('amount-years').value) || 0;
             const op = document.getElementById('operation').value;
-            const unit = document.getElementById('unit').value;
 
-            if (!baseDateStr || isNaN(amount)) return;
+            if (!baseDateStr) return;
+            if (days === 0 && months === 0 && years === 0) return;
 
             // Criar data garantindo que não haja problemas de fuso horário local
             const [y, m, d] = baseDateStr.split('-');
             let date = new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
-            
-            if (unit === 'days') {
-                date.setDate(date.getDate() + (op === 'add' ? amount : -amount));
-            } else if (unit === 'months') {
-                date.setMonth(date.getMonth() + (op === 'add' ? amount : -amount));
-            } else if (unit === 'years') {
-                date.setFullYear(date.getFullYear() + (op === 'add' ? amount : -amount));
-            }
+            const sign = op === 'add' ? 1 : -1;
+
+            date.setFullYear(date.getFullYear() + sign * years);
+            date.setMonth(date.getMonth() + sign * months);
+            date.setDate(date.getDate() + sign * days);
 
             const formattedDate = date.toLocaleDateString('pt-BR', {
                 day: '2-digit',
@@ -294,14 +294,18 @@
             document.getElementById('res-date-final').textContent = formattedDate;
             document.getElementById('res-day-name').textContent = weekday;
             
-            // Add narrative explanation
+            // Build narrative explanation
             const baseDate = new Date(parseInt(y), parseInt(m) - 1, parseInt(d));
             const baseDateFormatted = baseDate.toLocaleDateString('pt-BR');
-            const operation = op === 'add' ? 'Adicionando' : 'Subtraindo';
-            const unitLabels = { days: amount === 1 ? 'dia' : 'dias', months: amount === 1 ? 'mês' : 'meses', years: amount === 1 ? 'ano' : 'anos' };
-            const unitWord = unitLabels[unit];
-            
-            let narrative = `${operation} <strong>${amount} ${unitWord}</strong> ${op === 'add' ? 'à' : 'da'} data inicial <strong>${baseDateFormatted}</strong>, `;
+            const opWord = op === 'add' ? 'Somando' : 'Subtraindo';
+            const prepWord = op === 'add' ? 'à' : 'da';
+
+            const parts = [];
+            if (years > 0) parts.push(`<strong>${years} ${years === 1 ? 'ano' : 'anos'}</strong>`);
+            if (months > 0) parts.push(`<strong>${months} ${months === 1 ? 'mês' : 'meses'}</strong>`);
+            if (days > 0) parts.push(`<strong>${days} ${days === 1 ? 'dia' : 'dias'}</strong>`);
+
+            let narrative = `${opWord} ${parts.join(', ')} ${prepWord} data inicial <strong>${baseDateFormatted}</strong>, `;
             narrative += `chegamos a <strong>${formattedDate}</strong>, que cai em uma <strong>${weekday}</strong>.`;
             
             document.getElementById('narrative-explanation').innerHTML = narrative;
