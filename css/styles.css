@@ -164,6 +164,7 @@ p {
 
 .hero {
     text-align: center;
+    margin-top: 3rem;
     margin-bottom: 30px;
     width: 100%;
     animation: fadeIn 0.6s ease-out;
@@ -208,6 +209,29 @@ p {
     color: var(--text-muted);
     font-weight: 700;
     text-transform: capitalize;
+}
+
+.btn-fullscreen {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 18px;
+    padding: 8px 18px;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    background: transparent;
+    border: 1px solid var(--hr-color);
+    text-decoration: none;
+    transition: all 0.2s ease;
+    letter-spacing: 0.5px;
+}
+
+.btn-fullscreen:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--bg-card);
 }
 
 /* ===================================
