@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
+
+    <title>Hora em Tela Cheia | dataehora.com.br</title>
+    <meta name="robots" content="noindex, follow">
+
+    <!-- CRITICAL: Inline theme script to prevent FOUC -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --hr-color: rgba(148, 163, 184, 0.12);
+        }
+
+        .no-transition * {
+            transition: none !important;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --hr-color: rgba(248, 250, 252, 0.08);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+            gap: 0;
+        }
+
+        .fs-label {
+            text-transform: uppercase;
+            font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+            letter-spacing: 4px;
+            color: var(--accent);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #fs-clock {
+            font-size: clamp(5rem, 22vw, 18rem);
+            font-weight: 900;
+            letter-spacing: -6px;
+            line-height: 0.85;
+            font-variant-numeric: tabular-nums;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #fs-date {
+            font-size: clamp(1.2rem, 4vw, 3rem);
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: capitalize;
+            text-align: center;
+        }
+
+        .fs-divider {
+            border: 0;
+            height: 1px;
+            background: var(--hr-color);
+            width: 60%;
+            max-width: 500px;
+            margin: 2rem 0;
+        }
+
+        #fs-holiday {
+            font-size: clamp(0.9rem, 2.5vw, 1.6rem);
+            color: var(--text-main);
+            font-weight: 500;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+
+        #fs-holiday strong {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        .fs-back {
+            position: fixed;
+            top: 16px;
+            left: 16px;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--hr-color);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            opacity: 0.6;
+            z-index: 10;
+        }
+
+        .fs-back:hover {
+            opacity: 1;
+            color: var(--accent);
+            border-color: var(--accent);
+        }
+
+        @media (max-width: 480px) {
+            #fs-clock {
+                letter-spacing: -3px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="/" class="fs-back">← Voltar</a>
+
+    <span class="fs-label">Horário Oficial de Brasília</span>
+    <div id="fs-clock">--:--:--</div>
+    <div id="fs-date">Carregando...</div>
+
+    <hr class="fs-divider">
+
+    <span class="fs-label">Próximo Feriado</span>
+    <div id="fs-holiday">Calculando...</div>
+
+    <script defer src="/js/holidays.js"></script>
+    <script>
+    let officialTimeOffset = 0;
+
+    async function syncTime() {
+        try {
+            const res = await fetch('https://worldtimeapi.org/api/timezone/America/Sao_Paulo');
+            const data = await res.json();
+            officialTimeOffset = new Date(data.datetime) - new Date();
+        } catch(e) {
+            officialTimeOffset = 0;
+        }
+    }
+
+    function getBrasiliaDate() {
+        return new Date(Date.now() + officialTimeOffset);
+    }
+
+    const timeFmt = new Intl.DateTimeFormat('pt-BR', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone:'America/Sao_Paulo' });
+    const dateFmt = new Intl.DateTimeFormat('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'America/Sao_Paulo' });
+    const yearFmt = new Intl.DateTimeFormat('pt-BR', { year:'numeric', timeZone:'America/Sao_Paulo' });
+    const dayFmt  = new Intl.DateTimeFormat('pt-BR', { day:'numeric', timeZone:'America/Sao_Paulo' });
+    const monFmt  = new Intl.DateTimeFormat('pt-BR', { month:'numeric', timeZone:'America/Sao_Paulo' });
+    const wdayFmt = new Intl.DateTimeFormat('pt-BR', { weekday:'long', timeZone:'America/Sao_Paulo' });
+    const hdateFmt= new Intl.DateTimeFormat('pt-BR', { day:'numeric', month:'long', timeZone:'America/Sao_Paulo' });
+    const secFmt  = new Intl.DateTimeFormat('pt-BR', { second:'numeric', timeZone:'America/Sao_Paulo' });
+    const hourFmt = new Intl.DateTimeFormat('pt-BR', { hour:'numeric', hour12:false, timeZone:'America/Sao_Paulo' });
+
+    function updateClock() {
+        const now = getBrasiliaDate();
+        document.getElementById('fs-clock').textContent = timeFmt.format(now);
+        document.getElementById('fs-date').textContent = dateFmt.format(now);
+
+        const secs = parseInt(secFmt.format(now), 10);
+        if (secs === 0) {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            if (saved === 'auto') {
+                const h = parseInt(hourFmt.format(now), 10);
+                document.documentElement.setAttribute('data-theme', (h < 6 || h >= 18) ? 'dark' : 'light');
+            }
+        }
+    }
+
+    function updateHoliday() {
+        if (typeof getHolidaysForDisplay === 'undefined') { setTimeout(updateHoliday, 100); return; }
+        const now = getBrasiliaDate();
+        const year = parseInt(yearFmt.format(now), 10);
+        const all = [...getHolidaysForDisplay(year), ...getHolidaysForDisplay(year + 1)];
+        const day = parseInt(dayFmt.format(now), 10);
+        const mon = parseInt(monFmt.format(now), 10) - 1;
+        const today = new Date(year, mon, day);
+        const next = all.find(f => f.d > today);
+        if (!next) return;
+        const diff = Math.ceil((next.d - today) / 864e5);
+        const fmtData = hdateFmt.format(next.d);
+        document.getElementById('fs-holiday').innerHTML =
+            `O próximo feriado é <strong>${next.n}</strong> no dia <strong>${fmtData}</strong>, em <strong>${diff} ${diff === 1 ? 'dia' : 'dias'}</strong>.`;
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+        await syncTime();
+        setInterval(syncTime, 5 * 60 * 1000);
+        updateClock();
+        updateHoliday();
+        setInterval(updateClock, 1000);
+    });
+    </script>
+</body>
+</html>
