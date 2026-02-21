@@ -104,17 +104,22 @@
 
         .container { width: 100%; max-width: 900px; }
 
-        .top-nav {
+        .nav-header {
             width: 100%;
             display: flex;
             align-items: center;
-            padding: 20px 0;
-            margin-bottom: 20px;
-            font-size: 0.9rem;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0 30px 0;
+            font-size: 0.875rem;
             gap: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border);
         }
-        .top-nav a { color: var(--accent); text-decoration: none; font-weight: 700; }
-        .top-nav span { color: var(--text-muted); font-weight: 800; }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
 
         .header { margin-bottom: 40px; text-align: left; width: 100%; }
         h1 { font-size: clamp(1.8rem, 6vw, 2.8rem); margin: 0; letter-spacing: -1.5px; font-weight: 900; color: var(--text-main); }
@@ -135,28 +140,50 @@
         .brazil-map-container {
             width: 100%;
             overflow-x: auto;
+            position: relative;
         }
 
         .brazil-map {
             width: 100%;
-            max-width: 700px;
+            max-width: 520px;
             margin: 0 auto 30px auto;
             display: block;
         }
 
         /* SVG map styles */
-        .tz-region {
+        .tz-state {
             stroke: var(--bg-card);
-            stroke-width: 2;
-            cursor: default;
-            transition: opacity 0.2s;
+            stroke-width: 1.5;
+            cursor: pointer;
+            transition: opacity 0.15s, filter 0.15s;
         }
-        .tz-region:hover { opacity: 0.85; }
+        .tz-state:hover { opacity: 0.8; filter: brightness(1.15); }
         .tz-utc5  { fill: #7c3aed; }
         .tz-utc4  { fill: #2563eb; }
         .tz-utc3  { fill: #0891b2; }
         .tz-utc2  { fill: #059669; }
-        .tz-label { font-size: 11px; font-weight: 700; fill: white; text-anchor: middle; pointer-events: none; }
+        .tz-label { font-size: 9px; font-weight: 700; fill: white; text-anchor: middle; pointer-events: none; }
+
+        /* Map tooltip */
+        .map-tooltip {
+            position: fixed;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.82rem;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.15s;
+            z-index: 1000;
+            box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+            max-width: 200px;
+            line-height: 1.5;
+        }
+        .map-tooltip.visible { opacity: 1; }
+        .map-tooltip .tt-state { font-weight: 800; font-size: 0.9rem; color: var(--text-main); }
+        .map-tooltip .tt-tz { font-weight: 600; color: var(--text-muted); font-size: 0.78rem; }
+        .map-tooltip .tt-time { font-weight: 900; font-size: 1.05rem; color: var(--accent); font-variant-numeric: tabular-nums; }
 
         /* Timezone legend */
         .tz-legend {
@@ -285,7 +312,7 @@
 
         @media (max-width: 600px) {
             .header { text-align: center; }
-            .top-nav { justify-content: center; }
+            .nav-header { justify-content: center; }
             .cities-grid { grid-template-columns: 1fr; }
             .world-grid { grid-template-columns: 1fr; }
         }
@@ -294,10 +321,10 @@
 <body>
 
     <div class="container">
-        <nav class="top-nav" aria-label="Navegação estrutural">
-            <a href="/">dataehora.com.br</a>
-            <span>/</span>
-            <span>Fusos Horários</span>
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Fusos Horários</span>
         </nav>
 
         <header class="header">
@@ -310,62 +337,104 @@
             <h2>🇧🇷 Fusos Horários do Brasil</h2>
 
             <!-- SVG Map of Brazil Timezones -->
+            <!-- Map tooltip -->
+            <div class="map-tooltip" id="map-tooltip">
+                <div class="tt-state" id="tt-state"></div>
+                <div class="tt-tz" id="tt-tz"></div>
+                <div class="tt-time" id="tt-time"></div>
+            </div>
+
             <div class="brazil-map-container">
-                <svg class="brazil-map" viewBox="0 0 500 460" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa dos fusos horários do Brasil">
-                    <!-- UTC-5: Acre (west of Amazonas) -->
-                    <path class="tz-region tz-utc5" d="M60,160 L110,140 L130,165 L120,200 L95,220 L65,210 Z"/>
-                    <text class="tz-label" x="92" y="183">AC</text>
+                <svg class="brazil-map" viewBox="0 0 480 520" xmlns="http://www.w3.org/2000/svg" aria-label="Mapa dos fusos horários do Brasil">
+                    <!-- UTC-5: Acre -->
+                    <path class="tz-state tz-utc5" d="M6,156 L78,156 L72,211 L2,211 Z" data-uf="AC" data-nome="Acre" data-tz="UTC−5" data-tzid="America/Rio_Branco"/>
+                    <text class="tz-label" x="42" y="183" pointer-events="none">AC</text>
 
-                    <!-- UTC-4: Amazonas, Rondônia, Roraima, Mato Grosso -->
-                    <path class="tz-region tz-utc4" d="M110,80 L200,60 L240,90 L260,130 L250,175 L210,195 L170,200 L130,165 L110,140 Z"/>
-                    <path class="tz-region tz-utc4" d="M130,165 L170,200 L175,240 L145,255 L115,235 L95,220 Z"/>
-                    <!-- RO -->
-                    <path class="tz-region tz-utc4" d="M145,255 L175,240 L180,270 L160,285 L135,275 Z"/>
-                    <!-- MT -->
-                    <path class="tz-region tz-utc4" d="M175,240 L210,195 L250,175 L270,200 L265,240 L240,270 L210,275 L180,270 Z"/>
-                    <text class="tz-label" x="185" y="145">AM</text>
-                    <text class="tz-label" x="155" y="265">RO</text>
-                    <text class="tz-label" x="225" y="240">MT</text>
+                    <!-- UTC-4: Amazonas, Roraima, Rondônia, Mato Grosso -->
+                    <path class="tz-state tz-utc4" d="M6,26 L48,26 L84,6 L110,0 L110,32 L110,52 L132,52 L162,49 L184,23 L192,46 L204,124 L168,195 L108,188 L78,156 L6,156 Z" data-uf="AM" data-nome="Amazonas" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="102" y="110" pointer-events="none">AM</text>
 
-                    <!-- UTC-3: All other states (most of Brazil) -->
-                    <!-- RR -->
-                    <path class="tz-region tz-utc3" d="M150,40 L200,20 L240,30 L250,60 L200,60 L150,65 Z"/>
-                    <!-- PA, AP -->
-                    <path class="tz-region tz-utc3" d="M200,60 L310,50 L330,90 L310,130 L270,140 L250,130 L240,90 Z"/>
-                    <!-- AP -->
-                    <path class="tz-region tz-utc3" d="M280,30 L330,20 L350,50 L330,70 L310,50 Z"/>
-                    <!-- MA, PI, CE, RN, PB, PE, AL, SE -->
-                    <path class="tz-region tz-utc3" d="M310,50 L400,40 L440,80 L430,120 L380,140 L330,130 Z"/>
-                    <path class="tz-region tz-utc3" d="M380,140 L440,120 L460,160 L450,200 L400,200 L360,175 Z"/>
-                    <!-- BA, MG, ES, RJ, SP, PR, SC, RS -->
-                    <path class="tz-region tz-utc3" d="M270,140 L330,130 L360,175 L400,200 L410,250 L380,290 L340,310 L300,320 L265,290 L265,240 Z"/>
-                    <path class="tz-region tz-utc3" d="M300,320 L340,310 L360,350 L345,390 L310,410 L275,390 L270,355 Z"/>
-                    <path class="tz-region tz-utc3" d="M240,270 L265,240 L265,290 L300,320 L270,355 L240,355 L215,330 L215,295 Z"/>
-                    <!-- RS -->
-                    <path class="tz-region tz-utc3" d="M240,355 L270,355 L275,390 L255,420 L220,430 L200,405 L210,375 Z"/>
-                    <!-- GO, DF -->
-                    <path class="tz-region tz-utc3" d="M270,200 L310,185 L310,225 L285,250 L265,240 Z"/>
-                    <!-- MS -->
-                    <path class="tz-region tz-utc3" d="M210,275 L240,270 L215,295 L215,330 L185,315 L180,285 Z"/>
+                    <path class="tz-state tz-utc4" d="M110,0 L174,0 L184,23 L162,49 L132,52 L110,32 Z" data-uf="RR" data-nome="Roraima" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="150" y="32" pointer-events="none">RR</text>
 
-                    <text class="tz-label" x="170" y="50">RR</text>
-                    <text class="tz-label" x="265" y="95">PA</text>
-                    <text class="tz-label" x="320" y="37">AP</text>
-                    <text class="tz-label" x="390" y="90">NE</text>
-                    <text class="tz-label" x="350" y="180">BA</text>
-                    <text class="tz-label" x="350" y="260">MG/ES</text>
-                    <text class="tz-label" x="295" y="185">GO</text>
-                    <text class="tz-label" x="305" y="350">SP/RJ</text>
-                    <text class="tz-label" x="255" y="310">MS</text>
-                    <text class="tz-label" x="285" y="385">PR/SC</text>
-                    <text class="tz-label" x="235" y="400">RS</text>
+                    <path class="tz-state tz-utc4" d="M78,156 L108,188 L168,195 L168,240 L96,240 L72,208 Z" data-uf="RO" data-nome="Rondônia" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="126" y="212" pointer-events="none">RO</text>
 
-                    <!-- UTC-2: Fernando de Noronha -->
-                    <circle class="tz-region tz-utc2" cx="455" cy="140" r="10"/>
-                    <text class="tz-label" x="455" y="143">FN</text>
+                    <path class="tz-state tz-utc4" d="M168,195 L204,124 L270,208 L270,234 L264,299 L192,299 L162,266 L132,260 L96,240 L168,240 L168,195 Z" data-uf="MT" data-nome="Mato Grosso" data-tz="UTC−4" data-tzid="America/Manaus"/>
+                    <text class="tz-label" x="216" y="244" pointer-events="none">MT</text>
 
-                    <!-- Labels on map -->
-                    <text x="10" y="445" font-size="9" fill="var(--text-muted)" font-family="sans-serif">Mapa esquemático — não proporcional</text>
+                    <!-- UTC-3: Remaining states -->
+                    <path class="tz-state tz-utc3" d="M264,13 L286,9 L289,42 L281,69 L266,72 L264,39 Z" data-uf="AP" data-nome="Amapá" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="276" y="46" pointer-events="none">AP</text>
+
+                    <path class="tz-state tz-utc3" d="M192,46 L264,39 L266,72 L281,69 L289,42 L306,84 L354,98 L330,136 L330,182 L312,188 L270,208 L204,124 L192,46 Z" data-uf="PA" data-nome="Pará" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="264" y="130" pointer-events="none">PA</text>
+
+                    <path class="tz-state tz-utc3" d="M270,208 L312,188 L330,182 L330,136 L342,136 L336,104 L318,91 L270,234 Z" data-uf="TO" data-nome="Tocantins" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="309" y="176" pointer-events="none">TO</text>
+
+                    <path class="tz-state tz-utc3" d="M330,91 L330,136 L360,156 L396,110 L390,98 L372,72 L354,78 L354,98 Z" data-uf="MA" data-nome="Maranhão" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="360" y="117" pointer-events="none">MA</text>
+
+                    <path class="tz-state tz-utc3" d="M330,136 L336,195 L378,188 L402,150 L396,110 L360,156 Z" data-uf="PI" data-nome="Piauí" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="369" y="162" pointer-events="none">PI</text>
+
+                    <path class="tz-state tz-utc3" d="M396,110 L402,150 L426,130 L438,124 L444,117 L426,110 L396,110 Z" data-uf="CE" data-nome="Ceará" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="420" y="124" pointer-events="none">CE</text>
+
+                    <path class="tz-state tz-utc3" d="M438,124 L426,130 L438,143 L456,150 L468,136 L466,127 L438,124 Z" data-uf="RN" data-nome="Rio Grande do Norte" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="450" y="139" pointer-events="none">RN</text>
+
+                    <path class="tz-state tz-utc3" d="M438,143 L426,130 L402,150 L426,162 L450,156 L462,150 L456,150 Z" data-uf="PB" data-nome="Paraíba" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="438" y="156" pointer-events="none">PB</text>
+
+                    <path class="tz-state tz-utc3" d="M402,150 L378,188 L396,188 L450,188 L469,162 L462,150 L426,162 Z" data-uf="PE" data-nome="Pernambuco" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="430" y="176" pointer-events="none">PE</text>
+
+                    <path class="tz-state tz-utc3" d="M450,188 L396,188 L438,208 L468,188 Z" data-uf="AL" data-nome="Alagoas" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="450" y="202" pointer-events="none">AL</text>
+
+                    <path class="tz-state tz-utc3" d="M438,208 L396,208 L420,214 L456,214 L468,208 Z" data-uf="SE" data-nome="Sergipe" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="432" y="216" pointer-events="none">SE</text>
+
+                    <path class="tz-state tz-utc3" d="M396,188 L378,188 L336,195 L330,299 L354,254 L420,292 L426,234 L456,214 L420,214 L396,208 L438,208 L396,188 Z" data-uf="BA" data-nome="Bahia" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="384" y="232" pointer-events="none">BA</text>
+
+                    <path class="tz-state tz-utc3" d="M270,234 L264,299 L282,299 L318,299 L330,299 L336,195 L270,234 Z" data-uf="GO" data-nome="Goiás" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="300" y="264" pointer-events="none">GO</text>
+
+                    <path class="tz-state tz-utc3" d="M306,266 L318,266 L318,280 L306,280 Z" data-uf="DF" data-nome="Distrito Federal" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="312" y="275" pointer-events="none">DF</text>
+
+                    <path class="tz-state tz-utc3" d="M354,254 L330,299 L318,299 L282,299 L318,370 L354,364 L372,364 L390,338 L402,344 L420,292 L354,254 Z" data-uf="MG" data-nome="Minas Gerais" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="354" y="312" pointer-events="none">MG</text>
+
+                    <path class="tz-state tz-utc3" d="M402,344 L426,306 L420,344 L390,338 Z" data-uf="ES" data-nome="Espírito Santo" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="414" y="330" pointer-events="none">ES</text>
+
+                    <path class="tz-state tz-utc3" d="M372,364 L390,338 L408,358 L372,370 L354,364 Z" data-uf="RJ" data-nome="Rio de Janeiro" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="384" y="360" pointer-events="none">RJ</text>
+
+                    <path class="tz-state tz-utc3" d="M318,370 L258,377 L252,396 L306,403 L324,377 L354,364 L318,370 Z" data-uf="SP" data-nome="São Paulo" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="300" y="386" pointer-events="none">SP</text>
+
+                    <path class="tz-state tz-utc3" d="M264,299 L192,299 L186,338 L198,377 L234,377 L252,396 L258,377 L282,299 Z" data-uf="MS" data-nome="Mato Grosso do Sul" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="228" y="348" pointer-events="none">MS</text>
+
+                    <path class="tz-state tz-utc3" d="M306,403 L252,396 L234,377 L198,377 L234,410 L240,436 L276,422 L306,403 Z" data-uf="PR" data-nome="Paraná" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="258" y="414" pointer-events="none">PR</text>
+
+                    <path class="tz-state tz-utc3" d="M306,403 L276,422 L240,436 L246,448 L270,436 L306,403 Z" data-uf="SC" data-nome="Santa Catarina" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="270" y="432" pointer-events="none">SC</text>
+
+                    <path class="tz-state tz-utc3" d="M270,436 L246,448 L240,507 L288,507 L306,481 L270,436 Z" data-uf="RS" data-nome="Rio Grande do Sul" data-tz="UTC−3" data-tzid="America/Sao_Paulo"/>
+                    <text class="tz-label" x="270" y="474" pointer-events="none">RS</text>
+
+                    <!-- UTC-2: Fernando de Noronha (island, shown off NE coast) -->
+                    <circle class="tz-state tz-utc2" cx="462" cy="96" r="9" data-uf="FN" data-nome="Fernando de Noronha" data-tz="UTC−2" data-tzid="America/Noronha"/>
+                    <text class="tz-label" x="462" y="99" pointer-events="none">FN</text>
+
+                    <text x="6" y="518" font-size="8" fill="var(--text-muted)" font-family="sans-serif">Mapa esquemático dos fusos horários</text>
                 </svg>
             </div>
 
@@ -575,6 +644,49 @@
 
         updateClocks();
         setInterval(updateClocks, 1000);
+
+        // === MAP TOOLTIP ===
+        const tooltip = document.getElementById('map-tooltip');
+        const ttState = document.getElementById('tt-state');
+        const ttTz = document.getElementById('tt-tz');
+        const ttTime = document.getElementById('tt-time');
+
+        const tzFormatters = {
+            'America/Rio_Branco': getFormatter('America/Rio_Branco'),
+            'America/Manaus': getFormatter('America/Manaus'),
+            'America/Sao_Paulo': getFormatter('America/Sao_Paulo'),
+            'America/Noronha': getFormatter('America/Noronha'),
+        };
+
+        function getStateTime(tzId) {
+            const fmt = tzFormatters[tzId];
+            return fmt ? fmt.format(new Date()) : '--:--:--';
+        }
+
+        document.querySelectorAll('.tz-state').forEach(el => {
+            el.addEventListener('mouseenter', function(e) {
+                const nome = this.dataset.nome;
+                const tz = this.dataset.tz;
+                const tzId = this.dataset.tzid;
+                ttState.textContent = nome;
+                ttTz.textContent = tz;
+                ttTime.textContent = getStateTime(tzId);
+                tooltip.classList.add('visible');
+            });
+            el.addEventListener('mousemove', function(e) {
+                const x = e.clientX + 14;
+                const y = e.clientY - 10;
+                const tw = tooltip.offsetWidth;
+                const th = tooltip.offsetHeight;
+                tooltip.style.left = (x + tw > window.innerWidth ? e.clientX - tw - 14 : x) + 'px';
+                tooltip.style.top = (y + th > window.innerHeight ? e.clientY - th - 10 : y) + 'px';
+                // Update time live on hover
+                ttTime.textContent = getStateTime(this.dataset.tzid);
+            });
+            el.addEventListener('mouseleave', function() {
+                tooltip.classList.remove('visible');
+            });
+        });
     </script>
 </body>
 </html>
