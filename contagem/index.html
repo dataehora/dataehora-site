@@ -66,12 +66,6 @@
       gtag('config', 'G-4Y5H59FEQE');
     </script>
     
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
-    
     <!-- Holiday utilities for calculating Brazilian holidays -->
     <script src="/js/holidays.js"></script>
 
@@ -90,6 +84,11 @@
             --bg-body: #020617; --bg-card: #0f172a; --bg-timer: #1e293b;
             --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #60a5fa;
             --hr-color: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -205,8 +204,13 @@
             .btn-share { width: 100%; justify-content: center; }
         }
     </style>
+
+    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
+    <!-- Original source: /js/theme.js - minified inline for performance -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
 </head>
-<body>
 
 <div class="container">
     <nav class="nav-header" aria-label="Navegação estrutural">
