@@ -17,3 +17,4 @@ Check all pages for layout consistency and good SEO data by checking:
 4.The system configuration for dark mode set in Configuration page uses "System" as default
 5.If the user selects a new configuration option, it will be stored as the option for all pages
 6.all pages must always follow the system configuration for dark mode selected by the user
+7.All pages have the same favicon with the brasilian flag
