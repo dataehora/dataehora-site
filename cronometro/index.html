@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Cronômetro Online | dataehora.com.br</title>
+    <meta name="description" content="Cronômetro online gratuito com marcação de voltas. Meça tempos com precisão de milissegundos. Simples, rápido e sem instalação.">
+    <meta name="keywords" content="cronômetro, cronômetro online, stopwatch, marcador de tempo, voltas, milissegundos, timer">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Cronômetro Online | dataehora.com.br">
+    <meta property="og:description" content="Cronômetro online gratuito com marcação de voltas. Meça tempos com precisão de milissegundos.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/cronometro/">
+    <meta property="og:site_name" content="Data e Hora">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Cronômetro Online | dataehora.com.br">
+    <meta name="twitter:description" content="Cronômetro online gratuito com marcação de voltas. Meça tempos com precisão de milissegundos.">
+    <meta name="twitter:site" content="@dataehora">
+    <meta name="twitter:creator" content="@dataehora">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Cronômetro Online",
+      "description": "Cronômetro online gratuito com marcação de voltas e precisão de milissegundos.",
+      "url": "https://dataehora.com.br/cronometro/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Data e Hora",
+        "url": "https://dataehora.com.br/"
+      }
+    }
+    </script>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/cronometro/">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --bg-timer: #f8fafc;
+            --text-main: #0f172a; --text-muted: #64748b; --accent: #2563eb;
+            --accent-hover: #1d4ed8; --success: #10b981; --danger: #ef4444;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(148, 163, 184, 0.15);
+            --lap-best: #dcfce7; --lap-worst: #fee2e2;
+            --lap-best-text: #166534; --lap-worst-text: #991b1b;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --bg-timer: #1e293b;
+            --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #60a5fa;
+            --accent-hover: #3b82f6; --success: #34d399; --danger: #f87171;
+            --hr-color: rgba(255, 255, 255, 0.08);
+            --lap-best: #052e16; --lap-worst: #450a0a;
+            --lap-best-text: #86efac; --lap-worst-text: #fca5a5;
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            padding: 20px; display: flex; flex-direction: column; align-items: center;
+        }
+
+        .container { width: 100%; max-width: 800px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-header {
+            width: 100%; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+            margin: 20px 0 30px 0; padding: 12px 16px; background: var(--bg-card);
+            border-radius: 12px; border: 1px solid var(--hr-color); font-size: 0.875rem;
+        }
+        .nav-link { text-decoration: none; font-weight: 700; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        .header-ad-container {
+            width: 100%; text-align: center; margin-bottom: 30px; overflow: hidden;
+        }
+
+        /* Main stopwatch card */
+        .stopwatch-card {
+            background: var(--bg-card); padding: clamp(25px, 5vw, 50px);
+            border-radius: 32px; box-shadow: var(--shadow); text-align: center;
+            border: 1px solid var(--hr-color); margin-bottom: 24px; width: 100%;
+        }
+
+        .page-title {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); margin-bottom: 20px; font-weight: 800;
+        }
+
+        /* Time display */
+        .time-display {
+            font-size: clamp(3rem, 15vw, 7rem);
+            font-weight: 950;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: -2px;
+            line-height: 1;
+            color: var(--text-main);
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+        .time-display .ms {
+            font-size: clamp(1.5rem, 7vw, 3.2rem);
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+        .time-display.running { color: var(--accent); }
+        .time-display.running .ms { color: var(--accent); opacity: 0.7; }
+
+        /* Controls */
+        .controls {
+            display: flex; justify-content: center; gap: 14px;
+            flex-wrap: wrap; margin-top: 36px;
+        }
+
+        .btn {
+            padding: 16px 36px; border-radius: 50px; font-size: 1rem;
+            font-weight: 800; cursor: pointer; border: none;
+            transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+            display: inline-flex; align-items: center; gap: 8px;
+            min-width: 130px; justify-content: center;
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.08); }
+        .btn:active:not(:disabled) { transform: translateY(0); filter: brightness(0.95); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-start {
+            background: var(--accent); color: #fff;
+            box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4);
+        }
+        .btn-stop {
+            background: var(--danger); color: #fff;
+            box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4);
+        }
+        .btn-lap {
+            background: var(--bg-timer); color: var(--text-main);
+            border: 2px solid var(--hr-color);
+        }
+        .btn-lap:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+        .btn-reset {
+            background: var(--bg-timer); color: var(--text-muted);
+            border: 2px solid var(--hr-color);
+        }
+        .btn-reset:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
+
+        /* Lap table */
+        .laps-card {
+            background: var(--bg-card); border-radius: 24px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); overflow: hidden; width: 100%;
+            margin-bottom: 24px; display: none;
+        }
+        .laps-card.visible { display: block; }
+
+        .laps-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 18px 24px; border-bottom: 1px solid var(--hr-color);
+        }
+        .laps-title {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 800; color: var(--text-muted);
+        }
+        .btn-clear-laps {
+            font-size: 0.75rem; font-weight: 700; color: var(--text-muted);
+            background: none; border: 1px solid var(--hr-color); border-radius: 8px;
+            padding: 6px 12px; cursor: pointer; transition: 0.2s;
+        }
+        .btn-clear-laps:hover { color: var(--danger); border-color: var(--danger); }
+
+        .laps-table { width: 100%; border-collapse: collapse; }
+        .laps-table th {
+            padding: 10px 24px; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 800; color: var(--text-muted);
+            background: var(--bg-timer); text-align: right; border-bottom: 1px solid var(--hr-color);
+        }
+        .laps-table th:first-child { text-align: left; }
+
+        .laps-table td {
+            padding: 14px 24px; font-size: 0.95rem; font-weight: 700;
+            font-variant-numeric: tabular-nums; text-align: right;
+            border-bottom: 1px solid var(--hr-color);
+        }
+        .laps-table td:first-child { text-align: left; color: var(--text-muted); }
+        .laps-table tr:last-child td { border-bottom: none; }
+
+        .lap-best td { background: var(--lap-best); color: var(--lap-best-text); }
+        .lap-best td:first-child { color: var(--lap-best-text); }
+        .lap-worst td { background: var(--lap-worst); color: var(--lap-worst-text); }
+        .lap-worst td:first-child { color: var(--lap-worst-text); }
+
+        /* Info section */
+        .info-card {
+            background: var(--bg-card); border-radius: 24px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); padding: 28px; width: 100%;
+            margin-bottom: 24px;
+        }
+        .info-card h2 {
+            font-size: 1.1rem; font-weight: 800; color: var(--text-main);
+            margin-bottom: 12px;
+        }
+        .info-card p {
+            font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 8px;
+        }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        footer {
+            margin-top: 40px; padding: 40px 20px 20px;
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 700; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+
+        .btn-settings {
+            padding: 14px 30px; border-radius: 50px; color: var(--text-muted);
+            text-decoration: none; border: 1.5px solid var(--hr-color);
+            font-size: 0.9rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; gap: 10px; max-width: fit-content;
+        }
+        .btn-settings:hover {
+            color: var(--accent); border-color: var(--accent); background: var(--bg-card);
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .btn-settings:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+        @media (max-width: 520px) {
+            .controls { gap: 10px; }
+            .btn { padding: 14px 20px; min-width: 100px; font-size: 0.9rem; }
+            .laps-table th, .laps-table td { padding: 12px 14px; }
+        }
+    </style>
+
+    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
+    <!-- Original source: /js/theme.js - minified inline for performance -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+</head>
+
+<body>
+<div class="container">
+    <nav class="nav-header" aria-label="Navegação estrutural">
+        <a href="/" class="nav-link">dataehora.com.br</a>
+        <span class="nav-sep">/</span>
+        <span class="nav-current">Cronômetro</span>
+    </nav>
+
+    <div class="header-ad-container">
+        <ins class="adsbygoogle"
+             style="display:inline-block;width:728px;height:90px"
+             data-ad-client="ca-pub-7808195997729404"
+             data-ad-slot="1234567890"></ins>
+        <script>
+             (adsbygoogle = window.adsbygoogle || []).push({});
+        </script>
+    </div>
+
+    <!-- Main stopwatch display -->
+    <div class="stopwatch-card">
+        <div class="page-title">⏱️ Cronômetro</div>
+
+        <div class="time-display" id="display" aria-live="polite" aria-label="Tempo decorrido">
+            <span id="hms">00:00:00</span><span class="ms">.<span id="ms">00</span></span>
+        </div>
+
+        <div class="controls" role="group" aria-label="Controles do cronômetro">
+            <button class="btn btn-start" id="btn-startstop" onclick="toggleStartStop()" aria-label="Iniciar cronômetro">
+                ▶ Iniciar
+            </button>
+            <button class="btn btn-lap" id="btn-lap" onclick="recordLap()" disabled aria-label="Marcar volta">
+                🏁 Volta
+            </button>
+            <button class="btn btn-reset" id="btn-reset" onclick="resetStopwatch()" disabled aria-label="Zerar cronômetro">
+                ↺ Zerar
+            </button>
+        </div>
+    </div>
+
+    <!-- Lap times table -->
+    <div class="laps-card" id="laps-card">
+        <div class="laps-header">
+            <span class="laps-title">Voltas</span>
+            <button class="btn-clear-laps" onclick="clearLaps()" aria-label="Limpar lista de voltas">
+                Limpar
+            </button>
+        </div>
+        <table class="laps-table" aria-label="Tabela de voltas">
+            <thead>
+                <tr>
+                    <th scope="col">Volta</th>
+                    <th scope="col">Tempo da Volta</th>
+                    <th scope="col">Tempo Total</th>
+                </tr>
+            </thead>
+            <tbody id="laps-body">
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Info section -->
+    <div class="info-card">
+        <h2>Como usar o Cronômetro</h2>
+        <p>Clique em <strong>Iniciar</strong> para começar a contar o tempo. Clique em <strong>Parar</strong> para pausar e em <strong>Iniciar</strong> novamente para continuar de onde parou.</p>
+        <p>Use o botão <strong>Volta</strong> para registrar tempos parciais enquanto o cronômetro continua rodando. O tempo mais rápido aparece em <span style="color:var(--lap-best-text);font-weight:800;">verde</span> e o mais lento em <span style="color:var(--lap-worst-text);font-weight:800;">vermelho</span>.</p>
+        <p>Clique em <strong>Zerar</strong> para reiniciar o cronômetro e apagar todas as voltas.</p>
+    </div>
+</div>
+
+<footer>
+    <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+
+    <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+        © 2026 dataehora.com.br<br>
+        <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+        <br>
+        <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> |
+        <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+    </div>
+</footer>
+
+<script>
+    // --- State ---
+    let startTime = 0;       // performance.now() value when last started
+    let elapsed = 0;         // accumulated ms before last pause
+    let running = false;
+    let rafId = null;
+
+    let laps = [];           // array of { lapMs, totalMs }
+
+    // --- DOM refs ---
+    const display      = document.getElementById('display');
+    const hmsEl        = document.getElementById('hms');
+    const msEl         = document.getElementById('ms');
+    const btnStartStop = document.getElementById('btn-startstop');
+    const btnLap       = document.getElementById('btn-lap');
+    const btnReset     = document.getElementById('btn-reset');
+    const lapsCard     = document.getElementById('laps-card');
+    const lapsBody     = document.getElementById('laps-body');
+
+    // --- Formatting helpers ---
+    function pad2(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+    function formatTime(ms) {
+        const totalSec = Math.floor(ms / 1000);
+        const h = Math.floor(totalSec / 3600);
+        const m = Math.floor((totalSec % 3600) / 60);
+        const s = totalSec % 60;
+        const centisec = Math.floor((ms % 1000) / 10);
+        return {
+            hms: pad2(h) + ':' + pad2(m) + ':' + pad2(s),
+            ms: pad2(centisec)
+        };
+    }
+
+    // --- Render loop ---
+    function tick() {
+        if (!running) return;
+        const now = elapsed + (performance.now() - startTime);
+        const t = formatTime(now);
+        hmsEl.textContent = t.hms;
+        msEl.textContent  = t.ms;
+        rafId = requestAnimationFrame(tick);
+    }
+
+    // --- Controls ---
+    function toggleStartStop() {
+        if (running) {
+            // Stop
+            running = false;
+            cancelAnimationFrame(rafId);
+            elapsed += performance.now() - startTime;
+            display.classList.remove('running');
+            btnStartStop.innerHTML = '▶ Continuar';
+            btnStartStop.classList.replace('btn-stop', 'btn-start');
+            btnStartStop.setAttribute('aria-label', 'Continuar cronômetro');
+            btnLap.disabled = false;  // allow lap on pause too
+        } else {
+            // Start / resume
+            running = true;
+            startTime = performance.now();
+            display.classList.add('running');
+            btnStartStop.innerHTML = '⏸ Parar';
+            btnStartStop.classList.replace('btn-start', 'btn-stop');
+            btnStartStop.setAttribute('aria-label', 'Parar cronômetro');
+            btnLap.disabled = false;
+            btnReset.disabled = false;
+            rafId = requestAnimationFrame(tick);
+        }
+    }
+
+    function recordLap() {
+        const now = running
+            ? elapsed + (performance.now() - startTime)
+            : elapsed;
+        const prevTotal = laps.length > 0 ? laps[laps.length - 1].totalMs : 0;
+        laps.push({ lapMs: now - prevTotal, totalMs: now });
+        renderLaps();
+        lapsCard.classList.add('visible');
+    }
+
+    function resetStopwatch() {
+        running = false;
+        cancelAnimationFrame(rafId);
+        elapsed = 0;
+        laps = [];
+
+        hmsEl.textContent = '00:00:00';
+        msEl.textContent  = '00';
+        display.classList.remove('running');
+
+        btnStartStop.innerHTML = '▶ Iniciar';
+        btnStartStop.classList.replace('btn-stop', 'btn-start');
+        btnStartStop.setAttribute('aria-label', 'Iniciar cronômetro');
+        btnLap.disabled = true;
+        btnReset.disabled = true;
+
+        lapsBody.innerHTML = '';
+        lapsCard.classList.remove('visible');
+    }
+
+    function clearLaps() {
+        laps = [];
+        lapsBody.innerHTML = '';
+        lapsCard.classList.remove('visible');
+    }
+
+    // --- Render laps ---
+    function renderLaps() {
+        // Determine best and worst lap indices (only if ≥2 laps)
+        let bestIdx = -1, worstIdx = -1;
+        if (laps.length >= 2) {
+            let best = Infinity, worst = -Infinity;
+            laps.forEach((l, i) => {
+                if (l.lapMs < best)  { best = l.lapMs;  bestIdx  = i; }
+                if (l.lapMs > worst) { worst = l.lapMs; worstIdx = i; }
+            });
+        }
+
+        lapsBody.innerHTML = '';
+        // Render in reverse order (newest first) like timeanddate.com
+        for (let i = laps.length - 1; i >= 0; i--) {
+            const lap = laps[i];
+            const tr = document.createElement('tr');
+            if (i === bestIdx)  tr.className = 'lap-best';
+            if (i === worstIdx) tr.className = 'lap-worst';
+
+            const lapFmt   = formatTime(lap.lapMs);
+            const totalFmt = formatTime(lap.totalMs);
+
+            tr.innerHTML =
+                '<td>Volta ' + (i + 1) + '</td>' +
+                '<td>' + lapFmt.hms + '.<small>' + lapFmt.ms + '</small></td>' +
+                '<td>' + totalFmt.hms + '.<small>' + totalFmt.ms + '</small></td>';
+            lapsBody.appendChild(tr);
+        }
+    }
+
+    // Keyboard shortcuts: Space = start/stop, L = lap, R = reset
+    document.addEventListener('keydown', function(e) {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        if (e.code === 'Space') {
+            e.preventDefault();
+            toggleStartStop();
+        } else if (e.code === 'KeyL' && !btnLap.disabled) {
+            recordLap();
+        } else if (e.code === 'KeyR' && !btnReset.disabled) {
+            resetStopwatch();
+        }
+    });
+</script>
+
+</body>
+</html>
