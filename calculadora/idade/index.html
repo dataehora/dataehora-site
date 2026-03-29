@@ -1,0 +1,674 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Calculadora de Idade | dataehora.com.br</title>
+    <meta name="description" content="Calcule sua idade exata em anos, meses, dias e horas a partir da sua data de nascimento. Rápido, preciso e gratuito.">
+    <meta name="keywords" content="calculadora de idade, calcular minha idade, quantos anos tenho, data de nascimento, anos meses dias">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Calculadora de Idade | dataehora.com.br">
+    <meta property="og:description" content="Calcule sua idade exata em anos, meses, dias e horas a partir da sua data de nascimento. Rápido, preciso e gratuito.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/calculadora/idade/">
+    <meta property="og:site_name" content="Data e Hora">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Calculadora de Idade | dataehora.com.br">
+    <meta name="twitter:description" content="Calcule sua idade exata em anos, meses, dias e horas a partir da sua data de nascimento. Rápido, preciso e gratuito.">
+    <meta name="twitter:site" content="@dataehora">
+    <meta name="twitter:creator" content="@dataehora">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Calculadora de Idade",
+      "url": "https://dataehora.com.br/calculadora/idade/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "featureList": "Cálculo de Idade, Anos Meses Dias, Próximo Aniversário, Dia da Semana do Nascimento"
+    }
+    </script>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/calculadora/idade/">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: rgba(148, 163, 184, 0.2);
+            --hr-color: var(--border);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --input-bg: #f8fafc;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
+        }
+
+        .no-transition * {
+            transition: none !important;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 650px;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ── Breadcrumb navigation ── */
+        .nav-header {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            padding: 20px 0;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--accent);
+        }
+        .nav-link:hover { text-decoration: underline; }
+        .nav-sep { color: var(--text-muted); font-size: 0.8rem; }
+        .nav-current { color: var(--text-main); font-weight: 700; font-size: 0.85rem; }
+
+        /* ── Page header ── */
+        .header { margin-bottom: 32px; }
+        h1 {
+            font-size: clamp(1.8rem, 6vw, 2.2rem);
+            margin: 0;
+            letter-spacing: -1.5px;
+            font-weight: 900;
+        }
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin-top: 6px;
+            font-weight: 500;
+        }
+
+        /* ── Main calculator card ── */
+        .calc-card {
+            background: var(--bg-card);
+            border-radius: 28px;
+            padding: clamp(25px, 5vw, 40px);
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 18px;
+            margin-bottom: 24px;
+        }
+
+        .form-group { margin-bottom: 0; }
+
+        label {
+            display: block;
+            font-weight: 700;
+            font-size: 0.78rem;
+            margin-bottom: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        input[type="date"] {
+            width: 100%;
+            padding: 14px 16px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 1rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+        }
+        input[type="date"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.12);
+        }
+        [data-theme="dark"] input[type="date"]:focus {
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+        }
+
+        /* ── Button ── */
+        .btn-calc {
+            width: 100%;
+            padding: 17px;
+            border-radius: 15px;
+            border: none;
+            background: var(--accent);
+            color: #fff;
+            font-size: 1.05rem;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform 0.18s, filter 0.18s, box-shadow 0.18s;
+            letter-spacing: 0.2px;
+        }
+        .btn-calc:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.1);
+            box-shadow: 0 8px 20px -4px rgba(37, 99, 235, 0.35);
+        }
+        .btn-calc:active { transform: translateY(0); }
+
+        /* ── Divider ── */
+        .res-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 32px 0 28px;
+        }
+
+        /* ── Result area ── */
+        #result-area {
+            display: none;
+        }
+
+        /* Main age headline */
+        .age-headline {
+            text-align: center;
+            margin-bottom: 28px;
+        }
+        .age-headline .age-main {
+            font-size: clamp(1.5rem, 5vw, 1.75rem);
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1.25;
+        }
+        .age-headline .age-main strong {
+            color: var(--accent);
+        }
+
+        /* ── Stats grid (days / weeks / hours) ── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 20px;
+        }
+
+        .stat-item {
+            background: var(--input-bg);
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            padding: 20px 10px;
+            text-align: center;
+            transition: transform 0.18s;
+        }
+        .stat-item:hover { transform: translateY(-2px); }
+
+        .stat-val {
+            display: block;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 900;
+            color: var(--text-main);
+            line-height: 1;
+            letter-spacing: -0.5px;
+        }
+        .stat-lbl {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 800;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-top: 7px;
+        }
+
+        /* ── Total days hero ── */
+        .total-days-box {
+            background: var(--accent);
+            color: #fff;
+            border-radius: 20px;
+            padding: 24px 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 24px -6px rgba(37, 99, 235, 0.28);
+        }
+        [data-theme="dark"] .total-days-box {
+            box-shadow: 0 10px 24px -6px rgba(96, 165, 250, 0.18);
+        }
+        .total-days-box .total-val {
+            display: block;
+            font-size: clamp(2.4rem, 8vw, 3rem);
+            font-weight: 900;
+            line-height: 1;
+            letter-spacing: -1px;
+        }
+        .total-days-box .total-lbl {
+            display: block;
+            font-size: 0.88rem;
+            font-weight: 700;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+
+        /* ── Birthday & birth weekday info cards ── */
+        .info-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 14px;
+            margin-bottom: 4px;
+        }
+
+        .info-card {
+            background: var(--input-bg);
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            padding: 18px 16px;
+            text-align: center;
+            transition: transform 0.18s;
+        }
+        .info-card:hover { transform: translateY(-2px); }
+
+        .info-card .info-icon {
+            font-size: 1.6rem;
+            margin-bottom: 8px;
+            display: block;
+        }
+        .info-card .info-val {
+            display: block;
+            font-size: 1rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.3;
+        }
+        .info-card .info-lbl {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.4px;
+            margin-top: 5px;
+        }
+
+        /* Birthday card highlight */
+        .info-card.birthday-card {
+            border-color: rgba(37, 99, 235, 0.25);
+            background: linear-gradient(135deg, var(--input-bg), rgba(37, 99, 235, 0.04));
+        }
+        [data-theme="dark"] .info-card.birthday-card {
+            border-color: rgba(96, 165, 250, 0.2);
+            background: linear-gradient(135deg, var(--input-bg), rgba(96, 165, 250, 0.06));
+        }
+        .info-card.birthday-card .info-val {
+            color: var(--accent);
+        }
+
+        /* ── "Today is your birthday!" banner ── */
+        .birthday-today {
+            display: none;
+            text-align: center;
+            padding: 16px 20px;
+            background: linear-gradient(135deg, #fef3c7, #fde68a);
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 800;
+            color: #92400e;
+            margin-bottom: 20px;
+            animation: popIn 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        [data-theme="dark"] .birthday-today {
+            background: linear-gradient(135deg, #292524, #44403c);
+            color: #fbbf24;
+        }
+        @keyframes popIn {
+            from { opacity: 0; transform: scale(0.92); }
+            to   { opacity: 1; transform: scale(1); }
+        }
+
+        /* ── Footer ── */
+        footer {
+            text-align: center;
+            padding: 60px 0;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .btn-settings {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--border);
+            transition: transform 0.2s ease;
+        }
+        .btn-settings:hover { transform: translateY(-2px); }
+
+        /* ── Responsive ── */
+        @media (max-width: 520px) {
+            .form-row {
+                grid-template-columns: 1fr;
+                gap: 16px;
+                margin-bottom: 20px;
+            }
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+            .info-row {
+                grid-template-columns: 1fr;
+            }
+            .header { text-align: center; }
+            .nav-header { justify-content: center; }
+        }
+
+        @media (max-width: 360px) {
+            .stat-val { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <a href="/calculadora/" class="nav-link">Calculadoras</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Calculadora de Idade</span>
+        </nav>
+
+        <header class="header">
+            <h1>Calculadora de Idade</h1>
+            <p class="subtitle">Descubra sua idade exata em anos, meses, dias e horas.</p>
+        </header>
+
+        <div class="calc-card">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="birth-date">Data de Nascimento</label>
+                    <input type="date" id="birth-date" aria-label="Data de nascimento">
+                </div>
+                <div class="form-group">
+                    <label for="calc-date">Calcular em</label>
+                    <input type="date" id="calc-date" aria-label="Data de referência para o cálculo">
+                </div>
+            </div>
+
+            <button class="btn-calc" onclick="calculate()">Calcular Idade</button>
+
+            <!-- ── Results ── -->
+            <div id="result-area">
+                <hr class="res-divider">
+
+                <!-- "Happy birthday" banner (shown only when birthdate == calcdate) -->
+                <div class="birthday-today" id="birthday-today-banner">
+                    🎉 Parabéns! Hoje é o seu aniversário! 🎂
+                </div>
+
+                <!-- Main age in years / months / days -->
+                <div class="age-headline">
+                    <div class="age-main" id="age-main-text"></div>
+                </div>
+
+                <!-- Total days hero -->
+                <div class="total-days-box">
+                    <span class="total-val" id="total-days">0</span>
+                    <span class="total-lbl">dias de vida</span>
+                </div>
+
+                <!-- Weeks and hours and total months grid -->
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <span class="stat-val" id="total-weeks">0</span>
+                        <span class="stat-lbl">Semanas</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val" id="total-months">0</span>
+                        <span class="stat-lbl">Meses</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-val" id="total-hours">0</span>
+                        <span class="stat-lbl">Horas (aprox.)</span>
+                    </div>
+                </div>
+
+                <!-- Birthday countdown & birth weekday -->
+                <div class="info-row">
+                    <div class="info-card birthday-card">
+                        <span class="info-icon">🎂</span>
+                        <span class="info-val" id="next-birthday-days">—</span>
+                        <span class="info-lbl">dias para o aniversário</span>
+                    </div>
+                    <div class="info-card">
+                        <span class="info-icon">📅</span>
+                        <span class="info-val" id="birth-weekday">—</span>
+                        <span class="info-lbl">dia do nascimento</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script>
+    (function () {
+        'use strict';
+
+        /* ── Helpers ── */
+        function pad(n) { return String(n).padStart(2, '0'); }
+
+        function todayISO() {
+            const d = new Date();
+            return d.getFullYear() + '-' + pad(d.getMonth() + 1) + '-' + pad(d.getDate());
+        }
+
+        function parseLocal(str) {
+            // Parse YYYY-MM-DD without UTC shift
+            const [y, m, d] = str.split('-').map(Number);
+            return new Date(y, m - 1, d);
+        }
+
+        function formatCompact(n) {
+            // e.g. 305000 → "305 mil"
+            if (n >= 1e6) return (n / 1e6).toLocaleString('pt-BR', { maximumFractionDigits: 1 }) + ' mi';
+            if (n >= 1e3) return n.toLocaleString('pt-BR');
+            return String(n);
+        }
+
+        /* ── Main calculation ── */
+        function calculate() {
+            const birthStr = document.getElementById('birth-date').value;
+            const calcStr  = document.getElementById('calc-date').value;
+            if (!birthStr || !calcStr) return;
+
+            const birth = parseLocal(birthStr);
+            const ref   = parseLocal(calcStr);
+
+            // Require birth ≤ ref
+            if (birth > ref) return;
+
+            /* 1. Exact age decomposition */
+            let years  = ref.getFullYear() - birth.getFullYear();
+            let months = ref.getMonth()    - birth.getMonth();
+            let days   = ref.getDate()     - birth.getDate();
+
+            if (days < 0) {
+                months--;
+                // Days remaining from last month
+                const prevMonth = new Date(ref.getFullYear(), ref.getMonth(), 0);
+                days += prevMonth.getDate();
+            }
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            /* 2. Total counts */
+            const msPerDay  = 1000 * 60 * 60 * 24;
+            const totalDays  = Math.floor((ref - birth) / msPerDay);
+            const totalWeeks = Math.floor(totalDays / 7);
+            const totalMonths = years * 12 + months;
+            const totalHours = totalDays * 24;
+
+            /* 3. Next birthday */
+            let nextBirthday = new Date(ref.getFullYear(), birth.getMonth(), birth.getDate());
+            if (nextBirthday < ref) {
+                nextBirthday = new Date(ref.getFullYear() + 1, birth.getMonth(), birth.getDate());
+            }
+            const daysToNextBirthday = Math.floor((nextBirthday - ref) / msPerDay);
+
+            /* 4. Is today the birthday? */
+            const isBirthday = (birth.getMonth() === ref.getMonth() && birth.getDate() === ref.getDate());
+
+            /* 5. Weekday of birth */
+            const weekdays = ['Domingo', 'Segunda-feira', 'Terça-feira',
+                              'Quarta-feira', 'Quinta-feira', 'Sexta-feira', 'Sábado'];
+            const birthWeekday = weekdays[birth.getDay()];
+
+            /* ── Render ── */
+            const area = document.getElementById('result-area');
+            area.style.display = 'block';
+
+            // Main age text
+            const parts = [];
+            if (years > 0)  parts.push('<strong>' + years  + ' ano'  + (years  !== 1 ? 's' : '') + '</strong>');
+            if (months > 0) parts.push('<strong>' + months + (months !== 1 ? ' meses' : ' mês') + '</strong>');
+            if (days > 0)   parts.push('<strong>' + days   + ' dia'  + (days   !== 1 ? 's' : '') + '</strong>');
+            if (parts.length === 0) parts.push('<strong>0 dias</strong>');
+
+            let ageStr;
+            if (parts.length === 1) {
+                ageStr = parts[0];
+            } else if (parts.length === 2) {
+                ageStr = parts[0] + ' e ' + parts[1];
+            } else {
+                ageStr = parts[0] + ', ' + parts[1] + ' e ' + parts[2];
+            }
+            document.getElementById('age-main-text').innerHTML = ageStr;
+
+            // Total days
+            document.getElementById('total-days').textContent = totalDays.toLocaleString('pt-BR');
+
+            // Stats
+            document.getElementById('total-weeks').textContent  = totalWeeks.toLocaleString('pt-BR');
+            document.getElementById('total-months').textContent = totalMonths.toLocaleString('pt-BR');
+            document.getElementById('total-hours').textContent  = totalHours.toLocaleString('pt-BR');
+
+            // Birthday countdown
+            const banner = document.getElementById('birthday-today-banner');
+            const nextDaysEl = document.getElementById('next-birthday-days');
+
+            if (isBirthday) {
+                banner.style.display = 'block';
+                nextDaysEl.textContent = '🎉 Hoje!';
+            } else {
+                banner.style.display = 'none';
+                nextDaysEl.textContent = daysToNextBirthday.toLocaleString('pt-BR') + ' dia' +
+                    (daysToNextBirthday !== 1 ? 's' : '');
+            }
+
+            // Weekday
+            document.getElementById('birth-weekday').textContent = birthWeekday;
+
+            // Smooth scroll on mobile
+            if (window.innerWidth < 600) {
+                area.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        /* ── Auto-calculate on input change ── */
+        function autoCalc() {
+            const b = document.getElementById('birth-date').value;
+            const c = document.getElementById('calc-date').value;
+            if (b && c) calculate();
+        }
+
+        /* ── Init ── */
+        window.addEventListener('DOMContentLoaded', function () {
+            document.getElementById('calc-date').value = todayISO();
+            document.getElementById('birth-date').addEventListener('change', autoCalc);
+            document.getElementById('calc-date').addEventListener('change', autoCalc);
+        });
+
+        // Expose for inline onclick
+        window.calculate = calculate;
+    })();
+    </script>
+</body>
+</html>

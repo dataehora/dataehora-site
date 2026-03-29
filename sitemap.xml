@@ -60,6 +60,12 @@
   </url>
 
   <url>
+    <loc>https://dataehora.com.br/calculadora/idade/</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
     <loc>https://dataehora.com.br/calendario/</loc>
     <lastmod>2026-01-25</lastmod>
     <changefreq>monthly</changefreq>
