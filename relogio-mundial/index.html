@@ -3,9 +3,9 @@
 <head>
     <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
     <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
-    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
     <meta name="color-scheme" content="light dark">
 
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
@@ -84,8 +84,8 @@
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #60a5fa;
@@ -394,37 +394,37 @@
         const cities = {
             brasil: [
                 { name: 'Brasília',            flag: '🇧🇷', tz: 'America/Sao_Paulo'              },
-                { name: 'Manaus',              flag: '🇧🇷', tz: 'America/Manaus'                 },
-                { name: 'Fortaleza',           flag: '🇧🇷', tz: 'America/Fortaleza'              },
                 { name: 'Fernando de Noronha', flag: '🇧🇷', tz: 'America/Noronha'               },
+                { name: 'Fortaleza',           flag: '🇧🇷', tz: 'America/Fortaleza'              },
+                { name: 'Manaus',              flag: '🇧🇷', tz: 'America/Manaus'                 },
             ],
             lusofonia: [
-                { name: 'Lisboa',   flag: '🇵🇹', tz: 'Europe/Lisbon'        },
-                { name: 'Porto',    flag: '🇵🇹', tz: 'Europe/Lisbon'        },
-                { name: 'Luanda',   flag: '🇦🇴', tz: 'Africa/Luanda'        },
-                { name: 'Maputo',   flag: '🇲🇿', tz: 'Africa/Maputo'        },
-                { name: 'Praia',    flag: '🇨🇻', tz: 'Atlantic/Cape_Verde'  },
-                { name: 'São Tomé', flag: '🇸🇹', tz: 'Africa/Sao_Tome'     },
                 { name: 'Bissau',   flag: '🇬🇼', tz: 'Africa/Bissau'       },
                 { name: 'Dili',     flag: '🇹🇱', tz: 'Asia/Dili'           },
+                { name: 'Lisboa',   flag: '🇵🇹', tz: 'Europe/Lisbon'        },
+                { name: 'Luanda',   flag: '🇦🇴', tz: 'Africa/Luanda'        },
+                { name: 'Maputo',   flag: '🇲🇿', tz: 'Africa/Maputo'        },
+                { name: 'Porto',    flag: '🇵🇹', tz: 'Europe/Lisbon'        },
+                { name: 'Praia',    flag: '🇨🇻', tz: 'Atlantic/Cape_Verde'  },
+                { name: 'São Tomé', flag: '🇸🇹', tz: 'Africa/Sao_Tome'     },
             ],
             mundo: [
-                { name: 'Londres',          flag: '🇬🇧', tz: 'Europe/London'                        },
-                { name: 'Paris',            flag: '🇫🇷', tz: 'Europe/Paris'                         },
-                { name: 'Madrid',           flag: '🇪🇸', tz: 'Europe/Madrid'                        },
                 { name: 'Berlim',           flag: '🇩🇪', tz: 'Europe/Berlin'                        },
-                { name: 'Moscou',           flag: '🇷🇺', tz: 'Europe/Moscow'                        },
+                { name: 'Buenos Aires',     flag: '🇦🇷', tz: 'America/Argentina/Buenos_Aires'       },
+                { name: 'Chicago',          flag: '🇺🇸', tz: 'America/Chicago'                      },
+                { name: 'Cidade do México', flag: '🇲🇽', tz: 'America/Mexico_City'                  },
                 { name: 'Dubai',            flag: '🇦🇪', tz: 'Asia/Dubai'                           },
                 { name: 'Índia',            flag: '🇮🇳', tz: 'Asia/Kolkata'                         },
-                { name: 'Pequim',           flag: '🇨🇳', tz: 'Asia/Shanghai'                        },
-                { name: 'Tóquio',           flag: '🇯🇵', tz: 'Asia/Tokyo'                           },
-                { name: 'Sydney',           flag: '🇦🇺', tz: 'Australia/Sydney'                     },
-                { name: 'Nova York',        flag: '🇺🇸', tz: 'America/New_York'                     },
-                { name: 'Chicago',          flag: '🇺🇸', tz: 'America/Chicago'                      },
+                { name: 'Londres',          flag: '🇬🇧', tz: 'Europe/London'                        },
                 { name: 'Los Angeles',      flag: '🇺🇸', tz: 'America/Los_Angeles'                  },
-                { name: 'Buenos Aires',     flag: '🇦🇷', tz: 'America/Argentina/Buenos_Aires'       },
+                { name: 'Madrid',           flag: '🇪🇸', tz: 'Europe/Madrid'                        },
+                { name: 'Moscou',           flag: '🇷🇺', tz: 'Europe/Moscow'                        },
+                { name: 'Nova York',        flag: '🇺🇸', tz: 'America/New_York'                     },
+                { name: 'Paris',            flag: '🇫🇷', tz: 'Europe/Paris'                         },
+                { name: 'Pequim',           flag: '🇨🇳', tz: 'Asia/Shanghai'                        },
                 { name: 'Santiago',         flag: '🇨🇱', tz: 'America/Santiago'                     },
-                { name: 'Cidade do México', flag: '🇲🇽', tz: 'America/Mexico_City'                  },
+                { name: 'Sydney',           flag: '🇦🇺', tz: 'Australia/Sydney'                     },
+                { name: 'Tóquio',           flag: '🇯🇵', tz: 'Asia/Tokyo'                           },
             ],
         };
 

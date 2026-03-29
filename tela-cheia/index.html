@@ -3,9 +3,9 @@
 <head>
     <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
     <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
-    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
     <meta name="color-scheme" content="light dark">
 
     
@@ -44,13 +44,13 @@
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f1f5f9;
             --text-muted: #94a3b8;
             --accent: #60a5fa;
             --accent-hover: #3b82f6;
-            --hr-color: rgba(248, 250, 252, 0.08);
+            --hr-color: rgba(248, 250, 252, 0.15);
         }
 
         * {
@@ -331,6 +331,29 @@
             text-align: center;
             margin-bottom: 2px;
         }
+
+        /* Auto-hide countdown bar */
+        #fs-countdown-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 200;
+            background: transparent;
+            pointer-events: none;
+        }
+        #fs-countdown-bar .bar-fill {
+            height: 100%;
+            background: var(--accent);
+            opacity: 0.7;
+            width: 100%;
+            transform-origin: left center;
+            transition: transform linear, opacity 0.3s ease;
+        }
+        #fs-countdown-bar.hidden .bar-fill {
+            opacity: 0;
+        }
     </style>
 </head>
 <body>
@@ -414,7 +437,8 @@
         </div>
     </footer>
 
-    <script defer src="/js/holidays.js?v=9673f339"></script>
+    <!-- Auto-hide countdown bar -->
+    <div id="fs-countdown-bar"><div class="bar-fill" id="fs-bar-fill"></div></div>
     <script>
     let officialTimeOffset = 0;
 
@@ -541,29 +565,61 @@
     const controls = document.getElementById('fs-controls');
     const navHeader = document.querySelector('.nav-header');
     const pageFooter = document.querySelector('footer');
+    const countdownBar = document.getElementById('fs-countdown-bar');
+    const barFill = document.getElementById('fs-bar-fill');
     let hideTimer = null;
+
+    function startBarCountdown() {
+        if (barFill) {
+            barFill.style.transition = 'none';
+            barFill.style.transform = 'scaleX(1)';
+            countdownBar.classList.remove('hidden');
+            // Force reflow so the transition starts fresh
+            void barFill.offsetWidth;
+            barFill.style.transition = `transform ${CONTROLS_HIDE_DELAY}ms linear`;
+            barFill.style.transform = 'scaleX(0)';
+        }
+    }
+
+    function stopBarCountdown() {
+        if (barFill) {
+            barFill.style.transition = 'none';
+            barFill.style.transform = 'scaleX(1)';
+            countdownBar.classList.remove('hidden');
+        }
+    }
 
     function hideAll() {
         controls.classList.add('hidden');
         if (navHeader) navHeader.classList.add('hidden');
         if (pageFooter) pageFooter.classList.add('hidden');
+        if (countdownBar) countdownBar.classList.add('hidden');
     }
 
     function showControls() {
         controls.classList.remove('hidden');
         if (navHeader) navHeader.classList.remove('hidden');
         if (pageFooter) pageFooter.classList.remove('hidden');
+        stopBarCountdown();
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
+        hideTimer = setTimeout(() => {
+            hideAll();
+        }, CONTROLS_HIDE_DELAY);
+        // Restart bar animation
+        startBarCountdown();
     }
 
     document.addEventListener('mousemove', showControls);
     document.addEventListener('touchstart', showControls);
     [controls, navHeader, pageFooter].forEach(el => {
         if (!el) return;
-        el.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        el.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimer);
+            stopBarCountdown();
+        });
         el.addEventListener('mouseleave', () => {
             hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
+            startBarCountdown();
         });
     });
 
