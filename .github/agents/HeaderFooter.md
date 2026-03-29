@@ -11,3 +11,4 @@ description: Checks Header and Footer consistency in all pages
 # My Agent
 
 Verify all existing pages in the repository and make all Header and Footer content, configs and specs to match the front page header and footer.
+In all pages accessed from teh Home Page, make all breadcrumbs configs and specs to match the same standard.
