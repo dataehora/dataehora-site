@@ -332,6 +332,16 @@
             margin-bottom: 2px;
         }
 
+        .fs-ctrl-hint {
+            font-size: 0.63rem;
+            color: var(--text-muted);
+            text-align: center;
+            opacity: 0.55;
+            margin-top: 2px;
+            letter-spacing: 0.3px;
+            min-height: 1em;
+        }
+
         /* Auto-hide countdown bar */
         #fs-countdown-bar {
             position: fixed;
@@ -412,6 +422,7 @@
                 <button class="fs-ctrl-del" id="holiday-del" style="display:none">Excluir</button>
             </div>
         </div>
+        <div class="fs-ctrl-hint" id="fs-ctrl-hint"></div>
     </div>
 
     <span class="fs-label">Horário Oficial de Brasília</span>
@@ -569,6 +580,33 @@
     const countdownBar = document.getElementById('fs-countdown-bar');
     const barFill = document.getElementById('fs-bar-fill');
     let hideTimer = null;
+    let countdownInterval = null;
+    let countdownSecs = 0;
+
+    function updateHintText() {
+        const hint = document.getElementById('fs-ctrl-hint');
+        if (!hint) return;
+        hint.textContent = countdownSecs > 0
+            ? `Opções ocultarão em ${countdownSecs}s`
+            : '';
+    }
+
+    function startCountdownText() {
+        if (countdownInterval) clearInterval(countdownInterval);
+        countdownSecs = Math.round(CONTROLS_HIDE_DELAY / 1000);
+        updateHintText();
+        countdownInterval = setInterval(() => {
+            countdownSecs = Math.max(0, countdownSecs - 1);
+            updateHintText();
+            if (countdownSecs <= 0) { clearInterval(countdownInterval); countdownInterval = null; }
+        }, 1000);
+    }
+
+    function stopCountdownText() {
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+        countdownSecs = 0;
+        updateHintText();
+    }
 
     function startBarCountdown() {
         if (barFill) {
@@ -606,8 +644,9 @@
         hideTimer = setTimeout(() => {
             hideAll();
         }, CONTROLS_HIDE_DELAY);
-        // Restart bar animation
+        // Restart bar animation and countdown text
         startBarCountdown();
+        startCountdownText();
     }
 
     document.addEventListener('mousemove', showControls);
@@ -617,10 +656,12 @@
         el.addEventListener('mouseenter', () => {
             clearTimeout(hideTimer);
             stopBarCountdown();
+            stopCountdownText();
         });
         el.addEventListener('mouseleave', () => {
             hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
             startBarCountdown();
+            startCountdownText();
         });
     });
 
