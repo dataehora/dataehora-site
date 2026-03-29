@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/numero-da-semana/">
+
+    <!-- Preconnect -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- SEO Meta Tags -->
+    <title>Número da Semana — Qual Semana do Ano É Hoje? | dataehora.com.br</title>
+    <meta name="description" content="Descubra em qual semana do ano estamos hoje e consulte o número da semana para qualquer data. Calendário completo de semanas do ano segundo o padrão ISO 8601.">
+    <meta name="keywords" content="número da semana, semana do ano, semana ISO, qual semana estamos, calendário semanal, ISO 8601">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Número da Semana — Qual Semana do Ano É Hoje? | dataehora.com.br">
+    <meta property="og:description" content="Descubra em qual semana do ano estamos hoje e consulte o número da semana para qualquer data.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/numero-da-semana/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Número da Semana | dataehora.com.br">
+    <meta name="twitter:description" content="Descubra em qual semana do ano estamos hoje e consulte o número da semana para qualquer data.">
+    <meta name="twitter:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Número da Semana",
+      "description": "Consulte o número da semana ISO para qualquer data e veja o calendário completo de semanas do ano.",
+      "url": "https://dataehora.com.br/numero-da-semana/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Data e Hora",
+        "url": "https://dataehora.com.br/"
+      }
+    }
+    </script>
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/css/styles.css?v=ebccf3a8" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=ebccf3a8">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --bg-input: #f8fafc;
+            --text-main: #0f172a; --text-muted: #64748b; --accent: #2563eb;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(148, 163, 184, 0.15);
+            --today-bg: #dbeafe; --today-text: #1d4ed8;
+            --today-border: #93c5fd;
+        }
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --bg-input: #1e293b;
+            --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #60a5fa;
+            --hr-color: rgba(255, 255, 255, 0.08);
+            --today-bg: #1e3a5f; --today-text: #93c5fd;
+            --today-border: #3b82f6;
+        }
+        .no-transition * { transition: none !important; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            padding: 20px; display: flex; flex-direction: column; align-items: center;
+        }
+        .container { width: 100%; max-width: 860px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-header {
+            width: 100%; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+            margin: 20px 0 30px 0; padding: 12px 16px; background: var(--bg-card);
+            border-radius: 12px; border: 1px solid var(--hr-color); font-size: 0.875rem;
+        }
+        .nav-link { text-decoration: none; font-weight: 700; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        /* Hero card */
+        .hero-card {
+            background: var(--bg-card); border-radius: 32px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); padding: clamp(24px, 5vw, 48px);
+            text-align: center; margin-bottom: 24px; width: 100%;
+        }
+        .page-title {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); font-weight: 800; margin-bottom: 16px;
+        }
+        .week-number-big {
+            font-size: clamp(5rem, 20vw, 9rem); font-weight: 950;
+            font-variant-numeric: tabular-nums; line-height: 1;
+            color: var(--accent); letter-spacing: -4px; margin-bottom: 4px;
+        }
+        .week-label {
+            font-size: 1rem; font-weight: 700; color: var(--text-muted); margin-bottom: 24px;
+        }
+        .week-dates {
+            font-size: 0.95rem; font-weight: 700; color: var(--text-main);
+            background: var(--bg-input); border-radius: 12px; padding: 12px 20px;
+            display: inline-block; margin-bottom: 28px;
+        }
+
+        /* Date picker */
+        .lookup-row {
+            display: flex; gap: 12px; justify-content: center; align-items: flex-end;
+            flex-wrap: wrap; margin-bottom: 8px;
+        }
+        .lookup-group { display: flex; flex-direction: column; gap: 6px; }
+        .lookup-group label {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 800; color: var(--text-muted);
+        }
+        .lookup-group input[type="date"] {
+            padding: 10px 16px; border-radius: 12px; border: 2px solid var(--hr-color);
+            background: var(--bg-input); color: var(--text-main);
+            font-size: 1rem; font-weight: 700; cursor: pointer;
+        }
+        .lookup-group input[type="date"]:focus { outline: none; border-color: var(--accent); }
+        .lookup-result {
+            margin-top: 16px; font-size: 1rem; font-weight: 700;
+            color: var(--text-muted); min-height: 28px;
+        }
+        .lookup-result strong { color: var(--accent); font-size: 1.3rem; }
+
+        /* Year selector */
+        .year-row {
+            display: flex; gap: 10px; align-items: center; justify-content: center;
+            margin-bottom: 20px; flex-wrap: wrap;
+        }
+        .year-btn {
+            padding: 8px 20px; border-radius: 50px; font-size: 0.9rem;
+            font-weight: 800; cursor: pointer; border: 1.5px solid var(--hr-color);
+            background: var(--bg-input); color: var(--text-muted); transition: all 0.2s;
+        }
+        .year-btn:hover { border-color: var(--accent); color: var(--accent); }
+        .year-display {
+            font-size: 1.3rem; font-weight: 900; color: var(--text-main);
+            min-width: 80px; text-align: center;
+        }
+
+        /* Weeks table */
+        .weeks-card {
+            background: var(--bg-card); border-radius: 24px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); overflow: hidden; width: 100%;
+            margin-bottom: 24px;
+        }
+        .weeks-card-header {
+            padding: 18px 24px; border-bottom: 1px solid var(--hr-color);
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 2px;
+            font-weight: 800; color: var(--text-muted); background: var(--bg-input);
+        }
+        .weeks-table {
+            width: 100%; border-collapse: collapse;
+        }
+        .weeks-table th {
+            padding: 10px 16px; font-size: 0.7rem; text-transform: uppercase;
+            letter-spacing: 1px; font-weight: 800; color: var(--text-muted);
+            background: var(--bg-input); text-align: left; border-bottom: 1px solid var(--hr-color);
+        }
+        .weeks-table th:first-child { width: 80px; text-align: center; }
+        .weeks-table td {
+            padding: 12px 16px; font-size: 0.9rem; font-weight: 600;
+            border-bottom: 1px solid var(--hr-color); color: var(--text-muted);
+        }
+        .weeks-table td:first-child {
+            text-align: center; font-weight: 900; font-size: 1rem;
+            color: var(--text-main); font-variant-numeric: tabular-nums;
+        }
+        .weeks-table tr:last-child td { border-bottom: none; }
+        .weeks-table tr.current-week td { background: var(--today-bg); color: var(--today-text); }
+        .weeks-table tr.current-week td:first-child { color: var(--today-text); }
+
+        /* Info card */
+        .info-card {
+            background: var(--bg-card); border-radius: 24px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); padding: 28px; width: 100%; margin-bottom: 24px;
+        }
+        .info-card h2 { font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; }
+        .info-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        footer {
+            margin-top: 40px; padding: 40px 20px 20px;
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 700; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .btn-settings {
+            padding: 14px 30px; border-radius: 50px; color: var(--text-muted);
+            text-decoration: none; border: 1.5px solid var(--hr-color);
+            font-size: 0.9rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; gap: 10px; max-width: fit-content;
+        }
+        .btn-settings:hover {
+            color: var(--accent); border-color: var(--accent); background: var(--bg-card);
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Top nav header */
+        .top-nav-wrapper {
+            width: 100%; background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color); padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%; max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 20px; flex-wrap: wrap;
+        }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; letter-spacing: -1.5px; }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad { display: flex; justify-content: flex-end; align-items: center; min-height: 90px; }
+
+        @media (max-width: 600px) {
+            .weeks-table th:nth-child(3), .weeks-table td:nth-child(3) { display: none; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Número da Semana</span>
+        </nav>
+
+        <!-- Hero: current week -->
+        <div class="hero-card">
+            <div class="page-title">📆 Número da Semana</div>
+            <div class="week-number-big" id="heroWeek" aria-label="Número da semana atual">--</div>
+            <div class="week-label" id="heroLabel">Semana do ano</div>
+            <div class="week-dates" id="heroDates">—</div>
+
+            <!-- Lookup by date -->
+            <div class="lookup-row">
+                <div class="lookup-group">
+                    <label for="lookupDate">Consultar outra data</label>
+                    <input type="date" id="lookupDate" aria-label="Data para consulta">
+                </div>
+            </div>
+            <div class="lookup-result" id="lookupResult" aria-live="polite"></div>
+        </div>
+
+        <!-- Full-year weeks table -->
+        <div class="weeks-card">
+            <div class="weeks-card-header">
+                <div class="year-row">
+                    <button class="year-btn" id="btnPrevYear" onclick="changeYear(-1)" aria-label="Ano anterior">‹ Anterior</button>
+                    <div class="year-display" id="yearDisplay">—</div>
+                    <button class="year-btn" id="btnNextYear" onclick="changeYear(+1)" aria-label="Próximo ano">Próximo ›</button>
+                </div>
+                Calendário de semanas
+            </div>
+            <table class="weeks-table" aria-label="Tabela de semanas do ano">
+                <thead>
+                    <tr>
+                        <th scope="col">Semana</th>
+                        <th scope="col">Início (Segunda)</th>
+                        <th scope="col">Fim (Domingo)</th>
+                        <th scope="col">Mês</th>
+                    </tr>
+                </thead>
+                <tbody id="weeksBody"></tbody>
+            </table>
+        </div>
+
+        <!-- Info -->
+        <div class="info-card">
+            <h2>O que é o Número da Semana?</h2>
+            <p>O número da semana indica em qual semana do ano uma determinada data se encontra. A contagem segue o padrão <strong>ISO 8601</strong>, amplamente adotado no Brasil e no mundo.</p>
+            <p>Pela norma ISO 8601, a semana começa na <strong>segunda-feira</strong> e a <strong>Semana 1</strong> é a que contém a primeira quinta-feira do ano (ou seja, a que contém o dia 4 de janeiro). Um ano pode ter 52 ou 53 semanas.</p>
+            <p>O número da semana é muito utilizado em <strong>planejamento de projetos</strong>, <strong>logística</strong>, <strong>finanças</strong> e <strong>contratos</strong> para agendar entregas, vencimentos e reuniões de forma padronizada.</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> |
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+<script>
+    // --- ISO 8601 Week Number ---
+    function isoWeek(date) {
+        // Returns { week, year } according to ISO 8601
+        const d = new Date(Date.UTC(date.getFullYear(), date.getMonth(), date.getDate()));
+        const day = d.getUTCDay() || 7; // Mon=1 … Sun=7
+        d.setUTCDate(d.getUTCDate() + 4 - day); // nearest Thursday
+        const yearStart = new Date(Date.UTC(d.getUTCFullYear(), 0, 1));
+        const weekNo = Math.ceil((((d - yearStart) / 86400000) + 1) / 7);
+        return { week: weekNo, year: d.getUTCFullYear() };
+    }
+
+    function isoWeekStart(isoYear, isoWeekNum) {
+        // Returns Monday of the given ISO week
+        const simple = new Date(Date.UTC(isoYear, 0, 1 + (isoWeekNum - 1) * 7));
+        const dow = simple.getUTCDay() || 7;
+        if (dow !== 1) simple.setUTCDate(simple.getUTCDate() - (dow - 1));
+        return simple;
+    }
+
+    function weeksInYear(year) {
+        // ISO 8601: a year has 53 weeks if Jan 1 or Dec 31 is Thursday
+        const p = (y) => {
+            const c = y % 400; // cycle
+            return (c + Math.floor(c/4) - Math.floor(c/100) + 58) % 7;
+        };
+        return (p(year) === 4 || p(year - 1) === 3) ? 53 : 52;
+    }
+
+    const MONTHS_PT = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    const DAYS_PT   = ['dom','seg','ter','qua','qui','sex','sáb'];
+
+    function formatDate(d) {
+        return d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', timeZone: 'UTC' });
+    }
+    function monthName(d) {
+        return MONTHS_PT[d.getUTCMonth()];
+    }
+
+    // --- State ---
+    let displayYear = new Date().getFullYear();
+    const today = new Date();
+
+    function renderHero() {
+        const { week, year } = isoWeek(today);
+        document.getElementById('heroWeek').textContent = week;
+        document.getElementById('heroLabel').textContent =
+            `Semana ${week} de ${year} • ${today.toLocaleDateString('pt-BR', { weekday: 'long', day: '2-digit', month: 'long', year: 'numeric' })}`;
+
+        const monday = isoWeekStart(year, week);
+        const sunday = new Date(monday);
+        sunday.setUTCDate(monday.getUTCDate() + 6);
+        document.getElementById('heroDates').textContent =
+            `${formatDate(monday)} — ${formatDate(sunday)}`;
+    }
+
+    function renderTable(year) {
+        document.getElementById('yearDisplay').textContent = year;
+        const numWeeks = weeksInYear(year);
+        const { week: todayWeek, year: todayIsoYear } = isoWeek(today);
+        const tbody = document.getElementById('weeksBody');
+        let html = '';
+        for (let w = 1; w <= numWeeks; w++) {
+            const monday = isoWeekStart(year, w);
+            const sunday = new Date(monday);
+            sunday.setUTCDate(monday.getUTCDate() + 6);
+            const isToday = (year === todayIsoYear && w === todayWeek);
+            const cls = isToday ? ' class="current-week"' : '';
+            const startMonth = monthName(monday);
+            const endMonth   = monthName(sunday);
+            const monthStr   = startMonth === endMonth ? startMonth : `${startMonth} / ${endMonth}`;
+            html += `<tr${cls}>
+                <td>${String(w).padStart(2,'0')}</td>
+                <td>${formatDate(monday)}</td>
+                <td>${formatDate(sunday)}</td>
+                <td>${monthStr}</td>
+            </tr>`;
+        }
+        tbody.innerHTML = html;
+        // Scroll current week into view on first load
+        const curRow = tbody.querySelector('.current-week');
+        if (curRow) curRow.scrollIntoView({ block: 'nearest' });
+    }
+
+    function changeYear(delta) {
+        displayYear += delta;
+        renderTable(displayYear);
+    }
+
+    // --- Lookup ---
+    document.getElementById('lookupDate').addEventListener('change', function() {
+        if (!this.value) { document.getElementById('lookupResult').innerHTML = ''; return; }
+        const [y, m, d] = this.value.split('-').map(Number);
+        const dt = new Date(y, m - 1, d);
+        const { week, year } = isoWeek(dt);
+        const monday = isoWeekStart(year, week);
+        const sunday = new Date(monday);
+        sunday.setUTCDate(monday.getUTCDate() + 6);
+        document.getElementById('lookupResult').innerHTML =
+            `Semana <strong>${week}</strong> de ${year} &nbsp;·&nbsp; ${formatDate(monday)} — ${formatDate(sunday)}`;
+        // If the date's ISO year matches display year, update table
+        if (year !== displayYear) { displayYear = year; renderTable(displayYear); }
+    });
+
+    // --- Init ---
+    renderHero();
+    renderTable(displayYear);
+
+    // Set lookup input to today
+    const pad = (n) => String(n).padStart(2, '0');
+    document.getElementById('lookupDate').value =
+        `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+</script>
+
+</body>
+</html>

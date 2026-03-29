@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/temporizador/">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
+
+    <!-- SEO Meta Tags -->
+    <title>Temporizador Online — Contagem Regressiva com Alarme | dataehora.com.br</title>
+    <meta name="description" content="Temporizador online gratuito com alarme sonoro. Configure horas, minutos e segundos e inicie uma contagem regressiva precisa. Perfeito para cozinha, exercícios e estudos.">
+    <meta name="keywords" content="temporizador, temporizador online, timer, contagem regressiva, alarme, cozinha, exercícios, pomodoro">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Temporizador Online — Contagem Regressiva com Alarme | dataehora.com.br">
+    <meta property="og:description" content="Temporizador online gratuito com alarme sonoro. Configure horas, minutos e segundos e inicie uma contagem regressiva precisa.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/temporizador/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Temporizador Online | dataehora.com.br">
+    <meta name="twitter:description" content="Temporizador online gratuito com alarme sonoro. Configure horas, minutos e segundos.">
+    <meta name="twitter:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Temporizador Online",
+      "description": "Temporizador online gratuito com alarme sonoro e contagem regressiva precisa.",
+      "url": "https://dataehora.com.br/temporizador/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All",
+      "isPartOf": {
+        "@type": "WebSite",
+        "name": "Data e Hora",
+        "url": "https://dataehora.com.br/"
+      }
+    }
+    </script>
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/css/styles.css?v=ebccf3a8" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=ebccf3a8">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9; --bg-card: #ffffff; --bg-input: #f8fafc;
+            --text-main: #0f172a; --text-muted: #64748b; --accent: #2563eb;
+            --accent-hover: #1d4ed8; --success: #10b981; --danger: #ef4444;
+            --warning: #f59e0b;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(148, 163, 184, 0.15);
+        }
+        [data-theme="dark"] {
+            --bg-body: #020617; --bg-card: #0f172a; --bg-input: #1e293b;
+            --text-main: #f8fafc; --text-muted: #94a3b8; --accent: #60a5fa;
+            --accent-hover: #3b82f6; --success: #34d399; --danger: #f87171;
+            --warning: #fbbf24;
+            --hr-color: rgba(255, 255, 255, 0.08);
+        }
+        .no-transition * { transition: none !important; }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body); color: var(--text-main);
+            padding: 20px; display: flex; flex-direction: column; align-items: center;
+        }
+        .container { width: 100%; max-width: 800px; animation: fadeIn 0.4s ease-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        .nav-header {
+            width: 100%; display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+            margin: 20px 0 30px 0; padding: 12px 16px; background: var(--bg-card);
+            border-radius: 12px; border: 1px solid var(--hr-color); font-size: 0.875rem;
+        }
+        .nav-link { text-decoration: none; font-weight: 700; color: var(--accent); }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        /* Main timer card */
+        .timer-card {
+            background: var(--bg-card); padding: clamp(25px, 5vw, 50px);
+            border-radius: 32px; box-shadow: var(--shadow); text-align: center;
+            border: 1px solid var(--hr-color); margin-bottom: 24px; width: 100%;
+        }
+        .page-title {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            color: var(--text-muted); margin-bottom: 20px; font-weight: 800;
+        }
+
+        /* Input row */
+        .time-inputs {
+            display: flex; justify-content: center; align-items: center;
+            gap: 8px; margin-bottom: 32px; flex-wrap: wrap;
+        }
+        .time-input-group {
+            display: flex; flex-direction: column; align-items: center; gap: 6px;
+        }
+        .time-input-group label {
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 800; color: var(--text-muted);
+        }
+        .time-input-group input[type="number"] {
+            width: 90px; padding: 10px 8px; text-align: center;
+            font-size: 2rem; font-weight: 900; font-variant-numeric: tabular-nums;
+            background: var(--bg-input); border: 2px solid var(--hr-color);
+            border-radius: 16px; color: var(--text-main);
+            transition: border-color 0.2s;
+            -moz-appearance: textfield;
+        }
+        .time-input-group input[type="number"]::-webkit-inner-spin-button,
+        .time-input-group input[type="number"]::-webkit-outer-spin-button { -webkit-appearance: none; }
+        .time-input-group input[type="number"]:focus {
+            outline: none; border-color: var(--accent);
+        }
+        .time-input-group input[type="number"]:disabled {
+            opacity: 0.5; cursor: not-allowed;
+        }
+        .time-sep {
+            font-size: 2.5rem; font-weight: 900; color: var(--text-muted);
+            margin-top: 20px; line-height: 1;
+        }
+
+        /* Countdown display */
+        .countdown-display {
+            font-size: clamp(3.5rem, 16vw, 7.5rem);
+            font-weight: 950; font-variant-numeric: tabular-nums;
+            letter-spacing: -2px; line-height: 1; color: var(--text-main);
+            margin-bottom: 8px; transition: color 0.3s;
+            display: none;
+        }
+        .countdown-display.running { color: var(--accent); }
+        .countdown-display.paused { color: var(--warning); }
+        .countdown-display.finished { color: var(--danger); }
+        .countdown-display.visible { display: block; }
+
+        /* Progress ring */
+        .progress-ring-wrapper {
+            display: none; justify-content: center; margin-bottom: 20px;
+        }
+        .progress-ring-wrapper.visible { display: flex; }
+        .progress-ring { transform: rotate(-90deg); }
+        .progress-ring-bg { fill: none; stroke: var(--hr-color); stroke-width: 6; }
+        .progress-ring-fill {
+            fill: none; stroke: var(--accent); stroke-width: 6;
+            stroke-linecap: round; transition: stroke-dashoffset 0.5s linear, stroke 0.3s;
+        }
+        .progress-ring-fill.paused { stroke: var(--warning); }
+        .progress-ring-fill.finished { stroke: var(--danger); }
+
+        /* Controls */
+        .controls {
+            display: flex; justify-content: center; gap: 14px;
+            flex-wrap: wrap; margin-top: 8px;
+        }
+        .btn {
+            padding: 16px 36px; border-radius: 50px; font-size: 1rem;
+            font-weight: 800; cursor: pointer; border: none;
+            transition: transform 0.15s, filter 0.15s, box-shadow 0.15s;
+            display: inline-flex; align-items: center; gap: 8px;
+            min-width: 130px; justify-content: center;
+        }
+        .btn:hover:not(:disabled) { transform: translateY(-2px); filter: brightness(1.08); }
+        .btn:active:not(:disabled) { transform: translateY(0); filter: brightness(0.95); }
+        .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+
+        .btn-start { background: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(37, 99, 235, 0.4); }
+        .btn-pause { background: var(--warning); color: #fff; box-shadow: 0 4px 14px rgba(245, 158, 11, 0.4); }
+        .btn-stop  { background: var(--danger);  color: #fff; box-shadow: 0 4px 14px rgba(239, 68, 68, 0.4); }
+        .btn-reset {
+            background: var(--bg-input); color: var(--text-muted);
+            border: 2px solid var(--hr-color);
+        }
+        .btn-reset:hover:not(:disabled) { border-color: var(--danger); color: var(--danger); }
+
+        /* Presets */
+        .presets {
+            display: flex; flex-wrap: wrap; gap: 10px;
+            justify-content: center; margin-bottom: 28px;
+        }
+        .presets-label {
+            width: 100%; text-align: center;
+            font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px;
+            font-weight: 800; color: var(--text-muted); margin-bottom: 4px;
+        }
+        .preset-btn {
+            padding: 8px 18px; border-radius: 50px; font-size: 0.85rem;
+            font-weight: 700; cursor: pointer; border: 1.5px solid var(--hr-color);
+            background: var(--bg-input); color: var(--text-muted);
+            transition: all 0.2s;
+        }
+        .preset-btn:hover { border-color: var(--accent); color: var(--accent); }
+
+        /* Alarm indicator */
+        .alarm-indicator {
+            display: none; align-items: center; gap: 10px; justify-content: center;
+            padding: 16px 24px; border-radius: 16px; background: rgba(239, 68, 68, 0.1);
+            border: 1.5px solid var(--danger); margin-bottom: 20px; animation: pulse 0.8s infinite alternate;
+        }
+        .alarm-indicator.visible { display: flex; }
+        .alarm-text { font-weight: 800; color: var(--danger); font-size: 1.1rem; }
+        @keyframes pulse { from { opacity: 1; } to { opacity: 0.6; } }
+
+        /* Info card */
+        .info-card {
+            background: var(--bg-card); border-radius: 24px; box-shadow: var(--shadow);
+            border: 1px solid var(--hr-color); padding: 28px; width: 100%;
+            margin-bottom: 24px;
+        }
+        .info-card h2 { font-size: 1.1rem; font-weight: 800; color: var(--text-main); margin-bottom: 12px; }
+        .info-card p { font-size: 0.9rem; color: var(--text-muted); line-height: 1.7; margin-bottom: 8px; }
+        .info-card p:last-child { margin-bottom: 0; }
+
+        footer {
+            margin-top: 40px; padding: 40px 20px 20px;
+            text-align: center; color: var(--text-muted);
+            font-size: 0.85rem; font-weight: 700; width: 100%;
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        }
+        .btn-settings {
+            padding: 14px 30px; border-radius: 50px; color: var(--text-muted);
+            text-decoration: none; border: 1.5px solid var(--hr-color);
+            font-size: 0.9rem; font-weight: 700; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            display: inline-flex; align-items: center; gap: 10px; max-width: fit-content;
+        }
+        .btn-settings:hover {
+            color: var(--accent); border-color: var(--accent); background: var(--bg-card);
+            transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Top nav header */
+        .top-nav-wrapper {
+            width: 100%; background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color); padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%; max-width: 1200px; margin: 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            gap: 20px; flex-wrap: wrap;
+        }
+        .logo-text { font-size: 1.5rem; font-weight: 900; color: var(--accent); text-decoration: none; letter-spacing: -1.5px; }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad { display: flex; justify-content: flex-end; align-items: center; min-height: 90px; }
+
+        @media (max-width: 520px) {
+            .controls { gap: 10px; }
+            .btn { padding: 14px 20px; min-width: 100px; font-size: 0.9rem; }
+            .time-input-group input[type="number"] { width: 72px; font-size: 1.6rem; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Temporizador</span>
+        </nav>
+
+        <!-- Main timer card -->
+        <div class="timer-card">
+            <div class="page-title">⏲️ Temporizador</div>
+
+            <!-- Alarm indicator -->
+            <div class="alarm-indicator" id="alarmIndicator" role="alert" aria-live="assertive">
+                <span>🔔</span>
+                <span class="alarm-text">Tempo esgotado!</span>
+                <button class="preset-btn" onclick="stopAlarm()" style="margin-left:8px;">Parar alarme</button>
+            </div>
+
+            <!-- Progress ring (visible during countdown) -->
+            <div class="progress-ring-wrapper" id="progressRingWrapper">
+                <svg class="progress-ring" width="160" height="160" viewBox="0 0 160 160" aria-hidden="true">
+                    <circle class="progress-ring-bg" cx="80" cy="80" r="70"/>
+                    <circle class="progress-ring-fill" id="progressRingFill" cx="80" cy="80" r="70"
+                            stroke-dasharray="439.82" stroke-dashoffset="0"/>
+                </svg>
+            </div>
+
+            <!-- Countdown display (visible during countdown) -->
+            <div class="countdown-display" id="countdownDisplay" aria-live="polite" aria-label="Tempo restante">
+                00:00:00
+            </div>
+
+            <!-- Time inputs (visible when setting timer) -->
+            <div class="time-inputs" id="timeInputs">
+                <div class="time-input-group">
+                    <label for="inputHours">Horas</label>
+                    <input type="number" id="inputHours" min="0" max="99" value="0"
+                           aria-label="Horas" inputmode="numeric">
+                </div>
+                <div class="time-sep" aria-hidden="true">:</div>
+                <div class="time-input-group">
+                    <label for="inputMinutes">Minutos</label>
+                    <input type="number" id="inputMinutes" min="0" max="59" value="5"
+                           aria-label="Minutos" inputmode="numeric">
+                </div>
+                <div class="time-sep" aria-hidden="true">:</div>
+                <div class="time-input-group">
+                    <label for="inputSeconds">Segundos</label>
+                    <input type="number" id="inputSeconds" min="0" max="59" value="0"
+                           aria-label="Segundos" inputmode="numeric">
+                </div>
+            </div>
+
+            <!-- Quick presets -->
+            <div class="presets" id="presets">
+                <div class="presets-label">Atalhos rápidos</div>
+                <button class="preset-btn" onclick="applyPreset(1,0,0)" aria-label="1 hora">1 hora</button>
+                <button class="preset-btn" onclick="applyPreset(0,45,0)" aria-label="45 minutos">45 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,30,0)" aria-label="30 minutos">30 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,25,0)" aria-label="25 minutos — Pomodoro">25 min 🍅</button>
+                <button class="preset-btn" onclick="applyPreset(0,15,0)" aria-label="15 minutos">15 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,10,0)" aria-label="10 minutos">10 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,5,0)"  aria-label="5 minutos">5 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,3,0)"  aria-label="3 minutos">3 min</button>
+                <button class="preset-btn" onclick="applyPreset(0,1,0)"  aria-label="1 minuto">1 min</button>
+            </div>
+
+            <!-- Controls -->
+            <div class="controls" role="group" aria-label="Controles do temporizador">
+                <button class="btn btn-start" id="btnStart" onclick="startTimer()" aria-label="Iniciar temporizador">
+                    ▶ Iniciar
+                </button>
+                <button class="btn btn-pause" id="btnPause" onclick="pauseTimer()" disabled aria-label="Pausar temporizador" style="display:none;">
+                    ⏸ Pausar
+                </button>
+                <button class="btn btn-start" id="btnResume" onclick="resumeTimer()" style="display:none;" aria-label="Retomar temporizador">
+                    ▶ Retomar
+                </button>
+                <button class="btn btn-reset" id="btnReset" onclick="resetTimer()" disabled aria-label="Reiniciar temporizador">
+                    ↺ Reiniciar
+                </button>
+            </div>
+        </div>
+
+        <!-- Info section -->
+        <div class="info-card">
+            <h2>Como usar o Temporizador</h2>
+            <p>Configure o tempo desejado nos campos de <strong>horas</strong>, <strong>minutos</strong> e <strong>segundos</strong> ou escolha um dos atalhos rápidos. Em seguida, clique em <strong>Iniciar</strong>.</p>
+            <p>Use <strong>Pausar</strong> para interromper temporariamente e <strong>Retomar</strong> para continuar de onde parou. Ao final, um alarme sonoro é disparado automaticamente.</p>
+            <p>O atalho <strong>25 min 🍅</strong> é a duração padrão da técnica Pomodoro, usada para aumentar foco e produtividade nos estudos e no trabalho.</p>
+        </div>
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> |
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+<script>
+    // --- State ---
+    let totalSeconds = 0;      // total seconds set by user
+    let remainingMs  = 0;      // ms remaining
+    let startMs      = 0;      // performance.now() when last (re)started
+    let running      = false;
+    let paused       = false;
+    let rafId        = null;
+    let alarmCtx     = null;
+    let alarmTimeout = null;
+    const CIRCUMFERENCE = 2 * Math.PI * 70; // ~439.82
+
+    // --- DOM refs ---
+    const inputHours    = document.getElementById('inputHours');
+    const inputMinutes  = document.getElementById('inputMinutes');
+    const inputSeconds  = document.getElementById('inputSeconds');
+    const timeInputs    = document.getElementById('timeInputs');
+    const presets       = document.getElementById('presets');
+    const countdownEl   = document.getElementById('countdownDisplay');
+    const ringWrapper   = document.getElementById('progressRingWrapper');
+    const ringFill      = document.getElementById('progressRingFill');
+    const alarmEl       = document.getElementById('alarmIndicator');
+    const btnStart      = document.getElementById('btnStart');
+    const btnPause      = document.getElementById('btnPause');
+    const btnResume     = document.getElementById('btnResume');
+    const btnReset      = document.getElementById('btnReset');
+
+    // Clamp inputs on blur
+    function clampInput(el, min, max) {
+        let v = parseInt(el.value, 10);
+        if (isNaN(v) || v < min) v = min;
+        if (v > max) v = max;
+        el.value = String(v).padStart(2, '0');
+    }
+    inputHours.addEventListener('blur',   () => clampInput(inputHours,   0, 99));
+    inputMinutes.addEventListener('blur', () => clampInput(inputMinutes, 0, 59));
+    inputSeconds.addEventListener('blur', () => clampInput(inputSeconds, 0, 59));
+
+    function getInputMs() {
+        const h = parseInt(inputHours.value,   10) || 0;
+        const m = parseInt(inputMinutes.value, 10) || 0;
+        const s = parseInt(inputSeconds.value, 10) || 0;
+        return (h * 3600 + m * 60 + s) * 1000;
+    }
+
+    function applyPreset(h, m, s) {
+        inputHours.value   = String(h).padStart(2, '0');
+        inputMinutes.value = String(m).padStart(2, '0');
+        inputSeconds.value = String(s).padStart(2, '0');
+        resetTimer();
+    }
+
+    function pad2(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+    function formatMs(ms) {
+        if (ms < 0) ms = 0;
+        const totalSec = Math.ceil(ms / 1000);
+        const h = Math.floor(totalSec / 3600);
+        const m = Math.floor((totalSec % 3600) / 60);
+        const s = totalSec % 60;
+        return `${pad2(h)}:${pad2(m)}:${pad2(s)}`;
+    }
+
+    function updateDisplay(ms) {
+        countdownEl.textContent = formatMs(ms);
+        // Update ring
+        const fraction = totalSeconds > 0 ? (ms / 1000) / totalSeconds : 0;
+        ringFill.style.strokeDashoffset = CIRCUMFERENCE * (1 - fraction);
+    }
+
+    function tick() {
+        if (!running) return;
+        const elapsed = performance.now() - startMs;
+        const left    = remainingMs - elapsed;
+        if (left <= 0) {
+            remainingMs = 0;
+            updateDisplay(0);
+            finishTimer();
+            return;
+        }
+        updateDisplay(left);
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function startTimer() {
+        const ms = getInputMs();
+        if (ms <= 0) { inputMinutes.focus(); return; }
+        totalSeconds = ms / 1000;
+        remainingMs  = ms;
+        ringFill.style.strokeDasharray  = CIRCUMFERENCE;
+        ringFill.style.strokeDashoffset = '0';
+
+        // Show countdown, hide inputs
+        showCountdown(true);
+        running = true; paused = false;
+        startMs = performance.now();
+        updateDisplay(remainingMs);
+        countdownEl.className = 'countdown-display visible running';
+        ringFill.className    = 'progress-ring-fill';
+
+        btnStart.style.display  = 'none';
+        btnPause.style.display  = '';
+        btnPause.disabled       = false;
+        btnResume.style.display = 'none';
+        btnReset.disabled       = false;
+        alarmEl.classList.remove('visible');
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function pauseTimer() {
+        if (!running || paused) return;
+        cancelAnimationFrame(rafId);
+        paused = true; running = false;
+        remainingMs -= (performance.now() - startMs);
+        if (remainingMs < 0) remainingMs = 0;
+        updateDisplay(remainingMs);
+        countdownEl.className = 'countdown-display visible paused';
+        ringFill.className    = 'progress-ring-fill paused';
+        btnPause.style.display  = 'none';
+        btnResume.style.display = '';
+    }
+
+    function resumeTimer() {
+        if (!paused) return;
+        paused = false; running = true;
+        startMs = performance.now();
+        countdownEl.className = 'countdown-display visible running';
+        ringFill.className    = 'progress-ring-fill';
+        btnResume.style.display = 'none';
+        btnPause.style.display  = '';
+        btnPause.disabled       = false;
+        rafId = requestAnimationFrame(tick);
+    }
+
+    function resetTimer() {
+        cancelAnimationFrame(rafId);
+        running = false; paused = false;
+        stopAlarm();
+        showCountdown(false);
+        countdownEl.className = 'countdown-display';
+        countdownEl.textContent = '00:00:00';
+        ringFill.className = 'progress-ring-fill';
+        ringFill.style.strokeDashoffset = '0';
+        alarmEl.classList.remove('visible');
+        btnStart.style.display  = '';
+        btnPause.style.display  = 'none';
+        btnResume.style.display = 'none';
+        btnReset.disabled       = true;
+    }
+
+    function finishTimer() {
+        running = false; paused = false;
+        countdownEl.className = 'countdown-display visible finished';
+        ringFill.className    = 'progress-ring-fill finished';
+        btnPause.style.display  = 'none';
+        btnResume.style.display = 'none';
+        alarmEl.classList.add('visible');
+        playAlarm();
+        // Reset after 60 s automatically
+        alarmTimeout = setTimeout(stopAlarm, 60000);
+    }
+
+    function showCountdown(show) {
+        timeInputs.style.display   = show ? 'none' : '';
+        presets.style.display      = show ? 'none' : '';
+        countdownEl.classList.toggle('visible', show);
+        ringWrapper.classList.toggle('visible', show);
+    }
+
+    // --- Alarm sound (Web Audio API) ---
+    function playAlarm() {
+        try {
+            alarmCtx = new (window.AudioContext || window.webkitAudioContext)();
+            function beep(startTime, freq, dur) {
+                const osc  = alarmCtx.createOscillator();
+                const gain = alarmCtx.createGain();
+                osc.connect(gain);
+                gain.connect(alarmCtx.destination);
+                osc.type = 'sine';
+                osc.frequency.setValueAtTime(freq, startTime);
+                gain.gain.setValueAtTime(0.5, startTime);
+                gain.gain.exponentialRampToValueAtTime(0.001, startTime + dur);
+                osc.start(startTime);
+                osc.stop(startTime + dur + 0.05);
+            }
+            // Three ascending beeps
+            for (let i = 0; i < 3; i++) {
+                beep(alarmCtx.currentTime + i * 0.5, 880 + i * 220, 0.4);
+            }
+        } catch (e) { /* Web Audio not available */ }
+    }
+
+    function stopAlarm() {
+        clearTimeout(alarmTimeout);
+        alarmEl.classList.remove('visible');
+        if (alarmCtx) { try { alarmCtx.close(); } catch(e){} alarmCtx = null; }
+        if (!running && !paused) {
+            showCountdown(false);
+            btnStart.style.display  = '';
+            btnPause.style.display  = 'none';
+            btnResume.style.display = 'none';
+            btnReset.disabled       = true;
+            countdownEl.className   = 'countdown-display';
+        }
+    }
+
+    // Keyboard shortcut: Space = start/pause/resume, Escape = reset
+    document.addEventListener('keydown', function(e) {
+        if (['INPUT', 'BUTTON', 'SELECT', 'TEXTAREA'].includes(document.activeElement.tagName)) return;
+        if (e.code === 'Space') {
+            e.preventDefault();
+            if (!running && !paused) startTimer();
+            else if (running) pauseTimer();
+            else if (paused) resumeTimer();
+        } else if (e.code === 'Escape') {
+            resetTimer();
+        }
+    });
+</script>
+
+</body>
+</html>
