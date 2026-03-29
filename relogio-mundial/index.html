@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Relógio Mundial — Hora ao Vivo nas Principais Cidades | dataehora.com.br</title>
+    <meta name="description" content="Consulte o horário atual em tempo real nas principais cidades do mundo. Lisboa, Porto, Luanda, Maputo, São Paulo, Nova York, Londres, Tóquio e mais.">
+    <meta name="keywords" content="relógio mundial, hora ao vivo, horário em tempo real, hora em Lisboa, hora em Londres, fuso horário, hora certa">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Relógio Mundial — Hora ao Vivo nas Principais Cidades | dataehora.com.br">
+    <meta property="og:description" content="Consulte o horário atual em tempo real nas principais cidades do mundo. Lisboa, Porto, Luanda, Maputo, São Paulo, Nova York, Londres, Tóquio e mais.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/relogio-mundial/">
+    <meta property="og:site_name" content="Data e Hora">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Relógio Mundial — Hora ao Vivo nas Principais Cidades | dataehora.com.br">
+    <meta name="twitter:description" content="Consulte o horário atual em tempo real nas principais cidades do mundo. Lisboa, Porto, Luanda, Maputo, São Paulo, Nova York, Londres, Tóquio e mais.">
+    <meta name="twitter:site" content="@dataehora">
+    <meta name="twitter:creator" content="@dataehora">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Relógio Mundial — Hora ao Vivo nas Principais Cidades",
+      "url": "https://dataehora.com.br/relogio-mundial/",
+      "description": "Consulte o horário atual em tempo real nas principais cidades do mundo. Lisboa, Porto, Luanda, Maputo, São Paulo, Nova York, Londres, Tóquio e mais."
+    }
+    </script>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/relogio-mundial/">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: rgba(148, 163, 184, 0.2);
+            --hr-color: var(--border);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --border: rgba(255, 255, 255, 0.05);
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        .nav-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0 30px 0;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            box-shadow: var(--shadow);
+            gap: 6px;
+        }
+
+        .nav-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: opacity 0.2s;
+        }
+        .nav-link:hover { opacity: 0.75; }
+
+        .nav-sep { color: var(--text-muted); margin: 0 2px; }
+        .nav-current { color: var(--text-main); font-weight: 600; }
+
+        .header { text-align: center; margin-bottom: 36px; }
+
+        h1 {
+            font-size: clamp(1.8rem, 6vw, 2.8rem);
+            margin: 0 0 10px 0;
+            letter-spacing: -1.5px;
+            font-weight: 900;
+            color: var(--text-main);
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin: 0;
+        }
+
+        /* Section headings */
+        .section-block { margin-bottom: 44px; }
+
+        .section-block h2 {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 18px 0;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        /* Clock cards grid */
+        .clock-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+        }
+
+        .clock-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px 22px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .clock-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Tinted borders per group */
+        .clock-card--brasil {
+            border-color: rgba(37, 99, 235, 0.35);
+        }
+        [data-theme="dark"] .clock-card--brasil {
+            border-color: rgba(96, 165, 250, 0.25);
+        }
+
+        .clock-card--lusofonia {
+            border-color: rgba(22, 163, 74, 0.35);
+        }
+        [data-theme="dark"] .clock-card--lusofonia {
+            border-color: rgba(74, 222, 128, 0.25);
+        }
+
+        /* Card city header */
+        .card-city {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .card-flag { font-size: 1.15rem; line-height: 1; }
+
+        /* Large time display */
+        .card-time {
+            font-size: 2.4rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+            color: var(--text-main);
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            margin: 6px 0 2px 0;
+        }
+
+        /* Date below time */
+        .card-date {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* Footer row: UTC offset + day/night indicator */
+        .card-footer-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 8px;
+        }
+
+        .card-utc {
+            font-size: 0.78rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg-body);
+            border-radius: 6px;
+            padding: 2px 8px;
+            border: 1px solid var(--border);
+        }
+
+        .card-daynight {
+            font-size: 1.1rem;
+            line-height: 1;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 60px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .btn-settings {
+            display: inline-block;
+            padding: 10px 22px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 999px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            box-shadow: var(--shadow);
+            transition: transform 0.15s;
+        }
+        .btn-settings:hover { transform: translateY(-2px); }
+
+        @media (max-width: 600px) {
+            .nav-header { justify-content: center; }
+            .clock-grid { grid-template-columns: 1fr 1fr; }
+            .card-time { font-size: 1.9rem; }
+        }
+
+        @media (max-width: 380px) {
+            .clock-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Relógio Mundial</span>
+        </nav>
+
+        <header class="header">
+            <h1>🌍 Relógio Mundial</h1>
+            <p class="subtitle">Horário em tempo real nas principais cidades do mundo.</p>
+        </header>
+
+        <!-- BRASIL SECTION -->
+        <section class="section-block" id="brasil">
+            <h2>🇧🇷 Brasil</h2>
+            <div class="clock-grid" id="grid-brasil"></div>
+        </section>
+
+        <!-- LUSOFONIA SECTION -->
+        <section class="section-block" id="lusofonia">
+            <h2>🌍 Lusofonia</h2>
+            <div class="clock-grid" id="grid-lusofonia"></div>
+        </section>
+
+        <!-- MUNDO SECTION -->
+        <section class="section-block" id="mundo">
+            <h2>🌐 Mundo</h2>
+            <div class="clock-grid" id="grid-mundo"></div>
+        </section>
+
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script>
+        // ── City definitions ────────────────────────────────────────────────
+        const cities = {
+            brasil: [
+                { name: 'Brasília',            flag: '🇧🇷', tz: 'America/Sao_Paulo'              },
+                { name: 'Manaus',              flag: '🇧🇷', tz: 'America/Manaus'                 },
+                { name: 'Fortaleza',           flag: '🇧🇷', tz: 'America/Fortaleza'              },
+                { name: 'Fernando de Noronha', flag: '🇧🇷', tz: 'America/Noronha'               },
+            ],
+            lusofonia: [
+                { name: 'Lisboa',   flag: '🇵🇹', tz: 'Europe/Lisbon'        },
+                { name: 'Porto',    flag: '🇵🇹', tz: 'Europe/Lisbon'        },
+                { name: 'Luanda',   flag: '🇦🇴', tz: 'Africa/Luanda'        },
+                { name: 'Maputo',   flag: '🇲🇿', tz: 'Africa/Maputo'        },
+                { name: 'Praia',    flag: '🇨🇻', tz: 'Atlantic/Cape_Verde'  },
+                { name: 'São Tomé', flag: '🇸🇹', tz: 'Africa/Sao_Tome'     },
+                { name: 'Bissau',   flag: '🇬🇼', tz: 'Africa/Bissau'       },
+                { name: 'Dili',     flag: '🇹🇱', tz: 'Asia/Dili'           },
+            ],
+            mundo: [
+                { name: 'Londres',          flag: '🇬🇧', tz: 'Europe/London'                        },
+                { name: 'Paris',            flag: '🇫🇷', tz: 'Europe/Paris'                         },
+                { name: 'Madrid',           flag: '🇪🇸', tz: 'Europe/Madrid'                        },
+                { name: 'Berlim',           flag: '🇩🇪', tz: 'Europe/Berlin'                        },
+                { name: 'Moscou',           flag: '🇷🇺', tz: 'Europe/Moscow'                        },
+                { name: 'Dubai',            flag: '🇦🇪', tz: 'Asia/Dubai'                           },
+                { name: 'Índia',            flag: '🇮🇳', tz: 'Asia/Kolkata'                         },
+                { name: 'Pequim',           flag: '🇨🇳', tz: 'Asia/Shanghai'                        },
+                { name: 'Tóquio',           flag: '🇯🇵', tz: 'Asia/Tokyo'                           },
+                { name: 'Sydney',           flag: '🇦🇺', tz: 'Australia/Sydney'                     },
+                { name: 'Nova York',        flag: '🇺🇸', tz: 'America/New_York'                     },
+                { name: 'Chicago',          flag: '🇺🇸', tz: 'America/Chicago'                      },
+                { name: 'Los Angeles',      flag: '🇺🇸', tz: 'America/Los_Angeles'                  },
+                { name: 'Buenos Aires',     flag: '🇦🇷', tz: 'America/Argentina/Buenos_Aires'       },
+                { name: 'Santiago',         flag: '🇨🇱', tz: 'America/Santiago'                     },
+                { name: 'Cidade do México', flag: '🇲🇽', tz: 'America/Mexico_City'                  },
+            ],
+        };
+
+        // ── Formatters (reused across ticks) ───────────────────────────────
+        const timeFmts = {};
+        const dateFmts = {};
+
+        function getTimeFmt(tz) {
+            if (!timeFmts[tz]) {
+                timeFmts[tz] = new Intl.DateTimeFormat('pt-BR', {
+                    hour: '2-digit', minute: '2-digit', second: '2-digit',
+                    hour12: false, timeZone: tz
+                });
+            }
+            return timeFmts[tz];
+        }
+
+        function getDateFmt(tz) {
+            if (!dateFmts[tz]) {
+                dateFmts[tz] = new Intl.DateTimeFormat('pt-BR', {
+                    weekday: 'short', day: '2-digit', month: 'short', year: 'numeric',
+                    timeZone: tz
+                });
+            }
+            return dateFmts[tz];
+        }
+
+        // ── Get UTC offset string for a timezone ───────────────────────────
+        function getUtcOffset(tz, now) {
+            try {
+                const parts = new Intl.DateTimeFormat('en', {
+                    timeZoneName: 'shortOffset',
+                    timeZone: tz
+                }).formatToParts(now);
+                const tzPart = parts.find(p => p.type === 'timeZoneName');
+                if (tzPart) return tzPart.value.replace('GMT', 'UTC');
+                return '';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        // ── Get local hour in given timezone ───────────────────────────────
+        function getLocalHour(tz, now) {
+            const parts = new Intl.DateTimeFormat('en-US', {
+                hour: 'numeric', hour12: false, timeZone: tz
+            }).formatToParts(now);
+            const h = parts.find(p => p.type === 'hour');
+            return h ? parseInt(h.value, 10) : 12;
+        }
+
+        // ── Build card DOM elements ─────────────────────────────────────────
+        function buildCard(city, groupClass) {
+            const card = document.createElement('div');
+            card.className = 'clock-card' + (groupClass ? ' ' + groupClass : '');
+            card.dataset.tz = city.tz;
+
+            const cityRow = document.createElement('div');
+            cityRow.className = 'card-city';
+            cityRow.innerHTML = '<span class="card-flag">' + city.flag + '</span>' +
+                                '<span>' + city.name + '</span>';
+
+            const timeEl = document.createElement('div');
+            timeEl.className = 'card-time';
+
+            const dateEl = document.createElement('div');
+            dateEl.className = 'card-date';
+
+            const footerRow = document.createElement('div');
+            footerRow.className = 'card-footer-row';
+
+            const utcEl = document.createElement('span');
+            utcEl.className = 'card-utc';
+
+            const dayNightEl = document.createElement('span');
+            dayNightEl.className = 'card-daynight';
+
+            footerRow.appendChild(utcEl);
+            footerRow.appendChild(dayNightEl);
+
+            card.appendChild(cityRow);
+            card.appendChild(timeEl);
+            card.appendChild(dateEl);
+            card.appendChild(footerRow);
+
+            // Store references for fast updates
+            card._timeEl    = timeEl;
+            card._dateEl    = dateEl;
+            card._utcEl     = utcEl;
+            card._dayNightEl = dayNightEl;
+            card._lastUtc   = null;
+            card._lastDate  = null;
+
+            return card;
+        }
+
+        // ── Render all cards into their grids ──────────────────────────────
+        const cardRefs = [];
+
+        function renderGrids() {
+            const groups = [
+                { key: 'brasil',    gridId: 'grid-brasil',    cls: 'clock-card--brasil'    },
+                { key: 'lusofonia', gridId: 'grid-lusofonia', cls: 'clock-card--lusofonia' },
+                { key: 'mundo',     gridId: 'grid-mundo',     cls: ''                      },
+            ];
+
+            groups.forEach(g => {
+                const grid = document.getElementById(g.gridId);
+                cities[g.key].forEach(city => {
+                    const card = buildCard(city, g.cls);
+                    grid.appendChild(card);
+                    cardRefs.push(card);
+                });
+            });
+        }
+
+        // ── Tick: update all cards ──────────────────────────────────────────
+        function tick() {
+            const now = new Date();
+
+            cardRefs.forEach(card => {
+                const tz = card.dataset.tz;
+
+                // Time (updates every second)
+                card._timeEl.textContent = getTimeFmt(tz).format(now);
+
+                // Date (cache — only recalculate when it changes)
+                const dateStr = getDateFmt(tz).format(now);
+                if (dateStr !== card._lastDate) {
+                    card._dateEl.textContent = dateStr;
+                    card._lastDate = dateStr;
+                }
+
+                // UTC offset (cache — rarely changes, only at DST transitions)
+                const utcStr = getUtcOffset(tz, now);
+                if (utcStr !== card._lastUtc) {
+                    card._utcEl.textContent = utcStr;
+                    card._lastUtc = utcStr;
+                }
+
+                // Day/night indicator
+                const h = getLocalHour(tz, now);
+                card._dayNightEl.textContent = (h >= 6 && h < 18) ? '🌞' : '🌙';
+            });
+        }
+
+        // ── Init ───────────────────────────────────────────────────────────
+        renderGrids();
+        tick();
+        setInterval(tick, 1000);
+    </script>
+</body>
+</html>
