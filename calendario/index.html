@@ -154,6 +154,12 @@
             display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
         }
         .btn-pdf:hover { transform: translateY(-2px); filter: brightness(1.3); }
+        .btn-ics {
+            background: var(--accent); color: white; border: none; padding: 12px 24px;
+            border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
+        }
+        .btn-ics:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* --- ÁREA DE EXPORTAÇÃO (Sempre fundo branco para o PDF) --- */
         #export-area { 
@@ -336,6 +342,7 @@
             </select>
         </div>
         <button class="btn-pdf" onclick="exportToPDF()"> Salvar PDF </button>
+        <button class="btn-ics" onclick="exportToICS()" id="btn-ics"> 📅 Exportar .ics </button>
     </div>
 
     <div id="export-area">
@@ -501,6 +508,64 @@
         pdf.save(`Calendario-${ano}-dataehora.pdf`);
         
         btn.innerText = "📥 Exportar PDF (A3)";
+        btn.disabled = false;
+    }
+
+    function exportToICS() {
+        const ano = parseInt(document.getElementById('year-select').value) || new Date().getFullYear();
+        const btn = document.getElementById('btn-ics');
+        btn.innerText = '⏳ Gerando...';
+        btn.disabled = true;
+
+        const fMoveis = getFeriadosMoveis(ano);
+        const allFeriados = { ...feriadosFixos, ...fMoveis };
+
+        const lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//dataehora.com.br//Feriados do Brasil//PT',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            `X-WR-CALNAME:Feriados do Brasil ${ano}`,
+            'X-WR-TIMEZONE:America/Sao_Paulo'
+        ];
+
+        Object.entries(allFeriados).sort((a, b) => {
+            const [am, ad] = a[0].split('-').map(Number);
+            const [bm, bd] = b[0].split('-').map(Number);
+            return am !== bm ? am - bm : ad - bd;
+        }).forEach(([key, name]) => {
+            const [m, d] = key.split('-').map(Number);
+            const pad = n => String(n).padStart(2, '0');
+            const startDate = new Date(ano, m, d);
+            const dtStart = `${startDate.getFullYear()}${pad(startDate.getMonth() + 1)}${pad(startDate.getDate())}`;
+            const endDate = new Date(ano, m, d);
+            endDate.setDate(endDate.getDate() + 1);
+            const dtEnd = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}`;
+            const slug = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            lines.push(
+                'BEGIN:VEVENT',
+                `DTSTART;VALUE=DATE:${dtStart}`,
+                `DTEND;VALUE=DATE:${dtEnd}`,
+                `SUMMARY:${name}`,
+                'DESCRIPTION:Feriado Nacional do Brasil',
+                `UID:${dtStart}-${slug}@dataehora.com.br`,
+                'END:VEVENT'
+            );
+        });
+
+        lines.push('END:VCALENDAR');
+        const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Feriados-Brasil-${ano}-dataehora.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        btn.innerText = '📅 Exportar .ics';
         btn.disabled = false;
     }
 

@@ -69,6 +69,26 @@
     <!-- Holiday calculation utilities -->
     <script src="/js/holidays.js"></script>
 
+    <style>
+        .btn-ics {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            background: var(--accent, #3b82f6);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-ics:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    </style>
+
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
     <script>
@@ -104,6 +124,7 @@
         <header class="header">
             <h1>Calendário de Feriados</h1>
             <p class="subtitle">Lista oficial de feriados nacionais e pontos facultativos.</p>
+            <button onclick="exportToICS()" class="btn-ics" id="btn-ics">📅 Exportar para Calendário (.ics)</button>
         </header>
 
         <div id="next-container"></div>
@@ -183,6 +204,58 @@
             document.addEventListener('DOMContentLoaded', render);
         } else {
             render();
+        }
+
+        function exportToICS() {
+            const btn = document.getElementById('btn-ics');
+            btn.textContent = '⏳ Gerando...';
+            btn.disabled = true;
+
+            const currentYear = getTodayInSaoPaulo().getFullYear();
+            const lines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//dataehora.com.br//Feriados do Brasil//PT',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'X-WR-CALNAME:Feriados do Brasil',
+                'X-WR-TIMEZONE:America/Sao_Paulo'
+            ];
+
+            for (let y = currentYear; y <= currentYear + 2; y++) {
+                getHolidays(y).forEach(h => {
+                    const pad = n => String(n).padStart(2, '0');
+                    const startDate = new Date(y, h.m, h.d);
+                    const dtStart = `${startDate.getFullYear()}${pad(startDate.getMonth() + 1)}${pad(startDate.getDate())}`;
+                    const endDate = new Date(y, h.m, h.d);
+                    endDate.setDate(endDate.getDate() + 1);
+                    const dtEnd = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}`;
+                    const slug = h.n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                    lines.push(
+                        'BEGIN:VEVENT',
+                        `DTSTART;VALUE=DATE:${dtStart}`,
+                        `DTEND;VALUE=DATE:${dtEnd}`,
+                        `SUMMARY:${h.n}`,
+                        'DESCRIPTION:Feriado Nacional do Brasil',
+                        `UID:${dtStart}-${slug}@dataehora.com.br`,
+                        'END:VEVENT'
+                    );
+                });
+            }
+
+            lines.push('END:VCALENDAR');
+            const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `feriados-brasil-${currentYear}-${currentYear + 2}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            btn.textContent = '📅 Exportar para Calendário (.ics)';
+            btn.disabled = false;
         }
     </script>
 </body>
