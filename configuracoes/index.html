@@ -3,9 +3,9 @@
 <head>
     <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
     <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
-    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
     <meta name="color-scheme" content="light dark">
 
     
@@ -133,6 +133,20 @@
                     
                     <div class="slider" aria-hidden="true"></div>
                 </div>
+                <div class="theme-descriptions" id="theme-descriptions">
+                    <div class="theme-desc" id="desc-default">
+                        <strong>💻 Sistema</strong> — Segue automaticamente o tema configurado no seu dispositivo (claro ou escuro). Muda junto com as preferências do sistema operacional.
+                    </div>
+                    <div class="theme-desc" id="desc-auto">
+                        <strong>🌗 Automático</strong> — Interface clara das 6h às 18h e escura das 18h às 6h. Ideal para quem usa o site ao longo do dia e da noite.
+                    </div>
+                    <div class="theme-desc" id="desc-light">
+                        <strong>☀️ Claro</strong> — Interface sempre clara, com fundo branco e texto escuro. Ótimo para ambientes bem iluminados.
+                    </div>
+                    <div class="theme-desc" id="desc-dark">
+                        <strong>🌙 Escuro</strong> — Interface sempre escura, com fundo azul-escuro e texto claro. Reduz o brilho e cansa menos os olhos em ambientes com pouca luz.
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -184,11 +198,18 @@
             }
         }
 
+        function showThemeDescription(value) {
+            document.querySelectorAll('.theme-desc').forEach(el => el.classList.remove('active'));
+            const desc = document.getElementById('desc-' + value);
+            if (desc) desc.classList.add('active');
+        }
+
         inputs.forEach(input => {
             input.addEventListener('change', (e) => {
                 const val = e.target.value;
                 localStorage.setItem('theme-pref', val);
                 updateDOMTheme(val);
+                showThemeDescription(val);
             });
         });
 
@@ -199,6 +220,7 @@
         if (currentInput) {
             currentInput.checked = true;
         }
+        showThemeDescription(currentPref);
     </script>
 </body>
 </html>

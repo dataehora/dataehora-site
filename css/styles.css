@@ -52,8 +52,8 @@
 
 /* Dark Theme */
 [data-theme="dark"] {
-    --bg-body: #020617;
-    --bg-card: #0f172a;
+    --bg-body: #0f172a;
+    --bg-card: #1e293b;
     --text-main: #f1f5f9;
     --text-muted: #94a3b8;
     --accent: #60a5fa;
@@ -63,7 +63,7 @@
     --danger: #f87171;
     --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
     --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.3);
-    --hr-color: rgba(248, 250, 252, 0.08);
+    --hr-color: rgba(248, 250, 252, 0.15);
     
     /* Dark mode feriados colors */
     --y2026: #60a5fa;
@@ -72,9 +72,9 @@
     --next-bg: #1d4ed8;
     
     /* Dark mode settings */
-    --settings-switch-bg: #1e293b;
-    --settings-slider: #334155;
-    --settings-border: rgba(255, 255, 255, 0.05);
+    --settings-switch-bg: #334155;
+    --settings-slider: #475569;
+    --settings-border: rgba(255, 255, 255, 0.12);
 }
 
 /* ===================================
@@ -670,6 +670,30 @@ footer a:hover {
     color: var(--text-muted);
     line-height: 1.6;
     font-weight: 500;
+}
+
+/* Theme descriptions */
+.theme-descriptions {
+    margin-top: 12px;
+}
+
+.theme-desc {
+    display: none;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    padding: 12px 16px;
+    background: var(--bg-card);
+    border-radius: 12px;
+    border: 1px solid var(--hr-color);
+}
+
+.theme-desc.active {
+    display: block;
+}
+
+.theme-desc strong {
+    color: var(--text-main);
 }
 
 .email-link {
