@@ -16,7 +16,7 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="apple-touch-icon" href="/assets/favicon.png">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">`
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
     <title>Feriados Nacionais do Brasil 2026 | dataehora.com.br</title>
@@ -65,6 +65,10 @@
     <!-- Preload critical CSS -->
     <link rel="preload" href="/css/styles.css" as="style">
     <link rel="stylesheet" href="/css/styles.css">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
@@ -79,22 +83,30 @@
 </head>
 <body>
 
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
     <div class="container">
         <nav class="nav-header" aria-label="Navegação estrutural">
             <a href="/" class="nav-link">dataehora.com.br</a>
             <span class="nav-sep">/</span>
             <span class="nav-current">Feriados</span>
         </nav>
-
-        <div class="header-ad-container">
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:728px;height:90px"
-                 data-ad-client="ca-pub-7808195997729404"
-                 data-ad-slot="1234567890"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
 
         <header class="header">
             <h1>Feriados</h1>

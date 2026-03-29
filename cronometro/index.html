@@ -16,6 +16,10 @@
     <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
     <link rel="icon" type="image/png" href="/assets/favicon.png">
     <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Meta Tags -->
@@ -116,10 +120,6 @@
         .nav-link { text-decoration: none; font-weight: 700; color: var(--accent); }
         .nav-sep { color: var(--text-muted); font-weight: 700; }
         .nav-current { color: var(--text-main); font-weight: 700; }
-
-        .header-ad-container {
-            width: 100%; text-align: center; margin-bottom: 30px; overflow: hidden;
-        }
 
         /* Main stopwatch card */
         .stopwatch-card {
@@ -271,27 +271,68 @@
             .btn { padding: 14px 20px; min-width: 100px; font-size: 0.9rem; }
             .laps-table th, .laps-table td { padding: 12px 14px; }
         }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
     </style>
 
 </head>
 
 <body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
 <div class="container">
     <nav class="nav-header" aria-label="Navegação estrutural">
         <a href="/" class="nav-link">dataehora.com.br</a>
         <span class="nav-sep">/</span>
         <span class="nav-current">Cronômetro</span>
     </nav>
-
-    <div class="header-ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-7808195997729404"
-             data-ad-slot="1234567890"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
 
     <!-- Main stopwatch display -->
     <div class="stopwatch-card">
