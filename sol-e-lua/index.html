@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/sol-e-lua/">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+
+    <!-- SEO Meta Tags -->
+    <title>Sol e Lua — Nascer e Pôr do Sol, Fases da Lua | dataehora.com.br</title>
+    <meta name="description" content="Consulte os horários de nascer e pôr do sol, duração do dia e fase atual da lua. Cálculos astronômicos precisos para qualquer cidade brasileira.">
+    <meta name="keywords" content="nascer do sol, pôr do sol, fase da lua, lua hoje, aurora, crepúsculo, duração do dia, astronomia">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Sol e Lua — Nascer e Pôr do Sol, Fases da Lua | dataehora.com.br">
+    <meta property="og:description" content="Consulte os horários de nascer e pôr do sol, duração do dia e fase atual da lua. Cálculos astronômicos precisos para qualquer cidade brasileira.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/sol-e-lua/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sol e Lua — Nascer e Pôr do Sol, Fases da Lua | dataehora.com.br">
+    <meta name="twitter:description" content="Consulte os horários de nascer e pôr do sol, duração do dia e fase atual da lua. Cálculos astronômicos precisos para qualquer cidade brasileira.">
+    <meta name="twitter:image" content="https://dataehora.com.br/og-image.jpg">
+
+    <!-- Preload critical CSS -->
+    <link rel="preload" href="/css/styles.css" as="style">
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        /* ===========================
+           CSS Variables
+        =========================== */
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: rgba(148, 163, 184, 0.2);
+            --hr-color: var(--border);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --input-bg: #f8fafc;
+        }
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
+        }
+
+        /* ===========================
+           Controls
+        =========================== */
+        .controls-row {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            flex-wrap: wrap;
+            align-items: flex-end;
+        }
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1;
+            min-width: 160px;
+        }
+        .control-group label {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+        }
+        .control-group select,
+        .control-group input[type="date"] {
+            background: var(--input-bg);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            font-family: inherit;
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+            width: 100%;
+        }
+        .control-group select:focus,
+        .control-group input[type="date"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        /* ===========================
+           Section Titles
+        =========================== */
+        .section-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin: 0 0 18px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ===========================
+           Sun Arc
+        =========================== */
+        .sun-arc-wrapper {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px 24px 16px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+        .sun-arc-svg {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+        .sun-arc-times {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 6px;
+            padding: 0 8px;
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* ===========================
+           Sun Info Cards Grid
+        =========================== */
+        .sun-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 14px;
+        }
+        .sun-cards-wide {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+        .info-card {
+            background: var(--bg-card);
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 18px 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        .info-card .card-icon {
+            font-size: 1.6rem;
+            line-height: 1;
+        }
+        .info-card .card-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 2px;
+        }
+        .info-card .card-value {
+            font-size: 1.55rem;
+            font-weight: 800;
+            color: var(--text-main);
+            line-height: 1.1;
+            font-variant-numeric: tabular-nums;
+        }
+        .info-card .card-sub {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
+        .info-card.small .card-value {
+            font-size: 1.1rem;
+        }
+
+        /* ===========================
+           Moon Section
+        =========================== */
+        .moon-main {
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 24px;
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 24px;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+        .moon-emoji-big {
+            font-size: 5rem;
+            line-height: 1;
+            text-align: center;
+            min-width: 90px;
+        }
+        .moon-details {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .moon-phase-name {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-main);
+        }
+        .moon-detail-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .moon-badge {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 6px 12px;
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .moon-badge span {
+            color: var(--text-main);
+        }
+
+        .moon-cards {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+            margin-bottom: 28px;
+        }
+
+        /* ===========================
+           Lunar Calendar
+        =========================== */
+        .lunar-calendar {
+            background: var(--bg-card);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            padding: 22px;
+            margin-bottom: 28px;
+        }
+        .lunar-cal-header {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .lunar-cal-weekdays {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+            margin-bottom: 6px;
+        }
+        .lunar-cal-weekday {
+            text-align: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            padding: 4px 0;
+        }
+        .lunar-cal-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+        .lunar-cal-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            border: 1px solid transparent;
+            transition: background 0.15s, border-color 0.15s, transform 0.1s;
+            padding: 2px;
+            gap: 1px;
+        }
+        .lunar-cal-day:hover {
+            background: var(--input-bg);
+            border-color: var(--border);
+            transform: scale(1.06);
+        }
+        .lunar-cal-day.today {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+        .lunar-cal-day.today .lc-num,
+        .lunar-cal-day.today .lc-emoji {
+            color: #fff;
+        }
+        .lunar-cal-day.selected:not(.today) {
+            background: var(--input-bg);
+            border-color: var(--accent);
+        }
+        .lunar-cal-day.empty {
+            cursor: default;
+        }
+        .lc-num {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            line-height: 1;
+        }
+        .lc-emoji {
+            font-size: 1rem;
+            line-height: 1;
+        }
+
+        /* ===========================
+           Divider
+        =========================== */
+        .section-divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 30px 0;
+        }
+
+        /* ===========================
+           Responsive
+        =========================== */
+        @media (max-width: 520px) {
+            .sun-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .sun-cards-wide {
+                grid-template-columns: 1fr 1fr 1fr;
+            }
+            .moon-main {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .moon-emoji-big {
+                font-size: 4rem;
+                min-width: unset;
+            }
+            .moon-detail-row {
+                justify-content: center;
+            }
+            .moon-cards {
+                grid-template-columns: 1fr 1fr;
+            }
+            .info-card .card-value {
+                font-size: 1.25rem;
+            }
+            .lc-emoji {
+                font-size: 0.85rem;
+            }
+        }
+        @media (max-width: 380px) {
+            .sun-cards-wide {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Sol e Lua</span>
+        </nav>
+
+        <!-- AdSense Banner -->
+        <div class="header-ad-container">
+            <ins class="adsbygoogle"
+                 style="display:inline-block;width:728px;height:90px"
+                 data-ad-client="ca-pub-7808195997729404"
+                 data-ad-slot="1234567890"></ins>
+            <script>
+                 (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+        </div>
+
+        <!-- Header -->
+        <header class="header">
+            <h1>Sol e Lua</h1>
+            <p class="subtitle">Nascer e pôr do sol, duração do dia e fase da lua para hoje.</p>
+        </header>
+
+        <!-- Controls -->
+        <div class="controls-row">
+            <div class="control-group">
+                <label for="citySelect">🏙️ Cidade</label>
+                <select id="citySelect" aria-label="Selecione a cidade">
+                    <option value="brasilia" data-lat="-15.7801" data-lon="-47.9292" data-tz="America/Sao_Paulo" selected>Brasília — DF</option>
+                    <option value="saopaulo" data-lat="-23.5505" data-lon="-46.6333" data-tz="America/Sao_Paulo">São Paulo — SP</option>
+                    <option value="rio" data-lat="-22.9068" data-lon="-43.1729" data-tz="America/Sao_Paulo">Rio de Janeiro — RJ</option>
+                    <option value="bh" data-lat="-19.9167" data-lon="-43.9345" data-tz="America/Sao_Paulo">Belo Horizonte — MG</option>
+                    <option value="salvador" data-lat="-12.9711" data-lon="-38.5108" data-tz="America/Bahia">Salvador — BA</option>
+                    <option value="fortaleza" data-lat="-3.7172" data-lon="-38.5433" data-tz="America/Fortaleza">Fortaleza — CE</option>
+                    <option value="recife" data-lat="-8.0476" data-lon="-34.8770" data-tz="America/Recife">Recife — PE</option>
+                    <option value="manaus" data-lat="-3.1190" data-lon="-60.0217" data-tz="America/Manaus">Manaus — AM</option>
+                    <option value="portoalegre" data-lat="-30.0277" data-lon="-51.2287" data-tz="America/Sao_Paulo">Porto Alegre — RS</option>
+                    <option value="curitiba" data-lat="-25.4284" data-lon="-49.2733" data-tz="America/Sao_Paulo">Curitiba — PR</option>
+                    <option value="belem" data-lat="-1.4558" data-lon="-48.5044" data-tz="America/Belem">Belém — PA</option>
+                    <option value="goiania" data-lat="-16.6869" data-lon="-49.2648" data-tz="America/Sao_Paulo">Goiânia — GO</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label for="dateInput">📅 Data</label>
+                <input type="date" id="dateInput" aria-label="Selecione a data">
+            </div>
+        </div>
+
+        <!-- ========================
+             SOL SECTION
+        ========================= -->
+        <h2 class="section-title">☀️ Sol</h2>
+
+        <!-- Sun Arc -->
+        <div class="sun-arc-wrapper" id="sunArcWrapper">
+            <svg class="sun-arc-svg" viewBox="0 0 400 180" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" id="sunArcSvg">
+                <!-- Sky gradient background -->
+                <defs>
+                    <linearGradient id="skyGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#bfdbfe;stop-opacity:1" id="skyTop"/>
+                        <stop offset="100%" style="stop-color:#f1f5f9;stop-opacity:1" id="skyBottom"/>
+                    </linearGradient>
+                    <linearGradient id="skyGradDark" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1e3a5f;stop-opacity:1"/>
+                        <stop offset="100%" style="stop-color:#020617;stop-opacity:1"/>
+                    </linearGradient>
+                    <linearGradient id="arcGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                        <stop offset="0%" style="stop-color:#fb923c"/>
+                        <stop offset="50%" style="stop-color:#fbbf24"/>
+                        <stop offset="100%" style="stop-color:#f97316"/>
+                    </linearGradient>
+                </defs>
+                <!-- Sky background -->
+                <rect x="0" y="0" width="400" height="180" rx="12" fill="url(#skyGrad)" id="arcBg"/>
+                <!-- Horizon line -->
+                <line x1="20" y1="155" x2="380" y2="155" stroke="rgba(148,163,184,0.4)" stroke-width="1.5" stroke-dasharray="4 4"/>
+                <!-- Ground -->
+                <rect x="0" y="155" width="400" height="25" rx="0" fill="rgba(148,163,184,0.12)" id="arcGround"/>
+                <!-- Sun arc path -->
+                <path id="sunArcPath" d="M 30 155 Q 200 10 370 155"
+                      fill="none" stroke="url(#arcGrad)" stroke-width="2.5"
+                      stroke-linecap="round" stroke-dasharray="6 4" opacity="0.7"/>
+                <!-- Elapsed arc (solid, brighter) -->
+                <path id="sunArcElapsed" d="" fill="none" stroke="url(#arcGrad)" stroke-width="3.5" stroke-linecap="round" opacity="0"/>
+                <!-- Sun dot -->
+                <g id="sunDot" transform="translate(200,82.5)">
+                    <circle r="14" fill="#fbbf24" opacity="0.25"/>
+                    <circle r="9" fill="#fbbf24"/>
+                    <text y="1" text-anchor="middle" dominant-baseline="middle" font-size="12">☀️</text>
+                </g>
+            </svg>
+            <div class="sun-arc-times">
+                <span id="arcNascer">—</span>
+                <span id="arcMeiodia" style="opacity:0.7">meio-dia solar</span>
+                <span id="arcPor">—</span>
+            </div>
+        </div>
+
+        <!-- Sun Main Cards -->
+        <div class="sun-cards">
+            <div class="info-card">
+                <div class="card-icon">🌅</div>
+                <div class="card-label">Nascer do Sol</div>
+                <div class="card-value" id="nascer">--:--</div>
+                <div class="card-sub" id="auroraText">Aurora civil —</div>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">🌇</div>
+                <div class="card-label">Pôr do Sol</div>
+                <div class="card-value" id="por">--:--</div>
+                <div class="card-sub" id="crepText">Crepúsculo civil —</div>
+            </div>
+        </div>
+
+        <!-- Sun Secondary Cards -->
+        <div class="sun-cards-wide">
+            <div class="info-card small">
+                <div class="card-icon">☀️</div>
+                <div class="card-label">Duração do Dia</div>
+                <div class="card-value" id="duracao">--h --min</div>
+            </div>
+            <div class="info-card small">
+                <div class="card-icon">🌞</div>
+                <div class="card-label">Meio-Dia Solar</div>
+                <div class="card-value" id="meiodia">--:--</div>
+            </div>
+            <div class="info-card small">
+                <div class="card-icon">🌄</div>
+                <div class="card-label">Luz do Dia</div>
+                <div class="card-value" id="luzDia">--h</div>
+                <div class="card-sub">aurora → crepúsculo</div>
+            </div>
+        </div>
+
+        <hr class="section-divider">
+
+        <!-- ========================
+             LUA SECTION
+        ========================= -->
+        <h2 class="section-title">🌙 Lua</h2>
+
+        <!-- Moon Main Card -->
+        <div class="moon-main">
+            <div class="moon-emoji-big" id="moonEmojiMain">🌕</div>
+            <div class="moon-details">
+                <div class="moon-phase-name" id="moonPhaseName">Lua Cheia</div>
+                <div class="moon-detail-row">
+                    <div class="moon-badge">💡 Iluminação <span id="moonIllum">100%</span></div>
+                    <div class="moon-badge">🕐 Idade <span id="moonAge">14 dias</span></div>
+                </div>
+                <div class="moon-detail-row">
+                    <div class="moon-badge">🌕 Próx. Lua Cheia <span id="nextFull">em ? dias</span></div>
+                    <div class="moon-badge">🌑 Próx. Lua Nova <span id="nextNew">em ? dias</span></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Moonrise / Moonset Cards -->
+        <div class="moon-cards">
+            <div class="info-card">
+                <div class="card-icon">🌙</div>
+                <div class="card-label">Nascer da Lua</div>
+                <div class="card-value" id="moonrise">--:--</div>
+            </div>
+            <div class="info-card">
+                <div class="card-icon">🌛</div>
+                <div class="card-label">Pôr da Lua</div>
+                <div class="card-value" id="moonset">--:--</div>
+            </div>
+        </div>
+
+        <!-- Lunar Calendar -->
+        <div class="lunar-calendar">
+            <div class="lunar-cal-header">📅 <span id="lunarCalTitle">Calendário Lunar do Mês</span></div>
+            <div class="lunar-cal-weekdays">
+                <div class="lunar-cal-weekday">Dom</div>
+                <div class="lunar-cal-weekday">Seg</div>
+                <div class="lunar-cal-weekday">Ter</div>
+                <div class="lunar-cal-weekday">Qua</div>
+                <div class="lunar-cal-weekday">Qui</div>
+                <div class="lunar-cal-weekday">Sex</div>
+                <div class="lunar-cal-weekday">Sáb</div>
+            </div>
+            <div class="lunar-cal-grid" id="lunarCalGrid"></div>
+        </div>
+
+    </div><!-- end .container -->
+
+    <!-- Footer -->
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> |
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script>
+    // ================================================
+    //  SOL E LUA — Pure JS Astronomical Calculations
+    // ================================================
+
+    // ---- Helpers ----
+
+    function toRad(deg) { return deg * Math.PI / 180; }
+    function toDeg(rad) { return rad * 180 / Math.PI; }
+
+    function pad2(n) { return String(Math.floor(n)).padStart(2, '0'); }
+
+    function fmtTime(fractionalHours) {
+        if (fractionalHours === null || isNaN(fractionalHours)) return '--:--';
+        // Normalise to [0, 24)
+        let h = ((fractionalHours % 24) + 24) % 24;
+        const hh = Math.floor(h);
+        const mm = Math.round((h - hh) * 60);
+        if (mm === 60) return pad2(hh + 1) + ':00';
+        return pad2(hh) + ':' + pad2(mm);
+    }
+
+    // Format fractional hours as "Xh YYmin"
+    function fmtDuration(fractionalHours) {
+        if (fractionalHours === null || isNaN(fractionalHours) || fractionalHours < 0) return '--';
+        const hh = Math.floor(fractionalHours);
+        const mm = Math.round((fractionalHours - hh) * 60);
+        if (mm === 60) return (hh + 1) + 'h 00min';
+        return hh + 'h ' + pad2(mm) + 'min';
+    }
+
+    // Julian Day Number
+    function julianDay(year, month, day) {
+        if (month <= 2) { year--; month += 12; }
+        const A = Math.floor(year / 100);
+        const B = 2 - A + Math.floor(A / 4);
+        return Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5;
+    }
+
+    // ---- SUN CALCULATIONS ----
+    // Based on NOAA Solar Calculator algorithm (Jean Meeus)
+
+    function calcSun(date, latDeg, lonDeg) {
+        const year  = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day   = date.getDate();
+
+        const JD = julianDay(year, month, day) + 0.5; // noon UTC
+        const T  = (JD - 2451545.0) / 36525.0;        // Julian centuries
+
+        // Geometric mean longitude (deg)
+        let L0 = 280.46646 + 36000.76983 * T + 0.0003032 * T * T;
+        L0 = L0 % 360;
+
+        // Geometric mean anomaly (deg)
+        const M = 357.52911 + 35999.05029 * T - 0.0001537 * T * T;
+
+        // Equation of centre
+        const C = (1.914602 - 0.004817 * T - 0.000014 * T * T) * Math.sin(toRad(M))
+                + (0.019993 - 0.000101 * T) * Math.sin(toRad(2 * M))
+                + 0.000289 * Math.sin(toRad(3 * M));
+
+        // Sun's true longitude
+        const sunLon = L0 + C;
+
+        // Apparent longitude (aberration + nutation)
+        const omega = 125.04 - 1934.136 * T;
+        const lambda = sunLon - 0.00569 - 0.00478 * Math.sin(toRad(omega));
+
+        // Obliquity of ecliptic
+        const epsilon0 = 23.0 + 26.0 / 60.0 + 21.448 / 3600.0
+                       - (46.8150 / 3600.0) * T
+                       - (0.00059 / 3600.0) * T * T
+                       + (0.001813 / 3600.0) * T * T * T;
+        const epsilon = epsilon0 + 0.00256 * Math.cos(toRad(omega));
+
+        // Sun declination
+        const declRad = Math.asin(Math.sin(toRad(epsilon)) * Math.sin(toRad(lambda)));
+        const declDeg = toDeg(declRad);
+
+        // Equation of time (minutes)
+        const y     = Math.tan(toRad(epsilon / 2)) ** 2;
+        const L0rad = toRad(L0);
+        const Mrad  = toRad(M);
+        const eot   = 4 * toDeg(
+            y * Math.sin(2 * L0rad)
+          - 2 * 0.016708634 * Math.sin(Mrad)
+          + 4 * 0.016708634 * y * Math.sin(Mrad) * Math.cos(2 * L0rad)
+          - 0.5 * y * y * Math.sin(4 * L0rad)
+          - 1.25 * 0.016708634 * 0.016708634 * Math.sin(2 * Mrad)
+        ); // in minutes
+
+        // Hour angle for sunrise/sunset (zenith = 90.833°)
+        const zenith = 90.833;
+        const cosHA = (Math.cos(toRad(zenith)) - Math.sin(toRad(latDeg)) * Math.sin(declRad))
+                    / (Math.cos(toRad(latDeg)) * Math.cos(declRad));
+
+        let sunriseUTC = null, sunsetUTC = null, noonUTC = null;
+
+        // Solar noon (UTC minutes)
+        noonUTC = (720 - 4 * lonDeg - eot) / 60; // in hours UTC
+
+        if (cosHA >= -1 && cosHA <= 1) {
+            const HA = toDeg(Math.acos(cosHA)); // degrees
+            sunriseUTC = noonUTC - HA / 15;
+            sunsetUTC  = noonUTC + HA / 15;
+        }
+
+        // Civil twilight (zenith = 96°)
+        const zenithCivil = 96.0;
+        const cosHACivil = (Math.cos(toRad(zenithCivil)) - Math.sin(toRad(latDeg)) * Math.sin(declRad))
+                         / (Math.cos(toRad(latDeg)) * Math.cos(declRad));
+        let dawnUTC = null, duskUTC = null;
+        if (cosHACivil >= -1 && cosHACivil <= 1) {
+            const HACivil = toDeg(Math.acos(cosHACivil));
+            dawnUTC = noonUTC - HACivil / 15;
+            duskUTC = noonUTC + HACivil / 15;
+        }
+
+        return { sunriseUTC, sunsetUTC, noonUTC, dawnUTC, duskUTC, declDeg, eot };
+    }
+
+    // Convert UTC fractional hours to local time, given a UTC offset in hours
+    function utcToLocal(utcH, offsetH) {
+        return ((utcH + offsetH) % 24 + 24) % 24;
+    }
+
+    // ---- MOON CALCULATIONS ----
+
+    function calcMoonPhase(date) {
+        // Calculate Julian date at noon
+        const JD = julianDay(date.getFullYear(), date.getMonth() + 1, date.getDate()) + 0.5;
+
+        // Moon age using known new moon epoch (Jan 6, 2000 18:14 UTC ≈ JD 2451549.5)
+        const knownNewMoon = 2451549.5;
+        const synodicMonth = 29.53058867;
+
+        const daysSince = JD - knownNewMoon;
+        let moonAge = ((daysSince % synodicMonth) + synodicMonth) % synodicMonth;
+
+        // Illumination (0–1) approximation
+        const illumination = (1 - Math.cos(2 * Math.PI * moonAge / synodicMonth)) / 2;
+
+        // Phase name
+        let phaseName, phaseEmoji;
+        if (moonAge < 1.85 || moonAge >= 27.68) {
+            phaseName = 'Lua Nova';          phaseEmoji = '🌑';
+        } else if (moonAge < 5.54) {
+            phaseName = 'Lua Crescente';     phaseEmoji = '🌒';
+        } else if (moonAge < 9.22) {
+            phaseName = 'Quarto Crescente';  phaseEmoji = '🌓';
+        } else if (moonAge < 12.91) {
+            phaseName = 'Gibosa Crescente';  phaseEmoji = '🌔';
+        } else if (moonAge < 16.61) {
+            phaseName = 'Lua Cheia';         phaseEmoji = '🌕';
+        } else if (moonAge < 20.30) {
+            phaseName = 'Gibosa Minguante';  phaseEmoji = '🌖';
+        } else if (moonAge < 23.99) {
+            phaseName = 'Quarto Minguante';  phaseEmoji = '🌗';
+        } else {
+            phaseName = 'Lua Minguante';     phaseEmoji = '🌘';
+        }
+
+        // Days until next full moon (age 14.77 = midpoint)
+        const fullMoonAge = synodicMonth / 2;
+        let daysToFull = fullMoonAge - moonAge;
+        if (daysToFull < 0) daysToFull += synodicMonth;
+
+        // Days until next new moon
+        let daysToNew = synodicMonth - moonAge;
+        if (daysToNew < 0) daysToNew += synodicMonth;
+
+        return { moonAge, illumination, phaseName, phaseEmoji, daysToFull, daysToNew, synodicMonth };
+    }
+
+    // Simplified moonrise/moonset estimation based on moon age and solar noon
+    function calcMoonriseMoonset(moonAge, sunNoonUTC, offsetH, synodicMonth) {
+        // Moon rises ~50 minutes later each day than the previous day
+        // New moon rises near sunrise, full moon near sunset, etc.
+        const fraction = moonAge / synodicMonth; // 0 to 1
+        // At new moon (age 0): rises ~at sunrise (noon - 6h = ~6h UTC) 
+        // At full moon (age 14.77): rises at sunset (~18h)
+        const riseOffsetHours = fraction * 24; // 0h at new moon → 12h at full → 24h back to new
+        const baseSunrise = sunNoonUTC - 6; // approximate sunrise UTC
+        let moonriseUTC = baseSunrise + riseOffsetHours;
+        // Moonset is ~12.5h after moonrise (moon above horizon ~12.4h on average)
+        let moonsetUTC = moonriseUTC + 12.4;
+        return {
+            moonriseLocal: utcToLocal(moonriseUTC, offsetH),
+            moonsetLocal:  utcToLocal(moonsetUTC, offsetH)
+        };
+    }
+
+    // ---- UTC OFFSET ----
+
+    // We do a simplified UTC-offset lookup by city timezone label (no IANA required)
+    function getUTCOffset(tzName, date) {
+        // Use Intl to determine offset in minutes
+        try {
+            const formatter = new Intl.DateTimeFormat('en-US', {
+                timeZone: tzName,
+                hour: 'numeric',
+                minute: 'numeric',
+                hour12: false,
+                timeZoneName: 'short'
+            });
+            // Trick: compute the local time in target TZ vs UTC
+            const utcMs = date.getTime();
+            const localMs = new Date(date.toLocaleString('en-US', { timeZone: tzName })).getTime();
+            const utcNormMs = new Date(date.toLocaleString('en-US', { timeZone: 'UTC' })).getTime();
+            const offsetMs = localMs - utcNormMs;
+            return offsetMs / 3600000; // hours
+        } catch (e) {
+            return -3; // default BRT
+        }
+    }
+
+    // ---- DARK MODE ARC ----
+
+    function updateArcTheme() {
+        const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+        const bg = document.getElementById('arcBg');
+        const ground = document.getElementById('arcGround');
+        if (bg) bg.setAttribute('fill', isDark ? 'url(#skyGradDark)' : 'url(#skyGrad)');
+        if (ground) ground.setAttribute('fill', isDark ? 'rgba(255,255,255,0.04)' : 'rgba(148,163,184,0.12)');
+    }
+
+    // ---- SUN ARC DRAWING ----
+
+    function drawSunArc(sunriseH, sunsetH, noonH, nowH, isToday) {
+        // Arc from (30,155) to (370,155) peaking at (200, 30)
+        const arcStartX = 30, arcEndX = 370, arcY = 155, arcPeakY = 30;
+        const arcCx = 200, arcCy = arcY; // control point centre
+
+        const sunDot = document.getElementById('sunDot');
+        const arcElapsed = document.getElementById('sunArcElapsed');
+
+        // Parametric arc: quadratic bezier Q(200, 25)
+        // t=0 → (30,155), t=1 → (370,155)
+        // x(t) = (1-t)²·30 + 2t(1-t)·200 + t²·370
+        // y(t) = (1-t)²·155 + 2t(1-t)·30 + t²·155
+        function bezierPoint(t) {
+            const x = (1 - t) * (1 - t) * 30 + 2 * t * (1 - t) * 200 + t * t * 370;
+            const y = (1 - t) * (1 - t) * 155 + 2 * t * (1 - t) * 30 + t * t * 155;
+            return { x, y };
+        }
+
+        // t=0 → sunrise, t=1 → sunset
+        let t = 0.5; // default: noon
+        if (isToday && sunriseH !== null && sunsetH !== null) {
+            const dayLength = sunsetH - sunriseH;
+            if (dayLength > 0) {
+                t = Math.max(0, Math.min(1, (nowH - sunriseH) / dayLength));
+            }
+        }
+
+        // Position sun dot
+        if (sunDot) {
+            const pt = bezierPoint(t);
+            sunDot.setAttribute('transform', `translate(${pt.x.toFixed(1)},${pt.y.toFixed(1)})`);
+            // Hide if below horizon
+            const visible = isToday ? (nowH >= sunriseH && nowH <= sunsetH) : true;
+            sunDot.style.opacity = visible ? '1' : '0.3';
+        }
+
+        // Draw elapsed arc segment
+        if (arcElapsed && isToday && sunriseH !== null) {
+            if (t > 0 && t <= 1) {
+                // Build partial bezier path from t=0 to t=current
+                const steps = 30;
+                const tCur = t;
+                let points = [];
+                for (let i = 0; i <= steps; i++) {
+                    const ti = (i / steps) * tCur;
+                    const pt = bezierPoint(ti);
+                    points.push(`${pt.x.toFixed(1)},${pt.y.toFixed(1)}`);
+                }
+                arcElapsed.setAttribute('d', 'M ' + points.join(' L '));
+                arcElapsed.setAttribute('opacity', '1');
+            } else {
+                arcElapsed.setAttribute('opacity', '0');
+            }
+        } else if (arcElapsed) {
+            arcElapsed.setAttribute('opacity', '0');
+        }
+
+        updateArcTheme();
+    }
+
+    // ---- MAIN UPDATE FUNCTION ----
+
+    function updatePage(date, lat, lon, tzName) {
+        const now = new Date();
+        const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        const selDate = new Date(date.getFullYear(), date.getMonth(), date.getDate());
+        const isToday = selDate.getTime() === today.getTime();
+
+        const offsetH = getUTCOffset(tzName, date);
+
+        // Sun
+        const sun = calcSun(date, lat, lon);
+
+        const sunriseLocal = sun.sunriseUTC !== null ? utcToLocal(sun.sunriseUTC, offsetH) : null;
+        const sunsetLocal  = sun.sunsetUTC  !== null ? utcToLocal(sun.sunsetUTC,  offsetH) : null;
+        const noonLocal    = sun.noonUTC    !== null ? utcToLocal(sun.noonUTC,    offsetH) : null;
+        const dawnLocal    = sun.dawnUTC    !== null ? utcToLocal(sun.dawnUTC,    offsetH) : null;
+        const duskLocal    = sun.duskUTC    !== null ? utcToLocal(sun.duskUTC,    offsetH) : null;
+
+        const dayLength = (sunriseLocal !== null && sunsetLocal !== null) ? (sunsetLocal - sunriseLocal) : null;
+        const civilLight = (dawnLocal !== null && duskLocal !== null) ? (duskLocal - dawnLocal) : null;
+
+        document.getElementById('nascer').textContent   = fmtTime(sunriseLocal);
+        document.getElementById('por').textContent      = fmtTime(sunsetLocal);
+        document.getElementById('meiodia').textContent  = fmtTime(noonLocal);
+        document.getElementById('duracao').textContent  = fmtDuration(dayLength);
+        document.getElementById('luzDia').textContent   = fmtDuration(civilLight);
+        document.getElementById('auroraText').textContent   = 'Aurora civil — ' + fmtTime(dawnLocal);
+        document.getElementById('crepText').textContent     = 'Crepúsculo civil — ' + fmtTime(duskLocal);
+        document.getElementById('arcNascer').textContent    = fmtTime(sunriseLocal);
+        document.getElementById('arcMeiodia').textContent   = fmtTime(noonLocal);
+        document.getElementById('arcPor').textContent       = fmtTime(sunsetLocal);
+
+        // Sun arc
+        const nowLocalH = isToday ? utcToLocal(now.getUTCHours() + now.getUTCMinutes() / 60 + now.getUTCSeconds() / 3600, offsetH) : 12;
+        drawSunArc(sunriseLocal, sunsetLocal, noonLocal, nowLocalH, isToday);
+
+        // Moon
+        const moon = calcMoonPhase(date);
+        document.getElementById('moonEmojiMain').textContent = moon.phaseEmoji;
+        document.getElementById('moonPhaseName').textContent  = moon.phaseName;
+        document.getElementById('moonIllum').textContent      = Math.round(moon.illumination * 100) + '%';
+        document.getElementById('moonAge').textContent        = Math.floor(moon.moonAge) + ' dias';
+        document.getElementById('nextFull').textContent       = 'em ' + Math.ceil(moon.daysToFull) + ' dia' + (Math.ceil(moon.daysToFull) !== 1 ? 's' : '');
+        document.getElementById('nextNew').textContent        = 'em ' + Math.ceil(moon.daysToNew)  + ' dia' + (Math.ceil(moon.daysToNew)  !== 1 ? 's' : '');
+
+        // Moonrise/Moonset
+        const moonTimes = calcMoonriseMoonset(moon.moonAge, sun.noonUTC || 12, offsetH, moon.synodicMonth);
+        document.getElementById('moonrise').textContent = fmtTime(moonTimes.moonriseLocal);
+        document.getElementById('moonset').textContent  = fmtTime(moonTimes.moonsetLocal);
+
+        // Lunar Calendar
+        buildLunarCalendar(date, today, lat, lon, tzName);
+    }
+
+    // ---- LUNAR CALENDAR ----
+
+    function buildLunarCalendar(selectedDate, today, lat, lon, tzName) {
+        const year  = selectedDate.getFullYear();
+        const month = selectedDate.getMonth();
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+        const firstDayOfWeek = new Date(year, month, 1).getDay(); // 0=Sun
+
+        const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho',
+                            'Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+        document.getElementById('lunarCalTitle').textContent =
+            'Calendário Lunar — ' + monthNames[month] + ' ' + year;
+
+        const grid = document.getElementById('lunarCalGrid');
+        grid.innerHTML = '';
+
+        // Empty cells before first day
+        for (let i = 0; i < firstDayOfWeek; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'lunar-cal-day empty';
+            grid.appendChild(empty);
+        }
+
+        for (let d = 1; d <= daysInMonth; d++) {
+            const dayDate = new Date(year, month, d);
+            const moon = calcMoonPhase(dayDate);
+
+            const cell = document.createElement('div');
+            const isToday = dayDate.getTime() === today.getTime();
+            const isSel   = dayDate.getTime() === new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate()).getTime();
+
+            cell.className = 'lunar-cal-day' + (isToday ? ' today' : '') + (isSel && !isToday ? ' selected' : '');
+            cell.innerHTML = `<span class="lc-num">${d}</span><span class="lc-emoji">${moon.phaseEmoji}</span>`;
+            cell.title = d + ' — ' + moon.phaseName + ' (' + Math.round(moon.illumination * 100) + '% iluminada)';
+
+            cell.addEventListener('click', () => {
+                // Update date input and re-render
+                const yyyy = year;
+                const mm   = String(month + 1).padStart(2, '0');
+                const dd   = String(d).padStart(2, '0');
+                document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
+                onControlsChange();
+            });
+
+            grid.appendChild(cell);
+        }
+    }
+
+    // ---- EVENT HANDLERS ----
+
+    function getSelectedCity() {
+        const sel = document.getElementById('citySelect');
+        const opt = sel.options[sel.selectedIndex];
+        return {
+            lat:  parseFloat(opt.dataset.lat),
+            lon:  parseFloat(opt.dataset.lon),
+            tz:   opt.dataset.tz
+        };
+    }
+
+    function getSelectedDate() {
+        const val = document.getElementById('dateInput').value;
+        if (!val) return new Date();
+        const parts = val.split('-');
+        return new Date(parseInt(parts[0]), parseInt(parts[1]) - 1, parseInt(parts[2]));
+    }
+
+    function onControlsChange() {
+        const city = getSelectedCity();
+        const date = getSelectedDate();
+        updatePage(date, city.lat, city.lon, city.tz);
+    }
+
+    // ---- INIT ----
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // Set default date to today
+        const now = new Date();
+        const yyyy = now.getFullYear();
+        const mm   = String(now.getMonth() + 1).padStart(2, '0');
+        const dd   = String(now.getDate()).padStart(2, '0');
+        document.getElementById('dateInput').value = `${yyyy}-${mm}-${dd}`;
+
+        document.getElementById('citySelect').addEventListener('change', onControlsChange);
+        document.getElementById('dateInput').addEventListener('change', onControlsChange);
+
+        // Initial render
+        onControlsChange();
+
+        // Live arc update every minute when viewing today
+        setInterval(() => {
+            const today = new Date();
+            const sel = getSelectedDate();
+            if (sel.toDateString() === today.toDateString()) {
+                onControlsChange();
+            }
+        }, 60000);
+
+        // Theme change observer
+        const observer = new MutationObserver(updateArcTheme);
+        observer.observe(document.documentElement, { attributes: true, attributeFilter: ['data-theme'] });
+    });
+    </script>
+</body>
+</html>
