@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#020617}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Meta Tags -->
+    <title>Conversor de Fusos Horários | dataehora.com.br</title>
+    <meta name="description" content="Converta horários entre cidades do mundo com facilidade. Descubra que horas são em Lisboa, Nova York, Tóquio e mais ao digitar um horário.">
+    <meta name="keywords" content="conversor de fusos horários, converter horário, hora em Lisboa, hora em Nova York, diferença de fuso, hora no mundo">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Conversor de Fusos Horários | dataehora.com.br">
+    <meta property="og:description" content="Converta horários entre cidades do mundo com facilidade. Descubra que horas são em Lisboa, Nova York, Tóquio e mais ao digitar um horário.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/conversor-de-fusos/">
+    <meta property="og:site_name" content="Data e Hora">
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Conversor de Fusos Horários | dataehora.com.br">
+    <meta name="twitter:description" content="Converta horários entre cidades do mundo com facilidade. Descubra que horas são em Lisboa, Nova York, Tóquio e mais ao digitar um horário.">
+    <meta name="twitter:site" content="@dataehora">
+    <meta name="twitter:creator" content="@dataehora">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Conversor de Fusos Horários",
+      "url": "https://dataehora.com.br/conversor-de-fusos/",
+      "description": "Converta horários entre cidades do mundo com facilidade. Descubra que horas são em Lisboa, Nova York, Tóquio e mais ao digitar um horário.",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "All"
+    }
+    </script>
+
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/conversor-de-fusos/">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --border: rgba(148, 163, 184, 0.2);
+            --hr-color: var(--border);
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --input-bg: #f8fafc;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #020617;
+            --bg-card: #0f172a;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --border: rgba(255, 255, 255, 0.05);
+            --input-bg: #1e293b;
+        }
+
+        .no-transition * { transition: none !important; }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container { width: 100%; max-width: 1100px; }
+
+        /* ── Breadcrumb nav ── */
+        .nav-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0 30px 0;
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            gap: 6px;
+        }
+
+        .nav-link {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .nav-link:hover { text-decoration: underline; }
+
+        .nav-sep { color: var(--border); }
+
+        .nav-current { color: var(--text-muted); font-weight: 500; }
+
+        /* ── Page header ── */
+        .page-header {
+            margin-bottom: 32px;
+        }
+
+        h1 {
+            font-size: clamp(1.6rem, 4vw, 2.2rem);
+            font-weight: 900;
+            margin: 0 0 8px 0;
+            color: var(--text-main);
+            letter-spacing: -0.5px;
+        }
+
+        .subtitle {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin: 0;
+            line-height: 1.5;
+        }
+
+        /* ── Converter card ── */
+        .converter-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 28px 28px 24px 28px;
+            box-shadow: var(--shadow);
+            margin-bottom: 36px;
+        }
+
+        .converter-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            align-items: flex-end;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            flex: 1 1 200px;
+        }
+
+        .control-group label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .control-group select,
+        .control-group input[type="datetime-local"] {
+            background: var(--input-bg);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.95rem;
+            color: var(--text-main);
+            outline: none;
+            transition: border-color 0.2s, box-shadow 0.2s;
+            width: 100%;
+            font-family: inherit;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .control-group select {
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%2394a3b8' stroke-width='2' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            padding-right: 36px;
+            cursor: pointer;
+        }
+
+        .control-group select:focus,
+        .control-group input[type="datetime-local"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.15);
+        }
+
+        [data-theme="dark"] .control-group select:focus,
+        [data-theme="dark"] .control-group input[type="datetime-local"]:focus {
+            box-shadow: 0 0 0 3px rgba(96, 165, 250, 0.15);
+        }
+
+        .btn-now {
+            background: var(--accent);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            padding: 10px 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.15s;
+            white-space: nowrap;
+            font-family: inherit;
+            flex-shrink: 0;
+            align-self: flex-end;
+        }
+        .btn-now:hover { opacity: 0.85; }
+
+        /* ── Source city summary ── */
+        .source-summary {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-top: 20px;
+            padding: 14px 18px;
+            background: var(--input-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+
+        .source-time {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--accent);
+            letter-spacing: -1px;
+            font-variant-numeric: tabular-nums;
+            line-height: 1;
+        }
+
+        .source-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .source-city-name {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: var(--text-main);
+        }
+
+        .source-date {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+        }
+
+        /* ── Results grid ── */
+        .results-section { margin-bottom: 40px; }
+
+        .results-section h2 {
+            font-size: 1rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.07em;
+            margin: 0 0 16px 0;
+        }
+
+        .results-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 14px;
+        }
+
+        /* ── Result card ── */
+        .result-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 18px 16px 14px 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            position: relative;
+            transition: transform 0.15s, box-shadow 0.15s;
+        }
+
+        .result-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 16px 32px -8px rgba(0, 0, 0, 0.1);
+        }
+
+        .result-card.is-source {
+            border-color: var(--accent);
+            border-width: 2px;
+        }
+
+        .result-city {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .result-time {
+            font-size: 2.1rem;
+            font-weight: 900;
+            color: var(--text-main);
+            letter-spacing: -1px;
+            font-variant-numeric: tabular-nums;
+            line-height: 1.1;
+            margin: 4px 0 2px 0;
+        }
+
+        .result-date {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        .result-utc {
+            font-size: 0.75rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            background: var(--bg-body);
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 2px 7px;
+            display: inline-block;
+            margin-top: 6px;
+            width: fit-content;
+        }
+
+        .day-badge {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            padding: 2px 7px;
+            border-radius: 20px;
+            letter-spacing: 0.02em;
+        }
+
+        .day-badge--plus {
+            background: rgba(34, 197, 94, 0.15);
+            color: #16a34a;
+        }
+        [data-theme="dark"] .day-badge--plus {
+            background: rgba(74, 222, 128, 0.15);
+            color: #4ade80;
+        }
+
+        .day-badge--minus {
+            background: rgba(239, 68, 68, 0.15);
+            color: #dc2626;
+        }
+        [data-theme="dark"] .day-badge--minus {
+            background: rgba(248, 113, 113, 0.15);
+            color: #f87171;
+        }
+
+        /* ── Meeting Planner section ── */
+        .section-block { margin-bottom: 44px; }
+
+        .section-block h2 {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--text-main);
+            margin: 0 0 18px 0;
+        }
+
+        .planner-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 24px;
+            box-shadow: var(--shadow);
+            overflow-x: auto;
+        }
+
+        .planner-table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 460px;
+        }
+
+        .planner-table th {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            padding: 0 8px 10px 8px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        .planner-table td {
+            padding: 8px 8px;
+            border-top: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .planner-city {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--text-main);
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .planner-time {
+            font-size: 1.1rem;
+            font-weight: 800;
+            font-variant-numeric: tabular-nums;
+            color: var(--text-main);
+        }
+
+        .planner-status {
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 3px 10px;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .status-business {
+            background: rgba(34, 197, 94, 0.15);
+            color: #15803d;
+        }
+        [data-theme="dark"] .status-business {
+            background: rgba(74, 222, 128, 0.12);
+            color: #4ade80;
+        }
+
+        .status-early {
+            background: rgba(234, 179, 8, 0.15);
+            color: #a16207;
+        }
+        [data-theme="dark"] .status-early {
+            background: rgba(250, 204, 21, 0.12);
+            color: #facc15;
+        }
+
+        .status-night {
+            background: rgba(239, 68, 68, 0.12);
+            color: #b91c1c;
+        }
+        [data-theme="dark"] .status-night {
+            background: rgba(248, 113, 113, 0.12);
+            color: #f87171;
+        }
+
+        .planner-note {
+            margin-top: 14px;
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .planner-note span {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            display: inline-block;
+            flex-shrink: 0;
+        }
+        .dot-green  { background: #22c55e; }
+        .dot-yellow { background: #eab308; }
+        .dot-red    { background: #ef4444; }
+
+        /* ── HR divider ── */
+        hr.discreet {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 36px 0;
+            width: 100%;
+        }
+
+        /* ── Footer ── */
+        footer {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 20px;
+        }
+
+        .btn-settings {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 22px;
+            background: var(--bg-card);
+            color: var(--text-muted);
+            border: 1px solid var(--border);
+            border-radius: 30px;
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: border-color 0.2s, color 0.2s;
+        }
+        .btn-settings:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+
+        /* ── Responsive ── */
+        @media (max-width: 600px) {
+            body { padding: 0 12px 40px 12px; }
+            .converter-card { padding: 20px 16px; }
+            .results-grid { grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); }
+            .nav-header { justify-content: center; }
+            .source-time { font-size: 1.6rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+
+        <!-- Breadcrumb -->
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Conversor de Fusos</span>
+        </nav>
+
+        <!-- Page header -->
+        <header class="page-header">
+            <h1>🔄 Conversor de Fusos</h1>
+            <p class="subtitle">Converta horários entre qualquer cidade do mundo instantaneamente.</p>
+        </header>
+
+        <!-- ── Converter card ── -->
+        <div class="converter-card">
+            <div class="converter-controls">
+                <div class="control-group">
+                    <label for="source-city">Cidade de origem</label>
+                    <select id="source-city" aria-label="Selecione a cidade de origem"></select>
+                </div>
+                <div class="control-group">
+                    <label for="source-datetime">Data e hora</label>
+                    <input type="datetime-local" id="source-datetime" aria-label="Data e hora de origem">
+                </div>
+                <button class="btn-now" id="btn-now" title="Usar hora atual">⏱ Agora</button>
+            </div>
+
+            <!-- Source city summary -->
+            <div class="source-summary" id="source-summary">
+                <div class="source-time" id="sum-time">--:--</div>
+                <div class="source-meta">
+                    <div class="source-city-name" id="sum-city">—</div>
+                    <div class="source-date" id="sum-date">—</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Conversion results ── -->
+        <section class="results-section" aria-live="polite" aria-atomic="true">
+            <h2>Horários equivalentes</h2>
+            <div class="results-grid" id="results-grid"></div>
+        </section>
+
+        <hr class="discreet">
+
+        <!-- ── Meeting Planner ── -->
+        <section class="section-block" id="meeting-planner">
+            <h2>⏰ Melhor horário para reuniões</h2>
+            <div class="planner-card">
+                <table class="planner-table" aria-label="Comparação de horários para reuniões">
+                    <thead>
+                        <tr>
+                            <th>Cidade</th>
+                            <th>Hora atual</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody id="planner-body"></tbody>
+                </table>
+                <div class="planner-note">
+                    <span><span class="dot dot-green"></span> Horário comercial (8h–20h)</span>
+                    <span><span class="dot dot-yellow"></span> Cedo / Tarde (6h–8h ou 20h–22h)</span>
+                    <span><span class="dot dot-red"></span> Noite / Dormindo (22h–6h)</span>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        </div>
+    </footer>
+
+    <script>
+    // ── City definitions ─────────────────────────────────────────────────────
+    const CITIES = [
+        { name: 'Brasília',              flag: '🇧🇷', tz: 'America/Sao_Paulo'                   },
+        { name: 'Manaus',                flag: '🇧🇷', tz: 'America/Manaus'                      },
+        { name: 'Fortaleza',             flag: '🇧🇷', tz: 'America/Fortaleza'                   },
+        { name: 'Fernando de Noronha',   flag: '🇧🇷', tz: 'America/Noronha'                    },
+        { name: 'Lisboa',                flag: '🇵🇹', tz: 'Europe/Lisbon'                       },
+        { name: 'Porto',                 flag: '🇵🇹', tz: 'Europe/Lisbon'                       },
+        { name: 'Luanda',                flag: '🇦🇴', tz: 'Africa/Luanda'                       },
+        { name: 'Maputo',                flag: '🇲🇿', tz: 'Africa/Maputo'                       },
+        { name: 'Praia',                 flag: '🇨🇻', tz: 'Atlantic/Cape_Verde'                 },
+        { name: 'São Tomé',              flag: '🇸🇹', tz: 'Africa/Sao_Tome'                    },
+        { name: 'Bissau',                flag: '🇬🇼', tz: 'Africa/Bissau'                       },
+        { name: 'Dili',                  flag: '🇹🇱', tz: 'Asia/Dili'                           },
+        { name: 'Londres',               flag: '🇬🇧', tz: 'Europe/London'                       },
+        { name: 'Paris',                 flag: '🇫🇷', tz: 'Europe/Paris'                        },
+        { name: 'Madrid',                flag: '🇪🇸', tz: 'Europe/Madrid'                       },
+        { name: 'Berlim',                flag: '🇩🇪', tz: 'Europe/Berlin'                       },
+        { name: 'Moscou',                flag: '🇷🇺', tz: 'Europe/Moscow'                       },
+        { name: 'Dubai',                 flag: '🇦🇪', tz: 'Asia/Dubai'                          },
+        { name: 'Nova Déli',             flag: '🇮🇳', tz: 'Asia/Kolkata'                        },
+        { name: 'Pequim',                flag: '🇨🇳', tz: 'Asia/Shanghai'                       },
+        { name: 'Tóquio',               flag: '🇯🇵', tz: 'Asia/Tokyo'                          },
+        { name: 'Sydney',                flag: '🇦🇺', tz: 'Australia/Sydney'                    },
+        { name: 'Nova York',             flag: '🇺🇸', tz: 'America/New_York'                    },
+        { name: 'Chicago',               flag: '🇺🇸', tz: 'America/Chicago'                     },
+        { name: 'Los Angeles',           flag: '🇺🇸', tz: 'America/Los_Angeles'                 },
+        { name: 'Buenos Aires',          flag: '🇦🇷', tz: 'America/Argentina/Buenos_Aires'      },
+        { name: 'Santiago',              flag: '🇨🇱', tz: 'America/Santiago'                    },
+        { name: 'Cidade do México',      flag: '🇲🇽', tz: 'America/Mexico_City'                 },
+    ];
+
+    // ── Meeting planner cities ─────────────────────────────────────────────
+    const PLANNER_CITIES = [
+        { name: 'Brasília',  flag: '🇧🇷', tz: 'America/Sao_Paulo'  },
+        { name: 'Lisboa',    flag: '🇵🇹', tz: 'Europe/Lisbon'       },
+        { name: 'Londres',   flag: '🇬🇧', tz: 'Europe/London'       },
+        { name: 'Nova York', flag: '🇺🇸', tz: 'America/New_York'    },
+        { name: 'Tóquio',   flag: '🇯🇵', tz: 'Asia/Tokyo'          },
+    ];
+
+    // ── Helpers ────────────────────────────────────────────────────────────
+
+    /**
+     * Returns the UTC offset string (e.g. "UTC-3", "UTC+5:30") for a timezone
+     * relative to a given Date object.
+     */
+    function getUtcOffset(tz, date) {
+        // Use Intl to get the offset in minutes
+        const utcMs   = date.getTime();
+        const tzStr   = new Intl.DateTimeFormat('en', {
+            timeZone: tz,
+            timeZoneName: 'shortOffset',
+        }).formatToParts(date).find(p => p.type === 'timeZoneName').value;
+        return tzStr.replace('GMT', 'UTC');
+    }
+
+    /**
+     * Format a Date as "HH:MM" in the given timezone.
+     */
+    function fmtTime(date, tz) {
+        return new Intl.DateTimeFormat('pt-BR', {
+            timeZone: tz,
+            hour:   '2-digit',
+            minute: '2-digit',
+            hour12: false,
+        }).format(date);
+    }
+
+    /**
+     * Format a Date as a locale date string in the given timezone.
+     */
+    function fmtDate(date, tz) {
+        return new Intl.DateTimeFormat('pt-BR', {
+            timeZone: tz,
+            weekday: 'short',
+            day:     'numeric',
+            month:   'short',
+            year:    'numeric',
+        }).format(date);
+    }
+
+    /**
+     * Returns the day-of-year index (0 = Jan 1) for a Date in a given timezone.
+     * Used to detect date change relative to source.
+     */
+    function getDayOfYear(date, tz) {
+        const parts = new Intl.DateTimeFormat('en', {
+            timeZone: tz,
+            year:  'numeric',
+            month: 'numeric',
+            day:   'numeric',
+        }).formatToParts(date);
+        const y = +parts.find(p => p.type === 'year').value;
+        const m = +parts.find(p => p.type === 'month').value;
+        const d = +parts.find(p => p.type === 'day').value;
+        const start = new Date(y, 0, 0);
+        const local = new Date(y, m - 1, d);
+        return Math.floor((local - start) / 86400000);
+    }
+
+    /**
+     * Returns the local hour (0–23) in a given timezone for a Date.
+     */
+    function getLocalHour(date, tz) {
+        return +new Intl.DateTimeFormat('en', {
+            timeZone: tz,
+            hour:   '2-digit',
+            hour12: false,
+        }).format(date);
+    }
+
+    // ── Populate source city dropdown ─────────────────────────────────────
+    const selectEl = document.getElementById('source-city');
+    CITIES.forEach((city, idx) => {
+        const opt = document.createElement('option');
+        opt.value = idx;
+        opt.textContent = city.flag + ' ' + city.name;
+        selectEl.appendChild(opt);
+    });
+    // Default: Brasília (index 0)
+    selectEl.value = '0';
+
+    // ── Populate datetime input with current time ─────────────────────────
+    const dtInput = document.getElementById('source-datetime');
+
+    function setNow() {
+        const now  = new Date();
+        const pad  = n => String(n).padStart(2, '0');
+        // datetime-local expects "YYYY-MM-DDTHH:MM"
+        const yyyy = now.getFullYear();
+        const mm   = pad(now.getMonth() + 1);
+        const dd   = pad(now.getDate());
+        const hh   = pad(now.getHours());
+        const min  = pad(now.getMinutes());
+        dtInput.value = `${yyyy}-${mm}-${dd}T${hh}:${min}`;
+        convert();
+    }
+
+    document.getElementById('btn-now').addEventListener('click', setNow);
+
+    // ── Core conversion function ──────────────────────────────────────────
+    function convert() {
+        const srcIdx  = parseInt(selectEl.value, 10);
+        const srcCity = CITIES[srcIdx];
+        const rawVal  = dtInput.value; // "YYYY-MM-DDTHH:MM"
+
+        if (!rawVal) return;
+
+        // Build a UTC timestamp from the local time interpreted in source timezone
+        // Strategy: parse as if it were local, then shift by the tz offset delta.
+        // We use a trick: format the input as a UTC-anchored time via Intl arithmetic.
+        // Most reliable: use the offset of the source timezone for the given moment.
+        const localDate = new Date(rawVal); // treated as local machine time — we correct below
+
+        // Get the machine's own UTC offset for that moment (in ms)
+        const machineOffsetMs = -localDate.getTimezoneOffset() * 60000;
+
+        // Get the source city UTC offset for that moment (in ms)
+        // We approximate using a formatter that gives us the offset string
+        const srcOffsetStr = new Intl.DateTimeFormat('en', {
+            timeZone: srcCity.tz,
+            timeZoneName: 'shortOffset',
+        }).formatToParts(localDate).find(p => p.type === 'timeZoneName').value; // e.g. "GMT-3"
+
+        const srcOffsetMs = parseOffsetToMs(srcOffsetStr);
+
+        // Correct UTC timestamp: shift from machine offset to source tz offset
+        const utcMs = localDate.getTime() - machineOffsetMs + srcOffsetMs;
+        // Wait — we want: utcMs = localMs - srcOffsetMs (since local = utc + srcOffset)
+        // localDate.getTime() is UTC already (JS Date is always UTC internally)
+        // But dtInput.value was parsed as machine-local time, so:
+        //   localDate.getTime() = inputTime_as_if_local_UTC + machineOffset
+        // We want inputTime treated as srcTz local:
+        //   correctedUTC = inputTime_as_srcTz - srcOffset
+        //   = (localDate.getTime() - machineOffsetMs) - srcOffsetMs
+        // So:
+        const correctedUtc = localDate.getTime() - machineOffsetMs - srcOffsetMs;
+        const targetDate = new Date(correctedUtc);
+
+        // Render source summary
+        document.getElementById('sum-time').textContent = fmtTime(targetDate, srcCity.tz);
+        document.getElementById('sum-city').textContent = srcCity.flag + ' ' + srcCity.name;
+        document.getElementById('sum-date').textContent = fmtDate(targetDate, srcCity.tz);
+
+        // Compute source day-of-year for comparison
+        const srcDoy = getDayOfYear(targetDate, srcCity.tz);
+
+        // Render result cards
+        const grid = document.getElementById('results-grid');
+        grid.innerHTML = '';
+
+        CITIES.forEach((city, idx) => {
+            const card = document.createElement('div');
+            card.className = 'result-card' + (idx === srcIdx ? ' is-source' : '');
+
+            const tgtDoy   = getDayOfYear(targetDate, city.tz);
+            const dayDiff  = tgtDoy - srcDoy;
+            const timeStr  = fmtTime(targetDate, city.tz);
+            const dateStr  = fmtDate(targetDate, city.tz);
+            const utcStr   = getUtcOffset(city.tz, targetDate);
+
+            let badgeHtml = '';
+            if (dayDiff > 0) {
+                badgeHtml = `<span class="day-badge day-badge--plus">+${dayDiff} dia${dayDiff > 1 ? 's' : ''}</span>`;
+            } else if (dayDiff < 0) {
+                const absDiff = Math.abs(dayDiff);
+                badgeHtml = `<span class="day-badge day-badge--minus">-${absDiff} dia${absDiff > 1 ? 's' : ''}</span>`;
+            }
+
+            card.innerHTML = `
+                ${badgeHtml}
+                <div class="result-city"><span>${city.flag}</span>${city.name}</div>
+                <div class="result-time">${timeStr}</div>
+                <div class="result-date">${dateStr}</div>
+                <div class="result-utc">${utcStr}</div>
+            `;
+
+            grid.appendChild(card);
+        });
+    }
+
+    /**
+     * Parse a GMT offset string like "GMT-3", "GMT+5:30", "GMT+0" to milliseconds.
+     */
+    function parseOffsetToMs(gmtStr) {
+        // matches "GMT+HH:MM", "GMT-HH:MM", "GMT+HH", "GMT-HH", "GMT"
+        const match = gmtStr.match(/GMT([+-])(\d{1,2})(?::(\d{2}))?/);
+        if (!match) return 0;
+        const sign    = match[1] === '+' ? 1 : -1;
+        const hours   = parseInt(match[2], 10);
+        const minutes = parseInt(match[3] || '0', 10);
+        return sign * (hours * 60 + minutes) * 60000;
+    }
+
+    // ── Meeting Planner ───────────────────────────────────────────────────
+    function updatePlanner() {
+        const now  = new Date();
+        const tbody = document.getElementById('planner-body');
+        tbody.innerHTML = '';
+
+        PLANNER_CITIES.forEach(city => {
+            const hour    = getLocalHour(now, city.tz);
+            const timeStr = fmtTime(now, city.tz);
+
+            let statusClass, statusLabel;
+            if (hour >= 8 && hour < 20) {
+                statusClass = 'status-business';
+                statusLabel = '✅ Horário comercial';
+            } else if ((hour >= 6 && hour < 8) || (hour >= 20 && hour < 22)) {
+                statusClass = 'status-early';
+                statusLabel = '🌅 Cedo / Tarde';
+            } else {
+                statusClass = 'status-night';
+                statusLabel = '🌙 Noite / Dormindo';
+            }
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><div class="planner-city"><span>${city.flag}</span>${city.name}</div></td>
+                <td><div class="planner-time">${timeStr}</div></td>
+                <td><span class="planner-status ${statusClass}">${statusLabel}</span></td>
+            `;
+            tbody.appendChild(tr);
+        });
+    }
+
+    // ── Event listeners ───────────────────────────────────────────────────
+    selectEl.addEventListener('change', convert);
+    dtInput.addEventListener('input', convert);
+
+    // ── Init ──────────────────────────────────────────────────────────────
+    setNow();
+    updatePlanner();
+    setInterval(updatePlanner, 60000);
+    </script>
+</body>
+</html>
