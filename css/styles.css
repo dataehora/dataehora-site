@@ -8,6 +8,7 @@
    =================================== */
 
 :root {
+    color-scheme: light dark;
     /* Color Palette - Light Mode */
     --bg-body: #f1f5f9;
     --bg-card: #ffffff;
