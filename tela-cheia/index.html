@@ -187,6 +187,11 @@
             background: var(--bg-card);
             border-radius: 12px;
             border: 1px solid var(--hr-color);
+            transition: opacity 0.5s ease;
+        }
+        .nav-header.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; }
         .nav-sep { color: var(--text-muted); font-weight: 700; }
@@ -197,6 +202,11 @@
             margin-top: 40px;
             text-align: center;
             width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        footer.hidden {
+            opacity: 0;
+            pointer-events: none;
         }
         .btn-settings {
             display: inline-block;
@@ -529,19 +539,32 @@
 
     // Controls auto-hide logic
     const controls = document.getElementById('fs-controls');
+    const navHeader = document.querySelector('.nav-header');
+    const pageFooter = document.querySelector('footer');
     let hideTimer = null;
+
+    function hideAll() {
+        controls.classList.add('hidden');
+        if (navHeader) navHeader.classList.add('hidden');
+        if (pageFooter) pageFooter.classList.add('hidden');
+    }
 
     function showControls() {
         controls.classList.remove('hidden');
+        if (navHeader) navHeader.classList.remove('hidden');
+        if (pageFooter) pageFooter.classList.remove('hidden');
         clearTimeout(hideTimer);
-        hideTimer = setTimeout(() => controls.classList.add('hidden'), CONTROLS_HIDE_DELAY);
+        hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
     }
 
     document.addEventListener('mousemove', showControls);
     document.addEventListener('touchstart', showControls);
-    controls.addEventListener('mouseenter', () => clearTimeout(hideTimer));
-    controls.addEventListener('mouseleave', () => {
-        hideTimer = setTimeout(() => controls.classList.add('hidden'), CONTROLS_HIDE_DELAY);
+    [controls, navHeader, pageFooter].forEach(el => {
+        if (!el) return;
+        el.addEventListener('mouseenter', () => clearTimeout(hideTimer));
+        el.addEventListener('mouseleave', () => {
+            hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
+        });
     });
 
     // Button wiring
