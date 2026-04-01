@@ -1121,6 +1121,10 @@ footer a:hover {
         padding: 0 16px 40px;
     }
     
+    .btn-fullscreen {
+        display: none;
+    }
+    
     .menu-grid {
         grid-template-columns: 1fr;
     }
