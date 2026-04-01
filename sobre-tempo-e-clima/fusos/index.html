@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fusos Horários | dataehora.com.br</title>
+    <meta name="description" content="Entenda como a Terra foi dividida em 24 fusos horários, a diferença entre UTC e GMT, e os fusos do Brasil.">
+    <meta name="keywords" content="fusos horários, UTC, GMT, fuso horário brasil, linha internacional de data, hora mundial">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Fusos Horários | dataehora.com.br">
+    <meta property="og:description" content="Entenda como a Terra foi dividida em 24 fusos horários, a diferença entre UTC e GMT, e os fusos do Brasil.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dataehora.com.br/sobre-tempo-e-clima/fusos/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Fusos Horários | dataehora.com.br">
+    <meta name="twitter:description" content="Entenda como a Terra foi dividida em 24 fusos horários, a diferença entre UTC e GMT, e os fusos do Brasil.">
+    <meta name="twitter:site" content="@dataehora">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Fusos Horários","description":"Entenda como a Terra foi dividida em 24 fusos horários e a diferença entre UTC e GMT.","url":"https://dataehora.com.br/sobre-tempo-e-clima/fusos/","author":{"@type":"Organization","name":"dataehora.com.br"},"publisher":{"@type":"Organization","name":"dataehora.com.br"}}
+    </script>
+    <link rel="canonical" href="https://dataehora.com.br/sobre-tempo-e-clima/fusos/">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4Y5H59FEQE');</script>
+    <style>
+        :root{--bg-body:#f1f5f9;--bg-card:#ffffff;--text-main:#0f172a;--text-muted:#64748b;--accent:#2563eb;--shadow:0 10px 25px -5px rgba(0,0,0,0.05);--hr-color:rgba(100,116,139,0.2);--page-accent:#1e40af;}
+        [data-theme="dark"]{--bg-body:#0f172a;--bg-card:#1e293b;--text-main:#f8fafc;--text-muted:#94a3b8;--accent:#60a5fa;--shadow:0 20px 25px -5px rgba(0,0,0,0.3);--hr-color:rgba(248,250,252,0.2);}
+        .no-transition *{transition:none!important}
+        *{box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-body);color:var(--text-main);margin:0;padding:0 20px 40px 20px;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+        .container{width:100%;max-width:900px;}
+        .nav-header{width:100%;display:flex;align-items:center;flex-wrap:wrap;padding:12px 16px;margin:20px 0 30px 0;font-size:0.875rem;gap:8px;background:var(--bg-card);border-radius:12px;border:1px solid var(--hr-color);}
+        .nav-link{color:var(--accent);text-decoration:none;font-weight:700;}
+        .nav-sep{color:var(--text-muted);font-weight:700;}
+        .nav-current{color:var(--text-main);font-weight:700;}
+        .page-header{margin:20px 0 40px 0;}
+        h1{font-size:clamp(2rem,8vw,3rem);margin:0;letter-spacing:-2px;font-weight:900;line-height:1;color:var(--text-main);}
+        .subtitle{color:var(--text-muted);font-size:1.1rem;margin-top:10px;font-weight:500;}
+        .top-nav-wrapper{width:100%;background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-body) 100%);border-bottom:1px solid var(--hr-color);padding:15px 20px;}
+        .top-nav-container{width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+        .logo-text{font-size:1.5rem;font-weight:900;color:var(--accent);text-decoration:none;letter-spacing:-1.5px;}
+        .header-ad{display:flex;justify-content:flex-end;align-items:center;min-height:90px;}
+        footer{margin-top:60px;text-align:center;color:var(--text-muted);font-size:0.85rem;font-weight:700;opacity:0.8;}
+        .btn-settings{display:inline-block;padding:12px 24px;background:var(--bg-card);color:var(--text-main);text-decoration:none;border-radius:12px;font-weight:700;border:1px solid var(--hr-color);transition:transform 0.2s ease;}
+        .btn-settings:hover{transform:translateY(-2px);}
+        .section{background:var(--bg-card);border-radius:20px;padding:30px;margin-bottom:24px;border:1px solid var(--hr-color);box-shadow:var(--shadow);}
+        .section h2{font-size:1.5rem;font-weight:900;letter-spacing:-1px;margin:0 0 16px 0;color:var(--page-accent);}
+        .section p{color:var(--text-muted);line-height:1.7;margin:0 0 12px 0;}
+        .fuso-table{width:100%;border-collapse:collapse;margin-top:16px;}
+        .fuso-table th{background:var(--page-accent);color:white;padding:12px 16px;text-align:left;font-size:0.85rem;font-weight:700;}
+        .fuso-table th:first-child{border-radius:8px 0 0 0;}
+        .fuso-table th:last-child{border-radius:0 8px 0 0;}
+        .fuso-table td{padding:12px 16px;font-size:0.9rem;border-bottom:1px solid var(--hr-color);color:var(--text-muted);}
+        .fuso-table tr:last-child td{border-bottom:none;}
+        .fuso-table tr:nth-child(even) td{background:var(--bg-body);}
+        .fuso-badge{display:inline-block;background:var(--page-accent);color:white;padding:3px 10px;border-radius:20px;font-weight:900;font-size:0.9rem;}
+        .frac-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:12px;margin-top:16px;}
+        .frac-item{background:var(--bg-body);border-radius:12px;padding:14px;border-left:3px solid var(--page-accent);}
+        .frac-item .frac-country{font-weight:900;color:var(--text-main);font-size:0.9rem;}
+        .frac-item .frac-offset{font-weight:700;color:var(--page-accent);font-size:0.85rem;}
+        .info-box{background:linear-gradient(135deg,var(--page-accent) 0%,#3b82f6 100%);border-radius:16px;padding:24px;color:white;margin-top:16px;}
+        .info-box h3{margin:0 0 12px 0;font-size:1.1rem;}
+        .info-box ul{margin:0;padding-left:20px;line-height:1.9;}
+        .highlight{background:var(--bg-body);border-left:4px solid var(--page-accent);border-radius:8px;padding:16px 20px;margin-top:16px;color:var(--text-muted);line-height:1.7;}
+        .highlight strong{color:var(--page-accent);}
+    </style>
+</head>
+<body>
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7808195997729404" data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <a href="/sobre-tempo-e-clima/" class="nav-link">Sobre Tempo e Clima</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Fusos Horários</span>
+        </nav>
+        <header class="page-header">
+            <h1>🕐 Fusos Horários</h1>
+            <p class="subtitle">Como a Terra foi dividida em 24 fusos e por que existem diferenças de horas entre países.</p>
+        </header>
+        <main>
+            <div class="section">
+                <h2>O que são Fusos Horários?</h2>
+                <p>Como a Terra é esférica e gira, diferentes partes do mundo experimentam o sol em momentos distintos. Para padronizar o horário global, o engenheiro canadense <strong>Sandford Fleming</strong> propôs em 1879 a divisão do mundo em 24 fusos horários.</p>
+                <p>A proposta foi adotada internacionalmente em <strong>outubro de 1884</strong> na Conferência Internacional de Meridianos em Washington. A lógica é simples: 360° divididos por 24 horas = <strong>15° de longitude por fuso</strong>. O meridiano de Greenwich (Londres) foi escolhido como referência — UTC+0.</p>
+                <div class="highlight"><strong>Por que 24 fusos?</strong> Porque a Terra faz uma rotação completa (360°) em 24 horas. Logo, em 1 hora, gira 15°. Cada fuso equivale a 15° de longitude e 1 hora de diferença.</div>
+            </div>
+            <div class="section">
+                <h2>UTC vs GMT</h2>
+                <p>Embora frequentemente usados como sinônimos, GMT e UTC têm origens e precisões distintas:</p>
+                <p><strong>GMT (Greenwich Mean Time)</strong> é baseado na posição média do Sol sobre o Meridiano de Greenwich, introduzido em 1884. É um padrão astronômico.</p>
+                <p><strong>UTC (Tempo Universal Coordenado)</strong> é baseado em relógios atômicos de cesium, muito mais precisos. Foi estabelecido em 1967 e é o padrão oficial mundial. A diferença entre UTC e GMT é de no máximo alguns décimos de segundo — irrelevante no dia a dia.</p>
+            </div>
+            <div class="section">
+                <h2>Fusos do Brasil</h2>
+                <p>O Brasil é um dos poucos países com 4 fusos horários distintos:</p>
+                <table class="fuso-table">
+                    <thead>
+                        <tr><th>Fuso</th><th>Regiões</th></tr>
+                    </thead>
+                    <tbody>
+                        <tr><td><span class="fuso-badge">UTC-5</span></td><td>Estado do Acre e parte oeste do Amazonas</td></tr>
+                        <tr><td><span class="fuso-badge">UTC-4</span></td><td>Amazonas (exceto oeste), Mato Grosso, Mato Grosso do Sul, Rondônia e Roraima</td></tr>
+                        <tr><td><span class="fuso-badge">UTC-3</span></td><td>Horário de Brasília — maioria do país (horário oficial do Brasil)</td></tr>
+                        <tr><td><span class="fuso-badge">UTC-2</span></td><td>Fernando de Noronha e ilhas oceânicas do Atlântico Sul</td></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="section">
+                <h2>Fusos Fracionários</h2>
+                <p>Nem todos os países usam fusos em horas inteiras. Alguns adotaram meias horas ou até 45 minutos de diferença por razões políticas, geográficas ou históricas:</p>
+                <div class="frac-grid">
+                    <div class="frac-item"><div class="frac-country">🇮🇳 Índia</div><div class="frac-offset">UTC+5:30</div></div>
+                    <div class="frac-item"><div class="frac-country">🇳🇵 Nepal</div><div class="frac-offset">UTC+5:45</div></div>
+                    <div class="frac-item"><div class="frac-country">🇮🇷 Irã</div><div class="frac-offset">UTC+3:30</div></div>
+                    <div class="frac-item"><div class="frac-country">🇦🇺 Austrália do Sul</div><div class="frac-offset">UTC+9:30</div></div>
+                    <div class="frac-item"><div class="frac-country">🇦🇫 Afeganistão</div><div class="frac-offset">UTC+4:30</div></div>
+                    <div class="frac-item"><div class="frac-country">🇲🇲 Myanmar</div><div class="frac-offset">UTC+6:30</div></div>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Linha Internacional de Data</h2>
+                <p>A Linha Internacional de Data (LID) fica no <strong>antimeridiano de 180°</strong> — no lado oposto ao Meridiano de Greenwich. É onde um dia "termina" e o próximo "começa".</p>
+                <p>A linha não é reta: apresenta desvios para não dividir países e arquipélagos do Pacífico. Por isso, Fiji, Kiribati e Tonga ficam inteiramente do lado leste da linha (mesma data), enquanto Samoa Americana fica a oeste.</p>
+                <div class="highlight"><strong>Curiosidade:</strong> Kiribati (pronounced "Kiribas") reorganizou seus fusos em 1995 para ficar do mesmo lado da data que seus parceiros comerciais, criando o único país que "ultrapassa" a linha de 180° para o leste.</div>
+            </div>
+            <div class="section">
+                <h2>Curiosidades sobre Fusos Horários</h2>
+                <div class="info-box">
+                    <h3>🕐 Você sabia?</h3>
+                    <ul>
+                        <li><strong>China</strong> usa apenas 1 fuso horário (UTC+8) para todo o território, embora geograficamente devesse ter 5. Isso causa horários solares muito diferentes entre leste e oeste do país.</li>
+                        <li><strong>Rússia</strong> tem 11 fusos horários — de UTC+2 (Kaliningrado) a UTC+12 (Kamchatka).</li>
+                        <li><strong>França e territórios ultramarinos</strong> têm mais fusos que qualquer outro país: 12 no total, de UTC-10 (Polinésia Francesa) a UTC+12 (ilhas do Pacífico).</li>
+                        <li>O horário de verão foi implementado pela primeira vez durante a <strong>Primeira Guerra Mundial</strong> para economizar energia.</li>
+                        <li>Antes de 1884, cada cidade tinha seu próprio "horário local" baseado no sol — criar ferrovias foi o principal motivador para padronizar os fusos.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top:30px;font-size:0.85rem;color:var(--text-muted);text-align:center;line-height:1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color:var(--text-muted);text-decoration:underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color:var(--text-muted);text-decoration:underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color:var(--text-muted);text-decoration:underline;">Termos de Uso</a>
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rotação e Translação da Terra | dataehora.com.br</title>
+    <meta name="description" content="Entenda os movimentos da Terra: a rotação que cria o dia e a noite, a translação que gera as estações do ano e a inclinação do eixo terrestre.">
+    <meta name="keywords" content="rotação terrestre, translação terrestre, movimentos da terra, estações do ano, força de coriolis, inclinação eixo terrestre">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Rotação e Translação da Terra | dataehora.com.br">
+    <meta property="og:description" content="Entenda os movimentos da Terra: a rotação que cria o dia e a noite, a translação que gera as estações do ano e a inclinação do eixo terrestre.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dataehora.com.br/sobre-tempo-e-clima/rotacao-e-translacao/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Rotação e Translação da Terra | dataehora.com.br">
+    <meta name="twitter:description" content="Entenda os movimentos da Terra: a rotação que cria o dia e a noite, a translação que gera as estações do ano.">
+    <meta name="twitter:site" content="@dataehora">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Rotação e Translação da Terra","description":"Entenda os dois movimentos principais da Terra e seus efeitos no clima e no tempo.","url":"https://dataehora.com.br/sobre-tempo-e-clima/rotacao-e-translacao/","author":{"@type":"Organization","name":"dataehora.com.br"},"publisher":{"@type":"Organization","name":"dataehora.com.br"}}
+    </script>
+    <link rel="canonical" href="https://dataehora.com.br/sobre-tempo-e-clima/rotacao-e-translacao/">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4Y5H59FEQE');</script>
+    <style>
+        :root{--bg-body:#f1f5f9;--bg-card:#ffffff;--text-main:#0f172a;--text-muted:#64748b;--accent:#2563eb;--shadow:0 10px 25px -5px rgba(0,0,0,0.05);--hr-color:rgba(100,116,139,0.2);--page-accent:#065f46;}
+        [data-theme="dark"]{--bg-body:#0f172a;--bg-card:#1e293b;--text-main:#f8fafc;--text-muted:#94a3b8;--accent:#60a5fa;--shadow:0 20px 25px -5px rgba(0,0,0,0.3);--hr-color:rgba(248,250,252,0.2);}
+        .no-transition *{transition:none!important}
+        *{box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-body);color:var(--text-main);margin:0;padding:0 20px 40px 20px;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+        .container{width:100%;max-width:900px;}
+        .nav-header{width:100%;display:flex;align-items:center;flex-wrap:wrap;padding:12px 16px;margin:20px 0 30px 0;font-size:0.875rem;gap:8px;background:var(--bg-card);border-radius:12px;border:1px solid var(--hr-color);}
+        .nav-link{color:var(--accent);text-decoration:none;font-weight:700;}
+        .nav-sep{color:var(--text-muted);font-weight:700;}
+        .nav-current{color:var(--text-main);font-weight:700;}
+        .page-header{margin:20px 0 40px 0;}
+        h1{font-size:clamp(2rem,8vw,3rem);margin:0;letter-spacing:-2px;font-weight:900;line-height:1;color:var(--text-main);}
+        .subtitle{color:var(--text-muted);font-size:1.1rem;margin-top:10px;font-weight:500;}
+        .top-nav-wrapper{width:100%;background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-body) 100%);border-bottom:1px solid var(--hr-color);padding:15px 20px;}
+        .top-nav-container{width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+        .logo-text{font-size:1.5rem;font-weight:900;color:var(--accent);text-decoration:none;letter-spacing:-1.5px;}
+        .header-ad{display:flex;justify-content:flex-end;align-items:center;min-height:90px;}
+        footer{margin-top:60px;text-align:center;color:var(--text-muted);font-size:0.85rem;font-weight:700;opacity:0.8;}
+        .btn-settings{display:inline-block;padding:12px 24px;background:var(--bg-card);color:var(--text-main);text-decoration:none;border-radius:12px;font-weight:700;border:1px solid var(--hr-color);transition:transform 0.2s ease;}
+        .btn-settings:hover{transform:translateY(-2px);}
+        .section{background:var(--bg-card);border-radius:20px;padding:30px;margin-bottom:24px;border:1px solid var(--hr-color);box-shadow:var(--shadow);}
+        .section h2{font-size:1.5rem;font-weight:900;letter-spacing:-1px;margin:0 0 16px 0;color:var(--page-accent);}
+        .section p{color:var(--text-muted);line-height:1.7;margin:0 0 12px 0;}
+        .stats-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:16px;margin-top:16px;}
+        .stat-card{background:var(--bg-body);border-radius:16px;padding:20px;text-align:center;border:2px solid var(--hr-color);}
+        .stat-card .stat-value{font-size:1.6rem;font-weight:900;color:var(--page-accent);display:block;}
+        .stat-card .stat-label{font-size:0.85rem;color:var(--text-muted);margin-top:4px;}
+        .movements-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:16px;}
+        .movement-item{background:var(--bg-body);border-radius:12px;padding:18px;border-left:4px solid var(--page-accent);}
+        .movement-item .mov-name{font-weight:900;color:var(--text-main);font-size:0.95rem;margin-bottom:4px;}
+        .movement-item .mov-period{font-size:0.8rem;color:var(--page-accent);font-weight:700;margin-bottom:6px;}
+        .movement-item .mov-desc{font-size:0.85rem;color:var(--text-muted);}
+        .info-box{background:linear-gradient(135deg,var(--page-accent) 0%,#10b981 100%);border-radius:16px;padding:24px;color:white;margin-top:16px;}
+        .info-box h3{margin:0 0 12px 0;font-size:1.1rem;}
+        .info-box ul{margin:0;padding-left:20px;line-height:1.9;}
+        .highlight{background:var(--bg-body);border-left:4px solid var(--page-accent);border-radius:8px;padding:16px 20px;margin-top:16px;color:var(--text-muted);line-height:1.7;}
+        .highlight strong{color:var(--page-accent);}
+    </style>
+</head>
+<body>
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7808195997729404" data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <a href="/sobre-tempo-e-clima/" class="nav-link">Sobre Tempo e Clima</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Rotação e Translação</span>
+        </nav>
+        <header class="page-header">
+            <h1>🌍 Rotação e Translação</h1>
+            <p class="subtitle">Os dois movimentos principais da Terra e seus efeitos no tempo, clima e estações.</p>
+        </header>
+        <main>
+            <div class="section">
+                <h2>Rotação Terrestre</h2>
+                <p>A Terra gira em torno do próprio eixo de oeste para leste (sentido anti-horário visto do Polo Norte). Um dia sideral dura <strong>23 horas, 56 minutos e 4 segundos</strong> — o dia solar de 24h inclui a correção pelo movimento de translação.</p>
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="stat-value">~1.670 km/h</span><span class="stat-label">Velocidade no Equador</span></div>
+                    <div class="stat-card"><span class="stat-value">23h 56min</span><span class="stat-label">Dia Sideral</span></div>
+                    <div class="stat-card"><span class="stat-value">24h 00min</span><span class="stat-label">Dia Solar (médio)</span></div>
+                </div>
+                <div class="highlight"><strong>Força de Coriolis:</strong> A rotação da Terra desvia o movimento dos ventos e correntes oceânicas. No hemisfério sul, ciclones giram no sentido horário; no norte, anti-horário. Isso é a força de Coriolis.</div>
+            </div>
+            <div class="section">
+                <h2>Translação Terrestre</h2>
+                <p>A Terra orbita o Sol em uma elipse quase circular, completando uma volta em <strong>365,25 dias</strong>. Essa fração de dia acumulada a cada ano é a razão dos anos bissextos.</p>
+                <div class="stats-grid">
+                    <div class="stat-card"><span class="stat-value">~107.000 km/h</span><span class="stat-label">Velocidade orbital média</span></div>
+                    <div class="stat-card"><span class="stat-value">149,6 M km</span><span class="stat-label">Distância média ao Sol (1 UA)</span></div>
+                    <div class="stat-card"><span class="stat-value">365,25 dias</span><span class="stat-label">Período orbital</span></div>
+                </div>
+                <p style="margin-top:16px;">A órbita elíptica da Terra faz com que existam dois pontos extremos: o <strong>periélio</strong> (mais próximo do Sol, ~147 M km, em janeiro) e o <strong>afélio</strong> (mais distante, ~152 M km, em julho). Curiosamente, o Brasil está no verão quando a Terra está mais perto do Sol.</p>
+            </div>
+            <div class="section">
+                <h2>A Inclinação do Eixo (23,5°)</h2>
+                <p>O eixo de rotação da Terra não é perpendicular ao plano orbital — está inclinado <strong>23,5°</strong> em relação à perpendicular. Essa inclinação é a verdadeira responsável pelas quatro estações do ano.</p>
+                <p>Quando o hemisfério sul está inclinado em direção ao Sol (dezembro a março), recebe mais radiação solar direta e experimenta o verão. Quando está inclinado para longe (junho a setembro), é inverno. Sem essa inclinação, não haveria estações — apenas variações climáticas leves pela diferença de distância orbital.</p>
+            </div>
+            <div class="section">
+                <h2>Outros Movimentos da Terra</h2>
+                <p>Além da rotação e translação, a Terra realiza outros movimentos menos perceptíveis:</p>
+                <div class="movements-grid">
+                    <div class="movement-item"><div class="mov-name">🌀 Precessão dos Equinócios</div><div class="mov-period">Período: ~26.000 anos</div><div class="mov-desc">O eixo terrestre descreve um cone lentamente. Daqui a 12.000 anos, a Estrela Polar será Vega (Lira), não Polaris.</div></div>
+                    <div class="movement-item"><div class="mov-name">🔄 Nutação</div><div class="mov-period">Período: ~18,6 anos</div><div class="mov-desc">Pequenas oscilações do eixo causadas pela atração gravitacional da Lua. Amplitude de apenas 9,2 arco-segundos.</div></div>
+                    <div class="movement-item"><div class="mov-name">🌌 Translação Galáctica</div><div class="mov-period">Período: ~225–250 M anos</div><div class="mov-desc">O sistema solar orbita o centro da Via Láctea a ~220 km/s. Uma revolução completa = "ano galáctico" ou cósmico.</div></div>
+                </div>
+            </div>
+            <div class="section">
+                <h2>Curiosidades sobre os Movimentos da Terra</h2>
+                <div class="info-box">
+                    <h3>🌍 Você sabia?</h3>
+                    <ul>
+                        <li>O dia terrestre está ficando <strong>1,4 milissegundos mais longo a cada século</strong> por causa da desaceleração gravitacional causada pela Lua.</li>
+                        <li>A diferença entre o dia sideral (23h56min) e o solar (24h) se deve ao movimento de translação — a Terra precisa girar um pouquinho a mais para que o Sol apareça no mesmo ponto do céu.</li>
+                        <li>Há cerca de <strong>620 milhões de anos</strong>, o dia terrestre tinha apenas 22 horas. No futuro distante, o dia terá 25 horas.</li>
+                        <li>No <strong>periélio</strong> (Terra mais perto do Sol, em janeiro), a Terra se move mais rápido — cerca de 30,3 km/s. No <strong>afélio</strong> (julho), mais devagar — cerca de 29,3 km/s.</li>
+                        <li>A velocidade rotacional varia com a latitude: no equador é ~1.670 km/h; nos trópicos de Câncer/Capricórnio é ~1.530 km/h; nos polos é zero.</li>
+                    </ul>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top:30px;font-size:0.85rem;color:var(--text-muted);text-align:center;line-height:1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color:var(--text-muted);text-decoration:underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color:var(--text-muted);text-decoration:underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color:var(--text-muted);text-decoration:underline;">Termos de Uso</a>
+        </div>
+    </footer>
+</body>
+</html>
