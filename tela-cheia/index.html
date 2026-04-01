@@ -244,6 +244,8 @@
             opacity: 1;
             transition: opacity 0.5s ease;
             min-width: 260px;
+            max-height: calc(100vh - 48px);
+            overflow-y: auto;
         }
 
         #fs-controls.hidden {
@@ -342,6 +344,36 @@
             min-height: 1em;
         }
 
+        .fs-ctrl-divider {
+            border: 0;
+            height: 1px;
+            background: var(--hr-color);
+            margin: 0;
+        }
+
+        #fs-native-btn {
+            width: 100%;
+            padding: 7px 10px;
+            font-size: 0.78rem;
+            font-weight: 700;
+            border-radius: 8px;
+            border: 1px solid var(--hr-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        #fs-native-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
         /* Auto-hide countdown bar */
         #fs-countdown-bar {
             position: fixed;
@@ -423,6 +455,8 @@
             </div>
         </div>
         <div class="fs-ctrl-hint" id="fs-ctrl-hint"></div>
+        <hr class="fs-ctrl-divider" id="fs-fullscreen-divider" style="display:none">
+        <button id="fs-native-btn" style="display:none" title="Alternar tela cheia nativa">⛶ Tela Cheia</button>
     </div>
 
     <span class="fs-label">Horário Oficial de Brasília</span>
@@ -696,6 +730,62 @@
         localStorage.setItem('fs-hol-hidden', '1');
         applyHolSize();
     });
+
+    // ── Native fullscreen toggle ─────────────────────────────────────────────
+    (function () {
+        const nativeBtn = document.getElementById('fs-native-btn');
+        const nativeDivider = document.getElementById('fs-fullscreen-divider');
+
+        function supportsFullscreen() {
+            return !!(
+                document.documentElement.requestFullscreen ||
+                document.documentElement.webkitRequestFullscreen
+            );
+        }
+
+        function isFullscreen() {
+            return !!(document.fullscreenElement || document.webkitFullscreenElement);
+        }
+
+        function updateNativeBtn() {
+            if (!nativeBtn) return;
+            if (isFullscreen()) {
+                nativeBtn.textContent = '✕ Sair da Tela Cheia';
+            } else {
+                nativeBtn.textContent = '⛶ Tela Cheia';
+            }
+        }
+
+        async function toggleFullscreen() {
+            try {
+                if (isFullscreen()) {
+                    if (document.exitFullscreen) {
+                        await document.exitFullscreen();
+                    } else if (document.webkitExitFullscreen) {
+                        document.webkitExitFullscreen();
+                    }
+                } else {
+                    const el = document.documentElement;
+                    if (el.requestFullscreen) {
+                        await el.requestFullscreen();
+                    } else if (el.webkitRequestFullscreen) {
+                        el.webkitRequestFullscreen();
+                    }
+                }
+            } catch (e) {
+                // Fullscreen request was denied or not allowed; ignore silently
+            }
+        }
+
+        if (supportsFullscreen() && nativeBtn) {
+            nativeBtn.style.display = '';
+            if (nativeDivider) nativeDivider.style.display = '';
+            nativeBtn.addEventListener('click', toggleFullscreen);
+            document.addEventListener('fullscreenchange', updateNativeBtn);
+            document.addEventListener('webkitfullscreenchange', updateNativeBtn);
+            updateNativeBtn();
+        }
+    })();
 
     document.addEventListener('DOMContentLoaded', async () => {
         await syncTime();
