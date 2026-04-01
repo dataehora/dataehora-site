@@ -1237,6 +1237,7 @@ footer a:hover {
     .header-ad {
         width: 100%;
         justify-content: center;
+        overflow: hidden;
     }
     
     .header-ad .adsbygoogle {
@@ -1247,6 +1248,11 @@ footer a:hover {
     .header-ad-container .adsbygoogle {
         width: 320px !important;
         height: 100px !important;
+    }
+
+    .hero {
+        position: relative;
+        z-index: 1;
     }
 }
 
