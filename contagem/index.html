@@ -215,6 +215,13 @@
             .btn-share { width: 100%; justify-content: center; }
         }
 
+        .hoje-feriado-msg {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
         /* ===== TOP NAVIGATION HEADER ===== */
         .top-nav-wrapper {
             width: 100%;
@@ -277,6 +284,7 @@
     </nav>
 
     <div class="countdown-card">
+        <p id="hoje-feriado-msg" class="hoje-feriado-msg hidden"></p>
         <div class="event-label" id="label-txt">Faltam exatamente</div>
         <div class="event-name" id="display-name">Carregando...</div>
         <div class="event-date-display" id="display-full-date">...</div>
@@ -337,6 +345,7 @@
     // Global state
     let targetEvent = null;
     let countdownInterval = null;
+    let todayHoliday = null;
 
     // Year validation constants
     const MIN_VALID_YEAR = 1000;
@@ -373,6 +382,18 @@
         );
     }
 
+    // Get today's date reference at noon UTC using São Paulo date components
+    // Used for day-accurate holiday comparisons (effective from minute 1 of the SP day)
+    function getTodayInSaoPaulo() {
+        const nowBrasilia = getBrasiliaDate();
+        return new Date(Date.UTC(
+            nowBrasilia.getFullYear(),
+            nowBrasilia.getMonth(),
+            nowBrasilia.getDate(),
+            12, 0, 0
+        ));
+    }
+
     // Populate holiday dropdown with national holidays
     function populateHolidayDropdown() {
         const nowBrasilia = getBrasiliaDate();
@@ -382,9 +403,13 @@
         const currentYearHolidays = getHolidaysForDisplay(year);
         const nextYearHolidays = getHolidaysForDisplay(year + 1);
         const allHolidays = [...currentYearHolidays, ...nextYearHolidays];
+
+        // Determine today's reference and whether today is a holiday
+        const todayInSaoPaulo = getTodayInSaoPaulo();
+        todayHoliday = allHolidays.find(h => h.d.getTime() === todayInSaoPaulo.getTime());
         
-        // Filter future holidays only
-        const futureHolidays = allHolidays.filter(h => h.d > nowBrasilia);
+        // Filter future holidays only (strictly after today in São Paulo time)
+        const futureHolidays = allHolidays.filter(h => h.d > todayInSaoPaulo);
         
         const holidayList = document.getElementById('holiday-list');
         holidayList.innerHTML = '';
@@ -420,12 +445,13 @@
         const nowBrasilia = getBrasiliaDate();
         
         if (selector.value === 'next') {
-            // Get next national holiday
+            // Get next national holiday (strictly after today in São Paulo time)
             const year = nowBrasilia.getFullYear();
             const currentYearHolidays = getHolidaysForDisplay(year);
             const nextYearHolidays = getHolidaysForDisplay(year + 1);
             const allHolidays = [...currentYearHolidays, ...nextYearHolidays];
-            const nextHoliday = allHolidays.find(h => h.d > nowBrasilia);
+            const todayInSaoPaulo = getTodayInSaoPaulo();
+            const nextHoliday = allHolidays.find(h => h.d > todayInSaoPaulo);
             
             if (nextHoliday) {
                 targetEvent = {
@@ -543,6 +569,18 @@
             ? `O evento selecionado é dia ${shortDate}, ${preposition} ${dayOfWeek}. Faltam exatamente ${days} ${days === 1 ? 'dia' : 'dias'}.`
             : '🎉 Evento chegou!';
         document.getElementById('label-txt').textContent = label;
+
+        // Show "Hoje é feriado" banner when today is a holiday and next national holiday is selected
+        const selector = document.getElementById('event-selector');
+        const hojeMsg = document.getElementById('hoje-feriado-msg');
+        if (hojeMsg) {
+            if (todayHoliday && selector.value === 'next') {
+                hojeMsg.textContent = `Hoje é feriado, dia de ${todayHoliday.n}.`;
+                hojeMsg.classList.remove('hidden');
+            } else {
+                hojeMsg.classList.add('hidden');
+            }
+        }
         
         document.getElementById('display-name').textContent = targetEvent.name;
         
