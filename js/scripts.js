@@ -166,10 +166,11 @@ function updateHoliday() {
     // Use pre-created formatters for better performance
     const fmtDia = holidayWeekdayFormatter.format(proximo.d);
     const fmtData = holidayDateFormatter.format(proximo.d);
-    const prep = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
+    const diasStr = diff === 1 ? '1 dia' : `${diff} dias`;
+    const artigo = fmtDia.endsWith('-feira') ? 'uma' : 'um';
 
     document.getElementById('holiday-display').innerHTML = 
-        `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
+        `O próximo feriado é <strong>${proximo.n}</strong>, em <strong>${diasStr}</strong>. Cairá em ${artigo} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>.`;
 }
 
 /**
