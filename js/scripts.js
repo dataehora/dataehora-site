@@ -171,13 +171,17 @@ function updateHoliday() {
     const fmtData = holidayDateFormatter.format(proximo.d);
     const prep = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
 
-    let html = '';
-    if (hoje) {
-        html += `<p>Hoje é feriado, dia de <strong>${hoje.n}</strong>.</p>`;
+    const hojeSection = document.getElementById('hoje-feriado-section');
+    if (hoje && hojeSection) {
+        hojeSection.style.display = '';
+        document.getElementById('hoje-display').innerHTML =
+            `Hoje é feriado, dia de <strong>${hoje.n}</strong>.`;
+    } else if (hojeSection) {
+        hojeSection.style.display = 'none';
     }
-    html += `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
 
-    document.getElementById('holiday-display').innerHTML = html;
+    document.getElementById('holiday-display').innerHTML =
+        `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
 }
 
 /**

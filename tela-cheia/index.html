@@ -141,6 +141,31 @@
             font-weight: 800;
         }
 
+        #fs-hoje {
+            font-size: clamp(0.9rem, 2.5vw, 1.6rem);
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.5;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.06) 100%);
+            border: 1.5px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 18px 28px;
+            box-shadow: 0 4px 18px -4px rgba(59, 130, 246, 0.18);
+        }
+
+        #fs-hoje strong {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        [data-theme="dark"] #fs-hoje {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.12) 0%, rgba(99, 102, 241, 0.07) 100%);
+            border-color: rgba(96, 165, 250, 0.35);
+            box-shadow: 0 4px 18px -4px rgba(96, 165, 250, 0.2);
+        }
+
         /* ===== TOP NAVIGATION HEADER ===== */
         .top-nav-wrapper {
             width: 100%;
@@ -431,6 +456,12 @@
 
     <hr class="fs-divider" id="fs-divider">
 
+    <div id="fs-hoje-section" style="display:none">
+        <span class="fs-label" id="fs-hoje-label">Hoje é Feriado</span>
+        <div id="fs-hoje"></div>
+        <hr class="fs-divider">
+    </div>
+
     <span class="fs-label" id="fs-holiday-label">Próximo Feriado</span>
     <div id="fs-holiday">Calculando...</div>
 
@@ -500,7 +531,21 @@
         const all = [...getHolidaysForDisplay(year), ...getHolidaysForDisplay(year + 1)];
         const day = parseInt(dayFmt.format(now), 10);
         const mon = parseInt(monFmt.format(now), 10) - 1;
-        const today = new Date(year, mon, day);
+        const today = new Date(Date.UTC(year, mon, day, 12, 0, 0));
+
+        const hojeSection = document.getElementById('fs-hoje-section');
+        const hoje = all.find(f => f.d.getTime() === today.getTime());
+        if (hoje && hojeSection && !holHidden) {
+            hojeSection.style.display = '';
+            const hojeEl = document.getElementById('fs-hoje');
+            if (hojeEl) {
+                hojeEl.innerHTML = `Hoje é feriado, dia de <strong>${hoje.n}</strong>.`;
+                hojeEl.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+            }
+        } else if (hojeSection) {
+            hojeSection.style.display = 'none';
+        }
+
         const next = all.find(f => f.d > today);
         if (!next) return;
         const diff = Math.ceil((next.d - today) / 864e5);
@@ -556,10 +601,12 @@
         const delBtn = document.getElementById('holiday-del');
         const holLabel = document.getElementById('fs-holiday-label');
         const divider = document.getElementById('fs-divider');
+        const hojeSection = document.getElementById('fs-hoje-section');
         if (holHidden) {
             el.style.display = 'none';
             if (holLabel) holLabel.style.display = 'none';
             if (divider) divider.style.display = 'none';
+            if (hojeSection) hojeSection.style.display = 'none';
             row.style.display = 'none';
             return;
         }
@@ -568,9 +615,12 @@
         if (divider) divider.style.display = '';
         row.style.display = '';
         el.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+        const hojeEl = document.getElementById('fs-hoje');
+        if (hojeEl) hojeEl.style.fontSize = HOL_SIZES[holIdx] + 'rem';
         document.getElementById('holiday-size-label').textContent = HOL_SIZES[holIdx] + 'rem';
         localStorage.setItem('fs-hol-size', holIdx);
         delBtn.style.display = holIdx === MIN_SIZE_IDX ? '' : 'none';
+        updateHoliday();
     }
 
     // Controls auto-hide logic
