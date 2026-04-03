@@ -149,7 +149,10 @@ function updateHoliday() {
     const currentDay = parseInt(dayFormatter.format(nowBrasilia), 10);
     const currentMonth = parseInt(monthFormatter.format(nowBrasilia), 10) - 1; // 0-indexed
     const todayInSaoPaulo = new Date(Date.UTC(year, currentMonth, currentDay, 12, 0, 0));
-    
+
+    // Check if today itself is a holiday (using day 1 minute of São Paulo time as reference)
+    const hoje = allHolidays.find(f => f.d.getTime() === todayInSaoPaulo.getTime());
+
     // Find next holiday after current São Paulo date
     const proximo = allHolidays.find(f => f.d > todayInSaoPaulo);
     
@@ -168,8 +171,13 @@ function updateHoliday() {
     const fmtData = holidayDateFormatter.format(proximo.d);
     const prep = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
 
-    document.getElementById('holiday-display').innerHTML = 
-        `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
+    let html = '';
+    if (hoje) {
+        html += `<p>Hoje é feriado, dia de <strong>${hoje.n}</strong>.</p>`;
+    }
+    html += `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
+
+    document.getElementById('holiday-display').innerHTML = html;
 }
 
 /**
