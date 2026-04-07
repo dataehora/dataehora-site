@@ -455,6 +455,7 @@
     <span class="fs-label">Horário Oficial de Brasília</span>
     <div id="fs-clock">--:--:--</div>
     <div id="fs-date">Carregando...</div>
+    <script>(function(){var tf=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'});var df=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'});var n=new Date();document.getElementById('fs-clock').textContent=tf.format(n);document.getElementById('fs-date').textContent=df.format(n);})();</script>
 
     <hr class="fs-divider" id="fs-divider">
 
@@ -750,9 +751,8 @@
         applyHolSize();
     });
 
-    document.addEventListener('DOMContentLoaded', async () => {
-        await syncTime();
-        setInterval(syncTime, 5 * 60 * 1000);
+    document.addEventListener('DOMContentLoaded', () => {
+        // Show clock and holiday immediately using local browser time
         updateClock();
         updateHoliday();
         setInterval(updateClock, 1000);
@@ -764,6 +764,9 @@
 
         // Show controls on load, then hide after 5s
         showControls();
+
+        // Sync with official time API in background (non-blocking)
+        syncTime().then(() => setInterval(syncTime, 5 * 60 * 1000));
     });
     </script>
 <script defer src="/js/cookie-consent.js"></script>

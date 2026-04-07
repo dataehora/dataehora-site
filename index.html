@@ -114,6 +114,7 @@
         <div id="date">Carregando...</div>
         <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
     </main>
+    <script>(function(){var tf=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'});var df=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'});var n=new Date();document.getElementById('clock').textContent=tf.format(n);document.getElementById('date').textContent=df.format(n);})();</script>
 
     <div id="hoje-feriado-section" style="display:none">
         <hr class="discreet">
