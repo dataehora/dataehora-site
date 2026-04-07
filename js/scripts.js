@@ -188,14 +188,15 @@ function updateHoliday() {
  * Initialize application on DOM ready
  * Sets up clock and holiday updates
  */
-document.addEventListener('DOMContentLoaded', async () => {
-    // Sync with official time API first
-    await syncOfficialTime();
-    
-    // Re-sync every 5 minutes to maintain accuracy
-    setInterval(syncOfficialTime, 5 * 60 * 1000);
-    
+document.addEventListener('DOMContentLoaded', () => {
+    // Show clock and holiday immediately using local browser time
     updateClock();
     updateHoliday();
     setInterval(updateClock, 1000);
+
+    // Sync with official time API in background (non-blocking)
+    syncOfficialTime();
+
+    // Re-sync every 5 minutes to maintain accuracy
+    setInterval(syncOfficialTime, 5 * 60 * 1000);
 });
