@@ -182,6 +182,28 @@ function updateHoliday() {
 
     document.getElementById('holiday-display').innerHTML =
         `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
+
+    // Build upcoming holidays list (all remaining current-year holidays after proximo)
+    const upcomingWrapper = document.getElementById('upcoming-section-wrapper');
+    const upcomingList = document.getElementById('upcoming-holidays-list');
+    if (upcomingWrapper && upcomingList) {
+        const remainingHolidays = currentYearHolidays.filter(f => f.d > proximo.d);
+        if (remainingHolidays.length === 0) {
+            upcomingWrapper.style.display = 'none';
+        } else {
+            upcomingWrapper.style.display = '';
+            upcomingList.innerHTML = remainingHolidays.map(f => {
+                const days = Math.ceil((f.d - todayInSaoPaulo) / 864e5);
+                const weekday = holidayWeekdayFormatter.format(f.d);
+                const date = holidayDateFormatter.format(f.d);
+                return `<li class="upcoming-holiday-item">
+                    <span class="upcoming-holiday-name"><strong>${f.n}</strong></span>
+                    <span class="upcoming-holiday-date">${weekday}, ${date}</span>
+                    <span class="upcoming-holiday-days">${days} dia${days !== 1 ? 's' : ''}</span>
+                </li>`;
+            }).join('');
+        }
+    }
 }
 
 /**
