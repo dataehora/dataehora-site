@@ -556,5 +556,83 @@
 </script>
 
 <script defer src="/js/cookie-consent.js"></script>
+
+<style>
+.crn-content{max-width:860px;width:100%;margin:0 auto;padding:0 20px 60px;}
+.crn-content h2{font-size:1.6rem;font-weight:800;color:var(--text-main);margin:40px 0 16px;}
+.crn-content p{line-height:1.8;color:var(--text-main);margin:0 0 14px;}
+.crn-content ul,.crn-content ol{margin:0 0 14px;padding-left:24px;line-height:2.2;color:var(--text-main);}
+.crn-faq{border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);}
+.crn-faq-q{font-weight:700;color:var(--text-main);margin:0 0 8px;}
+.crn-faq-a{color:var(--text-muted);line-height:1.7;margin:0;}
+</style>
+
+<div class="crn-content">
+    <hr style="border:none;border-top:1px solid var(--hr-color);margin:50px 0 0;">
+
+    <section>
+        <h2>O que é um cronômetro online?</h2>
+        <p>Um cronômetro (<em>stopwatch</em>) é um instrumento de medição de tempo que registra a duração de eventos com alta precisão. O cronômetro online do <strong>dataehora.com.br</strong> opera com resolução de milissegundos — adequado tanto para atividades físicas quanto para tarefas que exigem medições precisas de tempo.</p>
+        <p>Diferente dos cronômetros físicos, nosso cronômetro digital roda diretamente no navegador, sem instalação, e oferece recursos extras como <strong>marcação de voltas</strong> (laps), exibição do tempo de cada volta e do tempo acumulado total. Os atalhos de teclado permitem operação rápida sem tirar os olhos da atividade que está sendo cronometrada.</p>
+    </section>
+
+    <section>
+        <h2>Como usar o cronômetro</h2>
+        <ol>
+            <li>Clique em <strong>Iniciar</strong> (ou pressione <kbd>Espaço</kbd>) para começar a cronometrar.</li>
+            <li>Clique em <strong>Volta</strong> (ou pressione <kbd>L</kbd>) para registrar o tempo de uma volta sem pausar o cronômetro.</li>
+            <li>Clique em <strong>Pausar</strong> (ou pressione <kbd>Espaço</kbd> novamente) para interromper temporariamente.</li>
+            <li>Clique em <strong>Zerar</strong> (ou pressione <kbd>R</kbd>) para reiniciar o cronômetro do zero.</li>
+            <li>O histórico de voltas fica exibido abaixo do cronômetro principal, com o tempo de cada volta e o acumulado.</li>
+        </ol>
+    </section>
+
+    <section>
+        <h2>Para que serve: exemplos de uso</h2>
+        <ul>
+            <li><strong>Corrida e natação:</strong> cronometre o tempo de cada volta na piscina ou nos treinos de corrida, com registro individual de cada lap.</li>
+            <li><strong>Ciclismo e musculação:</strong> meça intervalos de descanso entre séries ou o tempo de cada exercício.</li>
+            <li><strong>Técnica Pomodoro:</strong> use o cronômetro para marcar blocos de estudo de 25 minutos e pausas de 5 minutos.</li>
+            <li><strong>Apresentações e discursos:</strong> profissionais e estudantes cronometram apresentações para garantir que se encaixam no tempo determinado.</li>
+            <li><strong>Culinária e laboratório:</strong> cronometre o tempo de cozimento, reações químicas ou procedimentos que exigem precisão de tempo.</li>
+            <li><strong>Games e e-sports:</strong> meça o tempo de runs em speedruns ou a duração de partidas.</li>
+            <li><strong>Reuniões e entrevistas:</strong> verifique quanto tempo cada participante usa para falar em reuniões cronometradas.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Perguntas Frequentes</h2>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">O cronômetro continua rodando se eu minimizar o navegador?</p>
+            <p class="crn-faq-a">Sim. O cronômetro continua rodando em segundo plano mesmo com o navegador minimizado ou a aba em segundo plano. A precisão pode variar ligeiramente dependendo do sistema operacional e do nível de otimização do navegador para abas inativas.</p>
+        </div>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">Quantas voltas (laps) posso registrar?</p>
+            <p class="crn-faq-a">Não há limite prático para o número de voltas. O histórico de laps é exibido em uma tabela abaixo do cronômetro, com o número da volta, o tempo parcial da volta e o tempo acumulado total.</p>
+        </div>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">Qual a diferença entre cronômetro e temporizador?</p>
+            <p class="crn-faq-a">O cronômetro conta o tempo <strong>de zero para frente</strong>, medindo quanto tempo passou. O <a href="/temporizador/" style="color:var(--accent);">temporizador</a> conta <strong>de um valor configurado para zero</strong>, avisando quando o tempo acabou. Use o cronômetro para medir duração e o temporizador para definir um prazo.</p>
+        </div>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">Os atalhos de teclado funcionam em celular?</p>
+            <p class="crn-faq-a">Os atalhos de teclado (<kbd>Espaço</kbd>, <kbd>L</kbd>, <kbd>R</kbd>) funcionam em teclados físicos conectados a tablets e celulares. Em telas sensíveis ao toque sem teclado, use os botões exibidos na tela.</p>
+        </div>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">Como exportar o histórico de voltas?</p>
+            <p class="crn-faq-a">No momento, o histórico de voltas é exibido na tela e pode ser copiado manualmente. Para salvar os dados, tire um print da tela ou selecione e copie a tabela para uma planilha.</p>
+        </div>
+
+        <div class="crn-faq">
+            <p class="crn-faq-q">A precisão do cronômetro é confiável?</p>
+            <p class="crn-faq-a">O cronômetro usa a API <code>performance.now()</code> do navegador, que oferece resolução de microssegundos. Para fins esportivos amadores, acadêmicos e profissionais, a precisão é mais que suficiente. Para medições científicas ou oficialmente cronometradas, use equipamentos homologados.</p>
+        </div>
+    </section>
+</div>
 </body>
 </html>
