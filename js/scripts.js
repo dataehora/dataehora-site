@@ -148,8 +148,11 @@ function updateHoliday() {
     // Extract date components using pre-created formatters
     const currentDay = parseInt(dayFormatter.format(nowBrasilia), 10);
     const currentMonth = parseInt(monthFormatter.format(nowBrasilia), 10) - 1; // 0-indexed
-    const todayInSaoPaulo = new Date(year, currentMonth, currentDay);
-    
+    const todayInSaoPaulo = new Date(Date.UTC(year, currentMonth, currentDay, 12, 0, 0));
+
+    // Check if today itself is a holiday (using day 1 minute of São Paulo time as reference)
+    const hoje = allHolidays.find(f => f.d.getTime() === todayInSaoPaulo.getTime());
+
     // Find next holiday after current São Paulo date
     const proximo = allHolidays.find(f => f.d > todayInSaoPaulo);
     
@@ -168,22 +171,54 @@ function updateHoliday() {
     const fmtData = holidayDateFormatter.format(proximo.d);
     const prep = (proximo.d.getDay() === 0 || proximo.d.getDay() === 6) ? "no" : "numa";
 
-    document.getElementById('holiday-display').innerHTML = 
-        `O próximo feriado é <strong>${proximo.n}</strong> no dia <strong>${fmtData}</strong>, que é em <strong>${diff} dias</strong>.`;
+    const hojeSection = document.getElementById('hoje-feriado-section');
+    if (hoje && hojeSection) {
+        hojeSection.style.display = '';
+        document.getElementById('hoje-display').innerHTML =
+            `Hoje é feriado, dia de <strong>${hoje.n}</strong>.`;
+    } else if (hojeSection) {
+        hojeSection.style.display = 'none';
+    }
+
+    document.getElementById('holiday-display').innerHTML =
+        `O próximo feriado é <strong>${proximo.n}</strong>, ${prep} <strong>${fmtDia}</strong>, dia <strong>${fmtData}</strong>, em <strong>${diff} dia${diff !== 1 ? 's' : ''}</strong>.`;
+
+    // Build upcoming holidays list (all remaining current-year holidays after proximo)
+    const upcomingWrapper = document.getElementById('upcoming-section-wrapper');
+    const upcomingList = document.getElementById('upcoming-holidays-list');
+    if (upcomingWrapper && upcomingList) {
+        const remainingHolidays = currentYearHolidays.filter(f => f.d > proximo.d);
+        if (remainingHolidays.length === 0) {
+            upcomingWrapper.style.display = 'none';
+        } else {
+            upcomingWrapper.style.display = '';
+            upcomingList.innerHTML = remainingHolidays.map(f => {
+                const days = Math.ceil((f.d - todayInSaoPaulo) / 864e5);
+                const weekday = holidayWeekdayFormatter.format(f.d);
+                const date = holidayDateFormatter.format(f.d);
+                return `<li class="upcoming-holiday-item">
+                    <span class="upcoming-holiday-name"><strong>${f.n}</strong></span>
+                    <span class="upcoming-holiday-date">${weekday}, ${date}</span>
+                    <span class="upcoming-holiday-days">${days} dia${days !== 1 ? 's' : ''}</span>
+                </li>`;
+            }).join('');
+        }
+    }
 }
 
 /**
  * Initialize application on DOM ready
  * Sets up clock and holiday updates
  */
-document.addEventListener('DOMContentLoaded', async () => {
-    // Sync with official time API first
-    await syncOfficialTime();
-    
-    // Re-sync every 5 minutes to maintain accuracy
-    setInterval(syncOfficialTime, 5 * 60 * 1000);
-    
+document.addEventListener('DOMContentLoaded', () => {
+    // Show clock and holiday immediately using local browser time
     updateClock();
     updateHoliday();
     setInterval(updateClock, 1000);
+
+    // Sync with official time API in background (non-blocking)
+    syncOfficialTime();
+
+    // Re-sync every 5 minutes to maintain accuracy
+    setInterval(syncOfficialTime, 5 * 60 * 1000);
 });

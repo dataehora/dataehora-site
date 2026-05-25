@@ -40,4 +40,9 @@
   
   # Referrer Policy
   Header always set Referrer-Policy "strict-origin-when-cross-origin"
+
+  # Versioned CSS and JS assets are immutable - safe to cache forever
+  <FilesMatch "\.(css|js)$">
+    Header append Cache-Control "immutable"
+  </FilesMatch>
 </IfModule>

@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,16 +25,30 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <title>Termos de Uso | dataehora.com.br</title>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Termos de Uso | dataehora.com.br">
+    <meta property="og:description" content="Termos de Uso do dataehora.com.br - Regras e condições para utilização do site.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/termos/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     <meta name="description" content="Termos de Uso do dataehora.com.br - Regras e condições para utilização do site.">
     <meta name="robots" content="index, follow">
     
     <!-- Favicon -->
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
     
     <!-- Preload critical CSS -->
-    <link rel="preload" href="/css/styles.css" as="style">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preload" href="/css/styles.css?v=55214df3" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=55214df3">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
     
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
@@ -35,28 +58,34 @@
       gtag('js', new Date());
       gtag('config', 'G-4Y5H59FEQE');
     </script>
-    
-    <!-- Theme -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
+
 </head>
 <body>
-    <header class="top-nav">
-        <a href="/" class="logo-text">dataehora.com.br</a>
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
     </header>
 
-    <div class="header-ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-7808195997729404"
-             data-ad-slot="1234567890"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
+    <main style="max-width: 800px; margin: 0 auto; padding: 20px 20px 60px 20px;">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Termos de Uso</span>
+        </nav>
 
-    <main style="max-width: 800px; margin: 0 auto; padding: 60px 20px;">
         <h1 style="font-size: 2.5rem; font-weight: 900; margin-bottom: 10px; color: var(--text-main);">Termos de Uso</h1>
         <p style="color: var(--text-muted); margin-bottom: 40px;"><strong>Última atualização: 9 de fevereiro de 2026</strong></p>
 
@@ -155,14 +184,19 @@
 
     <hr class="discreet" style="margin: 60px auto;">
 
-    <footer style="text-align: center; padding: 40px 20px;">
-        <a href="/" style="display: inline-block; padding: 12px 24px; background: var(--bg-card); color: var(--text-main); border-radius: 12px; text-decoration: none; font-weight: 700; border: 1px solid var(--hr-color); transition: 0.2s;">← Voltar para Home</a>
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
         
-        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); line-height: 1.8;">
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
             © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

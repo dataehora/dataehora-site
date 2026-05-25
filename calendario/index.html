@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
@@ -23,6 +37,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/calendario/">
     <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -66,12 +83,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
-    
     <style>
         :root {
             --bg-body: #f1f5f9;
@@ -88,14 +99,19 @@
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #60a5fa;
             --accent-dark: #334155;
             --hr-color: rgba(255, 255, 255, 0.1);
             --weekend-bg: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
         }
 
         * { box-sizing: border-box; }
@@ -143,6 +159,12 @@
             display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
         }
         .btn-pdf:hover { transform: translateY(-2px); filter: brightness(1.3); }
+        .btn-ics {
+            background: var(--accent); color: white; border: none; padding: 12px 24px;
+            border-radius: 12px; font-weight: 800; cursor: pointer; transition: 0.2s;
+            display: flex; align-items: center; gap: 8px; font-size: 0.9rem;
+        }
+        .btn-ics:hover { transform: translateY(-2px); filter: brightness(1.1); }
 
         /* --- ÁREA DE EXPORTAÇÃO (Sempre fundo branco para o PDF) --- */
         #export-area { 
@@ -151,7 +173,7 @@
             box-shadow: var(--shadow);
         }
         
-        .logo-text { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 1.1rem; margin-bottom: 5px; text-transform: lowercase; }
+        #export-area .logo-text { font-weight: 900; color: var(--accent); text-decoration: none; font-size: 1.1rem; margin-bottom: 5px; text-transform: lowercase; }
         .dynamic-title { text-align: center; margin: 10px 0 40px 0; font-size: 2.5rem; font-weight: 900; letter-spacing: -1.5px; }
 
         /* --- CALENDÁRIO --- */
@@ -219,9 +241,60 @@
             body { background: white; padding: 0; }
             #export-area { padding: 0; box-shadow: none; }
         }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
     </style>
+
 </head>
 <body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
 
 <div class="container-central">
     <nav class="nav-header" aria-label="Navegação estrutural">
@@ -229,16 +302,6 @@
         <span class="nav-sep">/</span>
         <span class="nav-current">Calendário Anual</span>
     </nav>
-
-    <div class="header-ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-7808195997729404"
-             data-ad-slot="1234567890"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
 
     <div class="controls-panel">
         <div class="control-group">
@@ -284,6 +347,7 @@
             </select>
         </div>
         <button class="btn-pdf" onclick="exportToPDF()"> Salvar PDF </button>
+        <button class="btn-ics" onclick="exportToICS()" id="btn-ics"> 📅 Exportar .ics </button>
     </div>
 
     <div id="export-area">
@@ -301,7 +365,9 @@
         <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
         <br>
         <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-        <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+        <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+        <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+        <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
     </div>
 </footer>
 
@@ -452,11 +518,70 @@
         btn.disabled = false;
     }
 
+    function exportToICS() {
+        const ano = parseInt(document.getElementById('year-select').value) || new Date().getFullYear();
+        const btn = document.getElementById('btn-ics');
+        btn.innerText = '⏳ Gerando...';
+        btn.disabled = true;
+
+        const fMoveis = getFeriadosMoveis(ano);
+        const allFeriados = { ...feriadosFixos, ...fMoveis };
+
+        const lines = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//dataehora.com.br//Feriados do Brasil//PT',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            `X-WR-CALNAME:Feriados do Brasil ${ano}`,
+            'X-WR-TIMEZONE:America/Sao_Paulo'
+        ];
+
+        Object.entries(allFeriados).sort((a, b) => {
+            const [am, ad] = a[0].split('-').map(Number);
+            const [bm, bd] = b[0].split('-').map(Number);
+            return am !== bm ? am - bm : ad - bd;
+        }).forEach(([key, name]) => {
+            const [m, d] = key.split('-').map(Number);
+            const pad = n => String(n).padStart(2, '0');
+            const startDate = new Date(ano, m, d);
+            const dtStart = `${startDate.getFullYear()}${pad(startDate.getMonth() + 1)}${pad(startDate.getDate())}`;
+            const endDate = new Date(ano, m, d);
+            endDate.setDate(endDate.getDate() + 1);
+            const dtEnd = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}`;
+            const slug = name.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+            lines.push(
+                'BEGIN:VEVENT',
+                `DTSTART;VALUE=DATE:${dtStart}`,
+                `DTEND;VALUE=DATE:${dtEnd}`,
+                `SUMMARY:${name}`,
+                'DESCRIPTION:Feriado Nacional do Brasil',
+                `UID:${dtStart}-${slug}@dataehora.com.br`,
+                'END:VEVENT'
+            );
+        });
+
+        lines.push('END:VCALENDAR');
+        const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `Feriados-Brasil-${ano}-dataehora.ics`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        btn.innerText = '📅 Exportar .ics';
+        btn.disabled = false;
+    }
+
     window.onload = () => {
         setupYearSelect();
         renderCalendar();
         updateFontSize();
     };
 </script>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

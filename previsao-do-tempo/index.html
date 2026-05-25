@@ -1,26 +1,53 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
   
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
    crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
 
-  <meta charset="utf-8" />
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
   <!-- Canonical URL -->
   <link rel="canonical" href="https://dataehora.com.br/previsao-do-tempo/">
   
   <title>Previsão do Tempo no Brasil | dataehora.com.br</title>
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Previsão do Tempo no Brasil | dataehora.com.br">
+    <meta property="og:description" content="Previsão do tempo atualizada para todas as capitais brasileiras. Temperatura, condições climáticas e informações em tempo real.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/previsao-do-tempo/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
   <meta name="description" content="Previsão do tempo atualizada para todas as capitais brasileiras. Temperatura, condições climáticas e informações em tempo real." />
   <meta name="keywords" content="previsão do tempo, clima brasil, temperatura, capitais brasileiras, tempo hoje">
   <meta name="robots" content="index, follow">
   
   <!-- Preload critical CSS -->
-  <link rel="preload" href="/css/styles.css" as="style">
-  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="preload" href="/css/styles.css?v=55214df3" as="style">
+  <link rel="stylesheet" href="/css/styles.css?v=55214df3">
+  <link rel="manifest" href="/site.webmanifest">
+  
+  <!-- Theme color for mobile browsers -->
+  <meta name="theme-color" content="#2563eb">
+  
+  <!-- Preconnect to external domains for faster loading -->
+  <link rel="preconnect" href="https://www.googletagmanager.com">
+  <link rel="dns-prefetch" href="https://www.googletagmanager.com">
   
   <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
@@ -30,11 +57,7 @@
     gtag('js', new Date());
     gtag('config', 'G-4Y5H59FEQE');
   </script>
-  
-  <!-- CRITICAL: Inline theme script to prevent FOUC -->
-  <script>
-  (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-  </script>
+
 
   <style>
     .weather-grid {
@@ -182,22 +205,31 @@
   </style>
 </head>
 <body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
   <div class="container">
     <nav class="nav-header" aria-label="Navegação estrutural">
       <a href="/" class="nav-link">dataehora.com.br</a>
       <span class="nav-sep">/</span>
       <span class="nav-current">Previsão do Tempo</span>
     </nav>
-
-    <div class="header-ad-container">
-      <ins class="adsbygoogle"
-           style="display:inline-block;width:728px;height:90px"
-           data-ad-client="ca-pub-7808195997729404"
-           data-ad-slot="1234567890"></ins>
-      <script>
-           (adsbygoogle = window.adsbygoogle || []).push({});
-      </script>
-    </div>
 
     <header class="header">
       <h1>Previsão do Tempo</h1>
@@ -218,7 +250,9 @@
       <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
       <br>
       <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-      <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+      <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+      <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+      <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
     </div>
   </footer>
 
@@ -436,5 +470,6 @@
     // Load weather on page load
     loadWeather();
   </script>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

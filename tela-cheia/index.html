@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Favicon and App Icons -->
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
+
+    <title>Hora em Tela Cheia | dataehora.com.br</title>
+    <meta name="robots" content="noindex, follow">
+
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #3b82f6;
+            --accent-hover: #2563eb;
+            --hr-color: rgba(148, 163, 184, 0.12);
+        }
+
+        .no-transition * {
+            transition: none !important;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-hover: #3b82f6;
+            --hr-color: rgba(248, 250, 252, 0.15);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            height: 100%;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', 'Roboto', 'Helvetica Neue', Arial, sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 0 20px 40px 20px;
+            gap: 0;
+        }
+
+        main.fs-main {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 20px 0;
+        }
+
+        .fs-label {
+            text-transform: uppercase;
+            font-size: clamp(0.75rem, 1.75vw, 1rem);
+            letter-spacing: 4px;
+            color: var(--accent);
+            font-weight: 800;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        #fs-clock {
+            font-size: clamp(5rem, 22vw, 18rem);
+            font-weight: 900;
+            letter-spacing: -6px;
+            line-height: 0.85;
+            font-variant-numeric: tabular-nums;
+            background: linear-gradient(135deg, var(--accent), var(--accent-hover));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        #fs-date {
+            font-size: clamp(1.2rem, 4vw, 3rem);
+            margin-top: 1.5rem;
+            color: var(--text-muted);
+            font-weight: 700;
+            text-transform: capitalize;
+            text-align: center;
+        }
+
+        .fs-divider {
+            border: 0;
+            height: 1px;
+            background: var(--hr-color);
+            width: 60%;
+            max-width: 500px;
+            margin: 2rem auto;
+        }
+
+        #fs-holiday {
+            font-size: clamp(0.9rem, 2.5vw, 1.6rem);
+            color: var(--text-main);
+            font-weight: 500;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.5;
+        }
+
+        #fs-holiday strong {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        #fs-hoje {
+            font-size: clamp(0.9rem, 2.5vw, 1.6rem);
+            color: var(--text-main);
+            font-weight: 600;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.5;
+            background: linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(99, 102, 241, 0.06) 100%);
+            border: 1.5px solid rgba(59, 130, 246, 0.3);
+            border-radius: 16px;
+            padding: 18px 28px;
+            box-shadow: 0 4px 18px -4px rgba(59, 130, 246, 0.18);
+        }
+
+        #fs-hoje strong {
+            color: var(--accent);
+            font-weight: 800;
+        }
+
+        [data-theme="dark"] #fs-hoje {
+            background: linear-gradient(135deg, rgba(96, 165, 250, 0.12) 0%, rgba(99, 102, 241, 0.07) 100%);
+            border-color: rgba(96, 165, 250, 0.35);
+            box-shadow: 0 4px 18px -4px rgba(96, 165, 250, 0.2);
+        }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
+
+        /* ===== BREADCRUMB ===== */
+        .nav-header {
+            width: 100%;
+            max-width: 1200px;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0;
+            font-size: 0.875rem;
+            gap: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--hr-color);
+            transition: opacity 0.5s ease;
+        }
+        .nav-header.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        /* ===== FOOTER ===== */
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            width: 100%;
+            transition: opacity 0.5s ease;
+        }
+        footer.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .btn-settings {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--hr-color);
+            transition: transform 0.2s ease;
+        }
+        .btn-settings:hover { transform: translateY(-2px); }
+
+        @media (max-width: 480px) {
+            #fs-clock {
+                letter-spacing: -3px;
+            }
+        }
+
+        /* Controls panel */
+        #fs-controls {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: var(--bg-card);
+            border: 1px solid var(--hr-color);
+            border-radius: 16px;
+            padding: 16px 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            z-index: 100;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.18);
+            opacity: 1;
+            transition: opacity 0.5s ease;
+            min-width: 260px;
+        }
+
+        #fs-controls.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .fs-ctrl-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+        }
+
+        .fs-ctrl-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 70px;
+        }
+
+        .fs-ctrl-btns {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .fs-ctrl-btn {
+            background: var(--bg-body);
+            border: 1px solid var(--hr-color);
+            color: var(--text-main);
+            border-radius: 8px;
+            width: 30px;
+            height: 30px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.15s, color 0.15s;
+            flex-shrink: 0;
+        }
+
+        .fs-ctrl-btn:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+        }
+
+        .fs-ctrl-size {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--text-main);
+            min-width: 40px;
+            text-align: center;
+        }
+
+        .fs-ctrl-del {
+            background: transparent;
+            border: 1px solid var(--hr-color);
+            color: #ef4444;
+            border-radius: 8px;
+            padding: 3px 10px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .fs-ctrl-del:hover {
+            background: #ef4444;
+            color: #fff;
+            border-color: #ef4444;
+        }
+
+        .fs-ctrl-title {
+            font-size: 0.7rem;
+            font-weight: 800;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-align: center;
+            margin-bottom: 2px;
+        }
+
+        .fs-ctrl-hint {
+            font-size: 0.63rem;
+            color: var(--text-muted);
+            text-align: center;
+            opacity: 0.55;
+            margin-top: 2px;
+            letter-spacing: 0.3px;
+            min-height: 1em;
+        }
+
+        /* Auto-hide countdown bar */
+        #fs-countdown-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            z-index: 200;
+            background: transparent;
+            pointer-events: none;
+        }
+        #fs-countdown-bar .bar-fill {
+            height: 100%;
+            background: var(--accent);
+            opacity: 0.7;
+            width: 100%;
+            transform-origin: left center;
+            transition: transform linear, opacity 0.3s ease;
+        }
+        #fs-countdown-bar.hidden .bar-fill {
+            opacity: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <nav class="nav-header" aria-label="Navegação estrutural">
+        <a href="/" class="nav-link">dataehora.com.br</a>
+        <span class="nav-sep">/</span>
+        <span class="nav-current">Tela Cheia</span>
+    </nav>
+
+    <main class="fs-main">
+    <!-- Font size controls panel -->
+    <div id="fs-controls">
+        <div class="fs-ctrl-title">Tamanho de Fonte</div>
+        <div class="fs-ctrl-row">
+            <span class="fs-ctrl-label">Relógio</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="clock-minus">−</button>
+                <span class="fs-ctrl-size" id="clock-size-label"></span>
+                <button class="fs-ctrl-btn" id="clock-plus">+</button>
+            </div>
+        </div>
+        <div class="fs-ctrl-row" id="date-ctrl-row">
+            <span class="fs-ctrl-label">Data</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="date-minus">−</button>
+                <span class="fs-ctrl-size" id="date-size-label"></span>
+                <button class="fs-ctrl-btn" id="date-plus">+</button>
+                <button class="fs-ctrl-del" id="date-del" style="display:none">Excluir</button>
+            </div>
+        </div>
+        <div class="fs-ctrl-row" id="holiday-ctrl-row">
+            <span class="fs-ctrl-label">Feriado</span>
+            <div class="fs-ctrl-btns">
+                <button class="fs-ctrl-btn" id="holiday-minus">−</button>
+                <span class="fs-ctrl-size" id="holiday-size-label"></span>
+                <button class="fs-ctrl-btn" id="holiday-plus">+</button>
+                <button class="fs-ctrl-del" id="holiday-del" style="display:none">Excluir</button>
+            </div>
+        </div>
+        <div class="fs-ctrl-hint" id="fs-ctrl-hint"></div>
+    </div>
+
+    <span class="fs-label">Horário Oficial de Brasília</span>
+    <div id="fs-clock">--:--:--</div>
+    <div id="fs-date">Carregando...</div>
+    <script>(function(){var tf=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'});var df=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'});var n=new Date();document.getElementById('fs-clock').textContent=tf.format(n);document.getElementById('fs-date').textContent=df.format(n);})();</script>
+
+    <hr class="fs-divider" id="fs-divider">
+
+    <div id="fs-hoje-section" style="display:none">
+        <div id="fs-hoje"></div>
+        <hr class="fs-divider">
+    </div>
+
+    <span class="fs-label" id="fs-holiday-label">Próximo Feriado</span>
+    <div id="fs-holiday">Calculando...</div>
+
+    </main>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
+        </div>
+    </footer>
+
+    <!-- Auto-hide countdown bar -->
+    <div id="fs-countdown-bar"><div class="bar-fill" id="fs-bar-fill"></div></div>
+    <script src="/js/holidays.js?v=524c0f0d"></script>
+    <script>
+    let officialTimeOffset = 0;
+
+    async function syncTime() {
+        try {
+            const res = await fetch('https://worldtimeapi.org/api/timezone/America/Sao_Paulo');
+            const data = await res.json();
+            officialTimeOffset = new Date(data.datetime) - new Date();
+        } catch(e) {
+            officialTimeOffset = 0;
+        }
+    }
+
+    function getBrasiliaDate() {
+        return new Date(Date.now() + officialTimeOffset);
+    }
+
+    const timeFmt = new Intl.DateTimeFormat('pt-BR', { hour:'2-digit', minute:'2-digit', second:'2-digit', hour12:false, timeZone:'America/Sao_Paulo' });
+    const dateFmt = new Intl.DateTimeFormat('pt-BR', { weekday:'long', day:'numeric', month:'long', year:'numeric', timeZone:'America/Sao_Paulo' });
+    const yearFmt = new Intl.DateTimeFormat('pt-BR', { year:'numeric', timeZone:'America/Sao_Paulo' });
+    const dayFmt  = new Intl.DateTimeFormat('pt-BR', { day:'numeric', timeZone:'America/Sao_Paulo' });
+    const monFmt  = new Intl.DateTimeFormat('pt-BR', { month:'numeric', timeZone:'America/Sao_Paulo' });
+    const wdayFmt = new Intl.DateTimeFormat('pt-BR', { weekday:'long', timeZone:'America/Sao_Paulo' });
+    const hdateFmt= new Intl.DateTimeFormat('pt-BR', { day:'numeric', month:'long', timeZone:'America/Sao_Paulo' });
+    const secFmt  = new Intl.DateTimeFormat('pt-BR', { second:'numeric', timeZone:'America/Sao_Paulo' });
+    const hourFmt = new Intl.DateTimeFormat('pt-BR', { hour:'numeric', hour12:false, timeZone:'America/Sao_Paulo' });
+
+    function updateClock() {
+        const now = getBrasiliaDate();
+        document.getElementById('fs-clock').textContent = timeFmt.format(now);
+        document.getElementById('fs-date').textContent = dateFmt.format(now);
+
+        const secs = parseInt(secFmt.format(now), 10);
+        if (secs === 0) {
+            const saved = localStorage.getItem('theme-pref') || 'default';
+            if (saved === 'auto') {
+                const h = parseInt(hourFmt.format(now), 10);
+                document.documentElement.setAttribute('data-theme', (h < 6 || h >= 18) ? 'dark' : 'light');
+            }
+        }
+    }
+
+    function updateHoliday() {
+        if (typeof getHolidaysForDisplay === 'undefined') { setTimeout(updateHoliday, 100); return; }
+        const now = getBrasiliaDate();
+        const year = parseInt(yearFmt.format(now), 10);
+        const all = [...getHolidaysForDisplay(year), ...getHolidaysForDisplay(year + 1)];
+        const day = parseInt(dayFmt.format(now), 10);
+        const mon = parseInt(monFmt.format(now), 10) - 1;
+        const today = new Date(Date.UTC(year, mon, day, 12, 0, 0));
+
+        const hojeSection = document.getElementById('fs-hoje-section');
+        const hoje = all.find(f => f.d.getTime() === today.getTime());
+        if (hoje && hojeSection && !holHidden) {
+            hojeSection.style.display = '';
+            const hojeEl = document.getElementById('fs-hoje');
+            if (hojeEl) {
+                hojeEl.innerHTML = `Hoje é feriado, dia de <strong>${hoje.n}</strong>.`;
+                hojeEl.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+            }
+        } else if (hojeSection) {
+            hojeSection.style.display = 'none';
+        }
+
+        const next = all.find(f => f.d > today);
+        if (!next) return;
+        const diff = Math.ceil((next.d - today) / 864e5);
+        const fmtData = hdateFmt.format(next.d);
+        document.getElementById('fs-holiday').innerHTML =
+            `O próximo feriado é <strong>${next.n}</strong> no dia <strong>${fmtData}</strong>, em <strong>${diff} ${diff === 1 ? 'dia' : 'dias'}</strong>.`;
+    }
+
+    // ── Font size controls ──────────────────────────────────────────────────
+    const CLOCK_SIZES  = [5, 8, 11, 14, 18, 22, 26, 30, 36]; // vw units
+    const DATE_SIZES   = [0.9, 1.2, 1.6, 2, 2.5, 3, 3.8, 4.5]; // rem units
+    const HOL_SIZES    = [0.75, 0.9, 1.1, 1.4, 1.6, 2, 2.5]; // rem units
+
+    const DEFAULT_CLOCK_IDX  = 5;
+    const DEFAULT_DATE_IDX   = 5;
+    const DEFAULT_HOL_IDX    = 4;
+    const MIN_SIZE_IDX       = 0; // index at which "Excluir" appears for date/holiday
+    const CONTROLS_HIDE_DELAY = 5000; // ms of inactivity before controls fade out
+
+    let clockIdx   = parseInt(localStorage.getItem('fs-clock-size')  ?? DEFAULT_CLOCK_IDX, 10);
+    let dateIdx    = parseInt(localStorage.getItem('fs-date-size')   ?? DEFAULT_DATE_IDX,  10);
+    let holIdx     = parseInt(localStorage.getItem('fs-hol-size')    ?? DEFAULT_HOL_IDX,   10);
+    let dateHidden = localStorage.getItem('fs-date-hidden') === '1';
+    let holHidden  = localStorage.getItem('fs-hol-hidden')  === '1';
+
+    function applyClockSize() {
+        const el = document.getElementById('fs-clock');
+        el.style.fontSize = CLOCK_SIZES[clockIdx] + 'vw';
+        document.getElementById('clock-size-label').textContent = CLOCK_SIZES[clockIdx] + 'vw';
+        localStorage.setItem('fs-clock-size', clockIdx);
+    }
+
+    function applyDateSize() {
+        const el = document.getElementById('fs-date');
+        const row = document.getElementById('date-ctrl-row');
+        const delBtn = document.getElementById('date-del');
+        if (dateHidden) {
+            el.style.display = 'none';
+            row.style.display = 'none';
+            return;
+        }
+        el.style.display = '';
+        row.style.display = '';
+        el.style.fontSize = DATE_SIZES[dateIdx] + 'rem';
+        document.getElementById('date-size-label').textContent = DATE_SIZES[dateIdx] + 'rem';
+        localStorage.setItem('fs-date-size', dateIdx);
+        delBtn.style.display = dateIdx === MIN_SIZE_IDX ? '' : 'none';
+    }
+
+    function applyHolSize() {
+        const el = document.getElementById('fs-holiday');
+        const row = document.getElementById('holiday-ctrl-row');
+        const delBtn = document.getElementById('holiday-del');
+        const holLabel = document.getElementById('fs-holiday-label');
+        const divider = document.getElementById('fs-divider');
+        const hojeSection = document.getElementById('fs-hoje-section');
+        if (holHidden) {
+            el.style.display = 'none';
+            if (holLabel) holLabel.style.display = 'none';
+            if (divider) divider.style.display = 'none';
+            if (hojeSection) hojeSection.style.display = 'none';
+            row.style.display = 'none';
+            return;
+        }
+        el.style.display = '';
+        if (holLabel) holLabel.style.display = '';
+        if (divider) divider.style.display = '';
+        row.style.display = '';
+        el.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+        const hojeEl = document.getElementById('fs-hoje');
+        if (hojeEl) hojeEl.style.fontSize = HOL_SIZES[holIdx] + 'rem';
+        document.getElementById('holiday-size-label').textContent = HOL_SIZES[holIdx] + 'rem';
+        localStorage.setItem('fs-hol-size', holIdx);
+        delBtn.style.display = holIdx === MIN_SIZE_IDX ? '' : 'none';
+        updateHoliday();
+    }
+
+    // Controls auto-hide logic
+    const controls = document.getElementById('fs-controls');
+    const navHeader = document.querySelector('.nav-header');
+    const pageFooter = document.querySelector('footer');
+    const countdownBar = document.getElementById('fs-countdown-bar');
+    const barFill = document.getElementById('fs-bar-fill');
+    let hideTimer = null;
+    let countdownInterval = null;
+    let countdownSecs = 0;
+
+    function updateHintText() {
+        const hint = document.getElementById('fs-ctrl-hint');
+        if (!hint) return;
+        hint.textContent = countdownSecs > 0
+            ? `Opções ocultarão em ${countdownSecs}s`
+            : '';
+    }
+
+    function startCountdownText() {
+        if (countdownInterval) clearInterval(countdownInterval);
+        countdownSecs = Math.round(CONTROLS_HIDE_DELAY / 1000);
+        updateHintText();
+        countdownInterval = setInterval(() => {
+            countdownSecs = Math.max(0, countdownSecs - 1);
+            updateHintText();
+            if (countdownSecs <= 0) { clearInterval(countdownInterval); countdownInterval = null; }
+        }, 1000);
+    }
+
+    function stopCountdownText() {
+        if (countdownInterval) { clearInterval(countdownInterval); countdownInterval = null; }
+        countdownSecs = 0;
+        updateHintText();
+    }
+
+    function startBarCountdown() {
+        if (barFill) {
+            barFill.style.transition = 'none';
+            barFill.style.transform = 'scaleX(1)';
+            countdownBar.classList.remove('hidden');
+            // Force reflow so the transition starts fresh
+            void barFill.offsetWidth;
+            barFill.style.transition = `transform ${CONTROLS_HIDE_DELAY}ms linear`;
+            barFill.style.transform = 'scaleX(0)';
+        }
+    }
+
+    function stopBarCountdown() {
+        if (barFill) {
+            barFill.style.transition = 'none';
+            barFill.style.transform = 'scaleX(1)';
+            countdownBar.classList.remove('hidden');
+        }
+    }
+
+    function hideAll() {
+        controls.classList.add('hidden');
+        if (navHeader) navHeader.classList.add('hidden');
+        if (pageFooter) pageFooter.classList.add('hidden');
+        if (countdownBar) countdownBar.classList.add('hidden');
+    }
+
+    function showControls() {
+        controls.classList.remove('hidden');
+        if (navHeader) navHeader.classList.remove('hidden');
+        if (pageFooter) pageFooter.classList.remove('hidden');
+        stopBarCountdown();
+        clearTimeout(hideTimer);
+        hideTimer = setTimeout(() => {
+            hideAll();
+        }, CONTROLS_HIDE_DELAY);
+        // Restart bar animation and countdown text
+        startBarCountdown();
+        startCountdownText();
+    }
+
+    document.addEventListener('mousemove', showControls);
+    document.addEventListener('touchstart', showControls);
+    [controls, navHeader, pageFooter].forEach(el => {
+        if (!el) return;
+        el.addEventListener('mouseenter', () => {
+            clearTimeout(hideTimer);
+            stopBarCountdown();
+            stopCountdownText();
+        });
+        el.addEventListener('mouseleave', () => {
+            hideTimer = setTimeout(hideAll, CONTROLS_HIDE_DELAY);
+            startBarCountdown();
+            startCountdownText();
+        });
+    });
+
+    // Button wiring
+    document.getElementById('clock-plus').addEventListener('click', () => {
+        if (clockIdx < CLOCK_SIZES.length - 1) { clockIdx++; applyClockSize(); }
+    });
+    document.getElementById('clock-minus').addEventListener('click', () => {
+        if (clockIdx > 0) { clockIdx--; applyClockSize(); }
+    });
+
+    document.getElementById('date-plus').addEventListener('click', () => {
+        if (dateIdx < DATE_SIZES.length - 1) { dateIdx++; applyDateSize(); }
+    });
+    document.getElementById('date-minus').addEventListener('click', () => {
+        if (dateIdx > 0) { dateIdx--; applyDateSize(); }
+    });
+    document.getElementById('date-del').addEventListener('click', () => {
+        dateHidden = true;
+        localStorage.setItem('fs-date-hidden', '1');
+        applyDateSize();
+    });
+
+    document.getElementById('holiday-plus').addEventListener('click', () => {
+        if (holIdx < HOL_SIZES.length - 1) { holIdx++; applyHolSize(); }
+    });
+    document.getElementById('holiday-minus').addEventListener('click', () => {
+        if (holIdx > 0) { holIdx--; applyHolSize(); }
+    });
+    document.getElementById('holiday-del').addEventListener('click', () => {
+        holHidden = true;
+        localStorage.setItem('fs-hol-hidden', '1');
+        applyHolSize();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        // Show clock and holiday immediately using local browser time
+        updateClock();
+        updateHoliday();
+        setInterval(updateClock, 1000);
+
+        // Apply saved font sizes
+        applyClockSize();
+        applyDateSize();
+        applyHolSize();
+
+        // Show controls on load, then hide after 5s
+        showControls();
+
+        // Sync with official time API in background (non-blocking)
+        syncTime().then(() => setInterval(syncTime, 5 * 60 * 1000));
+    });
+    </script>
+<script defer src="/js/cookie-consent.js"></script>
+</body>
+</html>

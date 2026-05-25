@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
@@ -23,6 +33,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/configuracoes/">
     <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
@@ -55,8 +68,12 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <!-- Preload critical CSS -->
-    <link rel="preload" href="/css/styles.css" as="style">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preload" href="/css/styles.css?v=55214df3" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=55214df3">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
@@ -66,32 +83,37 @@
       gtag('js', new Date());
       gtag('config', 'G-4Y5H59FEQE');
     </script>
-    
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
+
 
 
 </head>
 <body>
 
-    <header class="top-nav">
-        <a href="/" class="logo-text">dataehora.com.br</a>
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
     </header>
 
-    <div class="header-ad-container">
-        <ins class="adsbygoogle"
-             style="display:inline-block;width:728px;height:90px"
-             data-ad-client="ca-pub-7808195997729404"
-             data-ad-slot="1234567890"></ins>
-        <script>
-             (adsbygoogle = window.adsbygoogle || []).push({});
-        </script>
-    </div>
-
     <main class="settings-container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Configurações</span>
+        </nav>
+
         <div class="settings-header">
             <h1>Configurações</h1>
             <p class="settings-subtitle">Ajuste a interface para sua melhor leitura.</p>
@@ -116,6 +138,20 @@
                     
                     <div class="slider" aria-hidden="true"></div>
                 </div>
+                <div class="theme-descriptions" id="theme-descriptions">
+                    <div class="theme-desc" id="desc-default">
+                        <strong>💻 Sistema</strong> — Segue automaticamente o tema configurado no seu dispositivo (claro ou escuro). Muda junto com as preferências do sistema operacional.
+                    </div>
+                    <div class="theme-desc" id="desc-auto">
+                        <strong>🌗 Automático</strong> — Interface clara das 6h às 18h e escura das 18h às 6h. Ideal para quem usa o site ao longo do dia e da noite.
+                    </div>
+                    <div class="theme-desc" id="desc-light">
+                        <strong>☀️ Claro</strong> — Interface sempre clara, com fundo branco e texto escuro. Ótimo para ambientes bem iluminados.
+                    </div>
+                    <div class="theme-desc" id="desc-dark">
+                        <strong>🌙 Escuro</strong> — Interface sempre escura, com fundo azul-escuro e texto claro. Reduz o brilho e cansa menos os olhos em ambientes com pouca luz.
+                    </div>
+                </div>
             </div>
         </section>
     </main>
@@ -128,7 +164,9 @@
             <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
             <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
 
@@ -167,11 +205,18 @@
             }
         }
 
+        function showThemeDescription(value) {
+            document.querySelectorAll('.theme-desc').forEach(el => el.classList.remove('active'));
+            const desc = document.getElementById('desc-' + value);
+            if (desc) desc.classList.add('active');
+        }
+
         inputs.forEach(input => {
             input.addEventListener('change', (e) => {
                 const val = e.target.value;
                 localStorage.setItem('theme-pref', val);
                 updateDOMTheme(val);
+                showThemeDescription(val);
             });
         });
 
@@ -182,6 +227,8 @@
         if (currentInput) {
             currentInput.checked = true;
         }
+        showThemeDescription(currentPref);
     </script>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

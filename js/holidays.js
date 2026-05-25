@@ -62,8 +62,7 @@ function getHolidays(year) {
 
     // Convert to Date objects and add weekday info
     return holidays.map(h => {
-        const dt = new Date(year, h.m, h.d);
-        dt.setHours(0, 0, 0, 0);
+        const dt = new Date(Date.UTC(year, h.m, h.d, 12, 0, 0));
         return { 
             ...h, 
             dt, 

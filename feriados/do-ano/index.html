@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
@@ -23,6 +33,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/feriados/do-ano/">
     <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary">
@@ -55,11 +68,31 @@
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
     
     <!-- Preload critical CSS -->
-    <link rel="preload" href="/css/styles.css" as="style">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preload" href="/css/styles.css?v=55214df3" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=55214df3">
     
     <!-- Holiday calculation utilities -->
-    <script src="/js/holidays.js"></script>
+    <script src="/js/holidays.js?v=524c0f0d"></script>
+
+    <style>
+        .btn-ics {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            margin-top: 20px;
+            padding: 12px 24px;
+            border-radius: 14px;
+            background: var(--accent, #3b82f6);
+            color: #ffffff;
+            font-weight: 800;
+            font-size: 0.9rem;
+            border: none;
+            cursor: pointer;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+        .btn-ics:hover { transform: translateY(-2px); filter: brightness(1.1); }
+    </style>
 
     <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
@@ -69,12 +102,7 @@
       gtag('js', new Date());
       gtag('config', 'G-4Y5H59FEQE');
     </script>
-    
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
+
 
 </head>
 <body>
@@ -83,7 +111,7 @@
         <nav class="nav-header" aria-label="Navegação estrutural">
             <a href="/" class="nav-link">dataehora.com.br</a>
             <span class="nav-sep">/</span>
-            <a href="/feriados" class="nav-link">Feriados</a>
+            <a href="/feriados/" class="nav-link">Feriados</a>
             <span class="nav-sep">/</span>
             <span class="nav-current">Calendário</span>
         </nav>
@@ -101,6 +129,7 @@
         <header class="header">
             <h1>Calendário de Feriados</h1>
             <p class="subtitle">Lista oficial de feriados nacionais e pontos facultativos.</p>
+            <button onclick="exportToICS()" class="btn-ics" id="btn-ics">📅 Exportar para Calendário (.ics)</button>
         </header>
 
         <div id="next-container"></div>
@@ -115,7 +144,9 @@
             <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
             <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
 
@@ -181,6 +212,59 @@
         } else {
             render();
         }
+
+        function exportToICS() {
+            const btn = document.getElementById('btn-ics');
+            btn.textContent = '⏳ Gerando...';
+            btn.disabled = true;
+
+            const currentYear = getTodayInSaoPaulo().getFullYear();
+            const lines = [
+                'BEGIN:VCALENDAR',
+                'VERSION:2.0',
+                'PRODID:-//dataehora.com.br//Feriados do Brasil//PT',
+                'CALSCALE:GREGORIAN',
+                'METHOD:PUBLISH',
+                'X-WR-CALNAME:Feriados do Brasil',
+                'X-WR-TIMEZONE:America/Sao_Paulo'
+            ];
+
+            for (let y = currentYear; y <= currentYear + 2; y++) {
+                getHolidays(y).forEach(h => {
+                    const pad = n => String(n).padStart(2, '0');
+                    const startDate = new Date(y, h.m, h.d);
+                    const dtStart = `${startDate.getFullYear()}${pad(startDate.getMonth() + 1)}${pad(startDate.getDate())}`;
+                    const endDate = new Date(y, h.m, h.d);
+                    endDate.setDate(endDate.getDate() + 1);
+                    const dtEnd = `${endDate.getFullYear()}${pad(endDate.getMonth() + 1)}${pad(endDate.getDate())}`;
+                    const slug = h.n.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '');
+                    lines.push(
+                        'BEGIN:VEVENT',
+                        `DTSTART;VALUE=DATE:${dtStart}`,
+                        `DTEND;VALUE=DATE:${dtEnd}`,
+                        `SUMMARY:${h.n}`,
+                        'DESCRIPTION:Feriado Nacional do Brasil',
+                        `UID:${dtStart}-${slug}@dataehora.com.br`,
+                        'END:VEVENT'
+                    );
+                });
+            }
+
+            lines.push('END:VCALENDAR');
+            const blob = new Blob([lines.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `feriados-brasil-${currentYear}-${currentYear + 2}.ics`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+
+            btn.textContent = '📅 Exportar para Calendário (.ics)';
+            btn.disabled = false;
+        }
     </script>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

@@ -1,9 +1,18 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -18,12 +27,13 @@
     <link rel="dns-prefetch" href="https://worldtimeapi.org">
     
     <!-- Preload critical CSS -->
-    <link rel="preload" href="/css/styles.css" as="style">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="preload" href="/css/styles.css?v=55214df3" as="style">
+    <link rel="stylesheet" href="/css/styles.css?v=55214df3">
     
     <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="manifest" href="/site.webmanifest">
     
     <!-- Theme color for mobile browsers -->
@@ -42,7 +52,7 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/">
     <meta property="og:site_name" content="Data e Hora">
-    <meta property="og:image" content="https://dataehora.com.br/og-image.jpg">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     
@@ -52,7 +62,7 @@
     <meta name="twitter:description" content="Hora certa de Brasília atualizada em tempo real. Calendário de feriados 2026, calculadoras de datas e contagem regressiva.">
     <meta name="twitter:site" content="@dataehora">
     <meta name="twitter:creator" content="@dataehora">
-    <meta name="twitter:image" content="https://dataehora.com.br/og-image.jpg">
+    <meta name="twitter:image" content="https://dataehora.com.br/og-image.png">
     
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -75,12 +85,7 @@
       gtag('js', new Date());
       gtag('config', 'G-4Y5H59FEQE');
     </script>
-    
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
+
 
 </head>
 <body>
@@ -107,7 +112,15 @@
         <span class="label-topo">Horário Oficial de Brasília</span>
         <div id="clock">--:--:--</div>
         <div id="date">Carregando...</div>
+        <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
     </main>
+    <script>(function(){var tf=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'});var df=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'});var n=new Date();document.getElementById('clock').textContent=tf.format(n);document.getElementById('date').textContent=df.format(n);})();</script>
+
+    <div id="hoje-feriado-section" style="display:none">
+        <hr class="discreet">
+        <section class="holiday-section holiday-today" id="hoje-display">
+        </section>
+    </div>
 
     <hr class="discreet">
 
@@ -115,6 +128,14 @@
     <section class="holiday-section" id="holiday-display">
         Calculando próximo feriado...
     </section>
+
+    <div id="upcoming-section-wrapper">
+        <hr class="discreet">
+        <span class="label-topo">Feriados Restantes no Ano</span>
+        <section class="holiday-section" id="upcoming-holidays-section">
+            <ul id="upcoming-holidays-list" class="upcoming-holidays-list"></ul>
+        </section>
+    </div>
 
     <hr class="discreet">
 
@@ -140,11 +161,152 @@
             <span>🌤️ Previsão do Tempo</span>
             <small>Clima atualizado das capitais brasileiras</small>
         </a>
+        <a href="/sol-e-lua/" class="menu-item">
+            <span>🌅 Sol e Lua</span>
+            <small>Nascer do sol, pôr do sol e fase da lua</small>
+        </a>
         <a href="/fusos-horarios/" class="menu-item">
             <span>🌐 Fusos Horários</span>
             <small>Horários do Brasil e do mundo em tempo real</small>
         </a>
+        <a href="/relogio-mundial/" class="menu-item">
+            <span>🌍 Relógio Mundial</span>
+            <small>Horário ao vivo em capitais e cidades lusófonas</small>
+        </a>
+        <a href="/cronometro/" class="menu-item">
+            <span>⏱️ Cronômetro</span>
+            <small>Meça tempos com precisão de milissegundos e marque voltas</small>
+        </a>
+        <a href="/conversor-de-fusos/" class="menu-item">
+            <span>🔄 Conversor de Fusos</span>
+            <small>Converta horários entre cidades do mundo</small>
+        </a>
+        <a href="/temporizador/" class="menu-item">
+            <span>⏲️ Temporizador</span>
+            <small>Contagem regressiva com alarme para cozinha, estudos e exercícios</small>
+        </a>
+        <a href="/numero-da-semana/" class="menu-item">
+            <span>📆 Número da Semana</span>
+            <small>Qual semana do ano é hoje? Consulte qualquer data</small>
+        </a>
     </nav>
+
+    <hr class="discreet">
+
+    <span class="label-topo">Sobre Tempo e Clima</span>
+    <nav class="menu-grid" aria-label="Menu Sobre Tempo e Clima">
+        <a href="/sobre-tempo-e-clima/fases-da-lua/" class="menu-item">
+            <span>🌕 Fases da Lua</span>
+            <small>Entenda o ciclo lunar e as 4 fases da lua</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/ano-bissexto/" class="menu-item">
+            <span>📅 Ano Bissexto</span>
+            <small>Por que existem anos com 366 dias?</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/eclipses/" class="menu-item">
+            <span>🌑 Eclipses</span>
+            <small>Solar e lunar: como e quando acontecem</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/rotacao-e-translacao/" class="menu-item">
+            <span>🌍 Rotação e Translação</span>
+            <small>Os movimentos da Terra e seus efeitos</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/fusos/" class="menu-item">
+            <span>🕐 Fusos Horários</span>
+            <small>Como a Terra é dividida em 24 fusos</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/equinocio/" class="menu-item">
+            <span>🌸 Equinócio e Solstício</span>
+            <small>As estações do ano e suas origens astronômicas</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/latitude-e-longitude/" class="menu-item">
+            <span>🗺️ Latitude e Longitude</span>
+            <small>O sistema de coordenadas geográficas</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/meridianos/" class="menu-item">
+            <span>🧭 Meridianos</span>
+            <small>As linhas imaginárias que dividem o globo</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/planetas-do-sistema-solar/" class="menu-item">
+            <span>🪐 Planetas do Sistema Solar</span>
+            <small>Conheça os 8 planetas do nosso sistema</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/horario-de-verao/" class="menu-item">
+            <span>⏰ Horário de Verão</span>
+            <small>Por que o Brasil aboliu o horário de verão</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/horario-de-brasilia/" class="menu-item">
+            <span>🕒 Horário de Brasília</span>
+            <small>Por que Brasília é a referência oficial</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/calendario-gregoriano/" class="menu-item">
+            <span>📆 Calendário Gregoriano</span>
+            <small>História do calendário que usamos hoje</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/pascoa/" class="menu-item">
+            <span>🐣 Data da Páscoa</span>
+            <small>Por que a Páscoa muda de data todo ano</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/fusos-do-brasil/" class="menu-item">
+            <span>🗺️ Os 4 Fusos do Brasil</span>
+            <small>Por que o Brasil tem 4 fusos horários</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/utc/" class="menu-item">
+            <span>🕰️ O Que é UTC?</span>
+            <small>O padrão temporal universal explicado</small>
+        </a>
+        <a href="/sobre-tempo-e-clima/dias-uteis/" class="menu-item">
+            <span>💼 Dias Úteis</span>
+            <small>O que são e como calcular corretamente</small>
+        </a>
+    </nav>
+
+    <hr class="discreet">
+
+    <section style="max-width:860px;width:100%;text-align:left;padding:0 20px;">
+        <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:0 0 16px;">O site brasileiro de referência para hora e datas</h2>
+        <p style="line-height:1.8;color:var(--text-main);margin:0 0 16px;">
+            O <strong>dataehora.com.br</strong> nasceu para ser a fonte mais confiável e completa de informações sobre hora, datas e calendário para brasileiros. Em um país com quatro fusos horários, feriados estaduais e municipais que variam de cidade para cidade, contratos com prazos em dias úteis e uma agenda de eventos que exige planejamento preciso, ter uma referência de tempo confiável faz diferença no dia a dia de milhões de pessoas.
+        </p>
+        <p style="line-height:1.8;color:var(--text-main);margin:0 0 16px;">
+            Nosso <strong>Horário Oficial de Brasília</strong> é atualizado em tempo real, sincronizado com servidores de tempo da internet. O <strong>Calendário de Feriados</strong> cobre os anos de 2025 a 2028 com datas exatas dos feriados nacionais, emendas e feriadões. As <strong>Calculadoras de Datas</strong> automatizam cálculos de dias úteis com exclusão automática de feriados — indispensáveis para advogados, contadores e gestores. As ferramentas de <strong>Fusos Horários</strong> permitem comparar horários entre estados brasileiros e cidades do mundo em tempo real.
+        </p>
+        <p style="line-height:1.8;color:var(--text-main);margin:0 0 16px;">
+            Além das ferramentas interativas, o dataehora.com.br mantém uma seção de artigos educativos sobre astronomia, clima e tempo — explicando de forma acessível fenômenos como as fases da lua, os equinócios, os fusos horários e os eclipses. Todas as funcionalidades são <strong>gratuitas</strong>, não exigem cadastro e funcionam em qualquer dispositivo.
+        </p>
+
+        <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:32px 0 16px;">Perguntas Frequentes</h2>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Que horas são agora em Brasília?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">O relógio no topo desta página exibe o horário oficial de Brasília em tempo real, atualizado segundo a segundo. O Horário de Brasília (BRT) é UTC−3 e serve como referência para contratos, programações de TV e prazos legais em todo o Brasil.</p>
+        </div>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Qual é o próximo feriado nacional?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">O próximo feriado nacional é exibido automaticamente na página inicial com a contagem regressiva em dias. Para ver a lista completa de feriados do ano, acesse <a href="/feriados/" style="color:var(--accent);">Feriados Nacionais</a>.</p>
+        </div>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Como calcular dias úteis entre duas datas?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">Use a <a href="/calculadora/dias-uteis/" style="color:var(--accent);">Calculadora de Dias Úteis</a>. Informe a data de início e fim e a ferramenta retorna o número exato de dias úteis excluindo sábados, domingos e feriados nacionais — essencial para prazos jurídicos, trabalhistas e fiscais.</p>
+        </div>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Que horas são no Acre agora?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">O Acre usa UTC−5, ou seja, 2 horas atrás do horário de Brasília (UTC−3). Se em Brasília são 14h, no Acre são 12h. Veja todos os fusos do Brasil em tempo real em <a href="/fusos-horarios/" style="color:var(--accent);">Fusos Horários do Brasil</a>.</p>
+        </div>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">O Brasil tem horário de verão?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">Não. O horário de verão no Brasil foi abolido pelo Decreto nº 9.772/2019. Desde então, os fusos horários brasileiros são fixos ao longo de todo o ano, sem avanço sazonal de horas.</p>
+        </div>
+
+        <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+            <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Como usar a contagem regressiva?</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">Acesse <a href="/contagem/" style="color:var(--accent);">Contagem Regressiva</a>, selecione um feriado pré-configurado ou insira um evento personalizado com data e hora. A contagem é atualizada em tempo real e pode ser compartilhada via link pelo WhatsApp.</p>
+        </div>
+    </section>
 
     <hr class="discreet">
 
@@ -156,12 +318,15 @@
             <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
             <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
 
     <!-- OPTIMIZED: Scripts with defer load asynchronously without blocking -->
-    <script defer src="/js/holidays.js"></script>
-    <script defer src="/js/scripts.js"></script>
+    <script defer src="/js/holidays.js?v=524c0f0d"></script>
+    <script defer src="/js/scripts.js?v=088598aa"></script>
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>

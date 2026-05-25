@@ -1,8 +1,17 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,6 +29,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/fusos-horarios/">
     <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -43,8 +55,13 @@
     <link rel="canonical" href="https://dataehora.com.br/fusos-horarios/">
     
     <!-- Favicon and App Icons -->
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
     
     <!-- Preconnect to external domains for faster loading -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
@@ -59,12 +76,6 @@
       gtag('config', 'G-4Y5H59FEQE');
     </script>
     
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
-
     <style>
         :root {
             --bg-body: #f1f5f9;
@@ -79,13 +90,18 @@
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #60a5fa;
             --border: rgba(255, 255, 255, 0.05);
             --input-bg: #1e293b;
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
         }
 
         * { box-sizing: border-box; }
@@ -315,9 +331,60 @@
             .cities-grid { grid-template-columns: 1fr; }
             .world-grid { grid-template-columns: 1fr; }
         }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
     </style>
+
 </head>
 <body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
 
     <div class="container">
         <nav class="nav-header" aria-label="Navegação estrutural">
@@ -416,14 +483,27 @@
                     </div>
                     <div class="tz-group-body">
                         <div class="city-row"><span class="city-name">Brasília</span><span class="city-state">DF (capital federal)</span></div>
-                        <div class="city-row"><span class="city-name">São Paulo</span><span class="city-state">SP</span></div>
-                        <div class="city-row"><span class="city-name">Rio de Janeiro</span><span class="city-state">RJ</span></div>
-                        <div class="city-row"><span class="city-name">Salvador</span><span class="city-state">BA</span></div>
-                        <div class="city-row"><span class="city-name">Fortaleza</span><span class="city-state">CE</span></div>
-                        <div class="city-row"><span class="city-name">Recife</span><span class="city-state">PE</span></div>
-                        <div class="city-row"><span class="city-name">Belém</span><span class="city-state">PA</span></div>
-                        <div class="city-row"><span class="city-name">Porto Alegre</span><span class="city-state">RS</span></div>
+                        <div class="city-row"><span class="city-name">São Paulo</span><span class="city-state">SP (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Rio de Janeiro</span><span class="city-state">RJ (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Belo Horizonte</span><span class="city-state">MG (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Salvador</span><span class="city-state">BA (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Fortaleza</span><span class="city-state">CE (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Recife</span><span class="city-state">PE (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Belém</span><span class="city-state">PA (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Porto Alegre</span><span class="city-state">RS (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Florianópolis</span><span class="city-state">SC (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Curitiba</span><span class="city-state">PR (capital)</span></div>
                         <div class="city-row"><span class="city-name">Campo Grande</span><span class="city-state">MS (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Goiânia</span><span class="city-state">GO (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Maceió</span><span class="city-state">AL (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Macapá</span><span class="city-state">AP (capital)</span></div>
+                        <div class="city-row"><span class="city-name">São Luís</span><span class="city-state">MA (capital)</span></div>
+                        <div class="city-row"><span class="city-name">João Pessoa</span><span class="city-state">PB (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Teresina</span><span class="city-state">PI (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Natal</span><span class="city-state">RN (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Aracaju</span><span class="city-state">SE (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Palmas</span><span class="city-state">TO (capital)</span></div>
+                        <div class="city-row"><span class="city-name">Vitória</span><span class="city-state">ES (capital)</span></div>
                     </div>
                 </div>
                 <div class="tz-group">
@@ -457,7 +537,9 @@
             <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
             <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
 
@@ -610,5 +692,83 @@
                 container.textContent = 'Mapa não disponível.';
             });
     </script>
+<script defer src="/js/cookie-consent.js"></script>
+
+<style>
+.fz-content{max-width:860px;width:100%;margin:0 auto;padding:0 20px 60px;}
+.fz-content h2{font-size:1.6rem;font-weight:800;color:var(--text-main,#0f172a);margin:40px 0 16px;}
+.fz-content p{line-height:1.8;color:var(--text-main,#0f172a);margin:0 0 14px;}
+.fz-content ul,.fz-content ol{margin:0 0 14px;padding-left:24px;line-height:2.2;color:var(--text-main,#0f172a);}
+.fz-table{width:100%;border-collapse:collapse;margin:0 0 20px;font-size:0.9rem;}
+.fz-table th{background:var(--accent,#2563eb);color:#fff;padding:10px 14px;text-align:left;}
+.fz-table td{padding:10px 14px;border-bottom:1px solid var(--hr-color,rgba(100,116,139,0.2));color:var(--text-main,#0f172a);}
+.fz-table tr:nth-child(even) td{background:var(--bg-card,#fff);}
+.fz-faq{border:1px solid var(--hr-color,rgba(100,116,139,0.2));border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card,#fff);}
+.fz-faq-q{font-weight:700;color:var(--text-main,#0f172a);margin:0 0 8px;}
+.fz-faq-a{color:var(--text-muted,#64748b);line-height:1.7;margin:0;}
+</style>
+
+<div class="fz-content">
+    <hr style="border:none;border-top:1px solid var(--hr-color,rgba(100,116,139,0.2));margin:50px 0 0;">
+
+    <section>
+        <h2>Os fusos horários do Brasil explicados</h2>
+        <p>O Brasil é um dos poucos países do mundo com quatro fusos horários oficiais, resultado de sua enorme extensão geográfica no sentido leste-oeste — cerca de 4.300 km entre o ponto mais oriental (Ponta do Seixas, na Paraíba) e o mais ocidental (Ponta Extrema, no Acre). Essa diferença equivale a quase 3 horas solares, tornando inviável adotar um único horário para todo o território.</p>
+        <p>O horário de referência é o <strong>Horário de Brasília (BRT, UTC−3)</strong>, que serve como base para contratos, prazos legais, programação de televisão e comunicações oficiais em todo o país. Mesmo que sua cidade use um fuso diferente, os horários de transmissões nacionais, licitações públicas e prazos da Receita Federal são sempre referenciados ao horário de Brasília.</p>
+    </section>
+
+    <section>
+        <h2>Tabela dos fusos horários do Brasil</h2>
+        <table class="fz-table">
+            <thead><tr><th>Fuso</th><th>UTC</th><th>Estados / Regiões</th></tr></thead>
+            <tbody>
+                <tr><td>Horário de Fernando de Noronha</td><td>UTC−2</td><td>Fernando de Noronha (PE) e ilhas oceânicas</td></tr>
+                <tr><td>Horário de Brasília (BRT)</td><td>UTC−3</td><td>Todo o Nordeste, Sudeste, Sul; Goiás, Distrito Federal, Tocantins, Pará, Amapá, Maranhão</td></tr>
+                <tr><td>Horário do Amazonas (AMT)</td><td>UTC−4</td><td>Mato Grosso, Mato Grosso do Sul, Rondônia, Roraima e maior parte do Amazonas</td></tr>
+                <tr><td>Horário do Acre (ACT)</td><td>UTC−5</td><td>Acre e extremo oeste do Amazonas (municípios de Atalaia do Norte e Benjamin Constant)</td></tr>
+            </tbody>
+        </table>
+    </section>
+
+    <section>
+        <h2>Para que serve acompanhar os fusos em tempo real</h2>
+        <ul>
+            <li><strong>Empresas com filiais em múltiplos estados:</strong> equipes do Sul e do Acre podem ter até 2 horas de diferença — saber isso evita erros em reuniões e prazos.</li>
+            <li><strong>Logística e transportes:</strong> empresas de frete e distribuição precisam sincronizar operações entre estados de fusos diferentes.</li>
+            <li><strong>Atendimento ao cliente:</strong> centrais de atendimento que operam em todo o Brasil precisam respeitar o horário local de cada cliente.</li>
+            <li><strong>Contratos e prazos legais:</strong> prazos processuais e fiscais costumam ser referenciados ao horário de Brasília, mas a entrega física pode ocorrer em outro fuso.</li>
+            <li><strong>Programação de rádio e TV:</strong> emissoras regionais precisam converter os horários de grade nacional para o horário local de sua cidade.</li>
+        </ul>
+    </section>
+
+    <section>
+        <h2>Perguntas Frequentes</h2>
+
+        <div class="fz-faq">
+            <p class="fz-faq-q">O Brasil ainda tem horário de verão?</p>
+            <p class="fz-faq-a">Não. O horário de verão no Brasil foi abolido pelo Decreto nº 9.772, de 19 de abril de 2019. A partir de então, todos os fusos brasileiros são fixos ao longo do ano, sem avanço de hora no verão. Isso simplifica o planejamento e elimina a confusão que ocorria quando parte dos estados adiantava os relógios e outros não.</p>
+        </div>
+
+        <div class="fz-faq">
+            <p class="fz-faq-q">Por que Roraima está no UTC−4 e não no UTC−3?</p>
+            <p class="fz-faq-a">Apesar de Roraima estar no extremo norte do Brasil — geograficamente próximo ao Nordeste — o estado usa UTC−4, o mesmo fuso do Amazonas e do Mato Grosso. Isso foi definido por critérios históricos, administrativos e de integração econômica com os estados vizinhos, e não apenas pela posição geográfica.</p>
+        </div>
+
+        <div class="fz-faq">
+            <p class="fz-faq-q">Por que Mato Grosso do Sul está no UTC−4 se faz fronteira com São Paulo (UTC−3)?</p>
+            <p class="fz-faq-a">As fronteiras dos fusos horários no Brasil não seguem estritamente a lógica geográfica. Mato Grosso do Sul usa UTC−4 principalmente por integração com Mato Grosso e por decisões históricas. Isso gera uma diferença de 1 hora com São Paulo, o que pode causar confusão em reuniões e viagens entre os dois estados.</p>
+        </div>
+
+        <div class="fz-faq">
+            <p class="fz-faq-q">Qual é o fuso horário de Brasília?</p>
+            <p class="fz-faq-a">Brasília (e o Distrito Federal) usa o UTC−3, conhecido como Horário de Brasília (BRT). Este é o fuso de referência para toda a comunicação oficial brasileira, transmissões de TV em rede nacional e prazos legais federais.</p>
+        </div>
+
+        <div class="fz-faq">
+            <p class="fz-faq-q">Como saber o horário atual em cada estado do Brasil?</p>
+            <p class="fz-faq-a">Esta página exibe os horários em tempo real para os quatro fusos do Brasil. Você também pode usar o <a href="/conversor-de-fusos/" style="color:var(--accent,#2563eb);">Conversor de Fusos Horários</a> para converter um horário específico entre cidades brasileiras e internacionais.</p>
+        </div>
+    </section>
+</div>
 </body>
 </html>

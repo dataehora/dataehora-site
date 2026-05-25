@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404" crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#2563eb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Como Contar Dias Úteis em Prazos Jurídicos | dataehora.com.br</title>
+    <meta name="description" content="Aprenda como o Código de Processo Civil (CPC) conta prazos processuais em dias úteis: regras de início, término, suspensão e como calcular prazos com precisão.">
+    <meta name="keywords" content="prazos jurídicos dias úteis, CPC 2015 art 219, contagem de prazo processual, suspensão de prazo judicial, contestação prazo, dias úteis CPC">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    <meta property="og:title" content="Como Contar Dias Úteis em Prazos Jurídicos | dataehora.com.br">
+    <meta property="og:description" content="Aprenda como o Código de Processo Civil (CPC) conta prazos processuais em dias úteis: regras de início, término, suspensão e como calcular prazos com precisão.">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://dataehora.com.br/sobre-tempo-e-clima/dias-uteis-prazos-juridicos/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Como Contar Dias Úteis em Prazos Jurídicos | dataehora.com.br">
+    <meta name="twitter:description" content="Aprenda como o Código de Processo Civil (CPC) conta prazos processuais em dias úteis: regras de início, término, suspensão e como calcular prazos com precisão.">
+    <meta name="twitter:site" content="@dataehora">
+    <script type="application/ld+json">
+    {"@context":"https://schema.org","@type":"Article","headline":"Como Contar Dias Úteis em Prazos Jurídicos","description":"Aprenda como o Código de Processo Civil (CPC) conta prazos processuais em dias úteis: regras de início, término, suspensão e como calcular prazos com precisão.","url":"https://dataehora.com.br/sobre-tempo-e-clima/dias-uteis-prazos-juridicos/","author":{"@type":"Organization","name":"dataehora.com.br"},"publisher":{"@type":"Organization","name":"dataehora.com.br"}}
+    </script>
+    <link rel="canonical" href="https://dataehora.com.br/sobre-tempo-e-clima/dias-uteis-prazos-juridicos/">
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-4Y5H59FEQE');</script>
+    <style>
+        :root{--bg-body:#f1f5f9;--bg-card:#ffffff;--text-main:#0f172a;--text-muted:#64748b;--accent:#2563eb;--shadow:0 10px 25px -5px rgba(0,0,0,0.05);--hr-color:rgba(100,116,139,0.2);--page-accent:#2563eb;}
+        [data-theme="dark"]{--bg-body:#0f172a;--bg-card:#1e293b;--text-main:#f8fafc;--text-muted:#94a3b8;--accent:#60a5fa;--shadow:0 20px 25px -5px rgba(0,0,0,0.3);--hr-color:rgba(248,250,252,0.2);--page-accent:#60a5fa;}
+        .no-transition *{transition:none!important}
+        *{box-sizing:border-box}
+        body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;background-color:var(--bg-body);color:var(--text-main);margin:0;padding:0 20px 40px 20px;display:flex;flex-direction:column;align-items:center;min-height:100vh;}
+        .container{width:100%;max-width:900px;}
+        .nav-header{width:100%;display:flex;align-items:center;flex-wrap:wrap;padding:12px 16px;margin:20px 0 30px 0;font-size:0.875rem;gap:8px;background:var(--bg-card);border-radius:12px;border:1px solid var(--hr-color);}
+        .nav-link{color:var(--accent);text-decoration:none;font-weight:700;}
+        .nav-sep{color:var(--text-muted);font-weight:700;}
+        .nav-current{color:var(--text-main);font-weight:700;}
+        .page-header{margin:20px 0 40px 0;}
+        h1{font-size:clamp(2rem,8vw,3rem);margin:0;letter-spacing:-2px;font-weight:900;line-height:1;color:var(--text-main);}
+        .subtitle{color:var(--text-muted);font-size:1.1rem;margin-top:10px;font-weight:500;}
+        .top-nav-wrapper{width:100%;background:linear-gradient(180deg,var(--bg-card) 0%,var(--bg-body) 100%);border-bottom:1px solid var(--hr-color);padding:15px 20px;}
+        .top-nav-container{width:100%;max-width:1200px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+        .logo-text{font-size:1.5rem;font-weight:900;color:var(--accent);text-decoration:none;letter-spacing:-1.5px;}
+        .header-ad{display:flex;justify-content:flex-end;align-items:center;min-height:90px;}
+        footer{margin-top:60px;text-align:center;color:var(--text-muted);font-size:0.85rem;font-weight:700;opacity:0.8;}
+        .btn-settings{display:inline-block;padding:12px 24px;background:var(--bg-card);color:var(--text-main);text-decoration:none;border-radius:12px;font-weight:700;border:1px solid var(--hr-color);transition:transform 0.2s ease;}
+        .btn-settings:hover{transform:translateY(-2px);}
+        .section{background:var(--bg-card);border-radius:20px;padding:30px;margin-bottom:24px;border:1px solid var(--hr-color);box-shadow:var(--shadow);}
+        .section h2{font-size:1.5rem;font-weight:900;letter-spacing:-1px;margin:0 0 16px 0;color:var(--page-accent);}
+        .section p{color:var(--text-muted);line-height:1.7;margin:0 0 12px 0;}
+        .highlight{background:var(--bg-body);border-left:4px solid var(--page-accent);border-radius:8px;padding:16px 20px;margin-top:16px;}
+        .highlight strong{color:var(--page-accent);}
+        .info-box{background:linear-gradient(135deg,var(--page-accent) 0%,#0ea5e9 100%);border-radius:16px;padding:24px;color:white;margin-top:16px;}
+        .info-box h3{margin:0 0 12px 0;font-size:1.1rem;}
+        .info-box ul{margin:0;padding-left:20px;line-height:1.9;}
+        .rule-box{background:linear-gradient(135deg,var(--page-accent),#0ea5e9);border-radius:16px;padding:28px;color:white;margin-top:16px;}
+        .rule-box h3{margin:0 0 16px 0;font-size:1.2rem;}
+        .rule-step{display:flex;align-items:flex-start;gap:14px;margin-bottom:14px;}
+        .rule-step .step-icon{font-size:1.4rem;flex-shrink:0;}
+        .rule-step .step-text{font-size:0.95rem;line-height:1.5;}
+        .rule-step .step-text strong{display:block;font-size:1rem;margin-bottom:2px;}
+        .example-box{background:var(--bg-body);border-radius:14px;padding:20px;margin-top:16px;border:2px solid var(--page-accent);}
+        .example-box h3{color:var(--page-accent);font-size:1rem;margin:0 0 12px 0;font-weight:900;}
+        .example-box p{margin:0 0 8px;color:var(--text-muted);line-height:1.7;}
+        .example-box p:last-child{margin:0;}
+        table{width:100%;border-collapse:collapse;margin-top:16px;font-size:0.95rem;}
+        th{background:var(--page-accent);color:white;padding:12px 14px;text-align:left;font-weight:700;}
+        th:first-child{border-radius:10px 0 0 0;}
+        th:last-child{border-radius:0 10px 0 0;}
+        td{padding:11px 14px;border-bottom:1px solid var(--hr-color);color:var(--text-muted);vertical-align:top;}
+        tr:last-child td{border-bottom:none;}
+        tr:nth-child(even) td{background:var(--bg-body);}
+    </style>
+</head>
+<body>
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle" style="display:inline-block;width:728px;height:90px" data-ad-client="ca-pub-7808195997729404" data-ad-slot="1234567890"></ins>
+                <script>(adsbygoogle=window.adsbygoogle||[]).push({});</script>
+            </div>
+        </div>
+    </header>
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <a href="/sobre-tempo-e-clima/" class="nav-link">Sobre Tempo e Clima</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Prazos Jurídicos</span>
+        </nav>
+        <header class="page-header">
+            <h1>⚖️ Prazos Jurídicos em Dias Úteis</h1>
+            <p class="subtitle">Guia prático para advogados e partes sobre como o CPC conta prazos processuais em dias úteis.</p>
+        </header>
+        <main>
+            <div class="section">
+                <h2>A Regra do CPC 2015</h2>
+                <p>O <strong>Código de Processo Civil de 2015 (Lei nº 13.105/2015)</strong> trouxe uma das mudanças mais impactantes para a advocacia brasileira: a determinação de que prazos processuais são contados em <strong>dias úteis</strong>, e não mais em dias corridos como era na vigência do CPC de 1973.</p>
+                <p>A regra está no <strong>artigo 219 do CPC/2015</strong>:</p>
+                <div class="highlight"><em>"Na contagem de prazo em dias, estabelecido por lei ou pelo juiz, computar-se-ão somente os dias úteis."</em><br><strong>— Art. 219, CPC/2015</strong></div>
+                <p style="margin-top:16px;">Essa mudança representou um ganho real de tempo para advogados e partes. Um prazo de 15 dias úteis, por exemplo, equivale a aproximadamente 3 semanas de calendário corrido — significativamente mais que os 15 dias corridos do sistema anterior. Para prazos que incluem feriados prolongados (como Semana Santa ou Carnaval), a diferença pode ser ainda maior.</p>
+                <p>A regra dos dias úteis vale para <strong>todos os prazos processuais contados em dias</strong>, sejam eles estabelecidos por lei ou fixados pelo juiz. As únicas exceções expressas são os prazos contados em horas ou minutos, que seguem a contagem natural sem exclusão de dias não úteis.</p>
+            </div>
+
+            <div class="section">
+                <h2>O Que São Dias Úteis no CPC?</h2>
+                <p>Para fins processuais, são considerados dias úteis os dias nos quais o serviço judiciário está em funcionamento normal. O CPC e a jurisprudência estabelecem que <strong>não são dias úteis</strong>:</p>
+                <div class="info-box">
+                    <h3>📋 Dias excluídos da contagem processual</h3>
+                    <ul>
+                        <li><strong>Sábados e domingos:</strong> o Judiciário não funciona nesses dias, logo não são contados.</li>
+                        <li><strong>Feriados nacionais:</strong> todos os feriados previstos na Lei nº 9.093/1995 e legislação correlata.</li>
+                        <li><strong>Feriados estaduais e municipais</strong> na sede do juízo ou tribunal competente: um feriado em São Paulo suspende prazos nos juízos paulistanos, mas não nos demais.</li>
+                        <li><strong>Recessos forenses:</strong> períodos de recesso do Judiciário declarados pelos tribunais, tipicamente em julho (recesso de meio de ano) e de 20 de dezembro a 20 de janeiro (recesso de fim de ano), conforme o art. 220 do CPC.</li>
+                        <li><strong>Feriados forenses:</strong> dias declarados de expediente suspenso por ato do tribunal (greve de servidores reconhecida, enchentes, eventos excepcionais).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Regras de Contagem: Início e Fim</h2>
+                <p>Além de saber o que conta como dia útil, é essencial dominar as regras sobre quando o prazo começa e quando termina:</p>
+                <div class="rule-box">
+                    <h3>📅 As 4 regras fundamentais de contagem</h3>
+                    <div class="rule-step">
+                        <span class="step-icon">1️⃣</span>
+                        <div class="step-text">
+                            <strong>O prazo não começa no dia da intimação (art. 224, CPC)</strong>
+                            O prazo começa a correr no <strong>primeiro dia útil seguinte</strong> à intimação. Se a intimação ocorrer numa quinta-feira, o prazo começa na sexta-feira (se for dia útil). Se a intimação ocorrer numa sexta-feira, o prazo começa na segunda-feira seguinte.
+                        </div>
+                    </div>
+                    <div class="rule-step">
+                        <span class="step-icon">2️⃣</span>
+                        <div class="step-text">
+                            <strong>Conta-se o primeiro dia e o último (art. 224, §1º, CPC)</strong>
+                            O primeiro dia útil após a intimação é o "dia 1" do prazo. O prazo se encerra quando a contagem atingir o número de dias úteis estabelecido.
+                        </div>
+                    </div>
+                    <div class="rule-step">
+                        <span class="step-icon">3️⃣</span>
+                        <div class="step-text">
+                            <strong>Prorrogação automática (art. 224, §1º, CPC)</strong>
+                            Se o último dia do prazo cair em dia não útil (sábado, domingo, feriado ou recesso), o prazo fica automaticamente prorrogado para o <strong>primeiro dia útil subsequente</strong>.
+                        </div>
+                    </div>
+                    <div class="rule-step">
+                        <span class="step-icon">4️⃣</span>
+                        <div class="step-text">
+                            <strong>Peticionamento até as 24h do último dia (art. 213, CPC)</strong>
+                            A petição pode ser protocolada eletronicamente até as 23h59min59s do último dia do prazo, horário de Brasília (UTC-3), no sistema eletrônico do tribunal.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2>Suspensão de Prazos</h2>
+                <p>Além dos dias não úteis da semana e feriados, existem situações específicas em que os prazos processuais ficam suspensos — ou seja, param de correr por um período e retomam depois:</p>
+                <p><strong>Recessos forenses (art. 220, CPC):</strong> o CPC determina que os prazos ficam suspensos durante os períodos de recesso definidos pelos tribunais. O recesso de fim de ano ocorre de <strong>20 de dezembro a 20 de janeiro</strong>. Muitos tribunais também têm recesso de meio de ano em julho (tipicamente de 1° a 31 de julho, mas pode variar por tribunal).</p>
+                <p><strong>Força maior e caso fortuito:</strong> situações excepcionais como desastres naturais, pandemias ou crises que impeçam o funcionamento do Judiciário podem gerar suspensão de prazos por ato do tribunal ou por lei especial. Na pandemia de COVID-19 (2020), a Lei nº 14.010/2020 suspendeu prazos processuais em todo o país por período determinado.</p>
+                <p><strong>Greve de servidores:</strong> se reconhecida pelo tribunal, uma greve de servidores pode justificar a suspensão de prazos enquanto durar o impedimento ao acesso aos autos.</p>
+                <div class="highlight"><strong>Como verificar:</strong> o site de cada tribunal publica seu calendário de recessos e as resoluções que estabelecem suspensões de prazo. Sempre consulte o portal do tribunal competente para confirmar os períodos de suspensão aplicáveis ao seu processo.</div>
+            </div>
+
+            <div class="section">
+                <h2>Prazos em Dias Corridos no CPC</h2>
+                <p>Apesar da regra geral de dias úteis, existem <strong>exceções expressas no próprio CPC</strong> em que o prazo é contado em dias corridos (calendário), não em dias úteis. É fundamental conhecê-las para não incorrer em erro:</p>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Prazo</th>
+                            <th>Tipo de contagem</th>
+                            <th>Base legal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Cumprimento espontâneo de sentença (pagamento voluntário)</td>
+                            <td><strong>15 dias corridos</strong></td>
+                            <td>Art. 523, CPC</td>
+                        </tr>
+                        <tr>
+                            <td>Prazo para o devedor pagar em execução de título extrajudicial</td>
+                            <td><strong>3 dias corridos</strong></td>
+                            <td>Art. 829, CPC</td>
+                        </tr>
+                        <tr>
+                            <td>Prazo para Fazenda Pública cumprir sentença</td>
+                            <td><strong>30 dias corridos</strong></td>
+                            <td>Art. 534, CPC</td>
+                        </tr>
+                        <tr>
+                            <td>Prazo para conciliar em audiência de mediação (distância entre designação e realização)</td>
+                            <td>Contagem calendário para agendamento</td>
+                            <td>Art. 334, CPC</td>
+                        </tr>
+                        <tr>
+                            <td>Prazos do direito material (contratos, prescrição, decadência)</td>
+                            <td><strong>Dias corridos</strong> (regra do Código Civil)</td>
+                            <td>Art. 132, CC</td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p style="margin-top:16px;">A distinção entre prazos processuais (art. 219 CPC — dias úteis) e prazos de direito material (Código Civil — dias corridos) é especialmente relevante. O prazo de prescrição de uma ação, por exemplo, é contado em dias corridos, mesmo que o prazo para apresentar a contestação seja contado em dias úteis.</p>
+            </div>
+
+            <div class="section">
+                <h2>Exemplo Prático de Contagem</h2>
+                <p>Veja como contar um prazo de 15 dias úteis na prática. Suponha o seguinte cenário:</p>
+                <div class="example-box">
+                    <h3>📌 Cenário: Prazo de contestação de 15 dias úteis</h3>
+                    <p><strong>Intimação publicada:</strong> sexta-feira, dia 4 de abril de 2025.</p>
+                    <p><strong>Início do prazo:</strong> o prazo não começa na sexta (dia da intimação), nem no sábado ou domingo. Começa na <strong>segunda-feira, dia 7 de abril</strong> (1° dia útil).</p>
+                    <p><strong>Semana Santa:</strong> em 2025, a Sexta-Feira Santa é dia 18 de abril (feriado nacional). Esse dia não conta. Se o tribunal local também reconhecer a Quinta-Feira Santa (17 de abril) como ponto facultativo ou feriado forense, esse dia também não conta.</p>
+                    <p><strong>Contagem (dias úteis válidos):</strong></p>
+                    <table style="margin-top:8px;font-size:0.88rem;">
+                        <thead><tr><th>Data</th><th>Dia da semana</th><th>Status</th><th>Dia útil</th></tr></thead>
+                        <tbody>
+                            <tr><td>07/04</td><td>Segunda</td><td>Dia normal</td><td><strong>Dia 1</strong></td></tr>
+                            <tr><td>08/04</td><td>Terça</td><td>Dia normal</td><td><strong>Dia 2</strong></td></tr>
+                            <tr><td>09/04</td><td>Quarta</td><td>Dia normal</td><td><strong>Dia 3</strong></td></tr>
+                            <tr><td>10/04</td><td>Quinta</td><td>Dia normal</td><td><strong>Dia 4</strong></td></tr>
+                            <tr><td>11/04</td><td>Sexta</td><td>Dia normal</td><td><strong>Dia 5</strong></td></tr>
+                            <tr><td>12–13/04</td><td>Sáb/Dom</td><td>Fim de semana — não conta</td><td>—</td></tr>
+                            <tr><td>14/04</td><td>Segunda</td><td>Dia normal</td><td><strong>Dia 6</strong></td></tr>
+                            <tr><td>15/04</td><td>Terça</td><td>Dia normal</td><td><strong>Dia 7</strong></td></tr>
+                            <tr><td>16/04</td><td>Quarta</td><td>Dia normal</td><td><strong>Dia 8</strong></td></tr>
+                            <tr><td>17/04</td><td>Quinta</td><td>Quinta da Paixão — verificar feriado forense</td><td><strong>Dia 9</strong> (se útil)</td></tr>
+                            <tr><td>18/04</td><td>Sexta</td><td>Sexta-Feira Santa — feriado nacional</td><td>— não conta</td></tr>
+                            <tr><td>19–20/04</td><td>Sáb/Dom</td><td>Fim de semana — não conta</td><td>—</td></tr>
+                            <tr><td>21/04</td><td>Segunda</td><td>Tiradentes — feriado nacional</td><td>— não conta</td></tr>
+                            <tr><td>23/04</td><td>Quarta</td><td>Dia normal</td><td><strong>Dia 10</strong></td></tr>
+                            <tr><td>24/04</td><td>Quinta</td><td>Dia normal</td><td><strong>Dia 11</strong></td></tr>
+                            <tr><td>25/04</td><td>Sexta</td><td>Dia normal</td><td><strong>Dia 12</strong></td></tr>
+                            <tr><td>26–27/04</td><td>Sáb/Dom</td><td>Fim de semana — não conta</td><td>—</td></tr>
+                            <tr><td>28/04</td><td>Segunda</td><td>Dia normal</td><td><strong>Dia 13</strong></td></tr>
+                            <tr><td>29/04</td><td>Terça</td><td>Dia normal</td><td><strong>Dia 14</strong></td></tr>
+                            <tr><td>30/04</td><td>Quarta</td><td>Dia normal</td><td><strong>Dia 15 ✓</strong></td></tr>
+                        </tbody>
+                    </table>
+                    <p><strong>Vencimento:</strong> <strong>30 de abril de 2025</strong> (quarta-feira), considerando o Tiradentes (21 de abril) como feriado nacional.</p>
+                </div>
+                <p style="margin-top:16px;">Para calcular prazos com precisão, considerando feriados nacionais, use a <a href="/calculadora/dias-uteis/" style="color:var(--page-accent);">Calculadora de Dias Úteis</a> deste site. Para verificar os feriados do ano, consulte a <a href="/feriados/" style="color:var(--page-accent);">página de feriados</a>.</p>
+            </div>
+
+            <div class="section">
+                <h2>Perguntas Frequentes sobre Prazos Jurídicos</h2>
+                <div style="display:flex;flex-direction:column;gap:12px;">
+                    <div style="border:1px solid var(--hr-color);border-radius:12px;padding:18px;">
+                        <p style="font-weight:700;margin:0 0 8px;">O sábado conta como dia útil no CPC?</p>
+                        <p style="color:var(--text-muted);margin:0;line-height:1.7;">Não. O sábado não é considerado dia útil para fins processuais no CPC/2015. Apesar de não ser feriado na acepção estrita do termo, o Judiciário não funciona aos sábados (salvo exceções específicas como plantões), e a jurisprudência consolidada do STJ pacificou que sábados são excluídos da contagem de prazos em dias úteis. O mesmo vale para domingos.</p>
+                    </div>
+                    <div style="border:1px solid var(--hr-color);border-radius:12px;padding:18px;">
+                        <p style="font-weight:700;margin:0 0 8px;">Feriado estadual suspende prazo no TRF?</p>
+                        <p style="color:var(--text-muted);margin:0;line-height:1.7;">Depende. Os Tribunais Regionais Federais (TRFs) são órgãos da Justiça Federal e, em regra, seguem seu próprio calendário de feriados — que pode incluir ou não feriados estaduais da sede do tribunal. O TRF da 3ª Região (SP e MS), por exemplo, publica seu próprio calendário que pode incluir o 9 de julho (feriado paulista). Sempre consulte o calendário específico do TRF competente no portal do tribunal.</p>
+                    </div>
+                    <div style="border:1px solid var(--hr-color);border-radius:12px;padding:18px;">
+                        <p style="font-weight:700;margin:0 0 8px;">Recesso de julho é universal em todos os tribunais?</p>
+                        <p style="color:var(--text-muted);margin:0;line-height:1.7;">Não necessariamente. O recesso de julho existe em muitos tribunais estaduais e federais, mas sua duração varia. O art. 220 do CPC suspende os prazos de 20 de dezembro a 20 de janeiro (recesso de fim de ano), mas o recesso de julho é fixado por cada tribunal em sua resolução própria. Alguns tribunais têm recesso durante toda a primeira quinzena de julho; outros, apenas alguns dias. Consulte o portal do seu tribunal.</p>
+                    </div>
+                    <div style="border:1px solid var(--hr-color);border-radius:12px;padding:18px;">
+                        <p style="font-weight:700;margin:0 0 8px;">Como calcular prazo de contestação de 15 dias?</p>
+                        <p style="color:var(--text-muted);margin:0;line-height:1.7;">O prazo para contestação é de <strong>15 dias úteis</strong> (art. 335, CPC). Conta a partir do primeiro dia útil seguinte à citação (ou ao término do prazo para audiência de conciliação, nos casos em que ela ocorre). Exclua sábados, domingos, feriados nacionais, feriados estaduais/municipais da sede do juízo e períodos de recesso forense. Use a <a href="/calculadora/dias-uteis/" style="color:var(--page-accent);">Calculadora de Dias Úteis</a> para obter a data exata.</p>
+                    </div>
+                    <div style="border:1px solid var(--hr-color);border-radius:12px;padding:18px;">
+                        <p style="font-weight:700;margin:0 0 8px;">Qual é o prazo para interpor apelação?</p>
+                        <p style="color:var(--text-muted);margin:0;line-height:1.7;">O prazo para apelação é de <strong>15 dias úteis</strong> (art. 1.003, §5º, CPC), contados a partir da publicação da sentença ou de sua intimação pessoal. Para a Fazenda Pública, autarquias, fundações públicas, Ministério Público e Defensoria Pública, o prazo é em dobro: <strong>30 dias úteis</strong> (art. 183 e 186, CPC). O recurso deve ser interposto dentro desse prazo, com pagamento das custas (quando aplicável) e razões recursais.</p>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top:30px;font-size:0.85rem;color:var(--text-muted);text-align:center;line-height:1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color:var(--text-muted);text-decoration:underline;">contato@dataehora.com.br</a><br><br>
+            <a href="/privacidade/" style="color:var(--text-muted);text-decoration:underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color:var(--text-muted);text-decoration:underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color:var(--text-muted);text-decoration:underline;">Sobre</a> |
+            <a href="/contato/" style="color:var(--text-muted);text-decoration:underline;">Contato</a>
+        </div>
+    </footer>
+<script defer src="/js/cookie-consent.js"></script>
+</body>
+</html>

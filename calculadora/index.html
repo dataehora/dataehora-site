@@ -1,13 +1,27 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
     
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
      crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
 
     <meta charset="UTF-8">
-    <link rel="icon" type="image/png" href="/assets/br.png">
-    <link rel="apple-touch-icon" href="/assets/br.png">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
     <!-- SEO Meta Tags -->
@@ -23,6 +37,9 @@
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://dataehora.com.br/calculadora/">
     <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
     
     <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
@@ -60,12 +77,6 @@
       gtag('config', 'G-4Y5H59FEQE');
     </script>
     
-    <!-- CRITICAL: Inline theme script to prevent FOUC (replaces external theme.js) -->
-    <!-- Original source: /js/theme.js - minified inline for performance -->
-    <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#020617':'#f1f5f9';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#020617':'#f1f5f9'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
-    </script>
-
     <style>
         /* 5. PADRONIZAÇÃO DE CORES (Conforme Página Inicial) */
         :root {
@@ -80,16 +91,22 @@
             --color-uteis: #1e40af; /* Índigo Formal */
             --color-dif: #334155;   /* Slate Profissional */
             --color-soma: #0369a1;  /* Azul Oceano */
+            --color-idade: #7c3aed; /* Violeta Aniversário */
         }
 
         [data-theme="dark"] {
-            --bg-body: #020617;
-            --bg-card: #0f172a;
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
             --text-main: #f8fafc;
             --text-muted: #94a3b8;
             --accent: #60a5fa;
             --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
             --hr-color: rgba(248, 250, 252, 0.2);
+        }
+
+        /* Prevent transitions during initial page load to avoid flickering */
+        .no-transition * {
+            transition: none !important;
         }
 
         * { box-sizing: border-box; }
@@ -155,6 +172,7 @@
         .card-uteis { --card-color: var(--color-uteis); }
         .card-dif { --card-color: var(--color-dif); }
         .card-soma { --card-color: var(--color-soma); }
+        .card-idade { --card-color: var(--color-idade); }
         
         .hub-card:hover .card-title { color: var(--accent); }
 
@@ -190,9 +208,60 @@
             .nav-header { justify-content: center; }
             .hub-grid { grid-template-columns: 1fr; }
         }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
     </style>
+
 </head>
 <body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <!-- Logo (mantém exatamente como está) -->
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            
+            <!-- AdSense Banner (novo) -->
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
 
     <div class="container">
         <nav class="nav-header" aria-label="Navegação estrutural">
@@ -201,20 +270,14 @@
             <span class="nav-current">Calculadoras</span>
         </nav>
 
-        <div class="header-ad-container">
-            <ins class="adsbygoogle"
-                 style="display:inline-block;width:728px;height:90px"
-                 data-ad-client="ca-pub-7808195997729404"
-                 data-ad-slot="1234567890"></ins>
-            <script>
-                 (adsbygoogle = window.adsbygoogle || []).push({});
-            </script>
-        </div>
-
         <header class="header">
             <h1>Calculadoras</h1>
             <p class="subtitle">Ferramentas de tempo precisas e profissionais.</p>
         </header>
+
+        <p style="line-height: 1.8; color: var(--text-main); margin-bottom: 40px;">
+            Nosso conjunto de <strong>calculadoras de datas e tempo</strong> foi desenvolvido para atender desde o uso cotidiano até necessidades profissionais que exigem precisão. Calcule prazos em <strong>dias úteis</strong> descontando feriados — indispensável para contratos, processos judiciais e obrigações fiscais. Descubra a diferença exata entre duas datas em dias, meses e anos. Some ou subtraia períodos para encontrar datas futuras ou passadas. Ou simplesmente calcule sua idade com detalhes. Todas as ferramentas funcionam diretamente no navegador, são gratuitas e não exigem cadastro.
+        </p>
 
         <main class="hub-grid">
             <a href="/calculadora/dias-uteis/" class="hub-card card-uteis">
@@ -237,7 +300,89 @@
                 <span class="card-desc">Descubra uma data futura ou passada adicionando dias, meses ou anos.</span>
                 <span class="btn-action">Somar Tempo →</span>
             </a>
+
+            <a href="/calculadora/idade/" class="hub-card card-idade">
+                <span class="card-icon">🎂</span>
+                <span class="card-title">Calculadora de Idade</span>
+                <span class="card-desc">Saiba sua idade exata em anos, meses, dias e horas a partir da sua data de nascimento.</span>
+                <span class="btn-action">Calcular Idade →</span>
+            </a>
         </main>
+    </div>
+
+    <div style="max-width:900px;width:100%;margin:0 auto;padding:0 20px;">
+        <hr style="border:none;border-top:1px solid var(--hr-color);margin:50px 0 40px;">
+
+        <section style="margin-bottom:40px;">
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:0 0 16px;">O que são calculadoras de datas?</h2>
+            <p style="line-height:1.8;color:var(--text-main);margin:0 0 16px;">
+                Calculadoras de datas são ferramentas que automatizam operações matemáticas com o calendário — somando, subtraindo ou comparando datas com precisão de dias, meses e anos. No dia a dia, essas operações parecem simples, mas envolvem variáveis complexas como anos bissextos, variação no número de dias por mês e os feriados nacionais que alteram a contagem de dias úteis.
+            </p>
+            <p style="line-height:1.8;color:var(--text-main);margin:0 0 16px;">
+                No <strong>dataehora.com.br</strong> você encontra quatro calculadoras especializadas, cada uma projetada para um tipo de consulta diferente. Todas funcionam diretamente no navegador, sem instalação e sem cadastro, e consideram os feriados nacionais do Brasil para garantir resultados corretos em contextos profissionais e legais.
+            </p>
+        </section>
+
+        <section style="margin-bottom:40px;">
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:0 0 16px;">Qual calculadora usar?</h2>
+            <ul style="margin:0 0 16px;padding-left:24px;line-height:2.2;color:var(--text-main);">
+                <li><strong>Dias Úteis:</strong> quando precisa calcular prazos contratuais, processuais ou trabalhistas descontando sábados, domingos e feriados nacionais.</li>
+                <li><strong>Diferença de Datas:</strong> quando quer saber quantos dias, meses ou anos separam duas datas — ideal para calcular tempo de serviço, vigência de contratos ou tempo de gestação.</li>
+                <li><strong>Somar ou Subtrair Tempo:</strong> quando precisa descobrir uma data futura ou passada a partir de hoje — útil para calcular vencimentos, garantias ou datas de entrega.</li>
+                <li><strong>Calculadora de Idade:</strong> quando quer saber a idade exata de uma pessoa em anos, meses, dias e horas — útil para fins previdenciários, médicos ou simplesmente por curiosidade.</li>
+            </ul>
+        </section>
+
+        <section style="margin-bottom:40px;">
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:0 0 16px;">Para que serve: exemplos práticos</h2>
+            <ul style="margin:0 0 16px;padding-left:24px;line-height:2.2;color:var(--text-main);">
+                <li><strong>Advogados e escritórios jurídicos:</strong> calcular prazos processuais (CPC, CLT, prazos de recurso) em dias úteis, excluindo feriados automaticamente.</li>
+                <li><strong>Contadores e departamentos fiscais:</strong> apurar datas de vencimento de obrigações tributárias, DCTF, SPED e outros documentos fiscais.</li>
+                <li><strong>RH e gestão de pessoas:</strong> calcular tempo de serviço para férias proporcionais, 13º salário, aviso prévio e benefícios previdenciários.</li>
+                <li><strong>Gestores de projetos:</strong> estimar datas de entrega adicionando dias úteis a uma data de início, considerando feriados do calendário brasileiro.</li>
+                <li><strong>Professores e estudantes:</strong> calcular prazos para entrega de trabalhos, provas e atividades dentro do calendário escolar.</li>
+                <li><strong>Setor da saúde:</strong> calcular data prevista de parto (DPP) somando 280 dias à data da última menstruação (DUM).</li>
+            </ul>
+        </section>
+
+        <section style="margin-bottom:40px;">
+            <h2 style="font-size:1.6rem;font-weight:800;color:var(--text-main);margin:0 0 16px;">Perguntas Frequentes</h2>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">As calculadoras consideram feriados estaduais e municipais?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Atualmente as calculadoras consideram apenas os <strong>feriados nacionais</strong> do Brasil. Feriados estaduais e municipais variam de cidade para cidade e não estão incluídos automaticamente. Recomendamos verificar a lista de feriados do seu estado antes de usar o resultado em prazos legais.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">O sábado é considerado dia útil?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Na calculadora de dias úteis do dataehora.com.br, sábados <strong>não</strong> são contados como dias úteis, seguindo o critério mais comum usado em prazos judiciais e contratos. Em algumas convenções coletivas e setores específicos, o sábado pode ser considerado útil — nesses casos, consulte a legislação específica aplicável.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Como calcular o prazo de 5 dias úteis a partir de hoje?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Use a <a href="/calculadora/dias-uteis/" style="color:var(--accent);">Calculadora de Dias Úteis</a>: selecione a data de início (hoje), informe 5 dias úteis e clique em calcular. A ferramenta identificará automaticamente a data de término excluindo sábados, domingos e feriados nacionais.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Como calcular quantos dias faltam para uma data?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Use a <a href="/calculadora/diferenca-datas/" style="color:var(--accent);">Calculadora de Diferença de Datas</a>: coloque a data de hoje na primeira caixa e a data futura na segunda. O resultado mostrará os dias corridos restantes. Você também pode usar a <a href="/contagem/" style="color:var(--accent);">Contagem Regressiva</a> para acompanhar o tempo em tempo real.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">As calculadoras funcionam em celular?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Sim. Todas as calculadoras do dataehora.com.br são totalmente responsivas e funcionam em smartphones, tablets e computadores, em qualquer navegador moderno, sem necessidade de aplicativo ou instalação.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Como calcular a diferença entre datas em meses?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">A <a href="/calculadora/diferenca-datas/" style="color:var(--accent);">Calculadora de Diferença de Datas</a> exibe o resultado em anos, meses e dias simultaneamente. Por exemplo, a diferença entre 01/01/2024 e 15/06/2025 será exibida como 1 ano, 5 meses e 14 dias — além do total de dias corridos.</p>
+            </div>
+
+            <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
+                <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Posso calcular prazos para anos futuros?</p>
+                <p style="color:var(--text-muted);line-height:1.7;margin:0;">Sim. As calculadoras suportam datas de anos anteriores e futuros, cobrindo os feriados nacionais cadastrados. Os feriados considerados incluem os anos de 2024 a 2028.</p>
+            </div>
+        </section>
     </div>
 
     <footer>
@@ -248,9 +393,12 @@
             <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
             <br>
             <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
-            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a>
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
         </div>
     </footer>
 
+<script defer src="/js/cookie-consent.js"></script>
 </body>
 </html>
