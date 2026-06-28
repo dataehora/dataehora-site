@@ -168,11 +168,16 @@
         }
 
         .header-subtitle {
-            color: var(--text-main);
+            color: #2563eb;
             font-size: 1.5rem;
             margin: 10px 0 0 0;
             font-weight: 900;
             letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
         }
 
         .header-rounds {
@@ -291,11 +296,38 @@
         }
 
         .export-subtitle {
-            color: #1e293b;
+            color: #2563eb;
             font-size: 1.3rem;
             font-weight: 900;
             margin-top: 6px;
             letter-spacing: -0.3px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .timezone-label {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            flex-wrap: wrap;
+            color: #2563eb;
+        }
+
+        .timezone-country {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .timezone-country img {
+            width: 22px;
+            height: 16px;
+            border-radius: 3px;
+            display: block;
         }
 
         .export-rounds {
@@ -553,6 +585,13 @@
             display: block;
             width: 110px;
             height: 110px;
+        }
+
+        .center-trophy .trophy-image {
+            display: block;
+            width: 110px;
+            height: 110px;
+            object-fit: contain;
         }
 
         @keyframes bounce {
@@ -1068,14 +1107,87 @@
 
         let currentTimezone = "America/Sao_Paulo";
         let currentCountryCode = "BR";
+        const countryTimezonePrepositions = {
+            AR: 'da',
+            AT: 'da',
+            AU: 'da',
+            BE: 'da',
+            BO: 'da',
+            BR: 'do',
+            BS: 'das',
+            CA: 'do',
+            CH: 'da',
+            CN: 'da',
+            CO: 'da',
+            DE: 'da',
+            DK: 'da',
+            DZ: 'da',
+            EC: 'do',
+            EG: 'do',
+            ES: 'da',
+            FI: 'da',
+            FR: 'da',
+            GB: 'do',
+            GM: 'da',
+            ID: 'da',
+            IE: 'da',
+            IN: 'da',
+            IS: 'da',
+            IT: 'da',
+            JP: 'do',
+            KR: 'da',
+            KZ: 'do',
+            MA: 'de',
+            MH: 'das',
+            MV: 'das',
+            MX: 'do',
+            NL: 'dos',
+            NO: 'da',
+            PH: 'das',
+            PL: 'da',
+            RO: 'da',
+            RU: 'da',
+            SB: 'das',
+            SC: 'das',
+            SE: 'da',
+            TN: 'da',
+            TR: 'da',
+            UA: 'da',
+            US: 'dos',
+            VE: 'da',
+            ZA: 'da'
+        };
+
+        function getCountryFlagUrl(countryCode) {
+            return `https://flagcdn.com/32x24/${countryCode.toLowerCase()}.png`;
+        }
+
+        function getTimezoneCountryPrefix(countryCode) {
+            const preposition = countryTimezonePrepositions[countryCode] || 'de';
+            return `Jogos com horários no fuso ${preposition}`;
+        }
+
+        function renderTimezoneLabel(target, countryCode, countryName) {
+            if (!target) return;
+
+            const flagUrl = getCountryFlagUrl(countryCode);
+            target.innerHTML = `
+                <span class="timezone-label">
+                    <span>${getTimezoneCountryPrefix(countryCode)}</span>
+                    <span class="timezone-country">
+                        <span>${countryName}</span>
+                        <img src="${flagUrl}" alt="${countryName}" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
+                    </span>
+                </span>
+            `;
+        }
 
         function updateTimezoneLabels() {
             const selectedCountry = allCountries[currentCountryCode] || allCountries.BR;
-            const label = ` - Jogos no fuso do ${selectedCountry.name}`;
             const headerTimezoneText = document.getElementById('header-timezone-text');
             const exportTimezoneText = document.getElementById('export-timezone-text');
-            if (headerTimezoneText) headerTimezoneText.textContent = label;
-            if (exportTimezoneText) exportTimezoneText.textContent = label;
+            renderTimezoneLabel(headerTimezoneText, currentCountryCode, selectedCountry.name);
+            renderTimezoneLabel(exportTimezoneText, currentCountryCode, selectedCountry.name);
         }
 
         function setupTimezoneSelect() {
@@ -1373,26 +1485,16 @@
                     <div class="center-column-games">
                         <div class="finals-frame">
                             <div class="center-trophy" role="img" aria-label="Taça da Copa do Mundo 2026">
-                                <svg viewBox="0 0 128 128" aria-hidden="true">
-                                    <defs>
-                                        <linearGradient id="trophy-gold" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#fde68a"></stop>
-                                            <stop offset="45%" stop-color="#facc15"></stop>
-                                            <stop offset="100%" stop-color="#ca8a04"></stop>
-                                        </linearGradient>
-                                        <linearGradient id="trophy-base" x1="0%" y1="0%" x2="100%" y2="100%">
-                                            <stop offset="0%" stop-color="#1d4ed8"></stop>
-                                            <stop offset="100%" stop-color="#1e3a8a"></stop>
-                                        </linearGradient>
-                                    </defs>
-                                    <path d="M39 18c0 29 10 52 25 63 15-11 25-34 25-63H39z" fill="url(#trophy-gold)" stroke="#a16207" stroke-width="3" stroke-linejoin="round"></path>
-                                    <path d="M39 25H23c0 18 8 28 24 31" fill="none" stroke="#a16207" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M89 25h16c0 18-8 28-24 31" fill="none" stroke="#a16207" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
-                                    <path d="M53 79h22v11c0 7 5 13 12 13H41c7 0 12-6 12-13V79z" fill="url(#trophy-gold)" stroke="#a16207" stroke-width="3" stroke-linejoin="round"></path>
-                                    <rect x="35" y="103" width="58" height="12" rx="4" fill="url(#trophy-base)"></rect>
-                                    <rect x="47" y="115" width="34" height="8" rx="4" fill="#1e40af"></rect>
-                                    <circle cx="64" cy="48" r="10" fill="rgba(255,255,255,0.28)"></circle>
-                                </svg>
+                                <img
+                                    class="trophy-image"
+                                    src="https://github.com/user-attachments/assets/439e8e53-68de-4507-b0fc-951c11f5fc53"
+                                    alt="Taça da Copa do Mundo 2026"
+                                    width="110"
+                                    height="110"
+                                    loading="eager"
+                                    crossorigin="anonymous"
+                                    referrerpolicy="no-referrer"
+                                >
                             </div>
                             ${createFinalCard(copaStructure.final[0])}
                             <div class="terceiro-header">🥉 3º Lugar</div>
@@ -1601,6 +1703,26 @@
             }
         }
 
+        async function waitForImages(scope) {
+            const images = Array.from(scope.querySelectorAll('img'));
+            if (!images.length) return;
+
+            await Promise.all(images.map((img) => {
+                if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+
+                return new Promise((resolve) => {
+                    const done = () => {
+                        img.removeEventListener('load', done);
+                        img.removeEventListener('error', done);
+                        resolve();
+                    };
+
+                    img.addEventListener('load', done, { once: true });
+                    img.addEventListener('error', done, { once: true });
+                });
+            }));
+        }
+
         async function exportToPDF() {
             const { jsPDF } = window.jspdf;
             const element = document.getElementById('export-area');
@@ -1610,10 +1732,12 @@
             btn.disabled = true;
 
             try {
+                await waitForImages(element);
                 const canvas = await html2canvas(element, { 
                     scale: 2, 
                     useCORS: true, 
                     backgroundColor: '#ffffff',
+                    imageTimeout: 0,
                     logging: false 
                 });
                 const imgData = canvas.toDataURL('image/png');
