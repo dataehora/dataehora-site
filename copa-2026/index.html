@@ -288,8 +288,9 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            gap: 12px;
+            gap: 6px;
             width: 100%;
+            min-height: 900px;
             overflow-x: auto;
             padding: 20px 0;
             position: relative;
@@ -309,12 +310,28 @@
         .bracket-column {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            gap: 12px;
-            min-width: 180px;
-            flex: 0 0 auto;
+            min-width: 155px;
+            flex: 1;
             position: relative;
             z-index: 2;
+        }
+
+        .column-games {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            flex: 1;
+            align-items: stretch;
+        }
+
+        .center-column-games {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            gap: 16px;
+            padding: 10px 0;
         }
 
         .round-header {
@@ -326,12 +343,25 @@
             letter-spacing: 1px;
             margin-bottom: 10px;
             padding: 8px 0;
+            flex-shrink: 0;
+        }
+
+        .terceiro-header {
+            text-align: center;
+            font-size: 0.75rem;
+            font-weight: 800;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 4px 0;
         }
 
         .match-container {
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            justify-content: center;
+            padding: 2px 0;
+            width: 100%;
         }
 
         .match-time {
@@ -422,10 +452,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            line-height: 1;
-            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Noto Emoji", sans-serif;
-            font-variant-emoji: emoji;
+            overflow: hidden;
+        }
+        .flag img {
+            width: 22px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block;
         }
 
         .team-name {
@@ -582,7 +616,7 @@
         <div id="export-area">
             <div class="export-content">
                 <div class="export-header">
-                    <h1 class="dynamic-title">Copa do Mundo 2026</h1>
+                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026">🇧🇷 Copa do Mundo 2026</h1>
                     <div class="export-subtitle">Fase Eliminatória - 16 avos até a Final</div>
                 </div>
 
@@ -815,39 +849,52 @@
             "ZW": { name: "Zimbábue", flag: "🇿🇼", timezone: "Africa/Harare" }
         };
 
-        // Estrutura da Copa 2026 - 32 times em chaves espelhadas
+        // Estrutura da Copa 2026 - 48 times, 32 na fase eliminatória
         const copaStructure = {
             avos: [
                 // Lado esquerdo - 16 avos (8 jogos)
-                { id: "AV1", date: "2026-06-12", time: "14:00", team1: "BR", team2: "VE", side: "left", isBrazil: true },
-                { id: "AV2", date: "2026-06-13", time: "14:00", team1: "AR", team2: "AU", side: "left", isBrazil: false },
-                { id: "AV3", date: "2026-06-13", time: "22:00", team1: "MX", team2: "CM", side: "left", isBrazil: false },
-                { id: "AV4", date: "2026-06-14", time: "13:00", team1: "GB", team2: "NZ", side: "left", isBrazil: false },
+                { id: "AV1",  date: "2026-06-27", time: "13:00", team1: "BR", team2: "VE", side: "left",  isBrazil: true  },
+                { id: "AV2",  date: "2026-06-27", time: "17:00", team1: "AR", team2: "AU", side: "left",  isBrazil: false },
+                { id: "AV3",  date: "2026-06-28", time: "13:00", team1: "MX", team2: "CM", side: "left",  isBrazil: false },
+                { id: "AV4",  date: "2026-06-28", time: "17:00", team1: "GB", team2: "NZ", side: "left",  isBrazil: false },
+                { id: "AV5",  date: "2026-06-29", time: "13:00", team1: "US", team2: "CR", side: "left",  isBrazil: false },
+                { id: "AV6",  date: "2026-06-29", time: "17:00", team1: "PT", team2: "EC", side: "left",  isBrazil: false },
+                { id: "AV7",  date: "2026-06-30", time: "13:00", team1: "ES", team2: "CO", side: "left",  isBrazil: false },
+                { id: "AV8",  date: "2026-06-30", time: "17:00", team1: "BE", team2: "UY", side: "left",  isBrazil: false },
                 // Lado direito - 16 avos (8 jogos)
-                { id: "AV5", date: "2026-06-12", time: "16:00", team1: "ZA", team2: "IR", side: "right", isBrazil: false },
-                { id: "AV6", date: "2026-06-13", time: "18:00", team1: "NL", team2: "SN", side: "right", isBrazil: false },
-                { id: "AV7", date: "2026-06-13", time: "17:30", team1: "DE", team2: "SK", side: "right", isBrazil: false },
-                { id: "AV8", date: "2026-06-14", time: "18:00", team1: "FR", team2: "MA", side: "right", isBrazil: false }
+                { id: "AV9",  date: "2026-06-27", time: "21:00", team1: "ZA", team2: "IR", side: "right", isBrazil: false },
+                { id: "AV10", date: "2026-06-28", time: "21:00", team1: "NL", team2: "SN", side: "right", isBrazil: false },
+                { id: "AV11", date: "2026-06-29", time: "21:00", team1: "DE", team2: "SK", side: "right", isBrazil: false },
+                { id: "AV12", date: "2026-06-30", time: "21:00", team1: "FR", team2: "MA", side: "right", isBrazil: false },
+                { id: "AV13", date: "2026-07-01", time: "13:00", team1: "JP", team2: "CA", side: "right", isBrazil: false },
+                { id: "AV14", date: "2026-07-01", time: "17:00", team1: "KR", team2: "PA", side: "right", isBrazil: false },
+                { id: "AV15", date: "2026-07-02", time: "13:00", team1: "HR", team2: "SA", side: "right", isBrazil: false },
+                { id: "AV16", date: "2026-07-02", time: "17:00", team1: "RS", team2: "GH", side: "right", isBrazil: false }
             ],
             oitavas: [
-                { id: "OT1", date: "2026-06-29", time: "14:00", from1: "AV1", from2: "AV5", side: "left", isBrazil: true },
-                { id: "OT2", date: "2026-06-30", time: "14:00", from1: "AV2", from2: "AV6", side: "left", isBrazil: false },
-                { id: "OT3", date: "2026-06-30", time: "22:00", from1: "AV3", from2: "AV7", side: "left", isBrazil: false },
-                { id: "OT4", date: "2026-07-01", time: "13:00", from1: "AV4", from2: "AV8", side: "left", isBrazil: false },
-                { id: "OT5", date: "2026-06-28", time: "16:00", from1: "AV1", from2: "AV5", side: "right", isBrazil: false },
-                { id: "OT6", date: "2026-06-29", time: "22:00", from1: "AV2", from2: "AV6", side: "right", isBrazil: false },
-                { id: "OT7", date: "2026-06-29", time: "17:30", from1: "AV3", from2: "AV7", side: "right", isBrazil: false },
-                { id: "OT8", date: "2026-06-30", time: "18:00", from1: "AV4", from2: "AV8", side: "right", isBrazil: false }
+                // Lado esquerdo - Oitavas (4 jogos) - cada um alimentado por 2 avos do lado esquerdo
+                { id: "OT1", date: "2026-07-04", time: "13:00", from1: "AV1",  from2: "AV2",  side: "left",  isBrazil: true  },
+                { id: "OT2", date: "2026-07-04", time: "17:00", from1: "AV3",  from2: "AV4",  side: "left",  isBrazil: false },
+                { id: "OT3", date: "2026-07-05", time: "13:00", from1: "AV5",  from2: "AV6",  side: "left",  isBrazil: false },
+                { id: "OT4", date: "2026-07-05", time: "17:00", from1: "AV7",  from2: "AV8",  side: "left",  isBrazil: false },
+                // Lado direito - Oitavas (4 jogos)
+                { id: "OT5", date: "2026-07-04", time: "21:00", from1: "AV9",  from2: "AV10", side: "right", isBrazil: false },
+                { id: "OT6", date: "2026-07-05", time: "21:00", from1: "AV11", from2: "AV12", side: "right", isBrazil: false },
+                { id: "OT7", date: "2026-07-06", time: "13:00", from1: "AV13", from2: "AV14", side: "right", isBrazil: false },
+                { id: "OT8", date: "2026-07-06", time: "17:00", from1: "AV15", from2: "AV16", side: "right", isBrazil: false }
             ],
             quartas: [
-                { id: "QT1", date: "2026-07-04", time: "14:00", from1: "OT1", from2: "OT5", side: "left", isBrazil: true },
-                { id: "QT2", date: "2026-07-04", time: "22:00", from1: "OT4", from2: "OT8", side: "left", isBrazil: false },
-                { id: "QT3", date: "2026-07-05", time: "14:00", from1: "OT2", from2: "OT6", side: "right", isBrazil: false },
-                { id: "QT4", date: "2026-07-05", time: "22:00", from1: "OT3", from2: "OT7", side: "right", isBrazil: false }
+                { id: "QT1", date: "2026-07-09", time: "13:00", from1: "OT1", from2: "OT2", side: "left",  isBrazil: true  },
+                { id: "QT2", date: "2026-07-09", time: "17:00", from1: "OT3", from2: "OT4", side: "left",  isBrazil: false },
+                { id: "QT3", date: "2026-07-10", time: "13:00", from1: "OT5", from2: "OT6", side: "right", isBrazil: false },
+                { id: "QT4", date: "2026-07-10", time: "17:00", from1: "OT7", from2: "OT8", side: "right", isBrazil: false }
             ],
             semis: [
-                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left", isBrazil: true },
+                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left",  isBrazil: true  },
                 { id: "SF2", date: "2026-07-15", time: "14:00", from1: "QT3", from2: "QT4", side: "right", isBrazil: false }
+            ],
+            terceiro: [
+                { id: "3RD", date: "2026-07-18", time: "14:00", from1: "SF1", from2: "SF2", isBrazil: false }
             ],
             final: [
                 { id: "FINAL", date: "2026-07-19", time: "16:00", from1: "SF1", from2: "SF2", isBrazil: true }
@@ -866,7 +913,7 @@
             sortedCountries.forEach(([code, data]) => {
                 const opt = document.createElement('option');
                 opt.value = data.timezone;
-                opt.textContent = `${data.flag} ${code} - ${data.name}`;
+                opt.textContent = `${data.flag} ${data.name}`;
                 if (data.timezone === saved) opt.selected = true;
                 select.appendChild(opt);
             });
@@ -909,12 +956,12 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="flag">${team1.flag}</span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team1.toLowerCase()}.png" alt="${team1.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team1.name}</span>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="flag">${team2.flag}</span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team2.toLowerCase()}.png" alt="${team2.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team2.name}</span>
                         </div>
                     </div>
@@ -1014,100 +1061,88 @@
             `;
         }
 
+        function createTerceiroCard(match) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card brasil-path' : 'match-card';
+            
+            return `
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="${cardClass}">
+                        <div class="team-row">
+                            <span class="team-label" style="font-weight: 700;">${match.from1}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="team-label" style="font-weight: 700;">${match.from2}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         function renderBracket() {
             const wrapper = document.getElementById('bracket-wrapper');
             
             // Lado esquerdo - 16 avos
             const leftAvos = copaStructure.avos.filter(m => m.side === 'left');
-            let html = `
-                <div class="bracket-column">
-                    <div class="round-header">16 avos</div>
-            `;
-            leftAvos.forEach(match => {
-                html += createAvosCard(match);
-            });
-            html += `</div>`;
+            let html = `<div class="bracket-column"><div class="round-header">16 avos</div><div class="column-games">`;
+            leftAvos.forEach(match => { html += createAvosCard(match); });
+            html += `</div></div>`;
 
             // Lado esquerdo - Oitavas
             const leftOitavas = copaStructure.oitavas.filter(m => m.side === 'left');
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Oitavas</div>
-            `;
-            leftOitavas.forEach(match => {
-                html += createOitavasCard(match);
-            });
-            html += `</div>`;
+            html += `<div class="bracket-column"><div class="round-header">Oitavas</div><div class="column-games">`;
+            leftOitavas.forEach(match => { html += createOitavasCard(match); });
+            html += `</div></div>`;
 
             // Quartas esquerda
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Quartas</div>
-            `;
-            copaStructure.quartas.filter(m => m.side === 'left').forEach(match => {
-                html += createQuartasCard(match);
-            });
-            html += `</div>`;
+            html += `<div class="bracket-column"><div class="round-header">Quartas</div><div class="column-games">`;
+            copaStructure.quartas.filter(m => m.side === 'left').forEach(match => { html += createQuartasCard(match); });
+            html += `</div></div>`;
 
             // Semis esquerda
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Semifinal</div>
-            `;
+            html += `<div class="bracket-column"><div class="round-header">Semifinal</div><div class="column-games">`;
             html += createSemiCard(copaStructure.semis[0]);
-            html += `</div>`;
+            html += `</div></div>`;
 
-            // Centro - Final
+            // Centro - Final + 3º Lugar
             html += `
-                <div class="bracket-column">
-                    <div class="center-final">
-                        <div class="center-final-content">
-                            <div class="round-header">FINAL</div>
-                            ${createFinalCard(copaStructure.final[0])}
-                        </div>
+                <div class="bracket-column center-column">
+                    <div class="round-header">Final</div>
+                    <div class="center-column-games">
+                        <div class="center-trophy">🏆</div>
+                        ${createFinalCard(copaStructure.final[0])}
+                        <div class="terceiro-header">🥉 3º Lugar</div>
+                        ${createTerceiroCard(copaStructure.terceiro[0])}
                     </div>
                 </div>
             `;
 
             // Semis direita
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Semifinal</div>
-            `;
+            html += `<div class="bracket-column"><div class="round-header">Semifinal</div><div class="column-games">`;
             html += createSemiCard(copaStructure.semis[1]);
-            html += `</div>`;
+            html += `</div></div>`;
 
             // Quartas direita
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Quartas</div>
-            `;
-            copaStructure.quartas.filter(m => m.side === 'right').forEach(match => {
-                html += createQuartasCard(match);
-            });
-            html += `</div>`;
+            html += `<div class="bracket-column"><div class="round-header">Quartas</div><div class="column-games">`;
+            copaStructure.quartas.filter(m => m.side === 'right').forEach(match => { html += createQuartasCard(match); });
+            html += `</div></div>`;
 
             // Lado direito - Oitavas
             const rightOitavas = copaStructure.oitavas.filter(m => m.side === 'right');
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">Oitavas</div>
-            `;
-            rightOitavas.forEach(match => {
-                html += createOitavasCard(match);
-            });
-            html += `</div>`;
+            html += `<div class="bracket-column"><div class="round-header">Oitavas</div><div class="column-games">`;
+            rightOitavas.forEach(match => { html += createOitavasCard(match); });
+            html += `</div></div>`;
 
             // Lado direito - 16 avos
             const rightAvos = copaStructure.avos.filter(m => m.side === 'right');
-            html += `
-                <div class="bracket-column">
-                    <div class="round-header">16 avos</div>
-            `;
-            rightAvos.forEach(match => {
-                html += createAvosCard(match);
-            });
-            html += `</div>`;
+            html += `<div class="bracket-column"><div class="round-header">16 avos</div><div class="column-games">`;
+            rightAvos.forEach(match => { html += createAvosCard(match); });
+            html += `</div></div>`;
 
             wrapper.innerHTML = html;
             
