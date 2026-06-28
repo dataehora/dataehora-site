@@ -210,7 +210,7 @@
             color: var(--text-main);
             font-weight: 700;
             cursor: pointer;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             outline: none;
             transition: 0.2s;
             max-width: 300px;
@@ -422,10 +422,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 1rem;
-            line-height: 1;
-            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Noto Color Emoji", "Noto Emoji", sans-serif;
-            font-variant-emoji: emoji;
+            overflow: hidden;
+        }
+        .flag img {
+            width: 22px;
+            height: 16px;
+            object-fit: cover;
+            border-radius: 2px;
+            display: block;
         }
 
         .team-name {
@@ -866,7 +870,7 @@
             sortedCountries.forEach(([code, data]) => {
                 const opt = document.createElement('option');
                 opt.value = data.timezone;
-                opt.textContent = `${data.flag} ${code} - ${data.name}`;
+                opt.textContent = `${code} - ${data.name}`;
                 if (data.timezone === saved) opt.selected = true;
                 select.appendChild(opt);
             });
@@ -909,12 +913,12 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="flag">${team1.flag}</span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team1.toLowerCase()}.png" alt="${team1.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team1.name}</span>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="flag">${team2.flag}</span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team2.toLowerCase()}.png" alt="${team2.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team2.name}</span>
                         </div>
                     </div>
