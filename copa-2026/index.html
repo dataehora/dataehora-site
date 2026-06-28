@@ -1192,7 +1192,7 @@
                     <span>${getTimezonePhrase(countryCode)}</span>
                     <span class="timezone-country">
                         <span>${countryName}</span>
-                        <img src="${flagUrl}" alt="" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
+                        <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
                     </span>
                 </span>
             `;
@@ -1505,6 +1505,7 @@
                                     class="trophy-image"
                                     src="${TROPHY_IMAGE_URL}"
                                     alt=""
+                                    aria-hidden="true"
                                     width="110"
                                     height="110"
                                     loading="eager"
