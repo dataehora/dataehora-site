@@ -23,7 +23,7 @@
     
     <!-- SEO Meta Tags -->
     <title>Copa do Mundo 2026 - Fase Eliminatória | dataehora.com.br</title>
-    <meta name="description" content="Tabela da Copa do Mundo 2026 - Fase Eliminatória com todas as datas, horários, países e bandeiras. Configure seu fuso horário e exporte em PDF para A3 e A4.">
+    <meta name="description" content="Tabela da Copa do Mundo 2026 - Fase Eliminatória com todas as datas, horários, países e bandeiras. Configure seu fuso horário e exporte em PDF para A3.">
     <meta name="keywords" content="Copa 2026, Copa do Mundo 2026, fase eliminatória, oitavas, quartas, semi, final, horários, bandeiras">
     <meta name="author" content="dataehora.com.br">
     <meta name="robots" content="index, follow">
@@ -213,6 +213,7 @@
             font-family: inherit;
             outline: none;
             transition: 0.2s;
+            max-width: 300px;
         }
         select:focus { border-color: var(--accent); }
 
@@ -242,7 +243,7 @@
             border-radius: 20px;
             box-shadow: var(--shadow);
             position: relative;
-            overflow: hidden;
+            overflow: visible;
         }
 
         /* Caminho dourado Brasil */
@@ -287,25 +288,39 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            gap: 20px;
+            gap: 12px;
             width: 100%;
             overflow-x: auto;
             padding: 20px 0;
+            position: relative;
+        }
+
+        /* SVG Connector Lines */
+        #bracket-lines {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
         }
 
         .bracket-column {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            gap: 16px;
-            min-width: 200px;
-            flex: 1;
+            gap: 12px;
+            min-width: 180px;
+            flex: 0 0 auto;
+            position: relative;
+            z-index: 2;
         }
 
         .round-header {
             text-align: center;
             font-weight: 900;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: #475569;
             text-transform: uppercase;
             letter-spacing: 1px;
@@ -316,15 +331,15 @@
         .match-container {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 6px;
         }
 
         .match-time {
             text-align: center;
-            font-size: 0.75rem;
-            color: #64748b;
-            font-weight: 600;
-            padding: 4px 0;
+            font-size: 0.95rem;
+            color: #1e293b;
+            font-weight: 700;
+            padding: 6px 0;
         }
 
         .match-card {
@@ -332,7 +347,7 @@
             border: 2px solid #e2e8f0;
             border-radius: 8px;
             padding: 12px;
-            min-height: 80px;
+            min-height: 85px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -351,19 +366,24 @@
             color: white;
         }
 
+        .match-card.quartas,
+        .match-card.semis {
+            position: relative;
+        }
+
         .team-row {
             display: flex;
             align-items: center;
             gap: 8px;
             font-weight: 600;
-            padding: 4px 0;
+            padding: 3px 0;
             font-size: 0.85rem;
             color: #0f172a;
         }
 
         .flag {
-            width: 20px;
-            height: 15px;
+            width: 22px;
+            height: 16px;
             flex-shrink: 0;
             display: flex;
             align-items: center;
@@ -373,6 +393,24 @@
 
         .team-name {
             flex: 1;
+            min-width: 0;
+        }
+
+        .winner-box {
+            width: 60px;
+            height: 30px;
+            border: 2px solid #cbd5e1;
+            border-radius: 6px;
+            background: white;
+            flex-shrink: 0;
+        }
+
+        .team-label {
+            font-size: 0.65rem;
+            font-weight: 700;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
         }
 
         .match-separator {
@@ -411,15 +449,6 @@
             50% { transform: translateY(-10px); }
         }
 
-        .center-text {
-            text-align: center;
-            color: #64748b;
-            font-size: 0.85rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
         footer {
             margin-top: 40px;
             text-align: center;
@@ -446,12 +475,8 @@
             .controls-panel, .nav-header, .top-nav-wrapper, footer, .btn-settings { display: none !important; }
             body { background: white; padding: 0; }
             #export-area { padding: 20px; box-shadow: none; border-radius: 0; }
-            .bracket-wrapper { gap: 10px; }
-            .bracket-column { min-width: 140px; }
-        }
-
-        @media (max-width: 1400px) {
-            .bracket-column { min-width: 160px; }
+            .bracket-wrapper { gap: 8px; }
+            .bracket-column { min-width: 150px; }
         }
 
         .print-info {
@@ -517,6 +542,7 @@
                 </div>
 
                 <div class="bracket-wrapper" id="bracket-wrapper">
+                    <svg id="bracket-lines"></svg>
                     <!-- Preenchido por JavaScript -->
                 </div>
 
@@ -544,93 +570,230 @@
     <script defer src="/js/cookie-consent.js"></script>
 
     <script>
-        // Todos os 16 países qualificados para Copa 2026
+        // Todos os países do mundo com bandeiras e timezones
         const allCountries = {
-            "BR": { name: "Brasil", flag: "🇧🇷", timezone: "America/Sao_Paulo" },
+            "AF": { name: "Afeganistão", flag: "🇦🇫", timezone: "Asia/Kabul" },
+            "AL": { name: "Albânia", flag: "🇦🇱", timezone: "Europe/Tirane" },
+            "DZ": { name: "Argélia", flag: "🇩🇿", timezone: "Africa/Algiers" },
+            "AD": { name: "Andorra", flag: "🇦🇩", timezone: "Europe/Andorra" },
+            "AO": { name: "Angola", flag: "🇦🇴", timezone: "Africa/Luanda" },
+            "AG": { name: "Antigua e Barbuda", flag: "🇦🇬", timezone: "America/Antigua" },
             "AR": { name: "Argentina", flag: "🇦🇷", timezone: "America/Argentina/Buenos_Aires" },
-            "FR": { name: "França", flag: "🇫🇷", timezone: "Europe/Paris" },
-            "DE": { name: "Alemanha", flag: "🇩🇪", timezone: "Europe/Berlin" },
-            "ES": { name: "Espanha", flag: "🇪🇸", timezone: "Europe/Madrid" },
-            "GB": { name: "Inglaterra", flag: "🇬🇧", timezone: "Europe/London" },
-            "NL": { name: "Holanda", flag: "🇳🇱", timezone: "Europe/Amsterdam" },
-            "IT": { name: "Itália", flag: "🇮🇹", timezone: "Europe/Rome" },
-            "PT": { name: "Portugal", flag: "🇵🇹", timezone: "Europe/Lisbon" },
-            "MA": { name: "Marrocos", flag: "🇲🇦", timezone: "Africa/Casablanca" },
-            "JP": { name: "Japão", flag: "🇯🇵", timezone: "Asia/Tokyo" },
-            "KR": { name: "Coreia do Sul", flag: "🇰🇷", timezone: "Asia/Seoul" },
-            "US": { name: "EUA", flag: "🇺🇸", timezone: "America/New_York" },
-            "MX": { name: "México", flag: "🇲🇽", timezone: "America/Mexico_City" },
-            "CA": { name: "Canadá", flag: "🇨🇦", timezone: "America/Toronto" },
+            "AM": { name: "Armênia", flag: "🇦🇲", timezone: "Asia/Yerevan" },
             "AU": { name: "Austrália", flag: "🇦🇺", timezone: "Australia/Sydney" },
-            "UA": { name: "Ucrânia", flag: "🇺🇦", timezone: "Europe/Kyiv" },
-            "PL": { name: "Polônia", flag: "🇵🇱", timezone: "Europe/Warsaw" },
-            "RO": { name: "Romênia", flag: "🇷🇴", timezone: "Europe/Bucharest" },
-            "GR": { name: "Grécia", flag: "🇬🇷", timezone: "Europe/Athens" },
-            "CZ": { name: "República Checa", flag: "🇨🇿", timezone: "Europe/Prague" },
-            "SE": { name: "Suécia", flag: "🇸🇪", timezone: "Europe/Stockholm" },
-            "NO": { name: "Noruega", flag: "🇳🇴", timezone: "Europe/Oslo" },
-            "DK": { name: "Dinamarca", flag: "🇩🇰", timezone: "Europe/Copenhagen" },
-            "BE": { name: "Bélgica", flag: "🇧🇪", timezone: "Europe/Brussels" },
-            "CH": { name: "Suíça", flag: "🇨🇭", timezone: "Europe/Zurich" },
             "AT": { name: "Áustria", flag: "🇦🇹", timezone: "Europe/Vienna" },
-            "TR": { name: "Turquia", flag: "🇹🇷", timezone: "Europe/Istanbul" },
-            "RS": { name: "Sérbia", flag: "🇷🇸", timezone: "Europe/Belgrade" },
-            "HR": { name: "Croácia", flag: "🇭🇷", timezone: "Europe/Zagreb" },
-            "HU": { name: "Hungria", flag: "🇭🇺", timezone: "Europe/Budapest" },
-            "ZA": { name: "África do Sul", flag: "🇿🇦", timezone: "Africa/Johannesburg" },
-            "EG": { name: "Egito", flag: "🇪🇬", timezone: "Africa/Cairo" },
-            "NG": { name: "Nigéria", flag: "🇳🇬", timezone: "Africa/Lagos" },
+            "AZ": { name: "Azerbaijão", flag: "🇦🇿", timezone: "Asia/Baku" },
+            "BS": { name: "Bahamas", flag: "🇧🇸", timezone: "America/Nassau" },
+            "BH": { name: "Barém", flag: "🇧🇭", timezone: "Asia/Bahrain" },
+            "BD": { name: "Bangladesh", flag: "🇧🇩", timezone: "Asia/Dhaka" },
+            "BB": { name: "Barbados", flag: "🇧🇧", timezone: "America/Barbados" },
+            "BY": { name: "Bielorrússia", flag: "🇧🇾", timezone: "Europe/Minsk" },
+            "BE": { name: "Bélgica", flag: "🇧🇪", timezone: "Europe/Brussels" },
+            "BZ": { name: "Belize", flag: "🇧🇿", timezone: "America/Belize" },
+            "BJ": { name: "Benin", flag: "🇧🇯", timezone: "Africa/Porto-Novo" },
+            "BT": { name: "Butão", flag: "🇧🇹", timezone: "Asia/Thimphu" },
+            "BO": { name: "Bolívia", flag: "🇧🇴", timezone: "America/La_Paz" },
+            "BA": { name: "Bósnia e Herzegovina", flag: "🇧🇦", timezone: "Europe/Sarajevo" },
+            "BW": { name: "Botsuana", flag: "🇧🇼", timezone: "Africa/Gaborone" },
+            "BR": { name: "Brasil", flag: "🇧🇷", timezone: "America/Sao_Paulo" },
+            "BN": { name: "Brunei", flag: "🇧🇳", timezone: "Asia/Brunei" },
+            "BG": { name: "Bulgária", flag: "🇧🇬", timezone: "Europe/Sofia" },
+            "BF": { name: "Burkina Faso", flag: "🇧🇫", timezone: "Africa/Ouagadougou" },
+            "BI": { name: "Burundi", flag: "🇧🇮", timezone: "Africa/Bujumbura" },
+            "CV": { name: "Cabo Verde", flag: "🇨🇻", timezone: "Atlantic/Cape_Verde" },
+            "KH": { name: "Camboja", flag: "🇰🇭", timezone: "Asia/Phnom_Penh" },
             "CM": { name: "Camarões", flag: "🇨🇲", timezone: "Africa/Douala" },
-            "IN": { name: "Índia", flag: "🇮🇳", timezone: "Asia/Kolkata" },
-            "TH": { name: "Tailândia", flag: "🇹🇭", timezone: "Asia/Bangkok" },
-            "ID": { name: "Indonésia", flag: "🇮🇩", timezone: "Asia/Jakarta" },
-            "VN": { name: "Vietnã", flag: "🇻🇳", timezone: "Asia/Ho_Chi_Minh" },
-            "SG": { name: "Singapura", flag: "🇸🇬", timezone: "Asia/Singapore" },
-            "MY": { name: "Malásia", flag: "🇲🇾", timezone: "Asia/Kuala_Lumpur" },
-            "PH": { name: "Filipinas", flag: "🇵🇭", timezone: "Asia/Manila" },
-            "CO": { name: "Colômbia", flag: "🇨🇴", timezone: "America/Bogota" },
-            "PE": { name: "Peru", flag: "🇵🇪", timezone: "America/Lima" },
+            "CA": { name: "Canadá", flag: "🇨🇦", timezone: "America/Toronto" },
+            "KZ": { name: "Cazaquistão", flag: "🇰🇿", timezone: "Asia/Almaty" },
+            "CF": { name: "República Centro-Africana", flag: "🇨🇫", timezone: "Africa/Bangui" },
+            "TD": { name: "Chade", flag: "🇹🇩", timezone: "Africa/Ndjamena" },
             "CL": { name: "Chile", flag: "🇨🇱", timezone: "America/Santiago" },
-            "UY": { name: "Uruguai", flag: "🇺🇾", timezone: "America/Montevideo" },
-            "VE": { name: "Venezuela", flag: "🇻🇪", timezone: "America/Caracas" },
+            "CN": { name: "China", flag: "🇨🇳", timezone: "Asia/Shanghai" },
+            "CO": { name: "Colômbia", flag: "🇨🇴", timezone: "America/Bogota" },
+            "KM": { name: "Comores", flag: "🇰🇲", timezone: "Indian/Comoro" },
+            "CG": { name: "Congo", flag: "🇨🇬", timezone: "Africa/Brazzaville" },
+            "CD": { name: "República Democrática do Congo", flag: "🇨🇩", timezone: "Africa/Kinshasa" },
+            "CR": { name: "Costa Rica", flag: "🇨🇷", timezone: "America/Costa_Rica" },
+            "HR": { name: "Croácia", flag: "🇭🇷", timezone: "Europe/Zagreb" },
+            "CU": { name: "Cuba", flag: "🇨🇺", timezone: "America/Havana" },
+            "CY": { name: "Chipre", flag: "🇨🇾", timezone: "Europe/Nicosia" },
+            "CZ": { name: "República Checa", flag: "🇨🇿", timezone: "Europe/Prague" },
+            "DK": { name: "Dinamarca", flag: "🇩🇰", timezone: "Europe/Copenhagen" },
+            "DJ": { name: "Djibuti", flag: "🇩🇯", timezone: "Africa/Djibouti" },
+            "DM": { name: "Dominica", flag: "🇩🇲", timezone: "America/Dominica" },
+            "DO": { name: "República Dominicana", flag: "🇩🇴", timezone: "America/Santo_Domingo" },
             "EC": { name: "Equador", flag: "🇪🇨", timezone: "America/Guayaquil" },
-            "PY": { name: "Paraguai", flag: "🇵🇾", timezone: "America/Asuncion" },
-            "IL": { name: "Israel", flag: "🇮🇱", timezone: "Asia/Jerusalem" },
-            "SA": { name: "Arábia Saudita", flag: "🇸🇦", timezone: "Asia/Riyadh" },
-            "AE": { name: "Emirados Árabes", flag: "🇦🇪", timezone: "Asia/Dubai" },
-            "QA": { name: "Catar", flag: "🇶🇦", timezone: "Asia/Qatar" },
+            "EG": { name: "Egito", flag: "🇪🇬", timezone: "Africa/Cairo" },
+            "SV": { name: "El Salvador", flag: "🇸🇻", timezone: "America/El_Salvador" },
+            "GQ": { name: "Guiné Equatorial", flag: "🇬🇶", timezone: "Africa/Malabo" },
+            "ER": { name: "Eritreia", flag: "🇪🇷", timezone: "Africa/Asmara" },
+            "EE": { name: "Estônia", flag: "🇪🇪", timezone: "Europe/Tallinn" },
+            "ET": { name: "Etiópia", flag: "🇪🇹", timezone: "Africa/Addis_Ababa" },
+            "FJ": { name: "Fiji", flag: "🇫🇯", timezone: "Pacific/Fiji" },
+            "FI": { name: "Finlândia", flag: "🇫🇮", timezone: "Europe/Helsinki" },
+            "FR": { name: "França", flag: "🇫🇷", timezone: "Europe/Paris" },
+            "GA": { name: "Gabão", flag: "🇬🇦", timezone: "Africa/Libreville" },
+            "GM": { name: "Gâmbia", flag: "🇬🇲", timezone: "Africa/Banjul" },
+            "GE": { name: "Geórgia", flag: "🇬🇪", timezone: "Asia/Tbilisi" },
+            "DE": { name: "Alemanha", flag: "🇩🇪", timezone: "Europe/Berlin" },
+            "GH": { name: "Gana", flag: "🇬🇭", timezone: "Africa/Accra" },
+            "GR": { name: "Grécia", flag: "🇬🇷", timezone: "Europe/Athens" },
+            "GD": { name: "Granada", flag: "🇬🇩", timezone: "America/Grenada" },
+            "GT": { name: "Guatemala", flag: "🇬🇹", timezone: "America/Guatemala" },
+            "GN": { name: "Guiné", flag: "🇬🇳", timezone: "Africa/Conakry" },
+            "GW": { name: "Guiné-Bissau", flag: "🇬🇼", timezone: "Africa/Bissau" },
+            "GY": { name: "Guiana", flag: "🇬🇾", timezone: "America/Guyana" },
+            "HT": { name: "Haiti", flag: "🇭🇹", timezone: "America/Port-au-Prince" },
+            "HN": { name: "Honduras", flag: "🇭🇳", timezone: "America/Tegucigalpa" },
+            "HK": { name: "Hong Kong", flag: "🇭🇰", timezone: "Asia/Hong_Kong" },
+            "HU": { name: "Hungria", flag: "🇭🇺", timezone: "Europe/Budapest" },
+            "IS": { name: "Islândia", flag: "🇮🇸", timezone: "Atlantic/Reykjavik" },
+            "IN": { name: "Índia", flag: "🇮🇳", timezone: "Asia/Kolkata" },
+            "ID": { name: "Indonésia", flag: "🇮🇩", timezone: "Asia/Jakarta" },
             "IR": { name: "Irã", flag: "🇮🇷", timezone: "Asia/Tehran" },
             "IQ": { name: "Iraque", flag: "🇮🇶", timezone: "Asia/Baghdad" },
+            "IE": { name: "Irlanda", flag: "🇮🇪", timezone: "Europe/Dublin" },
+            "IL": { name: "Israel", flag: "🇮🇱", timezone: "Asia/Jerusalem" },
+            "IT": { name: "Itália", flag: "🇮🇹", timezone: "Europe/Rome" },
+            "JM": { name: "Jamaica", flag: "🇯🇲", timezone: "America/Jamaica" },
+            "JP": { name: "Japão", flag: "🇯🇵", timezone: "Asia/Tokyo" },
+            "JO": { name: "Jordânia", flag: "🇯🇴", timezone: "Asia/Amman" },
+            "KE": { name: "Quênia", flag: "🇰🇪", timezone: "Africa/Nairobi" },
+            "KI": { name: "Quiribati", flag: "🇰🇮", timezone: "Pacific/Kiritimati" },
+            "KP": { name: "Coreia do Norte", flag: "🇰🇵", timezone: "Asia/Pyongyang" },
+            "KR": { name: "Coreia do Sul", flag: "🇰🇷", timezone: "Asia/Seoul" },
+            "KW": { name: "Kuwait", flag: "🇰🇼", timezone: "Asia/Kuwait" },
+            "KG": { name: "Quirguistão", flag: "🇰🇬", timezone: "Asia/Bishkek" },
+            "LA": { name: "Laos", flag: "🇱🇦", timezone: "Asia/Vientiane" },
+            "LV": { name: "Letônia", flag: "🇱🇻", timezone: "Europe/Riga" },
+            "LB": { name: "Líbano", flag: "🇱🇧", timezone: "Asia/Beirut" },
+            "LS": { name: "Lesoto", flag: "🇱🇸", timezone: "Africa/Maseru" },
+            "LR": { name: "Libéria", flag: "🇱🇷", timezone: "Africa/Monrovia" },
+            "LY": { name: "Líbia", flag: "🇱🇾", timezone: "Africa/Tripoli" },
+            "LI": { name: "Liechtenstein", flag: "🇱🇮", timezone: "Europe/Zurich" },
+            "LT": { name: "Lituânia", flag: "🇱🇹", timezone: "Europe/Vilnius" },
+            "LU": { name: "Luxemburgo", flag: "🇱🇺", timezone: "Europe/Luxembourg" },
+            "MG": { name: "Madagascar", flag: "🇲🇬", timezone: "Indian/Antananarivo" },
+            "MW": { name: "Malavi", flag: "🇲🇼", timezone: "Africa/Lilongwe" },
+            "MY": { name: "Malásia", flag: "🇲🇾", timezone: "Asia/Kuala_Lumpur" },
+            "MV": { name: "Maldivas", flag: "🇲🇻", timezone: "Indian/Maldives" },
+            "ML": { name: "Mali", flag: "🇲🇱", timezone: "Africa/Bamako" },
+            "MT": { name: "Malta", flag: "🇲🇹", timezone: "Europe/Malta" },
+            "MH": { name: "Ilhas Marshall", flag: "🇲🇭", timezone: "Pacific/Majuro" },
+            "MQ": { name: "Martinica", flag: "🇲🇶", timezone: "America/Martinique" },
+            "MR": { name: "Mauritânia", flag: "🇲🇷", timezone: "Africa/Nouakchott" },
+            "MU": { name: "Maurício", flag: "🇲🇺", timezone: "Indian/Mauritius" },
+            "MX": { name: "México", flag: "🇲🇽", timezone: "America/Mexico_City" },
+            "FM": { name: "Micronésia", flag: "🇫🇲", timezone: "Pacific/Pohnpei" },
+            "MD": { name: "Moldávia", flag: "🇲🇩", timezone: "Europe/Chisinau" },
+            "MC": { name: "Mônaco", flag: "🇲🇨", timezone: "Europe/Monaco" },
+            "MN": { name: "Mongólia", flag: "🇲🇳", timezone: "Asia/Ulaanbaatar" },
+            "ME": { name: "Montenegro", flag: "🇲🇪", timezone: "Europe/Podgorica" },
+            "MA": { name: "Marrocos", flag: "🇲🇦", timezone: "Africa/Casablanca" },
+            "MZ": { name: "Moçambique", flag: "🇲🇿", timezone: "Africa/Maputo" },
+            "MM": { name: "Mianmar", flag: "🇲🇲", timezone: "Asia/Yangon" },
+            "NA": { name: "Namíbia", flag: "🇳🇦", timezone: "Africa/Windhoek" },
+            "NR": { name: "Nauru", flag: "🇳🇷", timezone: "Pacific/Nauru" },
+            "NP": { name: "Nepal", flag: "🇳🇵", timezone: "Asia/Kathmandu" },
+            "NL": { name: "Holanda", flag: "🇳🇱", timezone: "Europe/Amsterdam" },
+            "NC": { name: "Nova Caledônia", flag: "🇳🇨", timezone: "Pacific/Noumea" },
             "NZ": { name: "Nova Zelândia", flag: "🇳🇿", timezone: "Pacific/Auckland" },
-            "FJ": { name: "Fiji", flag: "🇫🇯", timezone: "Pacific/Fiji" }
+            "NI": { name: "Nicarágua", flag: "🇳🇮", timezone: "America/Managua" },
+            "NE": { name: "Níger", flag: "🇳🇪", timezone: "Africa/Niamey" },
+            "NG": { name: "Nigéria", flag: "🇳🇬", timezone: "Africa/Lagos" },
+            "NO": { name: "Noruega", flag: "🇳🇴", timezone: "Europe/Oslo" },
+            "OM": { name: "Omã", flag: "🇴🇲", timezone: "Asia/Muscat" },
+            "PK": { name: "Paquistão", flag: "🇵🇰", timezone: "Asia/Karachi" },
+            "PW": { name: "Palau", flag: "🇵🇼", timezone: "Pacific/Palau" },
+            "PA": { name: "Panamá", flag: "🇵🇦", timezone: "America/Panama" },
+            "PG": { name: "Papua Nova Guiné", flag: "🇵🇬", timezone: "Pacific/Port_Moresby" },
+            "PY": { name: "Paraguai", flag: "🇵🇾", timezone: "America/Asuncion" },
+            "PE": { name: "Peru", flag: "🇵🇪", timezone: "America/Lima" },
+            "PH": { name: "Filipinas", flag: "🇵🇭", timezone: "Asia/Manila" },
+            "PL": { name: "Polônia", flag: "🇵🇱", timezone: "Europe/Warsaw" },
+            "PT": { name: "Portugal", flag: "🇵🇹", timezone: "Europe/Lisbon" },
+            "QA": { name: "Catar", flag: "🇶🇦", timezone: "Asia/Qatar" },
+            "RE": { name: "Reunião", flag: "🇷🇪", timezone: "Indian/Reunion" },
+            "RO": { name: "Romênia", flag: "🇷🇴", timezone: "Europe/Bucharest" },
+            "RU": { name: "Rússia", flag: "🇷🇺", timezone: "Europe/Moscow" },
+            "RW": { name: "Ruanda", flag: "🇷🇼", timezone: "Africa/Kigali" },
+            "KN": { name: "São Cristóvão e Névis", flag: "🇰🇳", timezone: "America/St_Kitts" },
+            "LC": { name: "Santa Lúcia", flag: "🇱🇨", timezone: "America/St_Lucia" },
+            "VC": { name: "São Vicente e Granadinas", flag: "🇻🇨", timezone: "America/St_Vincent" },
+            "WS": { name: "Samoa", flag: "🇼🇸", timezone: "Pacific/Apia" },
+            "SM": { name: "San Marino", flag: "🇸🇲", timezone: "Europe/Rome" },
+            "ST": { name: "São Tomé e Príncipe", flag: "🇸🇹", timezone: "Africa/Sao_Tome" },
+            "SA": { name: "Arábia Saudita", flag: "🇸🇦", timezone: "Asia/Riyadh" },
+            "SN": { name: "Senegal", flag: "🇸🇳", timezone: "Africa/Dakar" },
+            "RS": { name: "Sérvia", flag: "🇷🇸", timezone: "Europe/Belgrade" },
+            "SC": { name: "Seicheles", flag: "🇸🇨", timezone: "Indian/Mahe" },
+            "SL": { name: "Serra Leoa", flag: "🇸🇱", timezone: "Africa/Freetown" },
+            "SG": { name: "Singapura", flag: "🇸🇬", timezone: "Asia/Singapore" },
+            "SK": { name: "Eslováquia", flag: "🇸🇰", timezone: "Europe/Bratislava" },
+            "SI": { name: "Eslovênia", flag: "🇸🇮", timezone: "Europe/Ljubljana" },
+            "SB": { name: "Ilhas Salomão", flag: "🇸🇧", timezone: "Pacific/Guadalcanal" },
+            "SO": { name: "Somália", flag: "🇸🇴", timezone: "Africa/Mogadishu" },
+            "ZA": { name: "África do Sul", flag: "🇿🇦", timezone: "Africa/Johannesburg" },
+            "ES": { name: "Espanha", flag: "🇪🇸", timezone: "Europe/Madrid" },
+            "LK": { name: "Sri Lanka", flag: "🇱🇰", timezone: "Asia/Colombo" },
+            "SD": { name: "Sudão", flag: "🇸🇩", timezone: "Africa/Khartoum" },
+            "SR": { name: "Surinã", flag: "🇸🇷", timezone: "America/Paramaribo" },
+            "SZ": { name: "Eswatíni", flag: "🇸🇿", timezone: "Africa/Mbabane" },
+            "SE": { name: "Suécia", flag: "🇸🇪", timezone: "Europe/Stockholm" },
+            "CH": { name: "Suíça", flag: "🇨🇭", timezone: "Europe/Zurich" },
+            "SY": { name: "Síria", flag: "🇸🇾", timezone: "Asia/Damascus" },
+            "TW": { name: "Taiwan", flag: "🇹🇼", timezone: "Asia/Taipei" },
+            "TJ": { name: "Tajiquistão", flag: "🇹🇯", timezone: "Asia/Dushanbe" },
+            "TZ": { name: "Tanzânia", flag: "🇹🇿", timezone: "Africa/Dar_es_Salaam" },
+            "TH": { name: "Tailândia", flag: "🇹🇭", timezone: "Asia/Bangkok" },
+            "TL": { name: "Timor-Leste", flag: "🇹🇱", timezone: "Asia/Dili" },
+            "TG": { name: "Togo", flag: "🇹🇬", timezone: "Africa/Lome" },
+            "TO": { name: "Tonga", flag: "🇹🇴", timezone: "Pacific/Tongatapu" },
+            "TT": { name: "Trinidad e Tobago", flag: "🇹🇹", timezone: "America/Port_of_Spain" },
+            "TN": { name: "Tunísia", flag: "🇹🇳", timezone: "Africa/Tunis" },
+            "TR": { name: "Turquia", flag: "🇹🇷", timezone: "Europe/Istanbul" },
+            "TM": { name: "Turcomenistão", flag: "🇹🇲", timezone: "Asia/Ashgabat" },
+            "TV": { name: "Tuvalu", flag: "🇹🇻", timezone: "Pacific/Funafuti" },
+            "UG": { name: "Uganda", flag: "🇺🇬", timezone: "Africa/Kampala" },
+            "UA": { name: "Ucrânia", flag: "🇺🇦", timezone: "Europe/Kyiv" },
+            "AE": { name: "Emirados Árabes Unidos", flag: "🇦🇪", timezone: "Asia/Dubai" },
+            "GB": { name: "Reino Unido", flag: "🇬🇧", timezone: "Europe/London" },
+            "US": { name: "Estados Unidos", flag: "🇺🇸", timezone: "America/New_York" },
+            "UY": { name: "Uruguai", flag: "🇺🇾", timezone: "America/Montevideo" },
+            "UZ": { name: "Uzbequistão", flag: "🇺🇿", timezone: "Asia/Tashkent" },
+            "VU": { name: "Vanuatu", flag: "🇻🇺", timezone: "Pacific/Efate" },
+            "VA": { name: "Vaticano", flag: "🇻🇦", timezone: "Europe/Rome" },
+            "VE": { name: "Venezuela", flag: "🇻🇪", timezone: "America/Caracas" },
+            "VN": { name: "Vietnã", flag: "🇻🇳", timezone: "Asia/Ho_Chi_Minh" },
+            "YE": { name: "Iêmen", flag: "🇾🇪", timezone: "Asia/Aden" },
+            "ZM": { name: "Zâmbia", flag: "🇿🇲", timezone: "Africa/Lusaka" },
+            "ZW": { name: "Zimbábue", flag: "🇿🇼", timezone: "Africa/Harare" }
         };
 
         // Estrutura da Copa 2026 - 16 times em chaves espelhadas
         const copaStructure = {
             oitavas: [
-                // Lado esquerdo (8 jogos)
-                { date: "2026-06-29", time: "14:00", team1: "BR", team2: "JP", side: "left" },
-                { date: "2026-06-30", time: "14:00", team1: "AR", team2: "AU", side: "left" },
-                { date: "2026-06-30", time: "22:00", team1: "MX", team2: "EC", side: "left" },
-                { date: "2026-07-01", time: "13:00", team1: "GB", team2: "DK", side: "left" },
-                // Lado direito (8 jogos)
-                { date: "2026-06-28", time: "16:00", team1: "ZA", team2: "CA", side: "right" },
-                { date: "2026-06-29", time: "22:00", team1: "NL", team2: "MA", side: "right" },
-                { date: "2026-06-29", time: "17:30", team1: "DE", team2: "PY", side: "right" },
-                { date: "2026-06-30", time: "18:00", team1: "FR", team2: "SE", side: "right" }
+                { id: "OT1", date: "2026-06-29", time: "14:00", team1: "BR", team2: "JP", side: "left" },
+                { id: "OT2", date: "2026-06-30", time: "14:00", team1: "AR", team2: "AU", side: "left" },
+                { id: "OT3", date: "2026-06-30", time: "22:00", team1: "MX", team2: "EC", side: "left" },
+                { id: "OT4", date: "2026-07-01", time: "13:00", team1: "GB", team2: "DK", side: "left" },
+                { id: "OT5", date: "2026-06-28", time: "16:00", team1: "ZA", team2: "CA", side: "right" },
+                { id: "OT6", date: "2026-06-29", time: "22:00", team1: "NL", team2: "MA", side: "right" },
+                { id: "OT7", date: "2026-06-29", time: "17:30", team1: "DE", team2: "PY", side: "right" },
+                { id: "OT8", date: "2026-06-30", time: "18:00", team1: "FR", team2: "SE", side: "right" }
             ],
             quartas: [
-                { date: "2026-07-04", time: "14:00", team1: "OT1", team2: "OT5", stage: "quarter" },
-                { date: "2026-07-04", time: "22:00", team1: "OT4", team2: "OT8", stage: "quarter" },
-                { date: "2026-07-05", time: "14:00", team1: "OT2", team2: "OT6", stage: "quarter" },
-                { date: "2026-07-05", time: "22:00", team1: "OT3", team2: "OT7", stage: "quarter" }
+                { id: "QT1", date: "2026-07-04", time: "14:00", from1: "OT1", from2: "OT5", side: "left" },
+                { id: "QT2", date: "2026-07-04", time: "22:00", from1: "OT4", from2: "OT8", side: "left" },
+                { id: "QT3", date: "2026-07-05", time: "14:00", from1: "OT2", from2: "OT6", side: "right" },
+                { id: "QT4", date: "2026-07-05", time: "22:00", from1: "OT3", from2: "OT7", side: "right" }
             ],
             semis: [
-                { date: "2026-07-14", time: "14:00", team1: "QT1", team2: "QT2", stage: "semi" },
-                { date: "2026-07-15", time: "14:00", team1: "QT3", team2: "QT4", stage: "semi" }
+                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left" },
+                { id: "SF2", date: "2026-07-15", time: "14:00", from1: "QT3", from2: "QT4", side: "right" }
             ],
             final: [
-                { date: "2026-07-19", time: "16:00", team1: "SF1", team2: "SF2", stage: "final" }
+                { id: "FINAL", date: "2026-07-19", time: "16:00", from1: "SF1", from2: "SF2" }
             ]
         };
 
@@ -646,7 +809,7 @@
             sortedCountries.forEach(([code, data]) => {
                 const opt = document.createElement('option');
                 opt.value = data.timezone;
-                opt.textContent = `${data.flag} ${data.name}`;
+                opt.textContent = `${data.flag} ${code} - ${data.name}`;
                 if (data.timezone === saved) opt.selected = true;
                 select.appendChild(opt);
             });
@@ -674,21 +837,19 @@
         }
 
         function getCountryInfo(countryCode) {
-            return allCountries[countryCode] || { name: countryCode, flag: "⚽" };
+            return allCountries[countryCode] || { name: countryCode, flag: "❓" };
         }
 
-        function createMatchCard(match, isFinal = false) {
+        function createOitavasCard(match) {
             const team1 = getCountryInfo(match.team1);
             const team2 = getCountryInfo(match.team2);
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
             
-            const cardClass = isFinal ? 'match-card final' : 'match-card';
-            
             return `
                 <div class="match-container">
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
-                    <div class="${cardClass}">
+                    <div class="match-card">
                         <div class="team-row">
                             <span class="flag">${team1.flag}</span>
                             <span class="team-name">${team1.name}</span>
@@ -697,6 +858,72 @@
                         <div class="team-row">
                             <span class="flag">${team2.flag}</span>
                             <span class="team-name">${team2.name}</span>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createQuartasCard(match) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            
+            return `
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="match-card quartas">
+                        <div class="team-row">
+                            <span class="team-label">${match.from1}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="team-label">${match.from2}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createSemiCard(match) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            
+            return `
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="match-card semis">
+                        <div class="team-row">
+                            <span class="team-label">${match.from1}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="team-label">${match.from2}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createFinalCard(match) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            
+            return `
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="match-card final">
+                        <div class="team-row">
+                            <span class="team-label" style="color: #ddd6fe;">${match.from1}</span>
+                            <div class="winner-box" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"></div>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="team-label" style="color: #ddd6fe;">${match.from2}</span>
+                            <div class="winner-box" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"></div>
                         </div>
                     </div>
                 </div>
@@ -713,7 +940,7 @@
                     <div class="round-header">Oitavas de Final</div>
             `;
             leftOitavas.forEach(match => {
-                html += createMatchCard(match);
+                html += createOitavasCard(match);
             });
             html += `</div>`;
 
@@ -722,8 +949,8 @@
                 <div class="bracket-column">
                     <div class="round-header">Quartas</div>
             `;
-            copaStructure.quartas.slice(0, 2).forEach(match => {
-                html += createMatchCard(match);
+            copaStructure.quartas.filter(m => m.side === 'left').forEach(match => {
+                html += createQuartasCard(match);
             });
             html += `</div>`;
 
@@ -732,7 +959,7 @@
                 <div class="bracket-column">
                     <div class="round-header">Semifinal</div>
             `;
-            html += createMatchCard(copaStructure.semis[0]);
+            html += createSemiCard(copaStructure.semis[0]);
             html += `</div>`;
 
             // Centro - Final
@@ -740,8 +967,8 @@
                 <div class="bracket-column">
                     <div class="center-final">
                         <div class="center-final-content">
-                            <div class="round-header">Final</div>
-                            ${createMatchCard(copaStructure.final[0], true)}
+                            <div class="round-header">FINAL</div>
+                            ${createFinalCard(copaStructure.final[0])}
                         </div>
                     </div>
                 </div>
@@ -752,7 +979,7 @@
                 <div class="bracket-column">
                     <div class="round-header">Semifinal</div>
             `;
-            html += createMatchCard(copaStructure.semis[1]);
+            html += createSemiCard(copaStructure.semis[1]);
             html += `</div>`;
 
             // Quartas direita
@@ -760,8 +987,8 @@
                 <div class="bracket-column">
                     <div class="round-header">Quartas</div>
             `;
-            copaStructure.quartas.slice(2, 4).forEach(match => {
-                html += createMatchCard(match);
+            copaStructure.quartas.filter(m => m.side === 'right').forEach(match => {
+                html += createQuartasCard(match);
             });
             html += `</div>`;
 
@@ -772,11 +999,59 @@
                     <div class="round-header">Oitavas de Final</div>
             `;
             rightOitavas.forEach(match => {
-                html += createMatchCard(match);
+                html += createOitavasCard(match);
             });
             html += `</div>`;
 
             wrapper.innerHTML = html;
+            
+            // Desenhar linhas de conexão depois de renderizar
+            setTimeout(drawLines, 100);
+        }
+
+        function drawLines() {
+            const svg = document.getElementById('bracket-lines');
+            svg.innerHTML = '';
+            
+            const wrapper = document.getElementById('bracket-wrapper');
+            const columns = wrapper.querySelectorAll('.bracket-column');
+            
+            if (columns.length < 2) return;
+
+            const svgWidth = wrapper.offsetWidth;
+            const svgHeight = wrapper.offsetHeight;
+            
+            svg.setAttribute('width', svgWidth);
+            svg.setAttribute('height', svgHeight);
+
+            // Desenhar linhas horizontais de conexão
+            columns.forEach((col, colIndex) => {
+                if (colIndex === columns.length - 1) return;
+                
+                const matches = col.querySelectorAll('.match-container');
+                matches.forEach((match, matchIndex) => {
+                    const matchCard = match.querySelector('.match-card');
+                    if (!matchCard) return;
+
+                    const matchRect = matchCard.getBoundingClientRect();
+                    const wrapperRect = wrapper.getBoundingClientRect();
+                    
+                    const y = matchRect.top - wrapperRect.top + matchRect.height / 2;
+                    const x1 = matchRect.right - wrapperRect.left;
+                    const x2 = (columns[colIndex + 1]?.offsetLeft || 0) + (columns[colIndex + 1]?.offsetWidth || 0);
+
+                    // Linha horizontal
+                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                    line.setAttribute('x1', x1);
+                    line.setAttribute('y1', y);
+                    line.setAttribute('x2', x2);
+                    line.setAttribute('y2', y);
+                    line.setAttribute('stroke', '#d1d5db');
+                    line.setAttribute('stroke-width', '2');
+                    line.setAttribute('opacity', '0.5');
+                    svg.appendChild(line);
+                });
+            });
         }
 
         function updateAllTimes() {
@@ -835,6 +1110,10 @@
             setupTimezoneSelect();
             renderBracket();
             document.getElementById('print-date').innerText = new Date().toLocaleDateString('pt-BR');
+        });
+
+        window.addEventListener('resize', () => {
+            drawLines();
         });
     </script>
 
