@@ -755,13 +755,13 @@
             <div class="control-group">
                 <label for="country-trigger">Seu Fuso Horário</label>
                 <div class="custom-country-select" id="custom-country-select">
-                    <button class="custom-country-trigger" id="country-trigger" type="button" aria-haspopup="listbox" aria-expanded="false">
-                        <img id="selected-country-flag" src="https://flagcdn.com/32x24/br.png" alt="Brasil" width="22" height="16">
+                    <button class="custom-country-trigger" id="country-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="country-dropdown">
+                        <img id="selected-country-flag" src="https://flagcdn.com/32x24/br.png" alt="Brasil" width="22" height="16" loading="eager">
                         <span class="trigger-country-name" id="selected-country-name">Brasil</span>
                         <span class="trigger-arrow">▾</span>
                     </button>
                     <div class="custom-country-dropdown" id="country-dropdown" role="listbox">
-                        <input type="text" class="country-search-input" id="country-search" placeholder="🔍 Buscar país..." autocomplete="off">
+                        <input type="text" class="country-search-input" id="country-search" placeholder="🔍 Buscar país..." autocomplete="off" aria-label="Buscar país">
                         <div class="country-options-list" id="country-options-list"></div>
                     </div>
                 </div>
@@ -1082,6 +1082,8 @@
                 item.className = 'country-option' + (data.timezone === saved ? ' selected' : '');
                 item.dataset.timezone = data.timezone;
                 item.dataset.name = data.name;
+                item.setAttribute('role', 'option');
+                item.setAttribute('aria-selected', String(data.timezone === saved));
 
                 const img = document.createElement('img');
                 img.src = `https://flagcdn.com/32x24/${flagCode}.png`;
@@ -1094,8 +1096,9 @@
                 item.appendChild(document.createTextNode(data.name));
 
                 item.addEventListener('click', () => {
-                    allOptions.forEach(o => o.classList.remove('selected'));
+                    allOptions.forEach(o => { o.classList.remove('selected'); o.setAttribute('aria-selected', 'false'); });
                     item.classList.add('selected');
+                    item.setAttribute('aria-selected', 'true');
                     triggerFlag.src = img.src;
                     triggerFlag.alt = data.name;
                     triggerName.textContent = data.name;
@@ -1130,7 +1133,7 @@
                     searchInput.focus();
                     // Scroll selected option into view
                     const sel = list.querySelector('.selected');
-                    if (sel) sel.scrollIntoView({ block: 'nearest' });
+                    if (sel) sel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
                 }
             });
 
