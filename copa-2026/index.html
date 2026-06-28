@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
+    <script>
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    </script>
+    <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
+    <meta name="color-scheme" content="light dark">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
+     crossorigin="anonymous"></script>
+    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
+
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg">
+    <link rel="icon" type="image/png" href="/assets/favicon.png">
+    <link rel="apple-touch-icon" href="/assets/favicon.png">
+    <link rel="manifest" href="/site.webmanifest">
+    
+    <!-- Theme color for mobile browsers -->
+    <meta name="theme-color" content="#2563eb">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO Meta Tags -->
+    <title>Copa do Mundo 2026 - Fase Eliminatória | dataehora.com.br</title>
+    <meta name="description" content="Tabela da Copa do Mundo 2026 - Fase Eliminatória com todas as datas, horários, países e bandeiras. Configure seu fuso horário e exporte em PDF para A3 e A4.">
+    <meta name="keywords" content="Copa 2026, Copa do Mundo 2026, fase eliminatória, oitavas, quartas, semi, final, horários, bandeiras">
+    <meta name="author" content="dataehora.com.br">
+    <meta name="robots" content="index, follow">
+    
+    <!-- Open Graph Meta Tags -->
+    <meta property="og:title" content="Copa do Mundo 2026 - Fase Eliminatória | dataehora.com.br">
+    <meta property="og:description" content="Tabela completa da Copa 2026 com todas as datas, horários, países e bandeiras. Configure seu fuso horário e exporte em PDF.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://dataehora.com.br/copa-2026/">
+    <meta property="og:site_name" content="Data e Hora">
+    <meta property="og:image" content="https://dataehora.com.br/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    
+    <!-- Canonical URL -->
+    <link rel="canonical" href="https://dataehora.com.br/copa-2026/">
+    
+    <!-- Preconnect to external domains for faster loading -->
+    <link rel="preconnect" href="https://www.googletagmanager.com">
+    <link rel="dns-prefetch" href="https://www.googletagmanager.com">
+
+    <!-- Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-4Y5H59FEQE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-4Y5H59FEQE');
+    </script>
+
+    <!-- External Scripts for PDF Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+    <style>
+        :root {
+            --bg-body: #f1f5f9;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-dark: #1e293b;
+            --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
+            --hr-color: rgba(100, 116, 139, 0.2);
+            --color-win: #10b981;
+            --color-loss: #ef4444;
+            --color-draw: #f59e0b;
+            --color-final: #7c3aed;
+        }
+
+        [data-theme="dark"] {
+            --bg-body: #0f172a;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #60a5fa;
+            --accent-dark: #334155;
+            --shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+            --hr-color: rgba(248, 250, 252, 0.2);
+        }
+
+        .no-transition * {
+            transition: none !important;
+        }
+
+        * { box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            margin: 0;
+            padding: 0 20px 40px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container { width: 100%; max-width: 1400px; }
+
+        /* ===== TOP NAVIGATION HEADER ===== */
+        .top-nav-wrapper {
+            width: 100%;
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-body) 100%);
+            border-bottom: 1px solid var(--hr-color);
+            padding: 15px 20px;
+        }
+        .top-nav-container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--accent);
+            text-decoration: none;
+            letter-spacing: -1.5px;
+        }
+        .logo-text:hover { opacity: 0.8; }
+        .header-ad {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            min-height: 90px;
+        }
+
+        /* Breadcrumb */
+        .nav-header {
+            width: 100%;
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            padding: 12px 16px;
+            margin: 20px 0 30px 0;
+            font-size: 0.875rem;
+            gap: 8px;
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--hr-color);
+        }
+        .nav-link { color: var(--accent); text-decoration: none; font-weight: 700; }
+        .nav-sep { color: var(--text-muted); font-weight: 700; }
+        .nav-current { color: var(--text-main); font-weight: 700; }
+
+        .header { margin: 20px 0 30px 0; text-align: center; }
+        h1 { font-size: 2.5rem; margin: 0; letter-spacing: -1px; font-weight: 900; color: var(--text-main); }
+        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; font-weight: 500; }
+
+        /* Controls Panel */
+        .controls-panel {
+            background: var(--bg-card);
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: var(--shadow);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 30px;
+            justify-content: center;
+            align-items: flex-end;
+            border: 1px solid var(--hr-color);
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .control-group label {
+            font-size: 0.7rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            letter-spacing: 0.8px;
+        }
+        
+        select {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 2px solid var(--hr-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            outline: none;
+            transition: 0.2s;
+        }
+        select:focus { border-color: var(--accent); }
+
+        .btn-pdf {
+            background: var(--accent-dark);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.9rem;
+        }
+        .btn-pdf:hover { transform: translateY(-2px); filter: brightness(1.3); }
+
+        /* Export Area */
+        #export-area {
+            background-color: #ffffff;
+            color: #0f172a;
+            padding: 40px;
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+        }
+
+        .dynamic-title {
+            text-align: center;
+            margin: 20px 0 40px 0;
+            font-size: 2.5rem;
+            font-weight: 900;
+            letter-spacing: -1px;
+        }
+
+        /* Bracket Structure */
+        .bracket-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            width: 100%;
+            padding: 40px 20px;
+        }
+
+        .round-column {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            gap: 20px;
+        }
+
+        .match-card {
+            background: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 16px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .match-card.final {
+            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            color: white;
+            border: none;
+            transform: scale(1.1);
+        }
+
+        .team-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+            padding: 4px 0;
+            font-size: 0.95rem;
+        }
+
+        .flag {
+            width: 24px;
+            height: 18px;
+            border-radius: 3px;
+            flex-shrink: 0;
+        }
+
+        .team-name {
+            flex: 1;
+        }
+
+        .match-time {
+            text-align: center;
+            font-size: 0.85rem;
+            color: #64748b;
+            padding: 8px 0;
+            border-top: 1px solid #e2e8f0;
+            border-bottom: 1px solid #e2e8f0;
+            margin: 8px 0;
+        }
+
+        .match-card.final .match-time {
+            border-color: rgba(255, 255, 255, 0.2);
+            color: #ddd6fe;
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin: 30px 0;
+            font-size: 0.9rem;
+            color: #475569;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .legend-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+
+        footer {
+            margin-top: 40px;
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.85rem;
+            font-weight: 700;
+            opacity: 0.8;
+        }
+
+        .btn-settings {
+            display: inline-block;
+            padding: 12px 24px;
+            background: var(--bg-card);
+            color: var(--text-main);
+            text-decoration: none;
+            border-radius: 12px;
+            font-weight: 700;
+            border: 1px solid var(--hr-color);
+            transition: transform 0.2s ease;
+        }
+        .btn-settings:hover { transform: translateY(-2px); }
+
+        @media print {
+            .controls-panel, .nav-header, .top-nav-wrapper, footer, .btn-settings { display: none !important; }
+            body { background: white; padding: 0; }
+            #export-area { padding: 20px; box-shadow: none; }
+            .bracket-container { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        @media (max-width: 1200px) {
+            .bracket-container {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+        }
+
+        .print-info {
+            display: none;
+            text-align: center;
+            font-size: 0.8rem;
+            color: #64748b;
+            margin-top: 20px;
+        }
+
+        @media print {
+            .print-info { display: block; }
+        }
+    </style>
+
+</head>
+<body>
+
+    <header class="top-nav-wrapper">
+        <div class="top-nav-container">
+            <a href="/" class="logo-text">dataehora.com.br</a>
+            <div class="header-ad">
+                <ins class="adsbygoogle"
+                     style="display:inline-block;width:728px;height:90px"
+                     data-ad-client="ca-pub-7808195997729404"
+                     data-ad-slot="1234567890"></ins>
+                <script>
+                     (adsbygoogle = window.adsbygoogle || []).push({});
+                </script>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav-header" aria-label="Navegação estrutural">
+            <a href="/" class="nav-link">dataehora.com.br</a>
+            <span class="nav-sep">/</span>
+            <span class="nav-current">Copa 2026 - Fase Eliminatória</span>
+        </nav>
+
+        <header class="header">
+            <h1>⚽ Copa do Mundo 2026 - Fase Eliminatória</h1>
+            <p class="subtitle">Oitavas de Final, Quartas, Semis e Final - Todas as datas e horários</p>
+        </header>
+
+        <div class="controls-panel">
+            <div class="control-group">
+                <label for="timezone-select">Seu Fuso Horário</label>
+                <select id="timezone-select" onchange="updateAllTimes()">
+                    <!-- Preenchido por JavaScript -->
+                </select>
+            </div>
+            <button class="btn-pdf" onclick="exportToPDF()">📥 Exportar PDF (A3)</button>
+            <button class="btn-pdf" onclick="exportToPDFA4()">📄 Exportar PDF (A4)</button>
+        </div>
+
+        <div id="export-area">
+            <div style="text-align: center; margin-bottom: 40px;">
+                <div style="font-weight: 900; color: var(--accent); font-size: 1.2rem; margin-bottom: 10px;">PODER NA COPA</div>
+                <h1 class="dynamic-title">Copa do Mundo 2026 - Fase Eliminatória</h1>
+                <div style="color: #64748b; font-size: 0.9rem;">Tabela atualizada | Horários em Brasília</div>
+            </div>
+
+            <div class="bracket-container" id="bracket-wrapper">
+                <!-- Preenchido por JavaScript -->
+            </div>
+
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #e2e8f0;"></div>
+                    <span>Oitavas de Final</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #cbd5e1;"></div>
+                    <span>Quartas de Final</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #94a3b8;"></div>
+                    <span>Semifinais</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-dot" style="background: #7c3aed;"></div>
+                    <span>Final</span>
+                </div>
+            </div>
+
+            <div class="print-info">
+                © 2026 dataehora.com.br - Copa do Mundo 2026<br>
+                Impresso em: <span id="print-date"></span>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <a href="/configuracoes/" class="btn-settings">⚙️ Configurações</a>
+        <div style="margin-top: 30px; font-size: 0.85rem; color: var(--text-muted); text-align: center; line-height: 1.8;">
+            © 2026 dataehora.com.br<br>
+            <a href="mailto:contato@dataehora.com.br" style="color: var(--text-muted); text-decoration: underline;">contato@dataehora.com.br</a><br>
+            <br>
+            <a href="/privacidade/" style="color: var(--text-muted); text-decoration: underline;">Política de Privacidade</a> | 
+            <a href="/termos/" style="color: var(--text-muted); text-decoration: underline;">Termos de Uso</a> |
+            <a href="/sobre/" style="color: var(--text-muted); text-decoration: underline;">Sobre</a> |
+            <a href="/contato/" style="color: var(--text-muted); text-decoration: underline;">Contato</a>
+        </div>
+    </footer>
+
+    <script defer src="/js/cookie-consent.js"></script>
+
+    <script>
+        // Dados da Copa 2026 - Fase Eliminatória
+        const copaData = {
+            oitavas: [
+                { date: "2026-06-29", time: "14:00", team1: "Brasil", country1: "BR", team2: "Japão", country2: "JP" },
+                { date: "2026-06-30", time: "14:00", team1: "C. do Marfim", country1: "CI", team2: "Noruega", country2: "NO" },
+                { date: "2026-06-30", time: "22:00", team1: "México", country1: "MX", team2: "Equador", country2: "EC" },
+                { date: "2026-07-01", time: "13:00", team1: "Inglaterra", country1: "GB", team2: "R.D. Congo", country2: "CD" },
+                { date: "2026-06-28", time: "16:00", team1: "África do Sul", country1: "ZA", team2: "Canadá", country2: "CA" },
+                { date: "2026-06-29", time: "22:00", team1: "Holanda", country1: "NL", team2: "Marrocos", country2: "MA" },
+                { date: "2026-06-29", time: "17:30", team1: "Alemanha", country1: "DE", team2: "Paraguai", country2: "PY" },
+                { date: "2026-06-30", time: "18:00", team1: "França", country1: "FR", team2: "Suécia", country2: "SE" }
+            ],
+            quartas: [
+                { date: "2026-07-04", time: "14:00", team1: "Vencedor OT1", country1: "XX", team2: "Vencedor OT5", country2: "XX" },
+                { date: "2026-07-04", time: "22:00", team1: "Vencedor OT4", country1: "XX", team2: "Vencedor OT8", country2: "XX" },
+                { date: "2026-07-05", time: "14:00", team1: "Vencedor OT2", country1: "XX", team2: "Vencedor OT6", country2: "XX" },
+                { date: "2026-07-05", time: "22:00", team1: "Vencedor OT3", country1: "XX", team2: "Vencedor OT7", country2: "XX" }
+            ],
+            semis: [
+                { date: "2026-07-14", time: "14:00", team1: "Vencedor QT1", country1: "XX", team2: "Vencedor QT2", country2: "XX" },
+                { date: "2026-07-15", time: "14:00", team1: "Vencedor QT3", country1: "XX", team2: "Vencedor QT4", country2: "XX" }
+            ],
+            final: [
+                { date: "2026-07-19", time: "16:00", team1: "Vencedor SF1", country1: "XX", team2: "Vencedor SF2", country2: "XX" }
+            ]
+        };
+
+        // Fusos horários de países principais
+        const timezones = {
+            "America/Sao_Paulo": { name: "🇧🇷 Brasil (Brasília)", offset: -3 },
+            "America/New_York": { name: "🇺🇸 EUA (New York)", offset: -4 },
+            "Europe/London": { name: "🇬🇧 Reino Unido", offset: 1 },
+            "Europe/Paris": { name: "🇫🇷 França", offset: 2 },
+            "Europe/Berlin": { name: "🇩🇪 Alemanha", offset: 2 },
+            "Europe/Madrid": { name: "🇪🇸 Espanha", offset: 2 },
+            "Africa/Johannesburg": { name: "🇿🇦 África do Sul", offset: 2 },
+            "Asia/Tokyo": { name: "🇯🇵 Japão", offset: 9 },
+            "Asia/Hong_Kong": { name: "🇭🇰 Hong Kong", offset: 8 },
+            "America/Toronto": { name: "🇨🇦 Canadá", offset: -4 },
+            "America/Mexico_City": { name: "🇲🇽 México", offset: -5 }
+        };
+
+        // Código de bandeiras emoji por país
+        const flags = {
+            "BR": "🇧🇷", "JP": "🇯🇵", "CI": "🇨🇮", "NO": "🇳🇴", "MX": "🇲🇽", "EC": "🇪🇨",
+            "GB": "🇬🇧", "CD": "🇨🇩", "ZA": "🇿🇦", "CA": "🇨🇦", "NL": "🇳🇱", "MA": "🇲🇦",
+            "DE": "🇩🇪", "PY": "🇵🇾", "FR": "🇫🇷", "SE": "🇸🇪", "XX": "⚽"
+        };
+
+        let currentTimezone = "America/Sao_Paulo"; // Padrão: Brasília
+
+        function setupTimezoneSelect() {
+            const select = document.getElementById('timezone-select');
+            const saved = localStorage.getItem('copa-timezone') || "America/Sao_Paulo";
+            
+            Object.entries(timezones).forEach(([tz, data]) => {
+                const opt = document.createElement('option');
+                opt.value = tz;
+                opt.textContent = data.name;
+                if (tz === saved) opt.selected = true;
+                select.appendChild(opt);
+            });
+            
+            currentTimezone = saved;
+        }
+
+        function convertTime(dateStr, timeStr) {
+            const date = new Date(`${dateStr}T${timeStr}:00-03:00`); // Horário de Brasília (UTC-3)
+            
+            return new Intl.DateTimeFormat('pt-BR', {
+                hour: '2-digit',
+                minute: '2-digit',
+                hour12: false,
+                timeZone: currentTimezone
+            }).format(date);
+        }
+
+        function createMatchCard(match, roundType) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateParts = new Date(match.date).toLocaleDateString('pt-BR', { 
+                day: 'numeric', 
+                month: 'short',
+                timeZone: 'UTC'
+            });
+            
+            let colors = {
+                "oitavas": "#e2e8f0",
+                "quartas": "#cbd5e1",
+                "semis": "#94a3b8",
+                "final": "#7c3aed"
+            };
+
+            return `
+                <div class="match-card ${roundType === 'final' ? 'final' : ''}" style="border-left: 5px solid ${colors[roundType] || '#999'}">
+                    <div class="team-row">
+                        <span class="flag">${flags[match.country1]}</span>
+                        <span class="team-name">${match.team1}</span>
+                    </div>
+                    <div class="match-time">${dateParts} • ${timeConverted}</div>
+                    <div class="team-row">
+                        <span class="flag">${flags[match.country2]}</span>
+                        <span class="team-name">${match.team2}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        function renderBracket() {
+            const wrapper = document.getElementById('bracket-wrapper');
+            
+            let html = `
+                <div class="round-column">
+                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">OITAVAS</strong>
+            `;
+            
+            copaData.oitavas.forEach(match => {
+                html += createMatchCard(match, 'oitavas');
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="round-column">
+                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">QUARTAS</strong>
+            `;
+            
+            copaData.quartas.forEach(match => {
+                html += createMatchCard(match, 'quartas');
+            });
+            html += `</div>`;
+
+            html += `
+                <div class="round-column">
+                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">SEMI / FINAL</strong>
+            `;
+            
+            copaData.semis.forEach(match => {
+                html += createMatchCard(match, 'semis');
+            });
+            
+            copaData.final.forEach(match => {
+                html += createMatchCard(match, 'final');
+            });
+            html += `</div>`;
+
+            wrapper.innerHTML = html;
+        }
+
+        function updateAllTimes() {
+            const select = document.getElementById('timezone-select');
+            currentTimezone = select.value;
+            localStorage.setItem('copa-timezone', currentTimezone);
+            renderBracket();
+        }
+
+        async function exportToPDF() {
+            const { jsPDF } = window.jspdf;
+            const element = document.getElementById('export-area');
+            const btn = document.querySelector('.btn-pdf');
+            
+            btn.innerText = "⏳ Processando...";
+            btn.disabled = true;
+
+            try {
+                const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+                const imgData = canvas.toDataURL('image/png');
+
+                const pdf = new jsPDF('p', 'mm', 'a3');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                const maxWidth = pdfWidth - (margin * 2);
+                const maxHeight = pdfHeight - (margin * 2);
+
+                const ratio = canvas.width / canvas.height;
+                let finalWidth = maxWidth;
+                let finalHeight = finalWidth / ratio;
+
+                if (finalHeight > maxHeight) {
+                    finalHeight = maxHeight;
+                    finalWidth = finalHeight * ratio;
+                }
+
+                pdf.addImage(imgData, 'PNG', (pdfWidth - finalWidth) / 2, margin, finalWidth, finalHeight);
+                pdf.save('Copa-2026-Fase-Eliminatoria-A3.pdf');
+            } catch (error) {
+                console.error('Erro ao exportar PDF:', error);
+                alert('Erro ao exportar PDF. Tente novamente.');
+            }
+
+            btn.innerText = "📥 Exportar PDF (A3)";
+            btn.disabled = false;
+        }
+
+        async function exportToPDFA4() {
+            const { jsPDF } = window.jspdf;
+            const element = document.getElementById('export-area');
+            const btn = document.querySelectorAll('.btn-pdf')[1];
+            
+            btn.innerText = "⏳ Processando...";
+            btn.disabled = true;
+
+            try {
+                const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+                const imgData = canvas.toDataURL('image/png');
+
+                const pdf = new jsPDF('p', 'mm', 'a4');
+                const pdfWidth = pdf.internal.pageSize.getWidth();
+                const pdfHeight = pdf.internal.pageSize.getHeight();
+                const margin = 10;
+                const maxWidth = pdfWidth - (margin * 2);
+                const maxHeight = pdfHeight - (margin * 2);
+
+                const ratio = canvas.width / canvas.height;
+                let finalWidth = maxWidth;
+                let finalHeight = finalWidth / ratio;
+
+                if (finalHeight > maxHeight) {
+                    finalHeight = maxHeight;
+                    finalWidth = finalHeight * ratio;
+                }
+
+                pdf.addImage(imgData, 'PNG', (pdfWidth - finalWidth) / 2, margin, finalWidth, finalHeight);
+                pdf.save('Copa-2026-Fase-Eliminatoria-A4.pdf');
+            } catch (error) {
+                console.error('Erro ao exportar PDF:', error);
+                alert('Erro ao exportar PDF. Tente novamente.');
+            }
+
+            btn.innerText = "📄 Exportar PDF (A4)";
+            btn.disabled = false;
+        }
+
+        window.addEventListener('load', () => {
+            setupTimezoneSelect();
+            renderBracket();
+            document.getElementById('print-date').innerText = new Date().toLocaleDateString('pt-BR');
+        });
+    </script>
+
+</body>
+</html>
