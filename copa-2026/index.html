@@ -1191,7 +1191,7 @@
                     <span>${getTimezoneCountryPrefix(countryCode)}</span>
                     <span class="timezone-country">
                         <span>${countryName}</span>
-                        <img src="${flagUrl}" alt="${countryName}" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
+                        <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
                     </span>
                 </span>
             `;
@@ -1791,7 +1791,7 @@
                     scale: 2, 
                     useCORS: true, 
                     backgroundColor: '#ffffff',
-                    imageTimeout: 0,
+                    imageTimeout: 15000,
                     logging: false 
                 });
                 const imgData = canvas.toDataURL('image/png');
