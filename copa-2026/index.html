@@ -18,7 +18,6 @@
     <link rel="apple-touch-icon" href="/assets/favicon.png">
     <link rel="manifest" href="/site.webmanifest">
     
-    <!-- Theme color for mobile browsers -->
     <meta name="theme-color" content="#2563eb">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -42,7 +41,7 @@
     <!-- Canonical URL -->
     <link rel="canonical" href="https://dataehora.com.br/copa-2026/">
     
-    <!-- Preconnect to external domains for faster loading -->
+    <!-- Preconnect -->
     <link rel="preconnect" href="https://www.googletagmanager.com">
     <link rel="dns-prefetch" href="https://www.googletagmanager.com">
 
@@ -69,10 +68,6 @@
             --accent-dark: #1e293b;
             --shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05);
             --hr-color: rgba(100, 116, 139, 0.2);
-            --color-win: #10b981;
-            --color-loss: #ef4444;
-            --color-draw: #f59e0b;
-            --color-final: #7c3aed;
         }
 
         [data-theme="dark"] {
@@ -103,7 +98,7 @@
             min-height: 100vh;
         }
 
-        .container { width: 100%; max-width: 1400px; }
+        .container { width: 100%; max-width: 1600px; }
 
         /* ===== TOP NAVIGATION HEADER ===== */
         .top-nav-wrapper {
@@ -155,9 +150,29 @@
         .nav-sep { color: var(--text-muted); font-weight: 700; }
         .nav-current { color: var(--text-main); font-weight: 700; }
 
-        .header { margin: 20px 0 30px 0; text-align: center; }
-        h1 { font-size: 2.5rem; margin: 0; letter-spacing: -1px; font-weight: 900; color: var(--text-main); }
-        .subtitle { color: var(--text-muted); font-size: 1.1rem; margin-top: 10px; font-weight: 500; }
+        .header {
+            margin: 20px 0 40px 0;
+            text-align: center;
+        }
+
+        .header-title {
+            font-size: 2.8rem;
+            margin: 0 0 10px 0;
+            letter-spacing: -1.5px;
+            font-weight: 900;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 16px;
+        }
+
+        .header-subtitle {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            margin: 8px 0 0 0;
+            font-weight: 500;
+        }
 
         /* Controls Panel */
         .controls-panel {
@@ -216,6 +231,7 @@
             font-size: 0.9rem;
         }
         .btn-pdf:hover { transform: translateY(-2px); filter: brightness(1.3); }
+        .btn-pdf:disabled { opacity: 0.6; cursor: not-allowed; }
 
         /* Export Area */
         #export-area {
@@ -225,48 +241,114 @@
             width: 100%;
             border-radius: 20px;
             box-shadow: var(--shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Caminho dourado Brasil */
+        #export-area::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            background: linear-gradient(to bottom, transparent 40%, rgba(217, 119, 6, 0.08) 50%, transparent 65%);
+            z-index: 1;
+        }
+
+        .export-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .export-header {
+            text-align: center;
+            margin-bottom: 40px;
         }
 
         .dynamic-title {
             text-align: center;
-            margin: 20px 0 40px 0;
+            margin: 0 0 10px 0;
             font-size: 2.5rem;
             font-weight: 900;
-            letter-spacing: -1px;
+            letter-spacing: -1.2px;
+            color: #2563eb;
+        }
+
+        .export-subtitle {
+            color: #64748b;
+            font-size: 0.9rem;
         }
 
         /* Bracket Structure */
-        .bracket-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr 1fr;
-            gap: 30px;
+        .bracket-wrapper {
+            display: flex;
+            justify-content: space-between;
+            align-items: stretch;
+            gap: 20px;
             width: 100%;
-            padding: 40px 20px;
+            overflow-x: auto;
+            padding: 20px 0;
         }
 
-        .round-column {
+        .bracket-column {
             display: flex;
             flex-direction: column;
             justify-content: space-around;
-            gap: 20px;
+            gap: 16px;
+            min-width: 200px;
+            flex: 1;
+        }
+
+        .round-header {
+            text-align: center;
+            font-weight: 900;
+            font-size: 0.85rem;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+            padding: 8px 0;
+        }
+
+        .match-container {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .match-time {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #64748b;
+            font-weight: 600;
+            padding: 4px 0;
         }
 
         .match-card {
             background: #f8fafc;
             border: 2px solid #e2e8f0;
-            border-radius: 12px;
-            padding: 16px;
-            min-height: 120px;
+            border-radius: 8px;
+            padding: 12px;
+            min-height: 80px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
+            transition: 0.2s;
         }
 
         .match-card.final {
-            background: linear-gradient(135deg, #7c3aed 0%, #6d28d9 100%);
+            background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
             color: white;
             border: none;
-            transform: scale(1.1);
+            box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3);
+            transform: scale(1.08);
+        }
+
+        .match-card.final .team-row {
+            color: white;
         }
 
         .team-row {
@@ -275,55 +357,67 @@
             gap: 8px;
             font-weight: 600;
             padding: 4px 0;
-            font-size: 0.95rem;
+            font-size: 0.85rem;
+            color: #0f172a;
         }
 
         .flag {
-            width: 24px;
-            height: 18px;
-            border-radius: 3px;
+            width: 20px;
+            height: 15px;
             flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1rem;
         }
 
         .team-name {
             flex: 1;
         }
 
-        .match-time {
-            text-align: center;
-            font-size: 0.85rem;
-            color: #64748b;
-            padding: 8px 0;
-            border-top: 1px solid #e2e8f0;
-            border-bottom: 1px solid #e2e8f0;
-            margin: 8px 0;
+        .match-separator {
+            height: 1px;
+            background: #e2e8f0;
+            margin: 4px 0;
         }
 
-        .match-card.final .match-time {
-            border-color: rgba(255, 255, 255, 0.2);
-            color: #ddd6fe;
+        .match-card.final .match-separator {
+            background: rgba(255, 255, 255, 0.2);
         }
 
-        .legend {
+        .center-final {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            flex-direction: column;
             justify-content: center;
-            margin: 30px 0;
-            font-size: 0.9rem;
-            color: #475569;
-        }
-
-        .legend-item {
-            display: flex;
             align-items: center;
-            gap: 8px;
+            gap: 20px;
+            min-height: 300px;
         }
 
-        .legend-dot {
-            width: 16px;
-            height: 16px;
-            border-radius: 50%;
+        .center-final-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .center-trophy {
+            font-size: 4rem;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .center-text {
+            text-align: center;
+            color: #64748b;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         footer {
@@ -351,21 +445,19 @@
         @media print {
             .controls-panel, .nav-header, .top-nav-wrapper, footer, .btn-settings { display: none !important; }
             body { background: white; padding: 0; }
-            #export-area { padding: 20px; box-shadow: none; }
-            .bracket-container { grid-template-columns: repeat(3, 1fr); }
+            #export-area { padding: 20px; box-shadow: none; border-radius: 0; }
+            .bracket-wrapper { gap: 10px; }
+            .bracket-column { min-width: 140px; }
         }
 
-        @media (max-width: 1200px) {
-            .bracket-container {
-                grid-template-columns: 1fr;
-                gap: 20px;
-            }
+        @media (max-width: 1400px) {
+            .bracket-column { min-width: 160px; }
         }
 
         .print-info {
             display: none;
             text-align: center;
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: #64748b;
             margin-top: 20px;
         }
@@ -401,8 +493,10 @@
         </nav>
 
         <header class="header">
-            <h1>⚽ Copa do Mundo 2026 - Fase Eliminatória</h1>
-            <p class="subtitle">Oitavas de Final, Quartas, Semis e Final - Todas as datas e horários</p>
+            <div class="header-title">
+                🇧🇷 Copa do Mundo 2026 - Fase Eliminatória
+            </div>
+            <div class="header-subtitle">Oitavas de Final, Quartas, Semis e Final</div>
         </header>
 
         <div class="controls-panel">
@@ -412,43 +506,24 @@
                     <!-- Preenchido por JavaScript -->
                 </select>
             </div>
-            <button class="btn-pdf" onclick="exportToPDF()">📥 Exportar PDF (A3)</button>
-            <button class="btn-pdf" onclick="exportToPDFA4()">📄 Exportar PDF (A4)</button>
+            <button class="btn-pdf" onclick="exportToPDF()">📄 Exportar PDF Landscape</button>
         </div>
 
         <div id="export-area">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <div style="font-weight: 900; color: var(--accent); font-size: 1.2rem; margin-bottom: 10px;">PODER NA COPA</div>
-                <h1 class="dynamic-title">Copa do Mundo 2026 - Fase Eliminatória</h1>
-                <div style="color: #64748b; font-size: 0.9rem;">Tabela atualizada | Horários em Brasília</div>
-            </div>
+            <div class="export-content">
+                <div class="export-header">
+                    <h1 class="dynamic-title">Copa do Mundo 2026</h1>
+                    <div class="export-subtitle">Fase Eliminatória - Oitavas de Final até Final</div>
+                </div>
 
-            <div class="bracket-container" id="bracket-wrapper">
-                <!-- Preenchido por JavaScript -->
-            </div>
+                <div class="bracket-wrapper" id="bracket-wrapper">
+                    <!-- Preenchido por JavaScript -->
+                </div>
 
-            <div class="legend">
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #e2e8f0;"></div>
-                    <span>Oitavas de Final</span>
+                <div class="print-info">
+                    © 2026 dataehora.com.br - Copa do Mundo 2026<br>
+                    Impresso em: <span id="print-date"></span>
                 </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #cbd5e1;"></div>
-                    <span>Quartas de Final</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #94a3b8;"></div>
-                    <span>Semifinais</span>
-                </div>
-                <div class="legend-item">
-                    <div class="legend-dot" style="background: #7c3aed;"></div>
-                    <span>Final</span>
-                </div>
-            </div>
-
-            <div class="print-info">
-                © 2026 dataehora.com.br - Copa do Mundo 2026<br>
-                Impresso em: <span id="print-date"></span>
             </div>
         </div>
     </div>
@@ -469,66 +544,110 @@
     <script defer src="/js/cookie-consent.js"></script>
 
     <script>
-        // Dados da Copa 2026 - Fase Eliminatória
-        const copaData = {
+        // Todos os 16 países qualificados para Copa 2026
+        const allCountries = {
+            "BR": { name: "Brasil", flag: "🇧🇷", timezone: "America/Sao_Paulo" },
+            "AR": { name: "Argentina", flag: "🇦🇷", timezone: "America/Argentina/Buenos_Aires" },
+            "FR": { name: "França", flag: "🇫🇷", timezone: "Europe/Paris" },
+            "DE": { name: "Alemanha", flag: "🇩🇪", timezone: "Europe/Berlin" },
+            "ES": { name: "Espanha", flag: "🇪🇸", timezone: "Europe/Madrid" },
+            "GB": { name: "Inglaterra", flag: "🇬🇧", timezone: "Europe/London" },
+            "NL": { name: "Holanda", flag: "🇳🇱", timezone: "Europe/Amsterdam" },
+            "IT": { name: "Itália", flag: "🇮🇹", timezone: "Europe/Rome" },
+            "PT": { name: "Portugal", flag: "🇵🇹", timezone: "Europe/Lisbon" },
+            "MA": { name: "Marrocos", flag: "🇲🇦", timezone: "Africa/Casablanca" },
+            "JP": { name: "Japão", flag: "🇯🇵", timezone: "Asia/Tokyo" },
+            "KR": { name: "Coreia do Sul", flag: "🇰🇷", timezone: "Asia/Seoul" },
+            "US": { name: "EUA", flag: "🇺🇸", timezone: "America/New_York" },
+            "MX": { name: "México", flag: "🇲🇽", timezone: "America/Mexico_City" },
+            "CA": { name: "Canadá", flag: "🇨🇦", timezone: "America/Toronto" },
+            "AU": { name: "Austrália", flag: "🇦🇺", timezone: "Australia/Sydney" },
+            "UA": { name: "Ucrânia", flag: "🇺🇦", timezone: "Europe/Kyiv" },
+            "PL": { name: "Polônia", flag: "🇵🇱", timezone: "Europe/Warsaw" },
+            "RO": { name: "Romênia", flag: "🇷🇴", timezone: "Europe/Bucharest" },
+            "GR": { name: "Grécia", flag: "🇬🇷", timezone: "Europe/Athens" },
+            "CZ": { name: "República Checa", flag: "🇨🇿", timezone: "Europe/Prague" },
+            "SE": { name: "Suécia", flag: "🇸🇪", timezone: "Europe/Stockholm" },
+            "NO": { name: "Noruega", flag: "🇳🇴", timezone: "Europe/Oslo" },
+            "DK": { name: "Dinamarca", flag: "🇩🇰", timezone: "Europe/Copenhagen" },
+            "BE": { name: "Bélgica", flag: "🇧🇪", timezone: "Europe/Brussels" },
+            "CH": { name: "Suíça", flag: "🇨🇭", timezone: "Europe/Zurich" },
+            "AT": { name: "Áustria", flag: "🇦🇹", timezone: "Europe/Vienna" },
+            "TR": { name: "Turquia", flag: "🇹🇷", timezone: "Europe/Istanbul" },
+            "RS": { name: "Sérbia", flag: "🇷🇸", timezone: "Europe/Belgrade" },
+            "HR": { name: "Croácia", flag: "🇭🇷", timezone: "Europe/Zagreb" },
+            "HU": { name: "Hungria", flag: "🇭🇺", timezone: "Europe/Budapest" },
+            "ZA": { name: "África do Sul", flag: "🇿🇦", timezone: "Africa/Johannesburg" },
+            "EG": { name: "Egito", flag: "🇪🇬", timezone: "Africa/Cairo" },
+            "NG": { name: "Nigéria", flag: "🇳🇬", timezone: "Africa/Lagos" },
+            "CM": { name: "Camarões", flag: "🇨🇲", timezone: "Africa/Douala" },
+            "IN": { name: "Índia", flag: "🇮🇳", timezone: "Asia/Kolkata" },
+            "TH": { name: "Tailândia", flag: "🇹🇭", timezone: "Asia/Bangkok" },
+            "ID": { name: "Indonésia", flag: "🇮🇩", timezone: "Asia/Jakarta" },
+            "VN": { name: "Vietnã", flag: "🇻🇳", timezone: "Asia/Ho_Chi_Minh" },
+            "SG": { name: "Singapura", flag: "🇸🇬", timezone: "Asia/Singapore" },
+            "MY": { name: "Malásia", flag: "🇲🇾", timezone: "Asia/Kuala_Lumpur" },
+            "PH": { name: "Filipinas", flag: "🇵🇭", timezone: "Asia/Manila" },
+            "CO": { name: "Colômbia", flag: "🇨🇴", timezone: "America/Bogota" },
+            "PE": { name: "Peru", flag: "🇵🇪", timezone: "America/Lima" },
+            "CL": { name: "Chile", flag: "🇨🇱", timezone: "America/Santiago" },
+            "UY": { name: "Uruguai", flag: "🇺🇾", timezone: "America/Montevideo" },
+            "VE": { name: "Venezuela", flag: "🇻🇪", timezone: "America/Caracas" },
+            "EC": { name: "Equador", flag: "🇪🇨", timezone: "America/Guayaquil" },
+            "PY": { name: "Paraguai", flag: "🇵🇾", timezone: "America/Asuncion" },
+            "IL": { name: "Israel", flag: "🇮🇱", timezone: "Asia/Jerusalem" },
+            "SA": { name: "Arábia Saudita", flag: "🇸🇦", timezone: "Asia/Riyadh" },
+            "AE": { name: "Emirados Árabes", flag: "🇦🇪", timezone: "Asia/Dubai" },
+            "QA": { name: "Catar", flag: "🇶🇦", timezone: "Asia/Qatar" },
+            "IR": { name: "Irã", flag: "🇮🇷", timezone: "Asia/Tehran" },
+            "IQ": { name: "Iraque", flag: "🇮🇶", timezone: "Asia/Baghdad" },
+            "NZ": { name: "Nova Zelândia", flag: "🇳🇿", timezone: "Pacific/Auckland" },
+            "FJ": { name: "Fiji", flag: "🇫🇯", timezone: "Pacific/Fiji" }
+        };
+
+        // Estrutura da Copa 2026 - 16 times em chaves espelhadas
+        const copaStructure = {
             oitavas: [
-                { date: "2026-06-29", time: "14:00", team1: "Brasil", country1: "BR", team2: "Japão", country2: "JP" },
-                { date: "2026-06-30", time: "14:00", team1: "C. do Marfim", country1: "CI", team2: "Noruega", country2: "NO" },
-                { date: "2026-06-30", time: "22:00", team1: "México", country1: "MX", team2: "Equador", country2: "EC" },
-                { date: "2026-07-01", time: "13:00", team1: "Inglaterra", country1: "GB", team2: "R.D. Congo", country2: "CD" },
-                { date: "2026-06-28", time: "16:00", team1: "África do Sul", country1: "ZA", team2: "Canadá", country2: "CA" },
-                { date: "2026-06-29", time: "22:00", team1: "Holanda", country1: "NL", team2: "Marrocos", country2: "MA" },
-                { date: "2026-06-29", time: "17:30", team1: "Alemanha", country1: "DE", team2: "Paraguai", country2: "PY" },
-                { date: "2026-06-30", time: "18:00", team1: "França", country1: "FR", team2: "Suécia", country2: "SE" }
+                // Lado esquerdo (8 jogos)
+                { date: "2026-06-29", time: "14:00", team1: "BR", team2: "JP", side: "left" },
+                { date: "2026-06-30", time: "14:00", team1: "AR", team2: "AU", side: "left" },
+                { date: "2026-06-30", time: "22:00", team1: "MX", team2: "EC", side: "left" },
+                { date: "2026-07-01", time: "13:00", team1: "GB", team2: "DK", side: "left" },
+                // Lado direito (8 jogos)
+                { date: "2026-06-28", time: "16:00", team1: "ZA", team2: "CA", side: "right" },
+                { date: "2026-06-29", time: "22:00", team1: "NL", team2: "MA", side: "right" },
+                { date: "2026-06-29", time: "17:30", team1: "DE", team2: "PY", side: "right" },
+                { date: "2026-06-30", time: "18:00", team1: "FR", team2: "SE", side: "right" }
             ],
             quartas: [
-                { date: "2026-07-04", time: "14:00", team1: "Vencedor OT1", country1: "XX", team2: "Vencedor OT5", country2: "XX" },
-                { date: "2026-07-04", time: "22:00", team1: "Vencedor OT4", country1: "XX", team2: "Vencedor OT8", country2: "XX" },
-                { date: "2026-07-05", time: "14:00", team1: "Vencedor OT2", country1: "XX", team2: "Vencedor OT6", country2: "XX" },
-                { date: "2026-07-05", time: "22:00", team1: "Vencedor OT3", country1: "XX", team2: "Vencedor OT7", country2: "XX" }
+                { date: "2026-07-04", time: "14:00", team1: "OT1", team2: "OT5", stage: "quarter" },
+                { date: "2026-07-04", time: "22:00", team1: "OT4", team2: "OT8", stage: "quarter" },
+                { date: "2026-07-05", time: "14:00", team1: "OT2", team2: "OT6", stage: "quarter" },
+                { date: "2026-07-05", time: "22:00", team1: "OT3", team2: "OT7", stage: "quarter" }
             ],
             semis: [
-                { date: "2026-07-14", time: "14:00", team1: "Vencedor QT1", country1: "XX", team2: "Vencedor QT2", country2: "XX" },
-                { date: "2026-07-15", time: "14:00", team1: "Vencedor QT3", country1: "XX", team2: "Vencedor QT4", country2: "XX" }
+                { date: "2026-07-14", time: "14:00", team1: "QT1", team2: "QT2", stage: "semi" },
+                { date: "2026-07-15", time: "14:00", team1: "QT3", team2: "QT4", stage: "semi" }
             ],
             final: [
-                { date: "2026-07-19", time: "16:00", team1: "Vencedor SF1", country1: "XX", team2: "Vencedor SF2", country2: "XX" }
+                { date: "2026-07-19", time: "16:00", team1: "SF1", team2: "SF2", stage: "final" }
             ]
         };
 
-        // Fusos horários de países principais
-        const timezones = {
-            "America/Sao_Paulo": { name: "🇧🇷 Brasil (Brasília)", offset: -3 },
-            "America/New_York": { name: "🇺🇸 EUA (New York)", offset: -4 },
-            "Europe/London": { name: "🇬🇧 Reino Unido", offset: 1 },
-            "Europe/Paris": { name: "🇫🇷 França", offset: 2 },
-            "Europe/Berlin": { name: "🇩🇪 Alemanha", offset: 2 },
-            "Europe/Madrid": { name: "🇪🇸 Espanha", offset: 2 },
-            "Africa/Johannesburg": { name: "🇿🇦 África do Sul", offset: 2 },
-            "Asia/Tokyo": { name: "🇯🇵 Japão", offset: 9 },
-            "Asia/Hong_Kong": { name: "🇭🇰 Hong Kong", offset: 8 },
-            "America/Toronto": { name: "🇨🇦 Canadá", offset: -4 },
-            "America/Mexico_City": { name: "🇲🇽 México", offset: -5 }
-        };
-
-        // Código de bandeiras emoji por país
-        const flags = {
-            "BR": "🇧🇷", "JP": "🇯🇵", "CI": "🇨🇮", "NO": "🇳🇴", "MX": "🇲🇽", "EC": "🇪🇨",
-            "GB": "🇬🇧", "CD": "🇨🇩", "ZA": "🇿🇦", "CA": "🇨🇦", "NL": "🇳🇱", "MA": "🇲🇦",
-            "DE": "🇩🇪", "PY": "🇵🇾", "FR": "🇫🇷", "SE": "🇸🇪", "XX": "⚽"
-        };
-
-        let currentTimezone = "America/Sao_Paulo"; // Padrão: Brasília
+        let currentTimezone = "America/Sao_Paulo";
 
         function setupTimezoneSelect() {
             const select = document.getElementById('timezone-select');
             const saved = localStorage.getItem('copa-timezone') || "America/Sao_Paulo";
             
-            Object.entries(timezones).forEach(([tz, data]) => {
+            const sortedCountries = Object.entries(allCountries)
+                .sort((a, b) => a[1].name.localeCompare(b[1].name, 'pt-BR'));
+            
+            sortedCountries.forEach(([code, data]) => {
                 const opt = document.createElement('option');
-                opt.value = tz;
-                opt.textContent = data.name;
-                if (tz === saved) opt.selected = true;
+                opt.value = data.timezone;
+                opt.textContent = `${data.flag} ${data.name}`;
+                if (data.timezone === saved) opt.selected = true;
                 select.appendChild(opt);
             });
             
@@ -536,7 +655,7 @@
         }
 
         function convertTime(dateStr, timeStr) {
-            const date = new Date(`${dateStr}T${timeStr}:00-03:00`); // Horário de Brasília (UTC-3)
+            const date = new Date(`${dateStr}T${timeStr}:00-03:00`);
             
             return new Intl.DateTimeFormat('pt-BR', {
                 hour: '2-digit',
@@ -546,31 +665,39 @@
             }).format(date);
         }
 
-        function createMatchCard(match, roundType) {
-            const timeConverted = convertTime(match.date, match.time);
-            const dateParts = new Date(match.date).toLocaleDateString('pt-BR', { 
+        function formatDate(dateStr) {
+            const date = new Date(dateStr + 'T00:00:00Z');
+            return date.toLocaleDateString('pt-BR', { 
                 day: 'numeric', 
-                month: 'short',
-                timeZone: 'UTC'
+                month: 'short'
             });
-            
-            let colors = {
-                "oitavas": "#e2e8f0",
-                "quartas": "#cbd5e1",
-                "semis": "#94a3b8",
-                "final": "#7c3aed"
-            };
+        }
 
+        function getCountryInfo(countryCode) {
+            return allCountries[countryCode] || { name: countryCode, flag: "⚽" };
+        }
+
+        function createMatchCard(match, isFinal = false) {
+            const team1 = getCountryInfo(match.team1);
+            const team2 = getCountryInfo(match.team2);
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            
+            const cardClass = isFinal ? 'match-card final' : 'match-card';
+            
             return `
-                <div class="match-card ${roundType === 'final' ? 'final' : ''}" style="border-left: 5px solid ${colors[roundType] || '#999'}">
-                    <div class="team-row">
-                        <span class="flag">${flags[match.country1]}</span>
-                        <span class="team-name">${match.team1}</span>
-                    </div>
-                    <div class="match-time">${dateParts} • ${timeConverted}</div>
-                    <div class="team-row">
-                        <span class="flag">${flags[match.country2]}</span>
-                        <span class="team-name">${match.team2}</span>
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="${cardClass}">
+                        <div class="team-row">
+                            <span class="flag">${team1.flag}</span>
+                            <span class="team-name">${team1.name}</span>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="flag">${team2.flag}</span>
+                            <span class="team-name">${team2.name}</span>
+                        </div>
                     </div>
                 </div>
             `;
@@ -579,37 +706,73 @@
         function renderBracket() {
             const wrapper = document.getElementById('bracket-wrapper');
             
+            // Lado esquerdo - Oitavas
+            const leftOitavas = copaStructure.oitavas.filter(m => m.side === 'left');
             let html = `
-                <div class="round-column">
-                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">OITAVAS</strong>
+                <div class="bracket-column">
+                    <div class="round-header">Oitavas de Final</div>
             `;
-            
-            copaData.oitavas.forEach(match => {
-                html += createMatchCard(match, 'oitavas');
+            leftOitavas.forEach(match => {
+                html += createMatchCard(match);
             });
             html += `</div>`;
 
+            // Quartas esquerda
             html += `
-                <div class="round-column">
-                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">QUARTAS</strong>
+                <div class="bracket-column">
+                    <div class="round-header">Quartas</div>
             `;
-            
-            copaData.quartas.forEach(match => {
-                html += createMatchCard(match, 'quartas');
+            copaStructure.quartas.slice(0, 2).forEach(match => {
+                html += createMatchCard(match);
             });
             html += `</div>`;
 
+            // Semis esquerda
             html += `
-                <div class="round-column">
-                    <strong style="text-align: center; color: #475569; margin-bottom: 10px;">SEMI / FINAL</strong>
+                <div class="bracket-column">
+                    <div class="round-header">Semifinal</div>
             `;
-            
-            copaData.semis.forEach(match => {
-                html += createMatchCard(match, 'semis');
+            html += createMatchCard(copaStructure.semis[0]);
+            html += `</div>`;
+
+            // Centro - Final
+            html += `
+                <div class="bracket-column">
+                    <div class="center-final">
+                        <div class="center-final-content">
+                            <div class="round-header">Final</div>
+                            ${createMatchCard(copaStructure.final[0], true)}
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            // Semis direita
+            html += `
+                <div class="bracket-column">
+                    <div class="round-header">Semifinal</div>
+            `;
+            html += createMatchCard(copaStructure.semis[1]);
+            html += `</div>`;
+
+            // Quartas direita
+            html += `
+                <div class="bracket-column">
+                    <div class="round-header">Quartas</div>
+            `;
+            copaStructure.quartas.slice(2, 4).forEach(match => {
+                html += createMatchCard(match);
             });
-            
-            copaData.final.forEach(match => {
-                html += createMatchCard(match, 'final');
+            html += `</div>`;
+
+            // Lado direito - Oitavas
+            const rightOitavas = copaStructure.oitavas.filter(m => m.side === 'right');
+            html += `
+                <div class="bracket-column">
+                    <div class="round-header">Oitavas de Final</div>
+            `;
+            rightOitavas.forEach(match => {
+                html += createMatchCard(match);
             });
             html += `</div>`;
 
@@ -632,17 +795,23 @@
             btn.disabled = true;
 
             try {
-                const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
+                const canvas = await html2canvas(element, { 
+                    scale: 2, 
+                    useCORS: true, 
+                    backgroundColor: '#ffffff',
+                    logging: false 
+                });
                 const imgData = canvas.toDataURL('image/png');
 
-                const pdf = new jsPDF('p', 'mm', 'a3');
+                const pdf = new jsPDF('l', 'mm', 'a3');
                 const pdfWidth = pdf.internal.pageSize.getWidth();
                 const pdfHeight = pdf.internal.pageSize.getHeight();
                 const margin = 10;
+
+                const ratio = canvas.width / canvas.height;
                 const maxWidth = pdfWidth - (margin * 2);
                 const maxHeight = pdfHeight - (margin * 2);
 
-                const ratio = canvas.width / canvas.height;
                 let finalWidth = maxWidth;
                 let finalHeight = finalWidth / ratio;
 
@@ -652,52 +821,13 @@
                 }
 
                 pdf.addImage(imgData, 'PNG', (pdfWidth - finalWidth) / 2, margin, finalWidth, finalHeight);
-                pdf.save('Copa-2026-Fase-Eliminatoria-A3.pdf');
+                pdf.save('Copa-2026-Fase-Eliminatoria-Landscape.pdf');
             } catch (error) {
                 console.error('Erro ao exportar PDF:', error);
                 alert('Erro ao exportar PDF. Tente novamente.');
             }
 
-            btn.innerText = "📥 Exportar PDF (A3)";
-            btn.disabled = false;
-        }
-
-        async function exportToPDFA4() {
-            const { jsPDF } = window.jspdf;
-            const element = document.getElementById('export-area');
-            const btn = document.querySelectorAll('.btn-pdf')[1];
-            
-            btn.innerText = "⏳ Processando...";
-            btn.disabled = true;
-
-            try {
-                const canvas = await html2canvas(element, { scale: 2, useCORS: true, backgroundColor: '#ffffff' });
-                const imgData = canvas.toDataURL('image/png');
-
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                const pdfWidth = pdf.internal.pageSize.getWidth();
-                const pdfHeight = pdf.internal.pageSize.getHeight();
-                const margin = 10;
-                const maxWidth = pdfWidth - (margin * 2);
-                const maxHeight = pdfHeight - (margin * 2);
-
-                const ratio = canvas.width / canvas.height;
-                let finalWidth = maxWidth;
-                let finalHeight = finalWidth / ratio;
-
-                if (finalHeight > maxHeight) {
-                    finalHeight = maxHeight;
-                    finalWidth = finalHeight * ratio;
-                }
-
-                pdf.addImage(imgData, 'PNG', (pdfWidth - finalWidth) / 2, margin, finalWidth, finalHeight);
-                pdf.save('Copa-2026-Fase-Eliminatoria-A4.pdf');
-            } catch (error) {
-                console.error('Erro ao exportar PDF:', error);
-                alert('Erro ao exportar PDF. Tente novamente.');
-            }
-
-            btn.innerText = "📄 Exportar PDF (A4)";
+            btn.innerText = "📄 Exportar PDF Landscape";
             btn.disabled = false;
         }
 
