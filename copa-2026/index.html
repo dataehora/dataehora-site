@@ -593,6 +593,12 @@
         @media print {
             .print-info { display: block; }
         }
+
+        .flag-icon {
+            height: 0.9em;
+            vertical-align: middle;
+            border-radius: 3px;
+        }
     </style>
 
 </head>
@@ -622,7 +628,7 @@
 
         <header class="header">
             <div class="header-title">
-                <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" style="height:0.9em;vertical-align:middle;border-radius:3px;"> Copa do Mundo 2026
+                <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026
             </div>
             <div class="header-subtitle">Fase Eliminatória</div>
             <div class="header-rounds">16 avos · Oitavas · Quartas · Semis · Final</div>
@@ -641,7 +647,7 @@
         <div id="export-area">
             <div class="export-content">
                 <div class="export-header">
-                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026"><img src="https://flagcdn.com/32x24/br.png" alt="Brasil" style="height:0.85em;vertical-align:middle;border-radius:3px;"> Copa do Mundo 2026</h1>
+                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026"><img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026</h1>
                     <div class="export-subtitle">Fase Eliminatória</div>
                     <div class="export-rounds">16 avos · Oitavas · Quartas de Final · Semifinal · Final</div>
                 </div>
@@ -1214,6 +1220,7 @@
             svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
             const columns = wrapper.querySelectorAll('.bracket-column');
+            // 9 columns: leftAvos, leftOitavas, leftQuartas, leftSemis, center(Final+3rd), rightSemis, rightQuartas, rightOitavas, rightAvos
             if (columns.length < 9) return;
 
             function addLine(x1, y1, x2, y2, isBrazil) {
@@ -1255,15 +1262,19 @@
                     const xSrc2 = direction === 'right' ? src2.right : src2.left;
                     const xTgt = direction === 'right' ? tgt.left : tgt.right;
                     const xMid = (xSrc1 + xTgt) / 2;
+                    const yMid = (src1.y + src2.y) / 2;
 
-                    // Horizontal lines from each source to midpoint
+                    // Horizontal lines from each source to midpoint column
                     addLine(xSrc1, src1.y, xMid, src1.y, isBrazil);
                     addLine(xSrc2, src2.y, xMid, src2.y, isBrazil);
-                    // Vertical connector at midpoint
+                    // Vertical connector at midpoint column (joining the two sources)
                     addLine(xMid, src1.y, xMid, src2.y, isBrazil);
-                    // Horizontal line from vertical midpoint to target
-                    const yMid = (src1.y + src2.y) / 2;
-                    addLine(xMid, yMid, xTgt, tgt.y, isBrazil);
+                    // Vertical segment at midpoint column to align with target if needed
+                    if (Math.abs(yMid - tgt.y) > 2) {
+                        addLine(xMid, yMid, xMid, tgt.y, isBrazil);
+                    }
+                    // Horizontal line from midpoint column to target
+                    addLine(xMid, tgt.y, xTgt, tgt.y, isBrazil);
                 });
             }
 
