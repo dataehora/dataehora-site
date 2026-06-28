@@ -168,10 +168,18 @@
         }
 
         .header-subtitle {
+            color: var(--text-main);
+            font-size: 1.5rem;
+            margin: 10px 0 0 0;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+        }
+
+        .header-rounds {
             color: var(--text-muted);
-            font-size: 1.05rem;
-            margin: 8px 0 0 0;
-            font-weight: 500;
+            font-size: 0.9rem;
+            margin: 6px 0 0 0;
+            font-weight: 600;
         }
 
         /* Controls Panel */
@@ -271,16 +279,30 @@
 
         .dynamic-title {
             text-align: center;
-            margin: 0 0 10px 0;
+            margin: 0 0 6px 0;
             font-size: 2.5rem;
             font-weight: 900;
             letter-spacing: -1.2px;
             color: #2563eb;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
         }
 
         .export-subtitle {
-            color: #64748b;
-            font-size: 0.9rem;
+            color: #1e293b;
+            font-size: 1.3rem;
+            font-weight: 900;
+            margin-top: 6px;
+            letter-spacing: -0.3px;
+        }
+
+        .export-rounds {
+            color: #475569;
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-top: 4px;
         }
 
         /* Bracket Structure */
@@ -288,7 +310,7 @@
             display: flex;
             justify-content: space-between;
             align-items: stretch;
-            gap: 6px;
+            gap: 14px;
             width: 100%;
             min-height: 900px;
             overflow-x: auto;
@@ -338,7 +360,7 @@
             text-align: center;
             font-weight: 900;
             font-size: 0.8rem;
-            color: #475569;
+            color: #1e293b;
             text-transform: uppercase;
             letter-spacing: 1px;
             margin-bottom: 10px;
@@ -350,7 +372,7 @@
             text-align: center;
             font-size: 0.75rem;
             font-weight: 800;
-            color: #475569;
+            color: #1e293b;
             text-transform: uppercase;
             letter-spacing: 0.8px;
             padding: 4px 0;
@@ -519,7 +541,9 @@
         }
 
         .center-trophy {
-            font-size: 4rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             animation: bounce 2s infinite;
         }
 
@@ -598,9 +622,10 @@
 
         <header class="header">
             <div class="header-title">
-                🇧🇷 Copa do Mundo 2026 - Fase Eliminatória
+                <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" style="height:0.9em;vertical-align:middle;border-radius:3px;"> Copa do Mundo 2026
             </div>
-            <div class="header-subtitle">16 avos, Oitavas, Quartas, Semis e Final</div>
+            <div class="header-subtitle">Fase Eliminatória</div>
+            <div class="header-rounds">16 avos · Oitavas · Quartas · Semis · Final</div>
         </header>
 
         <div class="controls-panel">
@@ -616,8 +641,9 @@
         <div id="export-area">
             <div class="export-content">
                 <div class="export-header">
-                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026">🇧🇷 Copa do Mundo 2026</h1>
-                    <div class="export-subtitle">Fase Eliminatória - 16 avos até a Final</div>
+                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026"><img src="https://flagcdn.com/32x24/br.png" alt="Brasil" style="height:0.85em;vertical-align:middle;border-radius:3px;"> Copa do Mundo 2026</h1>
+                    <div class="export-subtitle">Fase Eliminatória</div>
+                    <div class="export-rounds">16 avos · Oitavas · Quartas de Final · Semifinal · Final</div>
                 </div>
 
                 <div class="bracket-wrapper" id="bracket-wrapper">
@@ -979,12 +1005,10 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label">${match.from1}</span>
                             <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label">${match.from2}</span>
                             <div class="winner-box"></div>
                         </div>
                     </div>
@@ -1002,12 +1026,10 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label">${match.from1}</span>
                             <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label">${match.from2}</span>
                             <div class="winner-box"></div>
                         </div>
                     </div>
@@ -1025,12 +1047,10 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label">${match.from1}</span>
                             <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label">${match.from2}</span>
                             <div class="winner-box"></div>
                         </div>
                     </div>
@@ -1048,12 +1068,10 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label" style="font-weight: 700;">${match.from1}</span>
                             <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label" style="font-weight: 700;">${match.from2}</span>
                             <div class="winner-box"></div>
                         </div>
                     </div>
@@ -1071,12 +1089,10 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label" style="font-weight: 700;">${match.from1}</span>
                             <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label" style="font-weight: 700;">${match.from2}</span>
                             <div class="winner-box"></div>
                         </div>
                     </div>
@@ -1114,7 +1130,41 @@
                 <div class="bracket-column center-column">
                     <div class="round-header">Final</div>
                     <div class="center-column-games">
-                        <div class="center-trophy">🏆</div>
+                        <div class="center-trophy">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="90" height="115" aria-label="Taça da Copa do Mundo">
+                                <defs>
+                                    <linearGradient id="goldBody" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#fde68a"/>
+                                        <stop offset="40%" style="stop-color:#f59e0b"/>
+                                        <stop offset="100%" style="stop-color:#92400e"/>
+                                    </linearGradient>
+                                    <linearGradient id="goldStem" x1="0%" y1="0%" x2="100%" y2="0%">
+                                        <stop offset="0%" style="stop-color:#d97706"/>
+                                        <stop offset="50%" style="stop-color:#fbbf24"/>
+                                        <stop offset="100%" style="stop-color:#d97706"/>
+                                    </linearGradient>
+                                </defs>
+                                <!-- Base plates -->
+                                <rect x="12" y="112" width="76" height="12" rx="4" fill="#92400e"/>
+                                <rect x="8" y="105" width="84" height="10" rx="3" fill="#b45309"/>
+                                <rect x="15" y="100" width="70" height="8" rx="3" fill="#d97706"/>
+                                <!-- Stem -->
+                                <rect x="34" y="68" width="32" height="35" rx="5" fill="url(#goldStem)"/>
+                                <!-- Cup body globe -->
+                                <ellipse cx="50" cy="44" rx="36" ry="38" fill="url(#goldBody)"/>
+                                <ellipse cx="50" cy="44" rx="29" ry="31" fill="#f59e0b"/>
+                                <ellipse cx="50" cy="44" rx="22" ry="24" fill="#fbbf24"/>
+                                <!-- Globe meridian lines -->
+                                <ellipse cx="50" cy="44" rx="22" ry="8" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.55"/>
+                                <ellipse cx="50" cy="44" rx="22" ry="16" fill="none" stroke="#d97706" stroke-width="1" opacity="0.35"/>
+                                <ellipse cx="50" cy="44" rx="8" ry="22" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.55"/>
+                                <!-- Handles -->
+                                <path d="M14 30 Q0 44 14 58" stroke="#b45309" stroke-width="8" fill="none" stroke-linecap="round"/>
+                                <path d="M86 30 Q100 44 86 58" stroke="#b45309" stroke-width="8" fill="none" stroke-linecap="round"/>
+                                <!-- Shine -->
+                                <ellipse cx="37" cy="30" rx="9" ry="6" fill="white" opacity="0.18" transform="rotate(-25 37 30)"/>
+                            </svg>
+                        </div>
                         ${createFinalCard(copaStructure.final[0])}
                         <div class="terceiro-header">🥉 3º Lugar</div>
                         ${createTerceiroCard(copaStructure.terceiro[0])}
@@ -1155,44 +1205,135 @@
             svg.innerHTML = '';
             
             const wrapper = document.getElementById('bracket-wrapper');
-            const columns = wrapper.querySelectorAll('.bracket-column');
+            const wRect = wrapper.getBoundingClientRect();
             
-            if (columns.length < 2) return;
-
-            const svgWidth = wrapper.offsetWidth;
-            const svgHeight = wrapper.offsetHeight;
-            
+            const svgWidth = wrapper.scrollWidth;
+            const svgHeight = wrapper.scrollHeight;
             svg.setAttribute('width', svgWidth);
             svg.setAttribute('height', svgHeight);
+            svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
-            // Desenhar linhas horizontais de conexão
-            columns.forEach((col, colIndex) => {
-                if (colIndex === columns.length - 1) return;
-                
-                const matches = col.querySelectorAll('.match-container');
-                matches.forEach((match, matchIndex) => {
-                    const matchCard = match.querySelector('.match-card');
-                    if (!matchCard) return;
+            const columns = wrapper.querySelectorAll('.bracket-column');
+            if (columns.length < 9) return;
 
-                    const matchRect = matchCard.getBoundingClientRect();
-                    const wrapperRect = wrapper.getBoundingClientRect();
-                    
-                    const y = matchRect.top - wrapperRect.top + matchRect.height / 2;
-                    const x1 = matchRect.right - wrapperRect.left;
-                    const x2 = (columns[colIndex + 1]?.offsetLeft || 0) + (columns[colIndex + 1]?.offsetWidth || 0);
+            function addLine(x1, y1, x2, y2, isBrazil) {
+                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
+                line.setAttribute('x1', Math.round(x1));
+                line.setAttribute('y1', Math.round(y1));
+                line.setAttribute('x2', Math.round(x2));
+                line.setAttribute('y2', Math.round(y2));
+                line.setAttribute('stroke', isBrazil ? '#d97706' : '#cbd5e1');
+                line.setAttribute('stroke-width', isBrazil ? '2.5' : '1.5');
+                line.setAttribute('stroke-linecap', 'round');
+                svg.appendChild(line);
+            }
 
-                    // Linha horizontal
-                    const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                    line.setAttribute('x1', x1);
-                    line.setAttribute('y1', y);
-                    line.setAttribute('x2', x2);
-                    line.setAttribute('y2', y);
-                    line.setAttribute('stroke', '#d1d5db');
-                    line.setAttribute('stroke-width', '2');
-                    line.setAttribute('opacity', '0.5');
-                    svg.appendChild(line);
+            function getCardCenter(column, matchIndex) {
+                const containers = column.querySelectorAll('.match-container');
+                if (matchIndex >= containers.length) return null;
+                const card = containers[matchIndex].querySelector('.match-card');
+                if (!card) return null;
+                const r = card.getBoundingClientRect();
+                return {
+                    y: r.top - wRect.top + r.height / 2,
+                    left: r.left - wRect.left,
+                    right: r.right - wRect.left
+                };
+            }
+
+            // Connect pairs: two source matches in srcCol feed into one target match in tgtCol
+            // direction 'right': source is left of target (exit from right side of source)
+            // direction 'left': source is right of target (exit from left side of source)
+            function connectPairs(srcCol, tgtCol, direction, pairsMap) {
+                pairsMap.forEach(({ s1, s2, t, isBrazil }) => {
+                    const src1 = getCardCenter(srcCol, s1);
+                    const src2 = getCardCenter(srcCol, s2);
+                    const tgt = getCardCenter(tgtCol, t);
+                    if (!src1 || !src2 || !tgt) return;
+
+                    const xSrc1 = direction === 'right' ? src1.right : src1.left;
+                    const xSrc2 = direction === 'right' ? src2.right : src2.left;
+                    const xTgt = direction === 'right' ? tgt.left : tgt.right;
+                    const xMid = (xSrc1 + xTgt) / 2;
+
+                    // Horizontal lines from each source to midpoint
+                    addLine(xSrc1, src1.y, xMid, src1.y, isBrazil);
+                    addLine(xSrc2, src2.y, xMid, src2.y, isBrazil);
+                    // Vertical connector at midpoint
+                    addLine(xMid, src1.y, xMid, src2.y, isBrazil);
+                    // Horizontal line from vertical midpoint to target
+                    const yMid = (src1.y + src2.y) / 2;
+                    addLine(xMid, yMid, xTgt, tgt.y, isBrazil);
                 });
-            });
+            }
+
+            // Left side: 16avos(col0) → oitavas(col1)
+            connectPairs(columns[0], columns[1], 'right', [
+                { s1: 0, s2: 1, t: 0, isBrazil: true  },
+                { s1: 2, s2: 3, t: 1, isBrazil: false },
+                { s1: 4, s2: 5, t: 2, isBrazil: false },
+                { s1: 6, s2: 7, t: 3, isBrazil: false },
+            ]);
+
+            // Left side: oitavas(col1) → quartas(col2)
+            connectPairs(columns[1], columns[2], 'right', [
+                { s1: 0, s2: 1, t: 0, isBrazil: true  },
+                { s1: 2, s2: 3, t: 1, isBrazil: false },
+            ]);
+
+            // Left side: quartas(col2) → semis(col3)
+            connectPairs(columns[2], columns[3], 'right', [
+                { s1: 0, s2: 1, t: 0, isBrazil: true  },
+            ]);
+
+            // Left semi(col3) → final center(col4)
+            const centerCol = columns[4];
+            const finalCard = centerCol.querySelector('.match-card.final');
+            if (finalCard) {
+                const fRect = finalCard.getBoundingClientRect();
+                const fY = fRect.top - wRect.top + fRect.height / 2;
+                const fLeft = fRect.left - wRect.left;
+                const leftSemi = getCardCenter(columns[3], 0);
+                if (leftSemi) {
+                    const xMid = (leftSemi.right + fLeft) / 2;
+                    addLine(leftSemi.right, leftSemi.y, xMid, leftSemi.y, true);
+                    addLine(xMid, leftSemi.y, xMid, fY, true);
+                    addLine(xMid, fY, fLeft, fY, true);
+                }
+            }
+
+            // Right side: 16avos(col8) → oitavas(col7)
+            connectPairs(columns[8], columns[7], 'left', [
+                { s1: 0, s2: 1, t: 0, isBrazil: false },
+                { s1: 2, s2: 3, t: 1, isBrazil: false },
+                { s1: 4, s2: 5, t: 2, isBrazil: false },
+                { s1: 6, s2: 7, t: 3, isBrazil: false },
+            ]);
+
+            // Right side: oitavas(col7) → quartas(col6)
+            connectPairs(columns[7], columns[6], 'left', [
+                { s1: 0, s2: 1, t: 0, isBrazil: false },
+                { s1: 2, s2: 3, t: 1, isBrazil: false },
+            ]);
+
+            // Right side: quartas(col6) → semis(col5)
+            connectPairs(columns[6], columns[5], 'left', [
+                { s1: 0, s2: 1, t: 0, isBrazil: false },
+            ]);
+
+            // Right semi(col5) → final center(col4)
+            if (finalCard) {
+                const fRect = finalCard.getBoundingClientRect();
+                const fY = fRect.top - wRect.top + fRect.height / 2;
+                const fRight = fRect.right - wRect.left;
+                const rightSemi = getCardCenter(columns[5], 0);
+                if (rightSemi) {
+                    const xMid = (fRight + rightSemi.left) / 2;
+                    addLine(rightSemi.left, rightSemi.y, xMid, rightSemi.y, false);
+                    addLine(xMid, rightSemi.y, xMid, fY, false);
+                    addLine(xMid, fY, fRight, fY, false);
+                }
+            }
         }
 
         function updateAllTimes() {
