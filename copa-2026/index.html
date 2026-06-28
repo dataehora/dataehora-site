@@ -1122,6 +1122,7 @@
         let currentTimezone = "America/Sao_Paulo";
         let currentCountryCode = "BR";
         const TROPHY_IMAGE_URL = 'https://github.com/user-attachments/assets/fc9bd93a-f81b-4657-adef-e159b5f87a3e';
+        const IMAGE_LOAD_TIMEOUT_MS = 15000;
         const countryTimezonePrepositions = {
             AR: 'da',
             AT: 'da',
@@ -1177,7 +1178,7 @@
             return `https://flagcdn.com/32x24/${countryCode.toLowerCase()}.png`;
         }
 
-        function getTimezoneCountryPrefix(countryCode) {
+        function getTimezonePhrase(countryCode) {
             const preposition = countryTimezonePrepositions[countryCode] || 'de';
             return `Jogos com horários no fuso ${preposition}`;
         }
@@ -1188,7 +1189,7 @@
             const flagUrl = getCountryFlagUrl(countryCode);
             target.innerHTML = `
                 <span class="timezone-label">
-                    <span>${getTimezoneCountryPrefix(countryCode)}</span>
+                    <span>${getTimezonePhrase(countryCode)}</span>
                     <span class="timezone-country">
                         <span>${countryName}</span>
                         <img src="${flagUrl}" alt="Bandeira de ${countryName}" width="22" height="16" loading="eager" crossorigin="anonymous" referrerpolicy="no-referrer">
@@ -1766,10 +1767,12 @@
 
                 return new Promise((resolve) => {
                     const done = () => {
+                        window.clearTimeout(timeoutId);
                         img.removeEventListener('load', done);
                         img.removeEventListener('error', done);
                         resolve();
                     };
+                    const timeoutId = window.setTimeout(done, IMAGE_LOAD_TIMEOUT_MS);
 
                     img.addEventListener('load', done, { once: true });
                     img.addEventListener('error', done, { once: true });
@@ -1791,7 +1794,7 @@
                     scale: 2, 
                     useCORS: true, 
                     backgroundColor: '#ffffff',
-                    imageTimeout: 15000,
+                    imageTimeout: IMAGE_LOAD_TIMEOUT_MS,
                     logging: false 
                 });
                 const imgData = canvas.toDataURL('image/png');
