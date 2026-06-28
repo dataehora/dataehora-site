@@ -579,6 +579,8 @@
             display: flex;
             justify-content: center;
             align-items: center;
+            width: 110px;
+            height: 110px;
             animation: bounce 2s infinite;
         }
         .center-trophy svg {
@@ -592,6 +594,18 @@
             width: 110px;
             height: 110px;
             object-fit: contain;
+        }
+
+        .center-trophy .trophy-fallback {
+            display: none;
+        }
+
+        .center-trophy.has-fallback .trophy-image {
+            display: none;
+        }
+
+        .center-trophy.has-fallback .trophy-fallback {
+            display: block;
         }
 
         @keyframes bounce {
@@ -1107,6 +1121,7 @@
 
         let currentTimezone = "America/Sao_Paulo";
         let currentCountryCode = "BR";
+        const TROPHY_IMAGE_URL = 'https://github.com/user-attachments/assets/6fd22b80-d9fe-42e0-9617-37a2873212b0';
         const countryTimezonePrepositions = {
             AR: 'da',
             AT: 'da',
@@ -1487,7 +1502,7 @@
                             <div class="center-trophy" role="img" aria-label="Taça da Copa do Mundo 2026">
                                 <img
                                     class="trophy-image"
-                                    src="https://github.com/user-attachments/assets/439e8e53-68de-4507-b0fc-951c11f5fc53"
+                                    src="${TROPHY_IMAGE_URL}"
                                     alt="Taça da Copa do Mundo 2026"
                                     width="110"
                                     height="110"
@@ -1495,6 +1510,26 @@
                                     crossorigin="anonymous"
                                     referrerpolicy="no-referrer"
                                 >
+                                <svg class="trophy-fallback" viewBox="0 0 128 128" aria-hidden="true">
+                                    <defs>
+                                        <linearGradient id="trophy-gold" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#fde68a"></stop>
+                                            <stop offset="45%" stop-color="#facc15"></stop>
+                                            <stop offset="100%" stop-color="#ca8a04"></stop>
+                                        </linearGradient>
+                                        <linearGradient id="trophy-base" x1="0%" y1="0%" x2="100%" y2="100%">
+                                            <stop offset="0%" stop-color="#1d4ed8"></stop>
+                                            <stop offset="100%" stop-color="#1e3a8a"></stop>
+                                        </linearGradient>
+                                    </defs>
+                                    <path d="M39 18c0 29 10 52 25 63 15-11 25-34 25-63H39z" fill="url(#trophy-gold)" stroke="#a16207" stroke-width="3" stroke-linejoin="round"></path>
+                                    <path d="M39 25H23c0 18 8 28 24 31" fill="none" stroke="#a16207" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M89 25h16c0 18-8 28-24 31" fill="none" stroke="#a16207" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"></path>
+                                    <path d="M53 79h22v11c0 7 5 13 12 13H41c7 0 12-6 12-13V79z" fill="url(#trophy-gold)" stroke="#a16207" stroke-width="3" stroke-linejoin="round"></path>
+                                    <rect x="35" y="103" width="58" height="12" rx="4" fill="url(#trophy-base)"></rect>
+                                    <rect x="47" y="115" width="34" height="8" rx="4" fill="#1e40af"></rect>
+                                    <circle cx="64" cy="48" r="10" fill="rgba(255,255,255,0.28)"></circle>
+                                </svg>
                             </div>
                             ${createFinalCard(copaStructure.final[0])}
                             <div class="terceiro-header">🥉 3º Lugar</div>
@@ -1527,9 +1562,28 @@
             html += `</div></div>`;
 
             wrapper.innerHTML = html;
+            setupTrophyFallback(wrapper);
             
             // Desenhar linhas de conexão depois de renderizar
             setTimeout(drawLines, 100);
+        }
+
+        function setupTrophyFallback(scope = document) {
+            scope.querySelectorAll('.center-trophy').forEach((container) => {
+                const image = container.querySelector('.trophy-image');
+                if (!image) return;
+
+                const showFallback = () => container.classList.add('has-fallback');
+                const hideFallback = () => container.classList.remove('has-fallback');
+
+                image.addEventListener('load', hideFallback, { once: true });
+                image.addEventListener('error', showFallback, { once: true });
+
+                if (image.complete) {
+                    if (image.naturalWidth > 0) hideFallback();
+                    else showFallback();
+                }
+            });
         }
 
         function drawLines() {
@@ -1708,7 +1762,7 @@
             if (!images.length) return;
 
             await Promise.all(images.map((img) => {
-                if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+                if (img.complete) return Promise.resolve();
 
                 return new Promise((resolve) => {
                     const done = () => {
