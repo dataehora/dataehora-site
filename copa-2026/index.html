@@ -1072,8 +1072,10 @@
         function updateTimezoneLabels() {
             const selectedCountry = allCountries[currentCountryCode] || allCountries.BR;
             const label = ` - Jogos no fuso do ${selectedCountry.name}`;
-            document.getElementById('header-timezone-text').textContent = label;
-            document.getElementById('export-timezone-text').textContent = label;
+            const headerTimezoneText = document.getElementById('header-timezone-text');
+            const exportTimezoneText = document.getElementById('export-timezone-text');
+            if (headerTimezoneText) headerTimezoneText.textContent = label;
+            if (exportTimezoneText) exportTimezoneText.textContent = label;
         }
 
         function setupTimezoneSelect() {
@@ -1083,7 +1085,7 @@
             currentCountryCode = allCountries[savedCountryCode] ? savedCountryCode : (fallbackEntry ? fallbackEntry[0] : 'BR');
             currentTimezone = allCountries[currentCountryCode]?.timezone || "America/Sao_Paulo";
             localStorage.setItem('copa-country', currentCountryCode);
-            localStorage.setItem('copa-timezone', currentTimezone);
+            localStorage.removeItem('copa-timezone');
 
             const sortedCountries = Object.entries(allCountries)
                 .sort((a, b) => a[1].name.localeCompare(b[1].name, 'pt-BR'));
@@ -1126,7 +1128,7 @@
                     currentCountryCode = code;
                     currentTimezone = data.timezone;
                     localStorage.setItem('copa-country', code);
-                    localStorage.setItem('copa-timezone', data.timezone);
+                    localStorage.removeItem('copa-timezone');
                     wrapper.classList.remove('open');
                     trigger.setAttribute('aria-expanded', 'false');
                     updateTimezoneLabels();
