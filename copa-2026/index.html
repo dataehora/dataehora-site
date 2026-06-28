@@ -263,7 +263,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            background: linear-gradient(to bottom, transparent 40%, rgba(217, 119, 6, 0.08) 50%, transparent 65%);
+            background: linear-gradient(to bottom, transparent 40%, rgba(218, 165, 32, 0.1) 50%, transparent 65%);
             z-index: 1;
         }
 
@@ -407,17 +407,17 @@
         }
 
         .match-card.brasil-path {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border: 2px solid #d97706;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            border: 2px solid #B8860B;
         }
 
         .match-card.brasil-path .team-row {
-            color: #78350f;
+            color: #5a3e00;
             font-weight: 700;
         }
 
         .match-card.brasil-path .match-separator {
-            background: #d97706;
+            background: #B8860B;
         }
 
         .match-card.final {
@@ -429,7 +429,8 @@
         }
 
         .match-card.final.brasil-path {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            border: 2px solid #B8860B;
         }
 
         .match-card.final .team-row {
@@ -437,7 +438,7 @@
         }
 
         .match-card.final.brasil-path .team-row {
-            color: #78350f;
+            color: #5a3e00;
         }
 
         .match-card.quartas,
@@ -447,13 +448,13 @@
 
         .match-card.brasil-path.quartas,
         .match-card.brasil-path.semis {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            border: 2px solid #d97706;
+            background: linear-gradient(135deg, #FFD700 0%, #DAA520 100%);
+            border: 2px solid #B8860B;
         }
 
         .match-card.brasil-path.quartas .team-label,
         .match-card.brasil-path.semis .team-label {
-            color: #78350f;
+            color: #5a3e00;
             font-weight: 700;
         }
 
@@ -513,7 +514,7 @@
         }
 
         .match-card.brasil-path .match-separator {
-            background: #d97706;
+            background: #B8860B;
         }
 
         .match-card.final .match-separator {
@@ -521,7 +522,7 @@
         }
 
         .match-card.final.brasil-path .match-separator {
-            background: #d97706;
+            background: #B8860B;
         }
 
         .center-final {
@@ -599,6 +600,123 @@
             vertical-align: middle;
             border-radius: 3px;
         }
+
+        /* Finals highlight frame */
+        .finals-frame {
+            background: linear-gradient(135deg, rgba(37,99,235,0.06) 0%, rgba(37,99,235,0.12) 50%, rgba(37,99,235,0.06) 100%);
+            border: 2px solid rgba(37,99,235,0.35);
+            border-radius: 16px;
+            padding: 16px 12px;
+            box-shadow: 0 0 24px rgba(37,99,235,0.13);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
+            width: 100%;
+        }
+
+        /* Custom country select dropdown */
+        .custom-country-select {
+            position: relative;
+            display: inline-block;
+        }
+        .custom-country-trigger {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: 2px solid var(--hr-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-weight: 700;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: 0.9rem;
+            outline: none;
+            transition: border-color 0.2s;
+            min-width: 220px;
+            text-align: left;
+        }
+        .custom-country-trigger:hover,
+        .custom-country-trigger:focus {
+            border-color: var(--accent);
+        }
+        .custom-country-trigger img {
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
+        .trigger-country-name {
+            flex: 1;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+        .trigger-arrow {
+            font-size: 0.65rem;
+            opacity: 0.55;
+            transition: transform 0.2s;
+            flex-shrink: 0;
+        }
+        .custom-country-select.open .trigger-arrow {
+            transform: rotate(180deg);
+        }
+        .custom-country-dropdown {
+            display: none;
+            position: absolute;
+            top: calc(100% + 6px);
+            left: 0;
+            min-width: 280px;
+            max-height: 340px;
+            background: var(--bg-card);
+            border: 2px solid var(--hr-color);
+            border-radius: 12px;
+            box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+            z-index: 1000;
+            overflow: hidden;
+            flex-direction: column;
+        }
+        .custom-country-select.open .custom-country-dropdown {
+            display: flex;
+        }
+        .country-search-input {
+            width: 100%;
+            padding: 10px 14px;
+            border: none;
+            border-bottom: 1px solid var(--hr-color);
+            background: var(--bg-body);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            font-family: inherit;
+            outline: none;
+            box-sizing: border-box;
+        }
+        .country-options-list {
+            overflow-y: auto;
+            flex: 1;
+        }
+        .country-option {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            transition: background 0.1s;
+        }
+        .country-option:hover {
+            background: var(--bg-body);
+        }
+        .country-option.selected {
+            background: var(--bg-body);
+            color: var(--accent);
+        }
+        .country-option img {
+            border-radius: 2px;
+            flex-shrink: 0;
+        }
     </style>
 
 </head>
@@ -635,10 +753,18 @@
 
         <div class="controls-panel">
             <div class="control-group">
-                <label for="timezone-select">Seu Fuso Horário</label>
-                <select id="timezone-select" onchange="updateAllTimes()">
-                    <!-- Preenchido por JavaScript -->
-                </select>
+                <label for="country-trigger">Seu Fuso Horário</label>
+                <div class="custom-country-select" id="custom-country-select">
+                    <button class="custom-country-trigger" id="country-trigger" type="button" aria-haspopup="listbox" aria-expanded="false" aria-controls="country-dropdown">
+                        <img id="selected-country-flag" src="https://flagcdn.com/32x24/br.png" alt="Brasil" width="22" height="16" loading="eager">
+                        <span class="trigger-country-name" id="selected-country-name">Brasil</span>
+                        <span class="trigger-arrow">▾</span>
+                    </button>
+                    <div class="custom-country-dropdown" id="country-dropdown" role="listbox">
+                        <input type="text" class="country-search-input" id="country-search" placeholder="🔍 Buscar país..." autocomplete="off" aria-label="Buscar país">
+                        <div class="country-options-list" id="country-options-list"></div>
+                    </div>
+                </div>
             </div>
             <button class="btn-pdf" onclick="exportToPDF()">📄 Exportar PDF Landscape</button>
         </div>
@@ -935,21 +1061,101 @@
         let currentTimezone = "America/Sao_Paulo";
 
         function setupTimezoneSelect() {
-            const select = document.getElementById('timezone-select');
             const saved = localStorage.getItem('copa-timezone') || "America/Sao_Paulo";
-            
+            currentTimezone = saved;
+
             const sortedCountries = Object.entries(allCountries)
                 .sort((a, b) => a[1].name.localeCompare(b[1].name, 'pt-BR'));
-            
+
+            const list = document.getElementById('country-options-list');
+            const wrapper = document.getElementById('custom-country-select');
+            const trigger = document.getElementById('country-trigger');
+            const triggerFlag = document.getElementById('selected-country-flag');
+            const triggerName = document.getElementById('selected-country-name');
+            const searchInput = document.getElementById('country-search');
+            const allOptions = [];
+
+            // Populate options
             sortedCountries.forEach(([code, data]) => {
-                const opt = document.createElement('option');
-                opt.value = data.timezone;
-                opt.textContent = `${data.flag} ${data.name}`;
-                if (data.timezone === saved) opt.selected = true;
-                select.appendChild(opt);
+                const flagCode = code.toLowerCase();
+                const item = document.createElement('div');
+                item.className = 'country-option' + (data.timezone === saved ? ' selected' : '');
+                item.dataset.timezone = data.timezone;
+                item.dataset.name = data.name;
+                item.setAttribute('role', 'option');
+                item.setAttribute('aria-selected', String(data.timezone === saved));
+
+                const img = document.createElement('img');
+                img.src = `https://flagcdn.com/32x24/${flagCode}.png`;
+                img.alt = data.name;
+                img.width = 22;
+                img.height = 16;
+                img.setAttribute('loading', 'lazy');
+
+                item.appendChild(img);
+                item.appendChild(document.createTextNode(data.name));
+
+                item.addEventListener('click', () => {
+                    allOptions.forEach(o => { o.classList.remove('selected'); o.setAttribute('aria-selected', 'false'); });
+                    item.classList.add('selected');
+                    item.setAttribute('aria-selected', 'true');
+                    triggerFlag.src = img.src;
+                    triggerFlag.alt = data.name;
+                    triggerName.textContent = data.name;
+                    currentTimezone = data.timezone;
+                    localStorage.setItem('copa-timezone', data.timezone);
+                    wrapper.classList.remove('open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                    renderBracket();
+                });
+
+                list.appendChild(item);
+                allOptions.push(item);
             });
-            
-            currentTimezone = saved;
+
+            // Set initial trigger display
+            const initialEntry = sortedCountries.find(([, d]) => d.timezone === saved);
+            if (initialEntry) {
+                const [code, data] = initialEntry;
+                triggerFlag.src = `https://flagcdn.com/32x24/${code.toLowerCase()}.png`;
+                triggerFlag.alt = data.name;
+                triggerName.textContent = data.name;
+            }
+
+            // Toggle dropdown
+            trigger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = wrapper.classList.toggle('open');
+                trigger.setAttribute('aria-expanded', String(isOpen));
+                if (isOpen) {
+                    searchInput.value = '';
+                    allOptions.forEach(o => o.style.display = '');
+                    searchInput.focus();
+                    // Scroll selected option into view
+                    const sel = list.querySelector('.selected');
+                    if (sel) sel.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                }
+            });
+
+            // Search filter
+            searchInput.addEventListener('input', () => {
+                const q = searchInput.value.toLowerCase().trim();
+                allOptions.forEach(o => {
+                    o.style.display = o.dataset.name.toLowerCase().includes(q) ? '' : 'none';
+                });
+            });
+
+            // Close on outside click
+            document.addEventListener('click', (e) => {
+                if (!wrapper.contains(e.target)) {
+                    wrapper.classList.remove('open');
+                    trigger.setAttribute('aria-expanded', 'false');
+                }
+            });
+        }
+
+        function updateAllTimes() {
+            renderBracket();
         }
 
         function convertTime(dateStr, timeStr) {
@@ -1136,14 +1342,16 @@
             // Centro - Final + 3º Lugar
             html += `
                 <div class="bracket-column center-column">
-                    <div class="round-header">Final</div>
+                    <div class="round-header">🏆 Fase Final</div>
                     <div class="center-column-games">
-                        <div class="center-trophy">
-                            <img src="https://github.com/user-attachments/assets/439e8e53-68de-4507-b0fc-951c11f5fc53" alt="Taça da Copa do Mundo 2026" width="110" height="110" style="object-fit:contain;">
+                        <div class="finals-frame">
+                            <div class="center-trophy">
+                                <img src="https://github.com/user-attachments/assets/439e8e53-68de-4507-b0fc-951c11f5fc53" alt="Taça da Copa do Mundo 2026" width="110" height="110" style="object-fit:contain;">
+                            </div>
+                            ${createFinalCard(copaStructure.final[0])}
+                            <div class="terceiro-header">🥉 3º Lugar</div>
+                            ${createTerceiroCard(copaStructure.terceiro[0])}
                         </div>
-                        ${createFinalCard(copaStructure.final[0])}
-                        <div class="terceiro-header">🥉 3º Lugar</div>
-                        ${createTerceiroCard(copaStructure.terceiro[0])}
                     </div>
                 </div>
             `;
@@ -1191,19 +1399,59 @@
             svg.setAttribute('viewBox', `0 0 ${svgWidth} ${svgHeight}`);
 
             const columns = wrapper.querySelectorAll('.bracket-column');
-            // 9 columns: leftAvos, leftOitavas, leftQuartas, leftSemis, center(Final+3rd), rightSemis, rightQuartas, rightOitavas, rightAvos
             if (columns.length < 9) return;
 
-            function addLine(x1, y1, x2, y2, isBrazil) {
-                const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-                line.setAttribute('x1', Math.round(x1));
-                line.setAttribute('y1', Math.round(y1));
-                line.setAttribute('x2', Math.round(x2));
-                line.setAttribute('y2', Math.round(y2));
-                line.setAttribute('stroke', isBrazil ? '#d97706' : '#cbd5e1');
-                line.setAttribute('stroke-width', isBrazil ? '2.5' : '1.5');
-                line.setAttribute('stroke-linecap', 'round');
-                svg.appendChild(line);
+            function makePath(d, isBrazil) {
+                const p = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+                p.setAttribute('d', d);
+                p.setAttribute('stroke', isBrazil ? '#B8860B' : '#94a3b8');
+                p.setAttribute('stroke-width', isBrazil ? '2.5' : '1.5');
+                p.setAttribute('fill', 'none');
+                p.setAttribute('stroke-linecap', 'round');
+                p.setAttribute('stroke-linejoin', 'round');
+                svg.appendChild(p);
+            }
+
+            // Draw an arm from (x1,y1) to a junction at (xJunc, yJunc) with rounded corner
+            function drawArm(x1, y1, xJunc, yJunc, isBrazil) {
+                const r = 6;
+                const dy = yJunc - y1;
+                let d;
+                if (Math.abs(dy) < 2) {
+                    d = `M${x1},${y1} H${xJunc}`;
+                } else if (x1 < xJunc) {
+                    // arm exits to the right
+                    d = dy > 0
+                        ? `M${x1},${y1} H${xJunc - r} Q${xJunc},${y1} ${xJunc},${y1 + r} V${yJunc}`
+                        : `M${x1},${y1} H${xJunc - r} Q${xJunc},${y1} ${xJunc},${y1 - r} V${yJunc}`;
+                } else {
+                    // arm exits to the left
+                    d = dy > 0
+                        ? `M${x1},${y1} H${xJunc + r} Q${xJunc},${y1} ${xJunc},${y1 + r} V${yJunc}`
+                        : `M${x1},${y1} H${xJunc + r} Q${xJunc},${y1} ${xJunc},${y1 - r} V${yJunc}`;
+                }
+                makePath(d, isBrazil);
+            }
+
+            // Draw trunk from junction (xJunc, yJunc) to target (xTgt, yTgt) with rounded corner
+            function drawTrunk(xJunc, yJunc, xTgt, yTgt, isBrazil) {
+                const r = 6;
+                const dy = yTgt - yJunc;
+                let d;
+                if (Math.abs(dy) < 2) {
+                    d = `M${xJunc},${yJunc} H${xTgt}`;
+                } else if (xTgt > xJunc) {
+                    // trunk goes right
+                    d = dy > 0
+                        ? `M${xJunc},${yJunc} V${yTgt - r} Q${xJunc},${yTgt} ${xJunc + r},${yTgt} H${xTgt}`
+                        : `M${xJunc},${yJunc} V${yTgt + r} Q${xJunc},${yTgt} ${xJunc + r},${yTgt} H${xTgt}`;
+                } else {
+                    // trunk goes left
+                    d = dy > 0
+                        ? `M${xJunc},${yJunc} V${yTgt - r} Q${xJunc},${yTgt} ${xJunc - r},${yTgt} H${xTgt}`
+                        : `M${xJunc},${yJunc} V${yTgt + r} Q${xJunc},${yTgt} ${xJunc - r},${yTgt} H${xTgt}`;
+                }
+                makePath(d, isBrazil);
             }
 
             function getCardCenter(column, matchIndex) {
@@ -1219,9 +1467,7 @@
                 };
             }
 
-            // Connect pairs: two source matches in srcCol feed into one target match in tgtCol
-            // direction 'right': source is left of target (exit from right side of source)
-            // direction 'left': source is right of target (exit from left side of source)
+            // Connect pairs: two source matches → one target match using elegant flowchart connectors
             function connectPairs(srcCol, tgtCol, direction, pairsMap) {
                 pairsMap.forEach(({ s1, s2, t, isBrazil }) => {
                     const src1 = getCardCenter(srcCol, s1);
@@ -1232,20 +1478,13 @@
                     const xSrc1 = direction === 'right' ? src1.right : src1.left;
                     const xSrc2 = direction === 'right' ? src2.right : src2.left;
                     const xTgt = direction === 'right' ? tgt.left : tgt.right;
-                    const xMid = (xSrc1 + xTgt) / 2;
-                    const yMid = (src1.y + src2.y) / 2;
+                    const xJunc = (xSrc1 + xTgt) / 2;
+                    const yJunc = (src1.y + src2.y) / 2;
 
-                    // Horizontal lines from each source to midpoint column
-                    addLine(xSrc1, src1.y, xMid, src1.y, isBrazil);
-                    addLine(xSrc2, src2.y, xMid, src2.y, isBrazil);
-                    // Vertical connector at midpoint column (joining the two sources)
-                    addLine(xMid, src1.y, xMid, src2.y, isBrazil);
-                    // Vertical segment at midpoint column to align with target if needed
-                    if (Math.abs(yMid - tgt.y) > 2) {
-                        addLine(xMid, yMid, xMid, tgt.y, isBrazil);
-                    }
-                    // Horizontal line from midpoint column to target
-                    addLine(xMid, tgt.y, xTgt, tgt.y, isBrazil);
+                    // Two arms meeting at the junction, then trunk to target
+                    drawArm(xSrc1, src1.y, xJunc, yJunc, isBrazil);
+                    drawArm(xSrc2, src2.y, xJunc, yJunc, isBrazil);
+                    drawTrunk(xJunc, yJunc, xTgt, tgt.y, isBrazil);
                 });
             }
 
@@ -1277,10 +1516,9 @@
                 const fLeft = fRect.left - wRect.left;
                 const leftSemi = getCardCenter(columns[3], 0);
                 if (leftSemi) {
-                    const xMid = (leftSemi.right + fLeft) / 2;
-                    addLine(leftSemi.right, leftSemi.y, xMid, leftSemi.y, true);
-                    addLine(xMid, leftSemi.y, xMid, fY, true);
-                    addLine(xMid, fY, fLeft, fY, true);
+                    const xJunc = (leftSemi.right + fLeft) / 2;
+                    drawArm(leftSemi.right, leftSemi.y, xJunc, fY, true);
+                    drawTrunk(xJunc, fY, fLeft, fY, true);
                 }
             }
 
@@ -1310,19 +1548,11 @@
                 const fRight = fRect.right - wRect.left;
                 const rightSemi = getCardCenter(columns[5], 0);
                 if (rightSemi) {
-                    const xMid = (fRight + rightSemi.left) / 2;
-                    addLine(rightSemi.left, rightSemi.y, xMid, rightSemi.y, false);
-                    addLine(xMid, rightSemi.y, xMid, fY, false);
-                    addLine(xMid, fY, fRight, fY, false);
+                    const xJunc = (fRight + rightSemi.left) / 2;
+                    drawArm(rightSemi.left, rightSemi.y, xJunc, fY, false);
+                    drawTrunk(xJunc, fY, fRight, fY, false);
                 }
             }
-        }
-
-        function updateAllTimes() {
-            const select = document.getElementById('timezone-select');
-            currentTimezone = select.value;
-            localStorage.setItem('copa-timezone', currentTimezone);
-            renderBracket();
         }
 
         async function exportToPDF() {
