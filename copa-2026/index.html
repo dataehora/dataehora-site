@@ -628,10 +628,9 @@
 
         <header class="header">
             <div class="header-title">
-                <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026
+                <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026 <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon">
             </div>
-            <div class="header-subtitle">Fase Eliminatória</div>
-            <div class="header-rounds">16 avos · Oitavas · Quartas · Semis · Final</div>
+            <div class="header-subtitle"><span class="logo-text" style="font-size:1.1rem;">dataehora.com.br</span> · Fase Eliminatória</div>
         </header>
 
         <div class="controls-panel">
@@ -647,9 +646,8 @@
         <div id="export-area">
             <div class="export-content">
                 <div class="export-header">
-                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026"><img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026</h1>
-                    <div class="export-subtitle">Fase Eliminatória</div>
-                    <div class="export-rounds">16 avos · Oitavas · Quartas de Final · Semifinal · Final</div>
+                    <h1 class="dynamic-title" aria-label="Copa do Mundo 2026"><img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> Copa do Mundo 2026 <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"></h1>
+                    <div class="export-subtitle"><span style="color:#2563eb;font-weight:900;letter-spacing:-0.5px;">dataehora.com.br</span> · Fase Eliminatória</div>
                 </div>
 
                 <div class="bracket-wrapper" id="bracket-wrapper">
@@ -718,6 +716,7 @@
             "KZ": { name: "Cazaquistão", flag: "🇰🇿", timezone: "Asia/Almaty" },
             "CF": { name: "República Centro-Africana", flag: "🇨🇫", timezone: "Africa/Bangui" },
             "TD": { name: "Chade", flag: "🇹🇩", timezone: "Africa/Ndjamena" },
+            "CI": { name: "Costa do Marfim", flag: "🇨🇮", timezone: "Africa/Abidjan" },
             "CL": { name: "Chile", flag: "🇨🇱", timezone: "America/Santiago" },
             "CN": { name: "China", flag: "🇨🇳", timezone: "Asia/Shanghai" },
             "CO": { name: "Colômbia", flag: "🇨🇴", timezone: "America/Bogota" },
@@ -884,49 +883,49 @@
         // Estrutura da Copa 2026 - 48 times, 32 na fase eliminatória
         const copaStructure = {
             avos: [
-                // Lado esquerdo - 16 avos (8 jogos)
-                { id: "AV1",  date: "2026-06-27", time: "13:00", team1: "BR", team2: "VE", side: "left",  isBrazil: true  },
-                { id: "AV2",  date: "2026-06-27", time: "17:00", team1: "AR", team2: "AU", side: "left",  isBrazil: false },
-                { id: "AV3",  date: "2026-06-28", time: "13:00", team1: "MX", team2: "CM", side: "left",  isBrazil: false },
-                { id: "AV4",  date: "2026-06-28", time: "17:00", team1: "GB", team2: "NZ", side: "left",  isBrazil: false },
-                { id: "AV5",  date: "2026-06-29", time: "13:00", team1: "US", team2: "CR", side: "left",  isBrazil: false },
-                { id: "AV6",  date: "2026-06-29", time: "17:00", team1: "PT", team2: "EC", side: "left",  isBrazil: false },
-                { id: "AV7",  date: "2026-06-30", time: "13:00", team1: "ES", team2: "CO", side: "left",  isBrazil: false },
-                { id: "AV8",  date: "2026-06-30", time: "17:00", team1: "BE", team2: "UY", side: "left",  isBrazil: false },
+                // Lado esquerdo - 16 avos (8 jogos) — caminho do Brasil
+                { id: "AV1",  date: "2026-06-29", time: "14:00", team1: "BR", team2: "JP", side: "left",  isBrazil: true  },
+                { id: "AV2",  date: "2026-06-30", time: "14:00", team1: "CI", team2: "NO", side: "left",  isBrazil: false },
+                { id: "AV3",  date: "2026-06-30", time: "22:00", team1: "MX", team2: "EC", side: "left",  isBrazil: false },
+                { id: "AV4",  date: "2026-07-01", time: "13:00", team1: "GB", team2: "CD", side: "left",  isBrazil: false },
+                { id: "AV5",  date: "2026-07-03", time: "19:00", team1: "AR", team2: "CV", side: "left",  isBrazil: false },
+                { id: "AV6",  date: "2026-07-03", time: "15:00", team1: "AU", team2: "EG", side: "left",  isBrazil: false },
+                { id: "AV7",  date: "2026-07-03", time: "00:00", team1: "CH", team2: "DZ", side: "left",  isBrazil: false },
+                { id: "AV8",  date: "2026-07-03", time: "22:30", team1: "CO", team2: "GH", side: "left",  isBrazil: false },
                 // Lado direito - 16 avos (8 jogos)
-                { id: "AV9",  date: "2026-06-27", time: "21:00", team1: "ZA", team2: "IR", side: "right", isBrazil: false },
-                { id: "AV10", date: "2026-06-28", time: "21:00", team1: "NL", team2: "SN", side: "right", isBrazil: false },
-                { id: "AV11", date: "2026-06-29", time: "21:00", team1: "DE", team2: "SK", side: "right", isBrazil: false },
-                { id: "AV12", date: "2026-06-30", time: "21:00", team1: "FR", team2: "MA", side: "right", isBrazil: false },
-                { id: "AV13", date: "2026-07-01", time: "13:00", team1: "JP", team2: "CA", side: "right", isBrazil: false },
-                { id: "AV14", date: "2026-07-01", time: "17:00", team1: "KR", team2: "PA", side: "right", isBrazil: false },
-                { id: "AV15", date: "2026-07-02", time: "13:00", team1: "HR", team2: "SA", side: "right", isBrazil: false },
-                { id: "AV16", date: "2026-07-02", time: "17:00", team1: "RS", team2: "GH", side: "right", isBrazil: false }
+                { id: "AV9",  date: "2026-06-28", time: "16:00", team1: "ZA", team2: "CA", side: "right", isBrazil: false },
+                { id: "AV10", date: "2026-06-29", time: "22:00", team1: "NL", team2: "MA", side: "right", isBrazil: false },
+                { id: "AV11", date: "2026-06-29", time: "17:30", team1: "DE", team2: "PY", side: "right", isBrazil: false },
+                { id: "AV12", date: "2026-06-30", time: "18:00", team1: "FR", team2: "SE", side: "right", isBrazil: false },
+                { id: "AV13", date: "2026-07-02", time: "20:00", team1: "PT", team2: "HR", side: "right", isBrazil: false },
+                { id: "AV14", date: "2026-07-02", time: "16:00", team1: "ES", team2: "AT", side: "right", isBrazil: false },
+                { id: "AV15", date: "2026-07-01", time: "21:00", team1: "US", team2: "BA", side: "right", isBrazil: false },
+                { id: "AV16", date: "2026-07-01", time: "17:00", team1: "BE", team2: "SN", side: "right", isBrazil: false }
             ],
             oitavas: [
-                // Lado esquerdo - Oitavas (4 jogos) - cada um alimentado por 2 avos do lado esquerdo
-                { id: "OT1", date: "2026-07-04", time: "13:00", from1: "AV1",  from2: "AV2",  side: "left",  isBrazil: true  },
-                { id: "OT2", date: "2026-07-04", time: "17:00", from1: "AV3",  from2: "AV4",  side: "left",  isBrazil: false },
-                { id: "OT3", date: "2026-07-05", time: "13:00", from1: "AV5",  from2: "AV6",  side: "left",  isBrazil: false },
-                { id: "OT4", date: "2026-07-05", time: "17:00", from1: "AV7",  from2: "AV8",  side: "left",  isBrazil: false },
+                // Lado esquerdo - Oitavas (4 jogos) — caminho do Brasil
+                { id: "OT1", date: "2026-07-05", time: "17:00", from1: "AV1",  from2: "AV2",  side: "left",  isBrazil: true  },
+                { id: "OT2", date: "2026-07-05", time: "21:00", from1: "AV3",  from2: "AV4",  side: "left",  isBrazil: false },
+                { id: "OT3", date: "2026-07-07", time: "13:00", from1: "AV5",  from2: "AV6",  side: "left",  isBrazil: false },
+                { id: "OT4", date: "2026-07-07", time: "17:00", from1: "AV7",  from2: "AV8",  side: "left",  isBrazil: false },
                 // Lado direito - Oitavas (4 jogos)
-                { id: "OT5", date: "2026-07-04", time: "21:00", from1: "AV9",  from2: "AV10", side: "right", isBrazil: false },
-                { id: "OT6", date: "2026-07-05", time: "21:00", from1: "AV11", from2: "AV12", side: "right", isBrazil: false },
-                { id: "OT7", date: "2026-07-06", time: "13:00", from1: "AV13", from2: "AV14", side: "right", isBrazil: false },
-                { id: "OT8", date: "2026-07-06", time: "17:00", from1: "AV15", from2: "AV16", side: "right", isBrazil: false }
+                { id: "OT5", date: "2026-07-04", time: "14:00", from1: "AV9",  from2: "AV10", side: "right", isBrazil: false },
+                { id: "OT6", date: "2026-07-04", time: "18:00", from1: "AV11", from2: "AV12", side: "right", isBrazil: false },
+                { id: "OT7", date: "2026-07-06", time: "16:00", from1: "AV13", from2: "AV14", side: "right", isBrazil: false },
+                { id: "OT8", date: "2026-07-06", time: "21:00", from1: "AV15", from2: "AV16", side: "right", isBrazil: false }
             ],
             quartas: [
-                { id: "QT1", date: "2026-07-09", time: "13:00", from1: "OT1", from2: "OT2", side: "left",  isBrazil: true  },
-                { id: "QT2", date: "2026-07-09", time: "17:00", from1: "OT3", from2: "OT4", side: "left",  isBrazil: false },
-                { id: "QT3", date: "2026-07-10", time: "13:00", from1: "OT5", from2: "OT6", side: "right", isBrazil: false },
-                { id: "QT4", date: "2026-07-10", time: "17:00", from1: "OT7", from2: "OT8", side: "right", isBrazil: false }
+                { id: "QT1", date: "2026-07-11", time: "18:00", from1: "OT1", from2: "OT2", side: "left",  isBrazil: true  },
+                { id: "QT2", date: "2026-07-11", time: "14:00", from1: "OT3", from2: "OT4", side: "left",  isBrazil: false },
+                { id: "QT3", date: "2026-07-09", time: "17:00", from1: "OT5", from2: "OT6", side: "right", isBrazil: false },
+                { id: "QT4", date: "2026-07-10", time: "16:00", from1: "OT7", from2: "OT8", side: "right", isBrazil: false }
             ],
             semis: [
-                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left",  isBrazil: true  },
-                { id: "SF2", date: "2026-07-15", time: "14:00", from1: "QT3", from2: "QT4", side: "right", isBrazil: false }
+                { id: "SF1", date: "2026-07-15", time: "16:00", from1: "QT1", from2: "QT2", side: "left",  isBrazil: true  },
+                { id: "SF2", date: "2026-07-14", time: "16:00", from1: "QT3", from2: "QT4", side: "right", isBrazil: false }
             ],
             terceiro: [
-                { id: "3RD", date: "2026-07-18", time: "14:00", from1: "SF1", from2: "SF2", isBrazil: false }
+                { id: "3RD", date: "2026-07-18", time: "18:00", from1: "SF1", from2: "SF2", isBrazil: false }
             ],
             final: [
                 { id: "FINAL", date: "2026-07-19", time: "16:00", from1: "SF1", from2: "SF2", isBrazil: true }
@@ -1109,9 +1108,12 @@
         function renderBracket() {
             const wrapper = document.getElementById('bracket-wrapper');
             
+            // SVG para linhas de conexão (deve ser o primeiro elemento para ficar atrás das colunas)
+            let html = `<svg id="bracket-lines" style="position:absolute;top:0;left:0;pointer-events:none;z-index:0;"></svg>`;
+
             // Lado esquerdo - 16 avos
             const leftAvos = copaStructure.avos.filter(m => m.side === 'left');
-            let html = `<div class="bracket-column"><div class="round-header">16 avos</div><div class="column-games">`;
+            html += `<div class="bracket-column"><div class="round-header">16 avos</div><div class="column-games">`;
             leftAvos.forEach(match => { html += createAvosCard(match); });
             html += `</div></div>`;
 
@@ -1137,39 +1139,7 @@
                     <div class="round-header">Final</div>
                     <div class="center-column-games">
                         <div class="center-trophy">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 130" width="90" height="115" aria-label="Taça da Copa do Mundo">
-                                <defs>
-                                    <linearGradient id="goldBody" x1="0%" y1="0%" x2="100%" y2="100%">
-                                        <stop offset="0%" style="stop-color:#fde68a"/>
-                                        <stop offset="40%" style="stop-color:#f59e0b"/>
-                                        <stop offset="100%" style="stop-color:#92400e"/>
-                                    </linearGradient>
-                                    <linearGradient id="goldStem" x1="0%" y1="0%" x2="100%" y2="0%">
-                                        <stop offset="0%" style="stop-color:#d97706"/>
-                                        <stop offset="50%" style="stop-color:#fbbf24"/>
-                                        <stop offset="100%" style="stop-color:#d97706"/>
-                                    </linearGradient>
-                                </defs>
-                                <!-- Base plates -->
-                                <rect x="12" y="112" width="76" height="12" rx="4" fill="#92400e"/>
-                                <rect x="8" y="105" width="84" height="10" rx="3" fill="#b45309"/>
-                                <rect x="15" y="100" width="70" height="8" rx="3" fill="#d97706"/>
-                                <!-- Stem -->
-                                <rect x="34" y="68" width="32" height="35" rx="5" fill="url(#goldStem)"/>
-                                <!-- Cup body globe -->
-                                <ellipse cx="50" cy="44" rx="36" ry="38" fill="url(#goldBody)"/>
-                                <ellipse cx="50" cy="44" rx="29" ry="31" fill="#f59e0b"/>
-                                <ellipse cx="50" cy="44" rx="22" ry="24" fill="#fbbf24"/>
-                                <!-- Globe meridian lines -->
-                                <ellipse cx="50" cy="44" rx="22" ry="8" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.55"/>
-                                <ellipse cx="50" cy="44" rx="22" ry="16" fill="none" stroke="#d97706" stroke-width="1" opacity="0.35"/>
-                                <ellipse cx="50" cy="44" rx="8" ry="22" fill="none" stroke="#d97706" stroke-width="1.5" opacity="0.55"/>
-                                <!-- Handles -->
-                                <path d="M14 30 Q0 44 14 58" stroke="#b45309" stroke-width="8" fill="none" stroke-linecap="round"/>
-                                <path d="M86 30 Q100 44 86 58" stroke="#b45309" stroke-width="8" fill="none" stroke-linecap="round"/>
-                                <!-- Shine -->
-                                <ellipse cx="37" cy="30" rx="9" ry="6" fill="white" opacity="0.18" transform="rotate(-25 37 30)"/>
-                            </svg>
+                            <img src="https://github.com/user-attachments/assets/439e8e53-68de-4507-b0fc-951c11f5fc53" alt="Taça da Copa do Mundo 2026" width="110" height="110" style="object-fit:contain;">
                         </div>
                         ${createFinalCard(copaStructure.final[0])}
                         <div class="terceiro-header">🥉 3º Lugar</div>
@@ -1208,6 +1178,7 @@
 
         function drawLines() {
             const svg = document.getElementById('bracket-lines');
+            if (!svg) return;
             svg.innerHTML = '';
             
             const wrapper = document.getElementById('bracket-wrapper');
