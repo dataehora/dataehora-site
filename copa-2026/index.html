@@ -354,6 +354,20 @@
             transition: 0.2s;
         }
 
+        .match-card.brasil-path {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: 2px solid #d97706;
+        }
+
+        .match-card.brasil-path .team-row {
+            color: #78350f;
+            font-weight: 700;
+        }
+
+        .match-card.brasil-path .match-separator {
+            background: #d97706;
+        }
+
         .match-card.final {
             background: linear-gradient(135deg, #2563eb 0%, #1e40af 100%);
             color: white;
@@ -362,13 +376,33 @@
             transform: scale(1.08);
         }
 
+        .match-card.final.brasil-path {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+        }
+
         .match-card.final .team-row {
             color: white;
+        }
+
+        .match-card.final.brasil-path .team-row {
+            color: #78350f;
         }
 
         .match-card.quartas,
         .match-card.semis {
             position: relative;
+        }
+
+        .match-card.brasil-path.quartas,
+        .match-card.brasil-path.semis {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            border: 2px solid #d97706;
+        }
+
+        .match-card.brasil-path.quartas .team-label,
+        .match-card.brasil-path.semis .team-label {
+            color: #78350f;
+            font-weight: 700;
         }
 
         .team-row {
@@ -389,6 +423,7 @@
             align-items: center;
             justify-content: center;
             font-size: 1rem;
+            line-height: 1;
         }
 
         .team-name {
@@ -419,8 +454,16 @@
             margin: 4px 0;
         }
 
+        .match-card.brasil-path .match-separator {
+            background: #d97706;
+        }
+
         .match-card.final .match-separator {
             background: rgba(255, 255, 255, 0.2);
+        }
+
+        .match-card.final.brasil-path .match-separator {
+            background: #d97706;
         }
 
         .center-final {
@@ -521,7 +564,7 @@
             <div class="header-title">
                 🇧🇷 Copa do Mundo 2026 - Fase Eliminatória
             </div>
-            <div class="header-subtitle">Oitavas de Final, Quartas, Semis e Final</div>
+            <div class="header-subtitle">16 avos, Oitavas, Quartas, Semis e Final</div>
         </header>
 
         <div class="controls-panel">
@@ -538,7 +581,7 @@
             <div class="export-content">
                 <div class="export-header">
                     <h1 class="dynamic-title">Copa do Mundo 2026</h1>
-                    <div class="export-subtitle">Fase Eliminatória - Oitavas de Final até Final</div>
+                    <div class="export-subtitle">Fase Eliminatória - 16 avos até a Final</div>
                 </div>
 
                 <div class="bracket-wrapper" id="bracket-wrapper">
@@ -570,7 +613,7 @@
     <script defer src="/js/cookie-consent.js"></script>
 
     <script>
-        // Todos os países do mundo com bandeiras e timezones
+        // Todos os países do mundo com bandeiras (emojis) e timezones
         const allCountries = {
             "AF": { name: "Afeganistão", flag: "🇦🇫", timezone: "Asia/Kabul" },
             "AL": { name: "Albânia", flag: "🇦🇱", timezone: "Europe/Tirane" },
@@ -770,30 +813,42 @@
             "ZW": { name: "Zimbábue", flag: "🇿🇼", timezone: "Africa/Harare" }
         };
 
-        // Estrutura da Copa 2026 - 16 times em chaves espelhadas
+        // Estrutura da Copa 2026 - 32 times em chaves espelhadas
         const copaStructure = {
+            avos: [
+                // Lado esquerdo - 16 avos (8 jogos)
+                { id: "AV1", date: "2026-06-12", time: "14:00", team1: "BR", team2: "VE", side: "left", isBrazil: true },
+                { id: "AV2", date: "2026-06-13", time: "14:00", team1: "AR", team2: "AU", side: "left", isBrazil: false },
+                { id: "AV3", date: "2026-06-13", time: "22:00", team1: "MX", team2: "CM", side: "left", isBrazil: false },
+                { id: "AV4", date: "2026-06-14", time: "13:00", team1: "GB", team2: "NZ", side: "left", isBrazil: false },
+                // Lado direito - 16 avos (8 jogos)
+                { id: "AV5", date: "2026-06-12", time: "16:00", team1: "ZA", team2: "IR", side: "right", isBrazil: false },
+                { id: "AV6", date: "2026-06-13", time: "18:00", team1: "NL", team2: "SN", side: "right", isBrazil: false },
+                { id: "AV7", date: "2026-06-13", time: "17:30", team1: "DE", team2: "SK", side: "right", isBrazil: false },
+                { id: "AV8", date: "2026-06-14", time: "18:00", team1: "FR", team2: "MA", side: "right", isBrazil: false }
+            ],
             oitavas: [
-                { id: "OT1", date: "2026-06-29", time: "14:00", team1: "BR", team2: "JP", side: "left" },
-                { id: "OT2", date: "2026-06-30", time: "14:00", team1: "AR", team2: "AU", side: "left" },
-                { id: "OT3", date: "2026-06-30", time: "22:00", team1: "MX", team2: "EC", side: "left" },
-                { id: "OT4", date: "2026-07-01", time: "13:00", team1: "GB", team2: "DK", side: "left" },
-                { id: "OT5", date: "2026-06-28", time: "16:00", team1: "ZA", team2: "CA", side: "right" },
-                { id: "OT6", date: "2026-06-29", time: "22:00", team1: "NL", team2: "MA", side: "right" },
-                { id: "OT7", date: "2026-06-29", time: "17:30", team1: "DE", team2: "PY", side: "right" },
-                { id: "OT8", date: "2026-06-30", time: "18:00", team1: "FR", team2: "SE", side: "right" }
+                { id: "OT1", date: "2026-06-29", time: "14:00", from1: "AV1", from2: "AV5", side: "left", isBrazil: true },
+                { id: "OT2", date: "2026-06-30", time: "14:00", from1: "AV2", from2: "AV6", side: "left", isBrazil: false },
+                { id: "OT3", date: "2026-06-30", time: "22:00", from1: "AV3", from2: "AV7", side: "left", isBrazil: false },
+                { id: "OT4", date: "2026-07-01", time: "13:00", from1: "AV4", from2: "AV8", side: "left", isBrazil: false },
+                { id: "OT5", date: "2026-06-28", time: "16:00", from1: "AV1", from2: "AV5", side: "right", isBrazil: false },
+                { id: "OT6", date: "2026-06-29", time: "22:00", from1: "AV2", from2: "AV6", side: "right", isBrazil: false },
+                { id: "OT7", date: "2026-06-29", time: "17:30", from1: "AV3", from2: "AV7", side: "right", isBrazil: false },
+                { id: "OT8", date: "2026-06-30", time: "18:00", from1: "AV4", from2: "AV8", side: "right", isBrazil: false }
             ],
             quartas: [
-                { id: "QT1", date: "2026-07-04", time: "14:00", from1: "OT1", from2: "OT5", side: "left" },
-                { id: "QT2", date: "2026-07-04", time: "22:00", from1: "OT4", from2: "OT8", side: "left" },
-                { id: "QT3", date: "2026-07-05", time: "14:00", from1: "OT2", from2: "OT6", side: "right" },
-                { id: "QT4", date: "2026-07-05", time: "22:00", from1: "OT3", from2: "OT7", side: "right" }
+                { id: "QT1", date: "2026-07-04", time: "14:00", from1: "OT1", from2: "OT5", side: "left", isBrazil: true },
+                { id: "QT2", date: "2026-07-04", time: "22:00", from1: "OT4", from2: "OT8", side: "left", isBrazil: false },
+                { id: "QT3", date: "2026-07-05", time: "14:00", from1: "OT2", from2: "OT6", side: "right", isBrazil: false },
+                { id: "QT4", date: "2026-07-05", time: "22:00", from1: "OT3", from2: "OT7", side: "right", isBrazil: false }
             ],
             semis: [
-                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left" },
-                { id: "SF2", date: "2026-07-15", time: "14:00", from1: "QT3", from2: "QT4", side: "right" }
+                { id: "SF1", date: "2026-07-14", time: "14:00", from1: "QT1", from2: "QT2", side: "left", isBrazil: true },
+                { id: "SF2", date: "2026-07-15", time: "14:00", from1: "QT3", from2: "QT4", side: "right", isBrazil: false }
             ],
             final: [
-                { id: "FINAL", date: "2026-07-19", time: "16:00", from1: "SF1", from2: "SF2" }
+                { id: "FINAL", date: "2026-07-19", time: "16:00", from1: "SF1", from2: "SF2", isBrazil: true }
             ]
         };
 
@@ -840,16 +895,17 @@
             return allCountries[countryCode] || { name: countryCode, flag: "❓" };
         }
 
-        function createOitavasCard(match) {
+        function createAvosCard(match) {
             const team1 = getCountryInfo(match.team1);
             const team2 = getCountryInfo(match.team2);
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card brasil-path' : 'match-card';
             
             return `
                 <div class="match-container">
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
-                    <div class="match-card">
+                    <div class="${cardClass}">
                         <div class="team-row">
                             <span class="flag">${team1.flag}</span>
                             <span class="team-name">${team1.name}</span>
@@ -864,14 +920,38 @@
             `;
         }
 
-        function createQuartasCard(match) {
+        function createOitavasCard(match) {
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card brasil-path' : 'match-card';
             
             return `
                 <div class="match-container">
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
-                    <div class="match-card quartas">
+                    <div class="${cardClass}">
+                        <div class="team-row">
+                            <span class="team-label">${match.from1}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                        <div class="match-separator"></div>
+                        <div class="team-row">
+                            <span class="team-label">${match.from2}</span>
+                            <div class="winner-box"></div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
+        function createQuartasCard(match) {
+            const timeConverted = convertTime(match.date, match.time);
+            const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card quartas brasil-path' : 'match-card quartas';
+            
+            return `
+                <div class="match-container">
+                    <div class="match-time">${dateFormatted} • ${timeConverted}</div>
+                    <div class="${cardClass}">
                         <div class="team-row">
                             <span class="team-label">${match.from1}</span>
                             <div class="winner-box"></div>
@@ -889,11 +969,12 @@
         function createSemiCard(match) {
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card semis brasil-path' : 'match-card semis';
             
             return `
                 <div class="match-container">
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
-                    <div class="match-card semis">
+                    <div class="${cardClass}">
                         <div class="team-row">
                             <span class="team-label">${match.from1}</span>
                             <div class="winner-box"></div>
@@ -911,19 +992,20 @@
         function createFinalCard(match) {
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
+            const cardClass = match.isBrazil ? 'match-card final brasil-path' : 'match-card final';
             
             return `
                 <div class="match-container">
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
-                    <div class="match-card final">
+                    <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="team-label" style="color: #ddd6fe;">${match.from1}</span>
-                            <div class="winner-box" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"></div>
+                            <span class="team-label" style="font-weight: 700;">${match.from1}</span>
+                            <div class="winner-box"></div>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="team-label" style="color: #ddd6fe;">${match.from2}</span>
-                            <div class="winner-box" style="border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.1);"></div>
+                            <span class="team-label" style="font-weight: 700;">${match.from2}</span>
+                            <div class="winner-box"></div>
                         </div>
                     </div>
                 </div>
@@ -933,11 +1015,22 @@
         function renderBracket() {
             const wrapper = document.getElementById('bracket-wrapper');
             
-            // Lado esquerdo - Oitavas
-            const leftOitavas = copaStructure.oitavas.filter(m => m.side === 'left');
+            // Lado esquerdo - 16 avos
+            const leftAvos = copaStructure.avos.filter(m => m.side === 'left');
             let html = `
                 <div class="bracket-column">
-                    <div class="round-header">Oitavas de Final</div>
+                    <div class="round-header">16 avos</div>
+            `;
+            leftAvos.forEach(match => {
+                html += createAvosCard(match);
+            });
+            html += `</div>`;
+
+            // Lado esquerdo - Oitavas
+            const leftOitavas = copaStructure.oitavas.filter(m => m.side === 'left');
+            html += `
+                <div class="bracket-column">
+                    <div class="round-header">Oitavas</div>
             `;
             leftOitavas.forEach(match => {
                 html += createOitavasCard(match);
@@ -996,10 +1089,21 @@
             const rightOitavas = copaStructure.oitavas.filter(m => m.side === 'right');
             html += `
                 <div class="bracket-column">
-                    <div class="round-header">Oitavas de Final</div>
+                    <div class="round-header">Oitavas</div>
             `;
             rightOitavas.forEach(match => {
                 html += createOitavasCard(match);
+            });
+            html += `</div>`;
+
+            // Lado direito - 16 avos
+            const rightAvos = copaStructure.avos.filter(m => m.side === 'right');
+            html += `
+                <div class="bracket-column">
+                    <div class="round-header">16 avos</div>
+            `;
+            rightAvos.forEach(match => {
+                html += createAvosCard(match);
             });
             html += `</div>`;
 
