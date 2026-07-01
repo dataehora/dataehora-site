@@ -1353,9 +1353,17 @@
             return allCountries[countryCode] || { name: countryCode, flag: "❓" };
         }
 
+        function getBracketTeamDisplay(countryCode) {
+            if (countryCode === 'GB') {
+                return { name: 'Inglaterra', flagCode: 'gb-eng' };
+            }
+            const country = getCountryInfo(countryCode);
+            return { name: country.name, flagCode: countryCode.toLowerCase() };
+        }
+
         function createAvosCard(match) {
-            const team1 = getCountryInfo(match.team1);
-            const team2 = getCountryInfo(match.team2);
+            const team1 = getBracketTeamDisplay(match.team1);
+            const team2 = getBracketTeamDisplay(match.team2);
             const timeConverted = convertTime(match.date, match.time);
             const dateFormatted = formatDate(match.date);
             const cardClass = match.isBrazil ? 'match-card brasil-path' : 'match-card';
@@ -1365,12 +1373,12 @@
                     <div class="match-time">${dateFormatted} • ${timeConverted}</div>
                     <div class="${cardClass}">
                         <div class="team-row">
-                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team1.toLowerCase()}.png" alt="${team1.name}" width="22" height="16" loading="lazy"></span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${team1.flagCode}.png" alt="${team1.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team1.name}</span>
                         </div>
                         <div class="match-separator"></div>
                         <div class="team-row">
-                            <span class="flag"><img src="https://flagcdn.com/32x24/${match.team2.toLowerCase()}.png" alt="${team2.name}" width="22" height="16" loading="lazy"></span>
+                            <span class="flag"><img src="https://flagcdn.com/32x24/${team2.flagCode}.png" alt="${team2.name}" width="22" height="16" loading="lazy"></span>
                             <span class="team-name">${team2.name}</span>
                         </div>
                     </div>
