@@ -75,12 +75,6 @@ const holidayDateFormatter = new Intl.DateTimeFormat('pt-BR', {
 });
 
 // Additional formatters for timezone-aware component extraction
-const hourFormatter = new Intl.DateTimeFormat('pt-BR', {
-    hour: 'numeric',
-    hour12: false,
-    timeZone: 'America/Sao_Paulo'
-});
-
 const secondFormatter = new Intl.DateTimeFormat('pt-BR', {
     second: 'numeric',
     timeZone: 'America/Sao_Paulo'
@@ -121,7 +115,8 @@ function updateClock() {
     if (seconds === 0) {
         const saved = localStorage.getItem('theme-pref')||'light';
         if (saved === 'auto') {
-            const h = parseInt(hourFormatter.format(nowBrasilia), 10);
+            // AM/PM mode follows the user's own device clock, not Brasília time
+            const h = new Date().getHours();
             const isDark = (h < 6 || h >= 18);
             document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
         }

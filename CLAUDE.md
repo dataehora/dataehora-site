@@ -20,10 +20,12 @@ tempo e conteúdo educativo sobre tempo e clima. Conteúdo em **pt-BR**.
   - `css/styles.css` — folha de estilo única (temas via CSS custom properties).
   - Sistema de tema: script **inline no `<head>`** de cada página (evita FOUC) que aplica
     `data-theme` no `<html>`. Preferência em `localStorage['theme-pref']`: `light` | `dark` |
-    `auto` (rotulado **"AM/PM"** na UI: claro 6h–18h, escuro 18h–6h) | `default` (segue o SO).
-    **Sem preferência salva = `light`** (padrão na primeira visita). O seletor completo fica
-    em `/configuracoes/`; a home tem um toggle rápido em `index.html`. `js/theme.js` existe
-    mas **não é carregado** por nenhuma página (código morto).
+    `auto` (rotulado **"AM/PM"** na UI: claro 6h–18h, escuro 18h–6h **pelo relógio do
+    dispositivo do usuário** — `new Date().getHours()`, não a hora de Brasília) |
+    `default` (segue o SO). **Sem preferência salva = `light`** (padrão na primeira visita).
+    O seletor completo (com descrições de cada modo) fica em `/configuracoes/`; a home tem
+    só um toggle de ícones em `index.html`, sem legenda. `js/theme.js` existe mas **não é
+    carregado** por nenhuma página (código morto).
   - `js/scripts.js` — relógio da home + sincronização com a hora oficial.
   - `js/holidays.js` — cálculo de feriados móveis (algoritmo de Computus para a Páscoa).
   - `js/estados-brasil.js` — lista de UFs.
