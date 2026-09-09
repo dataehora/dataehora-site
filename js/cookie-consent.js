@@ -19,7 +19,7 @@
         banner.innerHTML =
             '<div id="cookie-banner-inner">' +
                 '<p id="cookie-banner-text">' +
-                    'Usamos cookies para melhorar sua experiência e exibir anúncios relevantes. ' +
+                    'Usamos cookies para melhorar sua experiência e analisar o tráfego do site. ' +
                     'Ao continuar navegando, você concorda com nossa ' +
                     '<a href="/privacidade/" id="cookie-banner-link">Política de Privacidade</a>.' +
                 '</p>' +

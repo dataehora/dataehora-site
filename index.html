@@ -8,20 +8,6 @@
     <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
     <meta name="color-scheme" content="light dark">
 
-    
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7808195997729404"
-     crossorigin="anonymous"></script>
-    <meta name="google-adsense-account" content="ca-pub-7808195997729404">
-
-    <!-- Google tag (gtag.js) - Google Ads AW-978043735 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=AW-978043735"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'AW-978043735');
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
@@ -94,7 +80,6 @@
       gtag('config', 'G-4Y5H59FEQE');
     </script>
 
-
 </head>
 <body>
 
@@ -103,16 +88,6 @@
             <!-- Logo (mantém exatamente como está) -->
             <a href="/" class="logo-text">dataehora.com.br</a>
             
-            <!-- AdSense Banner (novo) -->
-            <div class="header-ad">
-                <ins class="adsbygoogle"
-                     style="display:inline-block;width:728px;height:90px"
-                     data-ad-client="ca-pub-7808195997729404"
-                     data-ad-slot="1234567890"></ins>
-                <script>
-                     (adsbygoogle = window.adsbygoogle || []).push({});
-                </script>
-            </div>
         </div>
     </header>
 
@@ -120,8 +95,60 @@
         <span class="label-topo">Horário Oficial de Brasília</span>
         <div id="clock">--:--:--</div>
         <div id="date">Carregando...</div>
-        <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
+        <div class="hero-actions">
+            <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
+            <div class="theme-switch" role="radiogroup" aria-label="Tema da interface">
+                <button type="button" class="theme-switch-btn" data-theme-pref="default" title="Seguir o sistema" aria-label="Tema do sistema">💻</button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="auto" title="Automático conforme o horário" aria-label="Tema automático">🌗</button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Tema claro" aria-label="Tema claro">☀️</button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Tema escuro" aria-label="Tema escuro">🌙</button>
+            </div>
+        </div>
     </main>
+    <script>
+    (function () {
+        var KEY = 'theme-pref';
+        var btns = document.querySelectorAll('.theme-switch-btn');
+
+        function resolve(pref) {
+            if (pref === 'light' || pref === 'dark') return pref;
+            if (pref === 'auto') {
+                var h = new Date().getHours();
+                return (h < 6 || h >= 18) ? 'dark' : 'light';
+            }
+            return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+        }
+
+        function mark(pref) {
+            btns.forEach(function (b) {
+                var on = b.dataset.themePref === pref;
+                b.classList.toggle('is-active', on);
+                b.setAttribute('aria-checked', on ? 'true' : 'false');
+            });
+        }
+
+        var current = localStorage.getItem(KEY) || 'default';
+        mark(current);
+
+        btns.forEach(function (b) {
+            b.addEventListener('click', function () {
+                var pref = b.dataset.themePref;
+                localStorage.setItem(KEY, pref);
+                if (window.themeManager && window.themeManager.applyTheme) {
+                    window.themeManager.applyTheme(resolve(pref));
+                } else {
+                    document.documentElement.setAttribute('data-theme', resolve(pref));
+                }
+                mark(pref);
+            });
+        });
+
+        // Reflect changes made in another tab / the settings page
+        window.addEventListener('storage', function (e) {
+            if (e.key === KEY && e.newValue) mark(e.newValue);
+        });
+    })();
+    </script>
     <script>(function(){var tf=new Intl.DateTimeFormat('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false,timeZone:'America/Sao_Paulo'});var df=new Intl.DateTimeFormat('pt-BR',{weekday:'long',day:'numeric',month:'long',year:'numeric',timeZone:'America/Sao_Paulo'});var n=new Date();document.getElementById('clock').textContent=tf.format(n);document.getElementById('date').textContent=df.format(n);})();</script>
 
     <div id="hoje-feriado-section" style="display:none">
@@ -152,10 +179,6 @@
         <a href="/numero-da-semana/" class="menu-item">
             <span>📆 Número da Semana</span>
             <small>Qual semana do ano é hoje? Consulte qualquer data</small>
-        </a>
-        <a href="/copa-2026/" class="menu-item" style="outline: 2px solid #d97706; outline-offset: 3px; border-color: #d97706;">
-            <span> <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon">  Dataehora na Copa!  <img src="https://flagcdn.com/32x24/br.png" alt="Brasil" class="flag-icon"> </span>
-            <small>Tabela atualizada das eliminatórias no seu fuso horário</small>
         </a>
 
     </nav>
