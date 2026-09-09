@@ -32,7 +32,8 @@ tempo e conteúdo educativo sobre tempo e clima. Conteúdo em **pt-BR**.
 - `worldtimeapi.org` — hora oficial (America/Sao_Paulo).
 - `brasilapi.com.br` — feriados nacionais e municípios do IBGE.
 - `api.openweathermap.org` — previsão do tempo (`appid` embutido no HTML de `previsao-do-tempo/`).
-- Google AdSense (`ca-pub-7808195997729404`), Google Ads/gtag (`AW-978043735`), GA4 (`G-4Y5H59FEQE`).
+- Google Analytics 4 (`G-4Y5H59FEQE`), carregado via gtag.js em todas as páginas. **Não há
+  Google AdSense nem Google Ads** — foram removidos (junto com `ads.txt`) em setembro/2026.
 
 ## Rodar localmente
 
