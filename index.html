@@ -3,7 +3,7 @@
 <head>
     <!-- CRITICAL: Inline theme script to prevent FOUC - must be first in <head> -->
     <script>
-    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'default';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
+    (function(){document.documentElement.classList.add('no-transition');const saved=localStorage.getItem('theme-pref')||'light';let theme='light';if(saved==='light'||saved==='dark'){theme=saved}else if(saved==='auto'){const h=new Date().getHours();theme=(h<6||h>=18)?'dark':'light'}else{theme=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light'}document.documentElement.setAttribute('data-theme',theme);document.documentElement.style.backgroundColor=theme==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=theme==='dark'?'dark':'light';window.themeManager={getTheme:()=>theme,applyTheme:(t)=>{document.documentElement.setAttribute('data-theme',t);document.documentElement.style.backgroundColor=t==='dark'?'#0f172a':'#f1f5f9';document.documentElement.style.colorScheme=t==='dark'?'dark':'light'}};window.addEventListener('DOMContentLoaded',function(){requestAnimationFrame(function(){requestAnimationFrame(function(){document.documentElement.classList.remove('no-transition')})})})})();
     </script>
     <style>html{background-color:#f1f5f9}html[data-theme=dark]{background-color:#0f172a}.no-transition *{transition:none!important}</style>
     <meta name="color-scheme" content="light dark">
@@ -99,7 +99,7 @@
             <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
             <div class="theme-switch" role="radiogroup" aria-label="Tema da interface">
                 <button type="button" class="theme-switch-btn" data-theme-pref="default" title="Seguir o sistema" aria-label="Tema do sistema"><span class="tsb-icon" aria-hidden="true">💻</span><span class="tsb-label">Sistema</span></button>
-                <button type="button" class="theme-switch-btn" data-theme-pref="auto" title="Automático conforme o horário" aria-label="Tema automático"><span class="tsb-icon" aria-hidden="true">🌗</span><span class="tsb-label">Automático</span></button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="auto" title="Claro de dia, escuro à noite (AM/PM)" aria-label="Tema AM/PM"><span class="tsb-icon" aria-hidden="true">🌗</span><span class="tsb-label">AM/PM</span></button>
                 <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Tema claro" aria-label="Tema claro"><span class="tsb-icon" aria-hidden="true">☀️</span><span class="tsb-label">Claro</span></button>
                 <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Tema escuro" aria-label="Tema escuro"><span class="tsb-icon" aria-hidden="true">🌙</span><span class="tsb-label">Escuro</span></button>
             </div>
@@ -122,7 +122,7 @@
 
         var HINTS = {
             'default': 'Sistema — acompanha o tema do seu dispositivo.',
-            'auto': 'Automático — claro das 6h às 18h, escuro à noite.',
+            'auto': 'AM/PM — claro das 6h às 18h, escuro das 18h às 6h.',
             'light': 'Claro — interface sempre clara.',
             'dark': 'Escuro — interface sempre escura.'
         };
@@ -138,7 +138,7 @@
             if (hintEl) hintEl.textContent = HINTS[pref];
         }
 
-        var current = localStorage.getItem(KEY) || 'default';
+        var current = localStorage.getItem(KEY) || 'light';
         mark(current);
 
         btns.forEach(function (b) {
@@ -185,13 +185,20 @@
 
     <hr class="discreet">
 
-    <span class="label-topo">Mais Visitados</span>
+    <span class="label-topo">Ferramentas mais Usadas</span>
     <nav class="menu-grid" aria-label="Menu de Ferramentas">
         <a href="/numero-da-semana/" class="menu-item">
             <span>📆 Número da Semana</span>
             <small>Qual semana do ano é hoje? Consulte qualquer data</small>
         </a>
-
+        <a href="/feriados/do-ano/" class="menu-item">
+            <span>📅 Calendário Completo de Feriados</span>
+            <small>Todos os feriados nacionais de 2026 a 2028, mês a mês</small>
+        </a>
+        <a href="/feriados/feriadoes/" class="menu-item">
+            <span>✈️ Feriadões e Emendas</span>
+            <small>Feriados que caem perto do fim de semana e permitem prolongar o descanso</small>
+        </a>
     </nav>
 
     <hr class="discreet">
@@ -199,8 +206,8 @@
     <span class="label-topo">Ferramentas</span>
     <nav class="menu-grid" aria-label="Menu de Ferramentas">
         <a href="/feriados/" class="menu-item">
-            <span>📅 Feriados </span>
-            <small>Lista de feriados e feriadões em cada ano</small>
+            <span>📅 Feriados Nacionais</span>
+            <small>A origem de cada feriado do Brasil e perguntas frequentes</small>
         </a>
         <a href="/contagem/" class="menu-item">
             <span>⏳ Contagem Regressiva</span>
@@ -337,7 +344,7 @@
 
         <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">
             <p style="font-weight:700;color:var(--text-main);margin:0 0 8px;">Qual é o próximo feriado nacional?</p>
-            <p style="color:var(--text-muted);line-height:1.7;margin:0;">O próximo feriado nacional é exibido automaticamente na página inicial com a contagem regressiva em dias. Para ver a lista completa de feriados do ano, acesse <a href="/feriados/" style="color:var(--accent);">Feriados Nacionais</a>.</p>
+            <p style="color:var(--text-muted);line-height:1.7;margin:0;">O próximo feriado nacional é exibido automaticamente na página inicial com a contagem regressiva em dias. Para ver a lista completa de feriados do ano, acesse o <a href="/feriados/do-ano/" style="color:var(--accent);">Calendário Completo de Feriados</a>.</p>
         </div>
 
         <div style="border:1px solid var(--hr-color);border-radius:12px;padding:20px;margin-bottom:12px;background:var(--bg-card);">

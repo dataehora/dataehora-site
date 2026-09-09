@@ -18,9 +18,12 @@ tempo e conteúdo educativo sobre tempo e clima. Conteúdo em **pt-BR**.
   `copa-2026/`, `sobre-tempo-e-clima/<tópico>/`). ~46 páginas HTML no total.
 - Assets compartilhados, referenciados por **caminho absoluto** a partir da raiz:
   - `css/styles.css` — folha de estilo única (temas via CSS custom properties).
-  - `js/theme.js` — sistema de tema (também **inline no `<head>`** de cada página para evitar
-    FOUC). Preferência em `localStorage['theme-pref']`: `light` | `dark` | `auto` (por hora) |
-    `default` (segue o SO). Aplica `data-theme` no `<html>`.
+  - Sistema de tema: script **inline no `<head>`** de cada página (evita FOUC) que aplica
+    `data-theme` no `<html>`. Preferência em `localStorage['theme-pref']`: `light` | `dark` |
+    `auto` (rotulado **"AM/PM"** na UI: claro 6h–18h, escuro 18h–6h) | `default` (segue o SO).
+    **Sem preferência salva = `light`** (padrão na primeira visita). O seletor completo fica
+    em `/configuracoes/`; a home tem um toggle rápido em `index.html`. `js/theme.js` existe
+    mas **não é carregado** por nenhuma página (código morto).
   - `js/scripts.js` — relógio da home + sincronização com a hora oficial.
   - `js/holidays.js` — cálculo de feriados móveis (algoritmo de Computus para a Páscoa).
   - `js/estados-brasil.js` — lista de UFs.

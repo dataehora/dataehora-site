@@ -11,7 +11,7 @@
      * @returns {string} The theme to apply ('light' or 'dark')
      */
     function getTheme() {
-        const saved = localStorage.getItem('theme-pref') || 'default';
+        const saved = localStorage.getItem('theme-pref')||'light';
         
         // Direct theme selection
         if (saved === 'light' || saved === 'dark') {

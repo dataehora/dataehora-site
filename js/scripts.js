@@ -119,7 +119,7 @@ function updateClock() {
     // Use pre-created formatters for timezone-aware component extraction
     const seconds = parseInt(secondFormatter.format(nowBrasilia), 10);
     if (seconds === 0) {
-        const saved = localStorage.getItem('theme-pref') || 'default';
+        const saved = localStorage.getItem('theme-pref')||'light';
         if (saved === 'auto') {
             const h = parseInt(hourFormatter.format(nowBrasilia), 10);
             const isDark = (h < 6 || h >= 18);
