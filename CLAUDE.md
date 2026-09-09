@@ -23,8 +23,10 @@ tempo e conteúdo educativo sobre tempo e clima. Conteúdo em **pt-BR**.
     `default` (segue o SO). Aplica `data-theme` no `<html>`.
   - `js/scripts.js` — relógio da home + sincronização com a hora oficial.
   - `js/holidays.js` — cálculo de feriados móveis (algoritmo de Computus para a Páscoa).
-  - `js/cookie-consent.js` — banner de consentimento (LGPD), escolha salva em `localStorage`.
   - `js/estados-brasil.js` — lista de UFs.
+
+Não há banner de cookies (removido em setembro/2026 — o site usa só GA4 + `localStorage`
+funcional para o tema). O único armazenamento é `localStorage['theme-pref']`.
 - `assets/` — favicons, bandeiras, SVGs.
 
 ### APIs externas (client-side, sem backend)
