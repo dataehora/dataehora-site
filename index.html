@@ -98,12 +98,13 @@
         <div class="hero-actions">
             <a href="/tela-cheia/" class="btn-fullscreen" title="Hora em Tela Cheia">⛶ Tela Cheia</a>
             <div class="theme-switch" role="radiogroup" aria-label="Tema da interface">
-                <button type="button" class="theme-switch-btn" data-theme-pref="default" title="Seguir o sistema" aria-label="Tema do sistema">💻</button>
-                <button type="button" class="theme-switch-btn" data-theme-pref="auto" title="Automático conforme o horário" aria-label="Tema automático">🌗</button>
-                <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Tema claro" aria-label="Tema claro">☀️</button>
-                <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Tema escuro" aria-label="Tema escuro">🌙</button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="default" title="Seguir o sistema" aria-label="Tema do sistema"><span class="tsb-icon" aria-hidden="true">💻</span><span class="tsb-label">Sistema</span></button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="auto" title="Automático conforme o horário" aria-label="Tema automático"><span class="tsb-icon" aria-hidden="true">🌗</span><span class="tsb-label">Automático</span></button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="light" title="Tema claro" aria-label="Tema claro"><span class="tsb-icon" aria-hidden="true">☀️</span><span class="tsb-label">Claro</span></button>
+                <button type="button" class="theme-switch-btn" data-theme-pref="dark" title="Tema escuro" aria-label="Tema escuro"><span class="tsb-icon" aria-hidden="true">🌙</span><span class="tsb-label">Escuro</span></button>
             </div>
         </div>
+        <p class="theme-switch-hint" id="theme-switch-hint" aria-live="polite"></p>
     </main>
     <script>
     (function () {
@@ -119,12 +120,22 @@
             return window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
         }
 
+        var HINTS = {
+            'default': 'Sistema — acompanha o tema do seu dispositivo.',
+            'auto': 'Automático — claro das 6h às 18h, escuro à noite.',
+            'light': 'Claro — interface sempre clara.',
+            'dark': 'Escuro — interface sempre escura.'
+        };
+        var hintEl = document.getElementById('theme-switch-hint');
+
         function mark(pref) {
+            if (!HINTS[pref]) pref = 'default';
             btns.forEach(function (b) {
                 var on = b.dataset.themePref === pref;
                 b.classList.toggle('is-active', on);
                 b.setAttribute('aria-checked', on ? 'true' : 'false');
             });
+            if (hintEl) hintEl.textContent = HINTS[pref];
         }
 
         var current = localStorage.getItem(KEY) || 'default';
