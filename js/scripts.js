@@ -194,7 +194,7 @@ function updateHoliday() {
                 return `<li class="upcoming-holiday-item">
                     <span class="upcoming-holiday-name"><strong>${f.n}</strong></span>
                     <span class="upcoming-holiday-date">${weekday}, ${date}</span>
-                    <span class="upcoming-holiday-days">${days} dia${days !== 1 ? 's' : ''}</span>
+                    <span class="upcoming-holiday-days">em ${days} dia${days !== 1 ? 's' : ''}</span>
                 </li>`;
             }).join('');
         }
