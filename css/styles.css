@@ -184,7 +184,7 @@ p {
 
 .label-topo {
     text-transform: uppercase;
-    font-size: 0.75rem;
+    font-size: 0.8125rem;
     letter-spacing: 4px;
     color: var(--accent);
     margin-bottom: 15px;
@@ -193,7 +193,7 @@ p {
 }
 
 .hero .label-topo {
-    font-size: 0.875rem;
+    font-size: 0.9375rem;
 }
 
 #clock {
@@ -376,7 +376,7 @@ hr.discreet {
     gap: 12px;
     padding: 10px 4px;
     border-bottom: 1px solid var(--hr-color);
-    font-size: clamp(0.88rem, 2.8vw, 1.05rem);
+    font-size: clamp(0.94rem, 2.9vw, 1.12rem);
     text-align: left;
 }
 
@@ -403,7 +403,7 @@ hr.discreet {
     font-size: 0.85em;
     white-space: nowrap;
     text-align: right;
-    min-width: 74px;
+    min-width: 82px;
 }
 
 @media (max-width: 480px) {
