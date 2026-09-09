@@ -488,7 +488,6 @@
     const wdayFmt = new Intl.DateTimeFormat('pt-BR', { weekday:'long', timeZone:'America/Sao_Paulo' });
     const hdateFmt= new Intl.DateTimeFormat('pt-BR', { day:'numeric', month:'long', timeZone:'America/Sao_Paulo' });
     const secFmt  = new Intl.DateTimeFormat('pt-BR', { second:'numeric', timeZone:'America/Sao_Paulo' });
-    const hourFmt = new Intl.DateTimeFormat('pt-BR', { hour:'numeric', hour12:false, timeZone:'America/Sao_Paulo' });
 
     function updateClock() {
         const now = getBrasiliaDate();
@@ -499,7 +498,8 @@
         if (secs === 0) {
             const saved = localStorage.getItem('theme-pref')||'light';
             if (saved === 'auto') {
-                const h = parseInt(hourFmt.format(now), 10);
+                // AM/PM mode follows the user's own device clock, not Brasília time
+                const h = new Date().getHours();
                 document.documentElement.setAttribute('data-theme', (h < 6 || h >= 18) ? 'dark' : 'light');
             }
         }
