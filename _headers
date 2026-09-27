@@ -1,0 +1,24 @@
+# Cabeçalhos HTTP para Cloudflare Pages (formato _headers; também compatível com Netlify).
+# ATENÇÃO: o GitHub Pages (hospedagem atual) IGNORA este arquivo — ele só tem efeito
+# se o site for publicado no Cloudflare Pages/Netlify.
+
+# CSP em modo RELATÓRIO (não bloqueia nada; violações aparecem no console do navegador).
+# Origens liberadas = o que o site usa de fato:
+#   script  : googletagmanager.com (GA4), cdnjs (html2canvas + jsPDF em /calendario/ e /copa-2026/),
+#             jsdelivr (canvas-confetti em /contagem/). 'unsafe-inline' é necessário: script de tema
+#             inline no <head>, snippet do gtag e handlers onclick="..." em várias páginas.
+#   connect : worldtimeapi.org (hora oficial), brasilapi.com.br (feriados/IBGE),
+#             api.openweathermap.org (previsão), coletores do GA4.
+#   img     : flagcdn.com (bandeiras da Copa), data:/blob: (SVG inline, exportação PDF/PNG), pixel do GA4.
+#   Sem Google Fonts (fontes do sistema) e sem AdSense/Ads (removidos em set/2026).
+# Se o GA4 tiver "Google Signals" ativado, será preciso incluir https://*.g.doubleclick.net e
+# https://*.google.com em connect-src/img-src — confira os relatórios antes de trocar para
+# Content-Security-Policy (modo que bloqueia).
+/*
+  X-Frame-Options: SAMEORIGIN
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(self)
+  Content-Security-Policy-Report-Only: default-src 'self'; script-src 'self' 'unsafe-inline' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://flagcdn.com https://www.googletagmanager.com https://*.google-analytics.com https://*.analytics.google.com; connect-src 'self' https://worldtimeapi.org https://brasilapi.com.br https://api.openweathermap.org https://*.google-analytics.com https://*.analytics.google.com https://*.googletagmanager.com; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'
+
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
