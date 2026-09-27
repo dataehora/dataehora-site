@@ -33,6 +33,9 @@ tempo e conteúdo educativo sobre tempo e clima. Conteúdo em **pt-BR**.
 Não há banner de cookies (removido em setembro/2026 — o site usa só GA4 + `localStorage`
 funcional para o tema). O único armazenamento é `localStorage['theme-pref']`.
 - `assets/` — favicons, bandeiras, SVGs.
+- `404.html` — página de erro servida pelo GitHub Pages para URLs inexistentes (`noindex`).
+- `_headers` — cabeçalhos de segurança + CSP em modo Report-Only no formato Cloudflare Pages/Netlify.
+  **Inerte no GitHub Pages** (assim como o `.htaccess`); só vale se o site migrar para Cloudflare Pages.
 
 ### APIs externas (client-side, sem backend)
 
